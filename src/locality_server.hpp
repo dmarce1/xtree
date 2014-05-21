@@ -13,9 +13,11 @@
 
 namespace xtree {
 namespace server {
+hpx::future<void> initialize();
 hpx::future<hpx::id_type> increment_load();
 int get_load();
 void decrement_load();
+
 }
 }
 
