@@ -7,20 +7,17 @@
 
 #include "xtree.hpp"
 
-//XTREE_INSTANTIATE(3);
+XTREE_INSTANTIATE(3);
 
 void test_locality_server(int depth);
 
 HPX_PLAIN_ACTION(test_locality_server, action_test_locality_server);
 
 int hpx_main() {
-	srand(hpx::get_locality_id());
-	(xtree::server::initialize()).get();
-
-	auto next_locality = xtree::server::increment_load().get();
-	auto future = hpx::async<action_test_locality_server>(next_locality, 6);
-	future.get();
-
+	xtree::server::initialize().get();
+	xtree::server::increment_load();
+	xtree::node<3> root_node;
+	root_node.refine();
 	return hpx::finalize();
 }
 

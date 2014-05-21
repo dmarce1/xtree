@@ -14,6 +14,7 @@
 #include <hpx/lcos/local/counting_semaphore.hpp>
 #include <hpx/lcos/local/dataflow.hpp>
 #include <hpx/runtime/actions/plain_action.hpp>
+#include <hpx/runtime/components/server/destroy_component.hpp>
 #include <hpx/util/unwrapped.hpp>
 
 #include <boost/mpl/int.hpp>

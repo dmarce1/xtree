@@ -9,52 +9,70 @@
 #define INDEXER_HPP_
 
 #include "xtree.hpp"
+#include "int_seq.hpp"
 
 namespace xtree {
-template<typename Dims>
+template<typename Dims, class origin = int_seq_const<0, Dims::dim()> >
 class indexer {
 private:
 	static constexpr int Ndim = Dims::dim();
 	int value[Ndim];
+	bool is_end;
+	int abs_value(int i) const {
+		return value[i] - origin::get(i);
+	}
 public:
+	int operator[](int i) const {
+		return value[i];
+	}
+	int& operator[](int i) {
+		return value[i];
+	}
 	indexer() {
 		begin();
 	}
 	void begin() {
 		for (int i = 0; i < Ndim; i++) {
-			value[i] = 0;
+			value[i] = origin::get(i);
 		}
+		is_end = false;
 	}
 	bool end() {
-		for (int i = 0; i < Ndim; i++) {
-			if (value[i] < Dims::get(i)) {
-				return false;
-			}
-		}
-		return true;
+		return is_end;
 	}
 	operator int() const {
-		int j = value[Ndim - 1];
+		int j = abs_value(Ndim - 1);
 		for (int i = Ndim - 2; i >= 0; i--) {
 			j *= Dims::get(i);
-			j += value[i];
+			j += abs_value(i);
 		}
 		return j;
 	}
 	void operator++(int) {
 		int i = 0;
-		while (value[i] == Dims::get(i) - 1) {
-			value[i] = 0;
+		while (abs_value(i) == Dims::get(i) - 1) {
+			value[i] = origin::get(i);
 			i++;
+			if (i == Dims::dim()) {
+				is_end = true;
+				return;
+			}
 		}
 		value[i]++;
 	}
 	indexer& flip(int i) {
-		value[i] = Dims::get(i) - 1 - value[i];
+		value[i] = -value[i] + 2 * origin::get(i) + Dims::get(i) - 1;
+		return *this;
+	}
+	indexer& flip() {
+		for (int i = 0; i < Ndim; i++) {
+			flip(i);
+		}
 		return *this;
 	}
 	template<typename Archive>
 	void serialize(Archive& ar, const int v) {
+		ar & is_end;
 		for (int i = 0; i < Ndim; i++) {
 			ar & value[i];
 		}
