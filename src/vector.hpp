@@ -8,7 +8,6 @@
 #ifndef VECTOR_HPP_
 #define VECTOR_HPP_
 
-#include "xtree.hpp"
 
 namespace xtree {
 

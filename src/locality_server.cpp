@@ -1,29 +1,24 @@
-#include "xtree.hpp"
-#include "vector.hpp"
+#include <hpx/runtime/actions/plain_action.hpp>
+#include <hpx/lcos/when_all.hpp>
+#include <hpx/util/unwrapped.hpp>
+#include <boost/serialization/list.hpp>
+#include <boost/serialization/vector.hpp>
+#include "locality_server.hpp"
 
 namespace xtree {
-namespace server {
 
-static const auto mins_begin = std::pair<int, hpx::id_type>(INT_MAX, hpx::invalid_id);
-static std::vector<hpx::id_type> neighbors;
-static hpx::lcos::local::counting_semaphore semaphore(1);
-static int my_load = 0;
+const std::pair<int, hpx::id_type> server::mins_begin = std::pair<int, hpx::id_type>(INT_MAX, hpx::invalid_id);
+std::vector<hpx::id_type> server::neighbors;
+hpx::lcos::local::counting_semaphore server::semaphore(1);
+int server::my_load = 0;
 
-static hpx::future<std::pair<int, hpx::id_type>> lock_servlet(std::pair<int, hpx::id_type>, std::list<hpx::id_type> remaining);
-static hpx::id_type unlock_servlet(bool);
-static hpx::future<void> initialize_(std::list<hpx::id_type>);
-
-using action_lock_servlet = HPX_MAKE_ACTION(xtree::server::lock_servlet)::type;
-using action_unlock_servlet = HPX_MAKE_ACTION(xtree::server::unlock_servlet)::type;
-using action_initialize_ = HPX_MAKE_ACTION(xtree::server::initialize_)::type;
-
-hpx::future<void> initialize() {
+hpx::future<void> server::initialize() {
 	auto localities = hpx::find_all_localities();
 	std::list<hpx::id_type> list(localities.begin(), localities.end());
 	return hpx::async<action_initialize_>(list.front(), list);
 }
 
-static hpx::future<std::pair<int, hpx::id_type>> lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining) {
+hpx::future<std::pair<int, hpx::id_type>> server::lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining) {
 	hpx::future<std::pair<int, hpx::id_type>> fut;
 
 	semaphore.wait();
@@ -48,7 +43,7 @@ static hpx::future<std::pair<int, hpx::id_type>> lock_servlet(std::pair<int, hpx
 	return fut;
 }
 
-static hpx::id_type unlock_servlet(bool inc_cnt) {
+hpx::id_type server::unlock_servlet(bool inc_cnt) {
 
 	if (inc_cnt) {
 		my_load++;
@@ -57,7 +52,7 @@ static hpx::id_type unlock_servlet(bool inc_cnt) {
 	return hpx::find_here();
 }
 
-int get_load() {
+int server::get_load() {
 	int i;
 	semaphore.wait();
 	i = my_load;
@@ -65,7 +60,7 @@ int get_load() {
 	return i;
 }
 
-hpx::future<hpx::id_type> increment_load() {
+hpx::future<hpx::id_type> server::increment_load() {
 
 	std::pair<int, hpx::id_type> mins;
 	mins.first = INT_MAX;
@@ -81,13 +76,13 @@ hpx::future<hpx::id_type> increment_load() {
 	return fut2;
 }
 
-void decrement_load() {
+void server::decrement_load() {
 	semaphore.wait();
 	my_load--;
 	semaphore.signal();
 }
 
-hpx::future<void> initialize_(std::list<hpx::id_type> remaining) {
+hpx::future<void> server::initialize_(std::list<hpx::id_type> remaining) {
 	std::list<hpx::id_type> lists[2];
 	std::list<int> tmp;
 	std::vector<hpx::future<void>> futs(2);
@@ -124,7 +119,6 @@ hpx::future<void> initialize_(std::list<hpx::id_type> remaining) {
 	return when_all(futs);
 }
 
-}
 }
 
 typedef xtree::server::action_lock_servlet xtree_server_action_lock_servlet;

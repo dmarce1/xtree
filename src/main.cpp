@@ -7,7 +7,7 @@
 
 #include "xtree.hpp"
 
-XTREE_INSTANTIATE(3);
+XTREE_INSTANTIATE(8,8,8);
 
 void test_locality_server(int depth);
 
@@ -16,7 +16,7 @@ HPX_PLAIN_ACTION(test_locality_server, action_test_locality_server);
 int hpx_main() {
 	xtree::server::initialize().get();
 	xtree::server::increment_load();
-	xtree::node<3> root_node;
+	xtree::node_type root_node;
 	root_node.refine();
 	return hpx::finalize();
 }

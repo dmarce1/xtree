@@ -8,7 +8,6 @@
 #ifndef POW__HPP_
 #define POW__HPP_
 
-#include "xtree.hpp"
 
 namespace xtree {
 

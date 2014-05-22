@@ -8,8 +8,6 @@
 #ifndef INT_SEQ_HPP_
 #define INT_SEQ_HPP_
 
-#include "xtree.hpp"
-
 namespace xtree {
 
 template<int N, int ...Params>
@@ -32,15 +30,6 @@ struct int_seq<N> {
 	}
 };
 
-template<int N, int Ndim>
-struct int_seq_const {
-	static constexpr int dim() {
-		return Ndim;
-	}
-	static constexpr int get(int i) {
-		return N;
-	}
-};
 
 
 }

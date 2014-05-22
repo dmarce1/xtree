@@ -8,19 +8,29 @@
 #ifndef NODE_HPP_
 #define NODE_HPP_
 
-#include "xtree.hpp"
+
+#include <hpx/include/components.hpp>
+#include <hpx/lcos/local/dataflow.hpp>
+#include <hpx/lcos/when_all.hpp>
+#include <hpx/util/unwrapped.hpp>
+
+
+
+#include "indexer.hpp"
+#include "locality_server.hpp"
 #include "pow_.hpp"
 #include "vector.hpp"
 
 namespace xtree {
 
-template<int Ndim>
-class node: public hpx::components::managed_component_base<node<Ndim>> {
+template<typename Nele>
+class node: public hpx::components::managed_component_base<node<Nele>> {
 
+	static constexpr int Ndim = Nele::dim();
 	static constexpr int Nchild = 1 << Ndim;
 	static constexpr int Nneighbor = xtree::pow_<3, Ndim>::get();
 	static constexpr int Nniece = Nchild * Nneighbor;
-	typedef hpx::components::managed_component_base<node<Ndim>> base_type;
+	typedef hpx::components::managed_component_base<node<Nele>> base_type;
 	typedef indexer<int_seq_const<2, Ndim>> child_index_type;
 	typedef indexer<int_seq_const<3, Ndim>, int_seq_const<-1, Ndim>> dir_type;
 	typedef vector<hpx::id_type, Nchild> child_array_type;

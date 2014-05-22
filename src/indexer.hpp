@@ -8,8 +8,7 @@
 #ifndef INDEXER_HPP_
 #define INDEXER_HPP_
 
-#include "xtree.hpp"
-#include "int_seq.hpp"
+#include "int_seq_const.hpp"
 
 namespace xtree {
 template<typename Dims, class origin = int_seq_const<0, Dims::dim()> >
