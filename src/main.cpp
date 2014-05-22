@@ -7,7 +7,19 @@
 
 #include "xtree.hpp"
 
-XTREE_INSTANTIATE(8,8,8);
+class Tree;
+
+XTREE_INSTANTIATE(Tree, 8, 8, 8);
+
+class Tree: public xtree::base_node_type {
+public:
+	int descend_test(std::vector<int> inputs) {
+		return 0;
+	}
+	std::vector<int> ascend_test( int input) {
+		return std::vector<int>(0);
+	}
+};
 
 void test_locality_server(int depth);
 
@@ -16,8 +28,10 @@ HPX_PLAIN_ACTION(test_locality_server, action_test_locality_server);
 int hpx_main() {
 	xtree::server::initialize().get();
 	xtree::server::increment_load();
-	xtree::node_type root_node;
-	root_node.refine();
+	xtree::location<3> rootloc;
+	Tree root_node;
+	root_node.branch();
+	Tree::action_ascend<int, &Tree::ascend_test>::invoke();
 	return hpx::finalize();
 }
 
