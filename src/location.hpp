@@ -22,6 +22,14 @@ public:
 		level = 0;
 		loc = 0;
 	}
+	location get_neighbor(const indexer<int_seq_const<3, Ndim>, int_seq_const<-1, Ndim>>& dir) {
+		location rloc;
+		for (int i = 0; i < Ndim; i++) {
+			rloc.loc[i] = loc[i] + dir[i];
+		}
+		rloc.level = level;
+		return rloc;
+	}
 	virtual ~location() {
 	}
 	location(const location& l) {

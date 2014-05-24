@@ -8,42 +8,54 @@
 #ifndef NODE_HPP_
 #define NODE_HPP_
 
-#include <hpx/include/components.hpp>
+#include <hpx/lcos/broadcast.hpp>
 #include <hpx/lcos/local/dataflow.hpp>
 #include <hpx/lcos/when_all.hpp>
 #include <hpx/util/unwrapped.hpp>
 
+#include <cassert>
+
 #include "indexer.hpp"
-#include "locality_server.hpp"
 #include "location.hpp"
 #include "pow_.hpp"
+#include "xtree.hpp"
 
 namespace xtree {
 
-template<typename DerivedClass, typename Dims>
-class node: public hpx::components::managed_component_base<node<DerivedClass, Dims>> {
+template<typename Derived, typename Dims>
+class tree;
+
+template<typename Derived, typename Dims>
+class node: public hpx::components::managed_component_base<node<Derived, Dims>> {
+public:
 	static constexpr int Ndim = Dims::dim();
 	static constexpr int Nchild = 1 << Ndim;
-	static constexpr int Nneighbor = xtree::pow_<3, Ndim>::get();
+	static constexpr int Nneighbor = pow_<3, Ndim>::get();
 	static constexpr int Nniece = Nchild * Nneighbor;
+private:
 
-	typedef hpx::components::managed_component_base<node<DerivedClass, Dims>> base_type;
+	typedef hpx::components::managed_component_base<node<Derived, Dims>> base_type;
 	typedef indexer<int_seq_const<3, Ndim>, int_seq_const<-1, Ndim>> dir_type;
 	typedef vector<hpx::id_type, Nchild> child_array_type;
 	typedef vector<hpx::id_type, Nneighbor> neighbor_array_type;
 	typedef vector<vector<hpx::id_type, Nchild>, Nneighbor> niece_array_type;
 	typedef vector<std::pair<int, hpx::id_type>, Nneighbor> neighbor_notify_type;
-	typedef std::set<hpx::id_type> node_dir_type;
-	typedef hpx::shared_future<std::shared_ptr<void>> future_stack_type;
 
 protected:
 	typedef indexer<int_seq_const<2, Ndim>> child_index_type;
 
+public:
+	template<typename T>
+	using get_type = T (Derived::*)(location<Ndim>);
+
+	template<typename T>
+	using set_type = void (Derived::*)(location<Ndim>, T);
+
+	enum op_type {
+		ASCEND, DESCEND, EXCHANGE
+	};
+
 private:
-	static node_dir_type leaf_node_dir;
-	static node_dir_type all_node_dir;
-	static hpx::id_type root_node;
-	static hpx::lcos::local::mutex node_dir_mutex;
 
 	static bool child_is_niece_of(child_index_type ci, dir_type dir) {
 		for (int i = 0; i < Ndim; i++) {
@@ -68,8 +80,8 @@ private:
 	niece_array_type nieces;
 	hpx::id_type parent;
 	location<Ndim> self;
-	std::stack<future_stack_type> future_stack;
 	boost::atomic<int> ascension_counter;
+	tree<Derived, Dims>* server;
 
 private:
 
@@ -91,12 +103,22 @@ private:
 		return nieces[ndi][nci];
 	}
 
+	int future_index;
+	std::vector<hpx::shared_future<void>> future_locks;
+
 public:
 
-	node(const location<Ndim>& _loc = location<Ndim>(), hpx::id_type _parent_id = hpx::invalid_id,
-			neighbor_array_type _neighbors = std::vector<hpx::id_type>(Nneighbor, hpx::invalid_id)) {
+	node() {
+		assert(false);
+	}
+
+	node(tree<Derived, Dims>* _server, const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors) {
+		server = _server;
 		self = _loc;
 		ascension_counter = 0;
+		future_index = 1;
+		future_locks.resize(1);
+		future_locks[0] = hpx::make_ready_future();
 		neighbors = _neighbors;
 		is_leaf = true;
 		for (int ni = 0; ni < Nneighbor; ni++) {
@@ -109,29 +131,17 @@ public:
 		}
 		parent = _parent_id;
 
-		node_dir_mutex.lock();
-		leaf_node_dir.insert(this->get_gid());
-		all_node_dir.insert(this->get_gid());
-		if (self.get_level() == 0) {
-			root_node = this->get_gid();
-		}
-		node_dir_mutex.unlock();
-		future_stack.push(future_stack_type());
-
 	}
 
 	hpx::future<void> branch() {
 
-		node_dir_mutex.lock();
-		leaf_node_dir.erase(leaf_node_dir.find(this->get_gid()));
-		node_dir_mutex.unlock();
 		is_leaf = false;
 
 		/* Get futures for new node locations */
 		auto fut0 = hpx::lcos::local::dataflow(hpx::util::unwrapped([this]() {
 			vector<hpx::future<hpx::id_type>> futures(Nchild);
 			for (int ci = 0; ci < Nchild; ci++) {
-				futures[ci] = server::increment_load();
+				futures[ci] = load_balancer::increment_load();
 			}
 			return futures;
 		}), std::move(hpx::make_ready_future()));
@@ -144,7 +154,7 @@ public:
 				for( dir_type dir; !dir.end(); dir++ ) {
 					pack[dir] = get_niece(ci,dir);
 				}
-				futures[ci] = hpx::new_<node>(ids[ci].get(), self.get_child(ci), base_type::get_gid(), pack);
+				futures[ci] = server->new_node(ids[ci].get(), self.get_child(ci), base_type::get_gid(), pack);
 			}
 			return futures;
 		}), std::move(fut0));
@@ -173,9 +183,6 @@ public:
 	}
 
 	hpx::future<void> debranch() {
-		node_dir_mutex.lock();
-		leaf_node_dir.insert(this->get_gid());
-		node_dir_mutex.unlock();
 		is_leaf = true;
 		for (child_index_type ci; !ci.end(); ci++) {
 			children[ci] = hpx::invalid_id;
@@ -195,10 +202,11 @@ public:
 		if (!is_leaf) {
 			debranch().get();
 		}
-		node_dir_mutex.lock();
-		all_node_dir.erase(all_node_dir.find(this->get_gid()));
-		leaf_node_dir.erase(leaf_node_dir.find(this->get_gid()));
-		node_dir_mutex.unlock();
+		server->delete_node(static_cast<Derived*>(this));
+	}
+
+	int get_level() const {
+		return self.get_level();
 	}
 
 	hpx::future<void> notify_branch(dir_type dir, const child_array_type& nephews) {
@@ -245,105 +253,85 @@ public:
 		neighbors[dir] = id;
 	}
 
+	Derived* get_this() {
+		return static_cast<Derived*>(this);
+	}
+
+
 	using action_notify_of_neighbor = typename HPX_MAKE_ACTION(node::notify_of_neighbor)::type;
+	using action_get_this = typename HPX_MAKE_ACTION(node::get_this)::type;
 	using action_notify_branch = typename HPX_MAKE_ACTION(node::notify_branch)::type;
 	using action_notify_debranch = typename HPX_MAKE_ACTION(node::notify_debranch)::type;
 
-	template<typename T, std::vector<T> (DerivedClass::*Func)(T)>
-	struct action_ascend {
-		typedef typename hpx::actions::make_action<decltype(&node::template ascend<T,Func>), &node::template ascend<T, Func>>::type type;
-		typedef typename hpx::actions::make_action<decltype(&node::template ascend_entry<T,Func>), &node::template ascend_entry<T, Func>>::type type_entry;
-		static hpx::future<void> invoke() {
-			node_dir_mutex.lock();
-			const int leaf_cnt = leaf_node_dir.size();
-			std::vector<hpx::future<void>> futures(leaf_cnt);
-			int j = 0;
-			for (auto i = leaf_node_dir.begin(); i != leaf_node_dir.end(); i++) {
-				child_index_type ci;
-				futures[j++] = hpx::async<type_entry>(*i);
+
+	template<op_type Op, typename T, get_type<T> Get, set_type<T> Set>
+	void setup_op_dataflow() {
+		hpx::shared_future<void> future;
+		std::vector<hpx::shared_future<void>> futures;
+		switch (Op) {
+		case ASCEND:
+			if (parent != hpx::invalid_id) {
+				auto fut = hpx::async<typename operations<Op, T, Get, Set>::action_get_op_data>(parent, future_index, self);
+				future = fut.then(hpx::util::unwrapped([this](T arg) {
+					(static_cast<Derived*>(this)->*Set)(self.get_parent(),arg);
+				}));
+			} else {
+				future = hpx::make_ready_future();
 			}
-			node_dir_mutex.unlock();
-			return when_all(futures);
-		}
-	};
-
-	template<typename T, std::vector<T> (DerivedClass::*Func)(T)>
-	hpx::shared_future<void> ascend_entry() {
-		hpx::shared_future<T> fut1;
-		fut1 = hpx::async<typename action_ascend<T, Func>::type>(parent, self.this_child_index());
-		return fut1.then(hpx::util::unwrapped([this](T args) {
-			(static_cast<DerivedClass*>(this)->*Func)(args);
-		}));
-	}
-
-	template<typename T, std::vector<T> (DerivedClass::*Func)(T)>
-	hpx::shared_future<T> ascend(child_index_type ci) {
-		hpx::future<T> fut1;
-		future_stack_type& fut0 = future_stack.top();
-		if (!fut0.valid()) {
-			ascension_counter = Nchild;
-			fut1 = hpx::async<typename action_ascend<T, Func>::type>(parent, self.this_child_index());
-			fut0 = fut1.then(hpx::util::unwrapped([this](T args) {
-				auto tmp0 = new std::vector<T>(std::move((static_cast<DerivedClass*>(this)->*Func)(args)));
-				auto tmp1 = std::shared_ptr<std::vector<T>>(tmp0);
-				return std::static_pointer_cast<void>(tmp1);
-			}));
-		}
-		return fut0.then(hpx::util::unwrapped([this,ci,&fut0](std::shared_ptr<void> data_ptr) {
-			ascension_counter--;
-			if( ascension_counter == 0) {
-				ascension_counter = Nchild;
-				fut0 = future_stack_type();
-			}
-			return std::move((*std::static_pointer_cast<std::vector<T>>(data_ptr))[ci]);
-		}));
-		return hpx::shared_future<T>();
-	}
-
-	template<typename T, T (DerivedClass::*Func)(std::vector<T>)>
-	struct action_descend {
-		typedef typename hpx::actions::make_action<decltype(&node::template descend<T,Func>), &node::template descend<T, Func>>::type type;
-		static hpx::future<void> invoke() {
-			return hpx::async<type>(root_node);
-		}
-	};
-
-	template<typename T, T (DerivedClass::*Func)(std::vector<T>)>
-	hpx::shared_future<T> descend() {
-		hpx::shared_future<T> rfut;
-		if (!is_leaf) {
-			std::vector<hpx::future<T>> child_futures;
-			for (child_index_type ci; !ci.end(); ci++) {
-				child_futures[ci] = hpx::async<typename action_descend<T, Func>::type>(children[ci]);
-			}
-			rfut = when_all(child_futures).then(hpx::util::unwrapped([this](std::vector<hpx::future<T>> child_futures) {
-				std::vector<T> args;
-				for( int i = 0; i < child_futures.size(); i++) {
-					args[i] = child_futures[i].get();
+			break;
+		case DESCEND:
+			if (!is_leaf) {
+				futures.resize(Nchild);
+				for (child_index_type ci; !ci.end(); ci++) {
+					auto fut = hpx::async<typename operations<Op, T, Get, Set>::action_get_op_data>(children[ci], future_index - 1, self);
+					futures[ci] = fut.then(hpx::util::unwrapped([this,ci](T arg) {
+						(static_cast<Derived*>(this)->*Set)(self.get_child(ci),arg);
+					}));
 				}
-				return
-				(static_cast<DerivedClass*>(this)->*Func)(args);
-
-			}));
-		} else {
-			rfut = hpx::make_ready_future((static_cast<DerivedClass*>(this)->*Func)(std::vector<T>(0)));
+			} else {
+				futures.resize(1);
+				futures[0] = hpx::make_ready_future();
+			}
+			future = when_all(futures).share();
+			break;
+		case EXCHANGE:
+			futures.resize(Nneighbor);
+			for (dir_type dir; !dir.end(); dir++) {
+				if (neighbors[dir] != hpx::invalid_id) {
+					auto fut = hpx::async<typename operations<Op, T, Get, Set>::action_get_op_data>(children[dir], future_index, self);
+					futures[dir] = fut.then(hpx::util::unwrapped([this,dir](T arg) {
+						(static_cast<Derived*>(this)->*Set)(self.get_neighbor(dir),arg);
+					}));
+				} else {
+					futures[dir] = hpx::make_ready_future();
+				}
+			}
+			future = when_all(futures).share();
+			break;
 		}
-		return rfut;
+		future_locks[future_index] = when_all(future, future_locks[future_index - 1]).share();
+		future_index++;
 	}
+
+	template<typename T, get_type<T> Get>
+	hpx::future<T> get_op_data(int findex, location<Ndim> requester) {
+		return future_locks[findex].then(hpx::util::unwrapped([this, requester]() {
+			return (static_cast<Derived*>(this)->*Get)(requester);
+		}));
+	}
+
+	template<op_type Op, typename T, get_type<T> Get, set_type<T> Set>
+	struct operations {
+		using action_get_op_data = typename hpx::actions::make_action<decltype(&node::get_op_data<T,Get>), &node::get_op_data<T,Get>>::type;
+	};
+
+	template <typename Arc>
+	void serialize( Arc& arc, const int v ) {
+		assert(false);
+	}
+
 
 };
-
-template<typename T, typename U>
-hpx::id_type node<T, U>::root_node = hpx::invalid_id;
-
-template<typename T, typename U>
-typename node<T, U>::node_dir_type node<T, U>::all_node_dir;
-
-template<typename T, typename U>
-typename node<T, U>::node_dir_type node<T, U>::leaf_node_dir;
-
-template<typename T, typename U>
-hpx::lcos::local::mutex node<T, U>::node_dir_mutex;
 
 }
 

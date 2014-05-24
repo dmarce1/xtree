@@ -3,22 +3,22 @@
 #include <hpx/util/unwrapped.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/serialization/vector.hpp>
-#include "locality_server.hpp"
+#include "load_balancer.hpp"
 
 namespace xtree {
 
-const std::pair<int, hpx::id_type> server::mins_begin = std::pair<int, hpx::id_type>(INT_MAX, hpx::invalid_id);
-std::vector<hpx::id_type> server::neighbors;
-hpx::lcos::local::counting_semaphore server::semaphore(1);
-int server::my_load = 0;
+const std::pair<int, hpx::id_type> load_balancer::mins_begin = std::pair<int, hpx::id_type>(INT_MAX, hpx::invalid_id);
+std::vector<hpx::id_type> load_balancer::neighbors;
+hpx::lcos::local::counting_semaphore load_balancer::semaphore(1);
+int load_balancer::my_load = 0;
 
-hpx::future<void> server::initialize() {
+hpx::future<void> load_balancer::initialize() {
 	auto localities = hpx::find_all_localities();
 	std::list<hpx::id_type> list(localities.begin(), localities.end());
 	return hpx::async<action_initialize_>(list.front(), list);
 }
 
-hpx::future<std::pair<int, hpx::id_type>> server::lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining) {
+hpx::future<std::pair<int, hpx::id_type>> load_balancer::lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining) {
 	hpx::future<std::pair<int, hpx::id_type>> fut;
 
 	semaphore.wait();
@@ -43,7 +43,7 @@ hpx::future<std::pair<int, hpx::id_type>> server::lock_servlet(std::pair<int, hp
 	return fut;
 }
 
-hpx::id_type server::unlock_servlet(bool inc_cnt) {
+hpx::id_type load_balancer::unlock_servlet(bool inc_cnt) {
 
 	if (inc_cnt) {
 		my_load++;
@@ -52,7 +52,7 @@ hpx::id_type server::unlock_servlet(bool inc_cnt) {
 	return hpx::find_here();
 }
 
-int server::get_load() {
+int load_balancer::get_load() {
 	int i;
 	semaphore.wait();
 	i = my_load;
@@ -60,7 +60,7 @@ int server::get_load() {
 	return i;
 }
 
-hpx::future<hpx::id_type> server::increment_load() {
+hpx::future<hpx::id_type> load_balancer::increment_load() {
 
 	std::pair<int, hpx::id_type> mins;
 	mins.first = INT_MAX;
@@ -76,13 +76,13 @@ hpx::future<hpx::id_type> server::increment_load() {
 	return fut2;
 }
 
-void server::decrement_load() {
+void load_balancer::decrement_load() {
 	semaphore.wait();
 	my_load--;
 	semaphore.signal();
 }
 
-hpx::future<void> server::initialize_(std::list<hpx::id_type> remaining) {
+hpx::future<void> load_balancer::initialize_(std::list<hpx::id_type> remaining) {
 	std::list<hpx::id_type> lists[2];
 	std::list<int> tmp;
 	std::vector<hpx::future<void>> futs(2);
@@ -121,9 +121,9 @@ hpx::future<void> server::initialize_(std::list<hpx::id_type> remaining) {
 
 }
 
-typedef xtree::server::action_lock_servlet xtree_server_action_lock_servlet;
-typedef xtree::server::action_unlock_servlet xtree_server_action_unlock_servlet;
-typedef xtree::server::action_initialize_ xtree_server_action_initialize_;
-HPX_REGISTER_PLAIN_ACTION(xtree_server_action_lock_servlet);
-HPX_REGISTER_PLAIN_ACTION(xtree_server_action_unlock_servlet);
-HPX_REGISTER_PLAIN_ACTION(xtree_server_action_initialize_);
+typedef xtree::load_balancer::action_lock_servlet xtree_load_balancer_action_lock_servlet;
+typedef xtree::load_balancer::action_unlock_servlet xtree_load_balancer_action_unlock_servlet;
+typedef xtree::load_balancer::action_initialize_ xtree_load_balancer_action_initialize_;
+HPX_REGISTER_PLAIN_ACTION(xtree_load_balancer_action_lock_servlet);
+HPX_REGISTER_PLAIN_ACTION(xtree_load_balancer_action_unlock_servlet);
+HPX_REGISTER_PLAIN_ACTION(xtree_load_balancer_action_initialize_);

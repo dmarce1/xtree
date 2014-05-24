@@ -1,19 +1,20 @@
 /*
- * locality_server.hpp
+ * load_server.hpp
  *
  *  Created on: May 20, 2014
  *      Author: dmarce1
  */
 
-#ifndef LOCALITY_SERVER_HPP_
-#define LOCALITY_SERVER_HPP_
+#ifndef load_server_HPP_
+#define load_server_HPP_
 
+#include <hpx/include/components.hpp>
 #include <hpx/hpx_init.hpp>
 #include <hpx/lcos/local/counting_semaphore.hpp>
 
 
 namespace xtree {
-class server {
+class load_balancer {
 private:
 	static const std::pair<int, hpx::id_type> mins_begin;
 	static std::vector<hpx::id_type> neighbors;
@@ -30,13 +31,13 @@ public:
 	static int get_load();
 	static void decrement_load();
 
-	using action_lock_servlet = HPX_MAKE_ACTION(xtree::server::lock_servlet)::type;
+	using action_lock_servlet = HPX_MAKE_ACTION(xtree::load_balancer::lock_servlet)::type;
 
-	using action_unlock_servlet = HPX_MAKE_ACTION(xtree::server::unlock_servlet)::type;
+	using action_unlock_servlet = HPX_MAKE_ACTION(xtree::load_balancer::unlock_servlet)::type;
 
-	using action_initialize_ = HPX_MAKE_ACTION(xtree::server::initialize_)::type;
+	using action_initialize_ = HPX_MAKE_ACTION(xtree::load_balancer::initialize_)::type;
 
 };
 }
 
-#endif /* LOCALITY_SERVER_HPP_ */
+#endif /* load_server_HPP_ */

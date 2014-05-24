@@ -17,10 +17,11 @@ class vector: public std::array<T, N...> {
 public:
 	vector() {
 	}
+	vector(const T& a) {
+		*this = a;
+	}
 	vector(const std::vector<T>& v) {
-		for (int i = 0; i < Ndim; i++) {
-			(*this)[i] = v[i];
-		}
+		*this = v;
 	}
 	vector& operator=(const T& a) {
 		for (int i = 0; i < Ndim; i++) {
