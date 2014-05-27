@@ -8,10 +8,8 @@
 #ifndef INDEXER_HPP_
 #define INDEXER_HPP_
 
-#include "int_seq_const.hpp"
-
 namespace xtree {
-template<typename Dims, class origin = int_seq_const<0, Dims::dim()> >
+template<typename Dims, typename origin = int_seq_const<0, Dims::dim()> >
 class indexer {
 private:
 	static constexpr int Ndim = Dims::dim();

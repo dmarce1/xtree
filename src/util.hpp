@@ -31,6 +31,32 @@ struct int_seq<N> {
 };
 
 
+template<int N, int Ndim>
+struct int_seq_const {
+	static constexpr int dim() {
+		return Ndim;
+	}
+	static constexpr int get(int i) {
+		return N;
+	}
+};
+
+
+template<int Base, int Exponent>
+struct pow_ {
+	static constexpr int get() {
+		return Base * pow_<Base, Exponent - 1>::get();
+	}
+};
+
+template<int Base>
+struct pow_<Base, 0> {
+	static constexpr int get() {
+		return 1;
+	}
+};
+
+
 
 }
 

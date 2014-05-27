@@ -8,7 +8,7 @@
 #ifndef LOCATION_HPP_
 #define LOCATION_HPP_
 
-#include "vector.hpp"
+
 
 namespace xtree {
 
@@ -47,11 +47,15 @@ public:
 	void set_level(int i) {
 		level = i;
 	}
-	vector<int, Ndim>& get_position() const {
+	vector<int, Ndim> get_location() const {
 		return loc;
 	}
-	int get_position(int i) const {
+	int get_location(int i) const {
 		return loc[i];
+	}
+	location& shift( int d, int amount ) {
+		loc[d] += amount;
+		return *this;
 	}
 	void set_position(const vector<int, Ndim>& p) {
 		loc = p;

@@ -5,8 +5,9 @@
  *      Author: dmarce1
  */
 
-#ifndef VECTOR_HPP_
-#define VECTOR_HPP_
+#ifndef VECTOR21_HPP_
+#define VECTOR21_HPP
+
 
 
 namespace xtree {
@@ -23,9 +24,15 @@ public:
 	vector(const std::vector<T>& v) {
 		*this = v;
 	}
-	vector& operator=(const T& a) {
+	vector& operator<<=(const T& a) {
 		for (int i = 0; i < Ndim; i++) {
-			(*this)[i] = a;
+			(*this)[i] <<= a;
+		}
+		return *this;
+	}
+	vector& operator>>=(const T& a) {
+		for (int i = 0; i < Ndim; i++) {
+			(*this)[i] >>= a;
 		}
 		return *this;
 	}
@@ -86,6 +93,12 @@ public:
 	}
 	template<typename Arc>
 	void serialize(Arc& ar, const int v) {
+		for (int i = 0; i < Ndim; i++) {
+			ar & (*this)[i];
+		}
+	}
+	template<typename Arc>
+	void serialize(Arc& ar, const int v) const {
 		for (int i = 0; i < Ndim; i++) {
 			ar & (*this)[i];
 		}
