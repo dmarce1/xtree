@@ -8,7 +8,7 @@
 #ifndef XTREE_HPP_
 #define XTREE_HPP_
 
-#include "types.hpp"
+#include "fwd.hpp"
 
 #define XTREE_MAKE_ACTION( a, b ) 																					\
 using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 											\
@@ -18,7 +18,6 @@ using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 										
 namespace xtree {																									\
 	typedef node<DERIVED_CLASS, __VA_ARGS__> base_node_type;   														\
 	typedef tree<DERIVED_CLASS, __VA_ARGS__> tree_type;   															\
-	typedef output<__VA_ARGS__> output_type;   																		\
 }																													\
 typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_get_new_node action_get_new_node_global;	\
 typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_get_max_level action_get_max_level_global;	\
@@ -32,7 +31,6 @@ HPX_REGISTER_PLAIN_ACTION(action_lock_servlet_global);	\
 HPX_REGISTER_PLAIN_ACTION(action_unlock_servlet_global);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::base_node_type>, base_node_type);	\
-HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::output_type>, output_type);		\
 /**/
 
 
@@ -62,7 +60,6 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include "indexer.hpp"
 #include "location.hpp"
 #include "node.hpp"
-#include "output.hpp"
 #include "tree.hpp"
 #include "util.hpp"
 

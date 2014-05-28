@@ -8,7 +8,6 @@
 #ifndef NODE_HPP_
 #define NODE_HPP_
 
-
 namespace xtree {
 
 template<typename Member, int Ndim>
@@ -79,12 +78,6 @@ private:
 
 public:
 
-	void collect_output_zones(output<Ndim>& silo) {
-		typename output<Ndim>::zone zn;
-		zn.loc = self;
-		silo.insert_zone(zn);
-	}
-
 	bool is_terminal() const {
 		return is_leaf;
 	}
@@ -94,7 +87,7 @@ public:
 	}
 
 	node(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors) {
-		data = std::unique_ptr<Member>( new Member(this) );
+		data = std::unique_ptr < Member > (new Member(this));
 		self = _loc;
 		flock = last_flock = hpx::make_ready_future();
 		neighbors = _neighbors;
@@ -176,7 +169,7 @@ public:
 		if (!is_leaf) {
 			debranch().get();
 		}
-		tree<Member,Ndim>::delete_node(this);
+		tree<Member, Ndim>::delete_node(this);
 	}
 
 	int get_level() const {
@@ -276,6 +269,18 @@ public:
 			}
 			future = when_all(futures).share();
 			break;
+		case REBRANCH:
+			if (is_leaf) {
+				if (if_boolean_expression(((data.get())->*(Op::get))(self))) {
+					future = this->branch().share();
+				} else {
+					this->debranch();
+					future = hpx::make_ready_future().share();
+				}
+			} else {
+				future = hpx::make_ready_future().share();
+			}
+			break;
 		}
 		last_flock = flock;
 		flock = when_all(future, last_flock).share();
@@ -307,7 +312,8 @@ public:
 
 	XTREE_MAKE_ACTION(action_notify_of_neighbor, node::notify_of_neighbor);
 
-};
+}
+;
 
 }
 

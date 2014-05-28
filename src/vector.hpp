@@ -8,8 +8,6 @@
 #ifndef VECTOR21_HPP_
 #define VECTOR21_HPP
 
-
-
 namespace xtree {
 
 template<typename T, int ...N>
@@ -19,7 +17,9 @@ public:
 	vector() {
 	}
 	vector(const T& a) {
-		*this = a;
+		for (int i = 0; i < Ndim; i++) {
+			(*this)[i] = a;
+		}
 	}
 	vector(const std::vector<T>& v) {
 		*this = v;

@@ -10,9 +10,6 @@
 
 namespace xtree {
 
-template<typename Derived>
-class static_component_base;
-
 template<typename Dims, typename origin >
 class indexer;
 
@@ -21,9 +18,6 @@ class location;
 
 template<typename Derived, int Ndim>
 class node;
-
-template<int Ndim>
-class output;
 
 template<typename Derived, int Ndim>
 class tree;
@@ -53,6 +47,16 @@ using set_type = void (U::*)(location<Ndim>, T);
 enum op_type {
 	REBRANCH, ASCEND, DESCEND, EXCHANGE
 };
+
+template<typename T>
+inline bool if_boolean_expression(T expr) {
+	return false;
+}
+
+template<>
+inline bool if_boolean_expression<bool>(bool expr) {
+	return expr;
+}
 
 }
 

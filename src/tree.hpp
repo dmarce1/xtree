@@ -13,27 +13,34 @@ namespace xtree {
 
 
 template<typename Member, int Ndim>
-class tree : public hpx::components::managed_component_base<tree<Member,Ndim>>  {
+class tree :
+		public hpx::components::managed_component_base<tree<Member,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>  {
 public:
 
 	static constexpr int Nbranch = 2;
 	static constexpr int Nneighbor = pow_<3, Ndim>::get();
 
 private:
-	typedef hpx::components::managed_component_base<tree<Member,Ndim>> base_type;
+	typedef hpx::components::managed_component_base<tree<Member,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr> base_type;
+	typedef hpx::components::managed_component<tree<Member,Ndim>> component_type;
 	static const std::pair<int, hpx::id_type> mins_begin;
 	static std::vector<hpx::id_type> neighbors;
 	static hpx::lcos::local::counting_semaphore semaphore;
 	static int my_load;
+	static hpx::lcos::local::mutex dir_lock;
 	static std::set<node<Member,Ndim>*> nodes;
 	static vector<hpx::id_type, Nbranch> child_ids;
-	static vector<hpx::id_type, Nbranch> child_gids;
-	static hpx::id_type this_gid;
 	static tree<Member,Ndim>* this_ptr;
+	static hpx::id_type this_gid;
+	static vector<hpx::id_type, Nbranch> child_gids;
+	static hpx::id_type root_node_gid;
 
 public:
 
-	tree() {
+	tree(component_type* back_ptr) : base_type( back_ptr ) {
+		static bool initialized = false;
+		assert(!initialized);
+		initialized = true;
 		this_gid = base_type::get_gid();
 		this_ptr = this;
 		std::vector<hpx::future<hpx::id_type>> futures(Nbranch);
@@ -74,12 +81,19 @@ public:
 			child_gids[i] = futures[i].get();
 		}
 		if (my_id == 0) {
-			new_node(location<Ndim>(), hpx::invalid_id, vector<hpx::id_type, Nneighbor>(hpx::invalid_id));
+			root_node_gid = new_node(location<Ndim>(), hpx::invalid_id, vector<hpx::id_type, Nneighbor>(hpx::invalid_id)).get();
+		} else {
+			root_node_gid = hpx::invalid_id;
 		}
 
 	}
 
 	virtual ~tree() {
+		root_node_gid = hpx::invalid_id;
+		this_gid = hpx::invalid_id;
+		for( int i = 0; i < child_gids.size(); i++) {
+			child_gids[i] = hpx::invalid_id;
+		}
 	}
 
 	static hpx::future<hpx::id_type>  get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, vector<hpx::id_type, Nneighbor> _neighbors) {
@@ -88,7 +102,10 @@ public:
 			return hpx::async<typename node<Member,Ndim>::action_get_this>(id);
 		}));
 		return fut1.then(hpx::util::unwrapped([id_future](node<Member,Ndim>* ptr){
-			nodes.insert(ptr);
+			dir_lock.lock();
+			auto test = nodes.insert(ptr);
+			dir_lock.unlock();
+			assert(test.second);
 			return id_future;
 		}));
 	}
@@ -101,7 +118,9 @@ public:
 	}
 
 	static void delete_node(node<Member,Ndim>* ptr) {
+		dir_lock.lock();
 		nodes.erase(nodes.find(ptr));
+		dir_lock.unlock();
 	}
 
 	template<typename Op>
@@ -110,12 +129,14 @@ public:
 		int lev;
 		switch (Op::op) {
 		case op_type::ASCEND:
+			printf( "Executing ascend\n");
 			lev = 0;
 			while (this_ptr->execute<Op>(lev).get()) {
 				lev++;
 			}
 			break;
 		case op_type::DESCEND:
+			printf( "Executing descend\n");
 			lev = get_max_level().get();
 			while (lev >= 0) {
 				this_ptr->execute<Op>(lev).get();
@@ -123,7 +144,11 @@ public:
 			}
 			break;
 		case op_type::EXCHANGE:
+		case op_type::REBRANCH:
 			this_ptr->execute<Op>(-1).get();
+			break;
+		default:
+			assert(false);
 			break;
 		}
 
@@ -133,12 +158,12 @@ public:
 	hpx::future<bool> execute(int level) {
 		bool rc = false;
 		using action = action_execute<Op>;
-		std::vector<hpx::future<bool>> futures(Nbranch + nodes.size());
+		std::vector<hpx::future<bool>> futures(Nbranch);
 		for (int i = 0; i < Nbranch; i++) {
 			if (child_ids[i] != hpx::invalid_id) {
 				futures[i] = hpx::async<action>(child_gids[i], level);
 			} else {
-				futures[i] = hpx::make_ready_future(true);
+				futures[i] = hpx::make_ready_future(false);
 			}
 		}
 		for (auto i = nodes.begin(); i != nodes.end(); i++) {
@@ -281,7 +306,9 @@ private:
 	template<typename Ops, int Iter >
 	struct execute_ops {
 		static hpx::shared_future<void> run(tree* _this) {
-			_this->begin_execute<typename std::tuple_element<std::tuple_size<Ops>::value-Iter,Ops>::type>();
+			constexpr int ThisIter = std::tuple_size<Ops>::value - Iter;
+			printf( "Executing op %i\n", ThisIter );
+			_this->begin_execute<typename std::tuple_element<ThisIter,Ops>::type>();
 			return execute_ops<Ops,Iter-1>::run(_this);
 		}
 	};
@@ -289,7 +316,9 @@ private:
 	template<typename Ops>
 	struct execute_ops<Ops,1> {
 		static hpx::shared_future<void> run(tree* _this) {
-			_this->begin_execute<typename std::tuple_element<std::tuple_size<Ops>::value-1,Ops>::type>();
+			constexpr int ThisIter = std::tuple_size<Ops>::value - 1;
+			printf( "Executing op %i\n", ThisIter );
+			_this->begin_execute<typename std::tuple_element<ThisIter,Ops>::type>();
 			return _this->get_terminal_future();
 		}
 	};
@@ -297,12 +326,19 @@ private:
 public:
 	template<typename Ops>
 	hpx::shared_future<void> execute_operators() {
-		return execute_ops<Ops, std::tuple_size<Ops>::value >::run(this);
+		dir_lock.lock();
+		printf( "Executing operators\n");
+		auto future = execute_ops<Ops, std::tuple_size<Ops>::value >::run(this);
+		dir_lock.unlock();
+		return future;
 	}
 
 
 	template<typename Op>
 	using action_execute = typename hpx::actions::make_action<decltype(&tree::execute<Op>), &tree::execute<Op>>::type;
+
+	template<typename Ops>
+	using action_execute_operators = typename hpx::actions::make_action<decltype(&tree::execute_operators<Ops>), &tree::execute_operators<Ops>>::type;
 
 	XTREE_MAKE_ACTION( action_get_new_node, tree::get_new_node );
 	XTREE_MAKE_ACTION( action_get_max_level, tree::get_max_level );
@@ -321,8 +357,7 @@ template<typename Member, int Ndim>
 std::vector<hpx::id_type> tree<Member,Ndim>::neighbors;
 
 template<typename Member, int Ndim>
-hpx::lcos::local::counting_semaphore tree<Member,Ndim>::semaphore;
-
+hpx::lcos::local::counting_semaphore tree<Member,Ndim>::semaphore(1);
 
 template<typename Member, int Ndim>
 int tree<Member,Ndim>::my_load;
@@ -342,6 +377,12 @@ hpx::id_type tree<Member,Ndim>::this_gid;
 
 template<typename Member, int Ndim>
 tree<Member,Ndim>* tree<Member,Ndim>::this_ptr;
+
+template<typename Member, int Ndim>
+hpx::id_type tree<Member,Ndim>::root_node_gid;
+
+template<typename Member, int Ndim>
+hpx::lcos::local::mutex tree<Member,Ndim>::dir_lock;
 
 }
 
