@@ -9,14 +9,14 @@
 #define INDEXER_HPP_
 
 namespace xtree {
-template<typename Dims, typename origin = int_seq_const<0, Dims::dim()> >
+
+template<int Ndim, int Size, int Origin=0 >
 class indexer {
 private:
-	static constexpr int Ndim = Dims::dim();
 	int value[Ndim];
 	bool is_end;
 	int abs_value(int i) const {
-		return value[i] - origin::get(i);
+		return value[i] - Origin;
 	}
 public:
 	int operator[](int i) const {
@@ -30,7 +30,7 @@ public:
 	}
 	void begin() {
 		for (int i = 0; i < Ndim; i++) {
-			value[i] = origin::get(i);
+			value[i] = Origin;
 		}
 		is_end = false;
 	}
@@ -40,17 +40,17 @@ public:
 	operator int() const {
 		int j = abs_value(Ndim - 1);
 		for (int i = Ndim - 2; i >= 0; i--) {
-			j *= Dims::get(i);
+			j *= Size;
 			j += abs_value(i);
 		}
 		return j;
 	}
 	void operator++(int) {
 		int i = 0;
-		while (abs_value(i) == Dims::get(i) - 1) {
-			value[i] = origin::get(i);
+		while (abs_value(i) == Size - 1) {
+			value[i] = Origin;
 			i++;
-			if (i == Dims::dim()) {
+			if (i == Ndim) {
 				is_end = true;
 				return;
 			}
@@ -58,7 +58,7 @@ public:
 		value[i]++;
 	}
 	indexer& flip(int i) {
-		value[i] = -value[i] + 2 * origin::get(i) + Dims::get(i) - 1;
+		value[i] = -value[i] + 2 * Origin + Size - 1;
 		return *this;
 	}
 	indexer& flip() {
@@ -75,5 +75,6 @@ public:
 		}
 	}
 };
+
 }
 #endif /* INDEXER_HPP_ */

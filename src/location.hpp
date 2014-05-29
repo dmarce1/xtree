@@ -22,7 +22,7 @@ public:
 		level = 0;
 		loc = 0;
 	}
-	location get_neighbor(const indexer<int_seq_const<3, Ndim>, int_seq_const<-1, Ndim>>& dir) {
+	location get_neighbor(const indexer<Ndim,3,-1>& dir) {
 		location rloc;
 		for (int i = 0; i < Ndim; i++) {
 			rloc.loc[i] = loc[i] + dir[i];
@@ -69,14 +69,14 @@ public:
 		p.loc /= 2;
 		return p;
 	}
-	indexer<int_seq_const<2, Ndim>> this_child_index() const {
-		indexer<int_seq_const<2, Ndim>> ci;
+	indexer<Ndim,2> this_child_index() const {
+		indexer<Ndim,2> ci;
 		for (int i = 0; i < Ndim; i++) {
 			ci[i] = loc[i] & 1;
 		}
 		return ci;
 	}
-	location get_child(indexer<int_seq_const<2, Ndim>> ci) const {
+	location get_child(const indexer<Ndim,2>& ci) const {
 		location c = *this;
 		c.level++;
 		c.loc *= 2;

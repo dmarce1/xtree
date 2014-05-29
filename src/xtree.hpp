@@ -54,14 +54,19 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include <cassert>
 #include <cstddef>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
+
+#include "util.hpp"
 #include "vector.hpp"
+#include "grid_base.hpp"
+#include "grid.hpp"
+#include "bgrid.hpp"
 #include "indexer.hpp"
 #include "location.hpp"
 #include "node.hpp"
 #include "tree.hpp"
-#include "util.hpp"
 
 
 #endif /* XTREE_HPP_ */

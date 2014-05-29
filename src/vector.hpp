@@ -16,6 +16,13 @@ class vector: public std::array<T, N...> {
 public:
 	vector() {
 	}
+	T product() const {
+		T p = (*this)[0];
+		for( int i = 1; i < Ndim; i++) {
+			p *= (*this)[i];
+		}
+		return p;
+	}
 	vector(const T& a) {
 		for (int i = 0; i < Ndim; i++) {
 			(*this)[i] = a;
@@ -177,6 +184,13 @@ public:
 	}
 	bool operator!=(const vector& b) const {
 		return !(*this == b);
+	}
+	T product() const {
+		T p = (*this)[0];
+		for( int i = 1; i < this->size(); i++) {
+			p *= (*this)[i];
+		}
+		return p;
 	}
 
 };

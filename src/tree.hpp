@@ -10,15 +10,13 @@
 
 namespace xtree {
 
-
-
 template<typename Member, int Ndim>
 class tree :
 		public hpx::components::managed_component_base<tree<Member,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>  {
 public:
 
 	static constexpr int Nbranch = 2;
-	static constexpr int Nneighbor = pow_<3, Ndim>::get();
+	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 
 private:
 	typedef hpx::components::managed_component_base<tree<Member,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr> base_type;

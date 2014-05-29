@@ -10,53 +10,47 @@
 
 namespace xtree {
 
-template<typename Dims, typename origin >
-class indexer;
-
-template<int Ndim>
-class location;
-
-template<typename Derived, int Ndim>
-class node;
-
-template<typename Derived, int Ndim>
-class tree;
-
-template<int N, int ...Params>
+template<int, int...>
 struct int_seq;
 
-template<int N, int Ndim>
-struct int_seq_const;
+template<int, int, int>
+class indexer;
 
-template<int Base, int Exponent>
+template<int>
+class location;
+
+template<typename, int>
+class node;
+
+template<typename, int>
+class tree;
+
+template<int, int>
 struct pow_;
 
-template<typename T, int ...N>
+template<typename, int...>
 class vector;
 
-template< class Derived >
-class static_component;
+template<int>
+class array_index;
 
+template<typename, int>
+class grid_base;
 
-template<typename U, typename T, int Ndim>
-using get_type = T (U::*)(location<Ndim>);
+template<typename, typename>
+class subgrid;
 
-template<typename U, typename T, int Ndim>
-using set_type = void (U::*)(location<Ndim>, T);
+template<typename, typename, int>
+class grid;
 
-enum op_type {
-	REBRANCH, ASCEND, DESCEND, EXCHANGE
-};
+template<typename, typename, int>
+class bgrid;
+
+template<int>
+class grid_index;
 
 template<typename T>
-inline bool if_boolean_expression(T expr) {
-	return false;
-}
-
-template<>
-inline bool if_boolean_expression<bool>(bool expr) {
-	return expr;
-}
+bool if_boolean_expression(T);
 
 }
 

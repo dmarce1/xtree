@@ -10,13 +10,27 @@
 
 namespace xtree {
 
+template<typename U, typename T, int Ndim>
+using get_type = T (U::*)(location<Ndim>);
+
+template<typename U, typename T, int Ndim>
+using set_type = void (U::*)(location<Ndim>, T);
+
+enum op_type {
+	REBRANCH, ASCEND, DESCEND, EXCHANGE
+};
+
+
 template<int N, int ...Params>
 struct int_seq {
 	static constexpr int dim() {
 		return 1 + sizeof...(Params);
 	}
-	static constexpr int get(int i) {
+	static constexpr int get(const int i) {
 		return i == 0 ? N : int_seq<Params...>::get(i - 1);
+	}
+	static constexpr int size() {
+		return N * int_seq<Params...>::size();
 	}
 };
 
@@ -25,38 +39,25 @@ struct int_seq<N> {
 	static constexpr int dim() {
 		return 1;
 	}
-	static constexpr int get(int i) {
+	static constexpr int get(const int i) {
+		return N;
+	}
+	static constexpr int size() {
 		return N;
 	}
 };
 
-
-template<int N, int Ndim>
-struct int_seq_const {
-	static constexpr int dim() {
-		return Ndim;
-	}
-	static constexpr int get(int i) {
-		return N;
-	}
-};
 
 
 template<int Base, int Exponent>
 struct pow_ {
-	static constexpr int get() {
-		return Base * pow_<Base, Exponent - 1>::get();
-	}
+	static constexpr int value = Base * pow_<Base, Exponent - 1>::value;
 };
 
 template<int Base>
 struct pow_<Base, 0> {
-	static constexpr int get() {
-		return 1;
-	}
+	static constexpr int value = 1;
 };
-
-
 
 }
 

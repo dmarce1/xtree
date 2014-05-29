@@ -77,20 +77,10 @@ public:
 	}
 };
 
+using namespace xtree;
+
 int hpx_main() {
-	hpx::id_type root_gid = (hpx::new_<xtree::tree_type>(hpx::find_here())).get();
-	using op_refine = xtree::tree_type::operation<xtree::REBRANCH, bool, &IntegrationTree::getter_refine, nullptr>;
-	using op_a = xtree::tree_type::operation<xtree::ASCEND, std::pair<double,double>, &IntegrationTree::getter_a, &IntegrationTree::setter_a>;
-	using op_d = xtree::tree_type::operation<xtree::DESCEND, double, &IntegrationTree::getter_d, &IntegrationTree::setter_d>;
-//	test.branch();
-//	test.do_output();
-	auto f1 = hpx::async<xtree::tree_type::action_execute_operators<std::tuple<op_refine>>>(root_gid);
-	f1.get();
-	for (int i = 1; i < 8; i++) {
-		f1 = hpx::async<xtree::tree_type::action_execute_operators<std::tuple<op_refine>>>(root_gid);
-		f1.get();
-	}
-	auto f2 = hpx::async<xtree::tree_type::action_execute_operators<std::tuple<op_a, op_d>>>(root_gid);
-	f2.get();
+	typedef grid<double, int_seq<8,8,8>> grid_type;
+	grid_type test;
 	return hpx::finalize();
 }

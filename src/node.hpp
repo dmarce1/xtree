@@ -13,20 +13,20 @@ namespace xtree {
 template<typename Member, int Ndim>
 class node: public hpx::components::managed_component_base<node<Member, Ndim>> {
 public:
-	static constexpr int Nchild = 1 << Ndim;
-	static constexpr int Nneighbor = pow_<3, Ndim>::get();
+	static constexpr int Nchild = pow_<2, Ndim>::value;
+	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	static constexpr int Nniece = Nchild * Nneighbor;
 private:
 
 	typedef hpx::components::managed_component_base<node<Member, Ndim>> base_type;
-	typedef indexer<int_seq_const<3, Ndim>, int_seq_const<-1, Ndim>> dir_type;
+	typedef indexer<Ndim, 3, -1> dir_type;
 	typedef vector<hpx::id_type, Nchild> child_array_type;
 	typedef vector<vector<hpx::id_type, Nchild>, Nneighbor> niece_array_type;
 	typedef vector<std::pair<int, hpx::id_type>, Nneighbor> neighbor_notify_type;
 
 protected:
 	typedef vector<hpx::id_type, Nneighbor> neighbor_array_type;
-	typedef indexer<int_seq_const<2, Ndim>> child_index_type;
+	typedef indexer<Ndim, 2> child_index_type;
 
 private:
 
