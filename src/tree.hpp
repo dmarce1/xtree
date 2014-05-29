@@ -126,6 +126,13 @@ public:
 		hpx::future<bool> fut;
 		int lev;
 		switch (Op::op) {
+		case op_type::AMR_ASCEND:
+			printf( "Executing AMR_ASCEND\n");
+			lev = 0;
+			while (this_ptr->execute<Op>(lev).get()) {
+				lev++;
+			}
+			break;
 		case op_type::ASCEND:
 			printf( "Executing ascend\n");
 			lev = 0;

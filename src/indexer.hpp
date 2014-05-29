@@ -10,10 +10,10 @@
 
 namespace xtree {
 
-template<int Ndim, int Size, int Origin=0 >
+template<int Ndim, int Size, int Origin = 0>
 class indexer {
 private:
-	int value[Ndim];
+	std::array<int, Ndim> value;
 	bool is_end;
 	int abs_value(int i) const {
 		return value[i] - Origin;
@@ -73,6 +73,13 @@ public:
 		for (int i = 0; i < Ndim; i++) {
 			ar & value[i];
 		}
+	}
+	vector<int, Ndim> to_vector() const {
+		vector<int, Ndim> v;
+		for (int di = 0; di < Ndim; di++) {
+			v[di] = value[di];
+		}
+		return v;
 	}
 };
 

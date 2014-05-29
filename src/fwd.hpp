@@ -13,6 +13,9 @@ namespace xtree {
 template<int, int...>
 struct int_seq;
 
+template<typename>
+struct int_seq_over2;
+
 template<int, int, int>
 class indexer;
 
@@ -37,14 +40,17 @@ class array_index;
 template<typename, int>
 class grid_base;
 
-template<typename, typename>
-class subgrid;
-
 template<typename, typename, int>
 class grid;
 
 template<typename, typename, int>
+class agrid;
+
+template<typename, typename, int>
 class bgrid;
+
+template<typename, typename>
+class xgrid;
 
 template<int>
 class grid_index;

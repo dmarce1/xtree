@@ -14,10 +14,14 @@ namespace xtree{
 template<int Ndim>
 class grid_index: public vector<int, Ndim> {
 private:
-	vector<int, Ndim> min, max;
+	const vector<int, Ndim> min;
+	const vector<int, Ndim> max;
 public:
 	grid_index(const vector<int, Ndim>& min_, const vector<int, Ndim>& max_) :
 			min(min_), max(max_), vector<int, Ndim>(min_) {
+	}
+	grid_index(const vector<int, Ndim>& max_) :
+			min(0), max(max_), vector<int, Ndim>(0) {
 	}
 	void operator++() {
 		int i = 0;
