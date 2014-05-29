@@ -16,11 +16,12 @@ class agrid: public grid_base<T, Dims::dim()> {
 public:
 	static constexpr int Ndim = Dims::dim();
 	static constexpr int Abw = (Bw - 1) / 2 + 1;
+//	using neighbors_type = std::array<agrid<T,Dims,Bw>,pow_<3,Ndim>>;
 	using grid_type = grid<T, Dims, Abw>;
 	using this_dims = int_seq_over2<Dims>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
 private:
-	const grid_type* local_ptr;
+	std::shared_ptr<const grid_type> local_ptr;
 	const dir_type<Ndim> dir;
 	const child_index_type<Ndim> xi;
 	vector<int, Ndim> offset;
@@ -57,7 +58,7 @@ private:
 public:
 	agrid() {
 	}
-	agrid(const child_index_type<Ndim>& _xi, const dir_type<Ndim>& _dir, const grid_type* lptr) :
+	agrid(const child_index_type<Ndim>& _xi, const dir_type<Ndim>& _dir, const std::shared_ptr<const grid_type>& lptr) :
 			xi(_xi), dir(_dir), local_ptr(lptr) {
 		for (int i = 0; i < Ndim; i++) {
 			if (dir[i] == 0) {

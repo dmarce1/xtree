@@ -60,13 +60,14 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 
 #include "util.hpp"
 #include "vector.hpp"
+#include "indexer.hpp"
+#include "location.hpp"
 #include "grid_base.hpp"
 #include "grid.hpp"
 #include "agrid.hpp"
 #include "bgrid.hpp"
 #include "xgrid.hpp"
-#include "indexer.hpp"
-#include "location.hpp"
+#include "grid_pack.hpp"
 #include "node.hpp"
 #include "tree.hpp"
 

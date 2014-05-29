@@ -18,9 +18,10 @@ public:
 	static constexpr int Ndim = Dims::dim();
 	using base_type = grid_base<T, Ndim>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
+	using grid_type = grid<T,Dims>;
 private:
 	static constexpr int Size = Dims::size() / (1 << Ndim);
-	const grid<T, Dims>* parent;
+	std::shared_ptr<const grid_type> parent;
 	const child_index_type<Ndim> xtant;
 	const vector<int, Ndim> origin;
 	std::unique_ptr<vector<T, Size>> data_ptr;
@@ -35,7 +36,7 @@ private:
 public:
 	xgrid() {
 	}
-	xgrid(const grid<T, Dims>* _parent, const child_index_type<Ndim>& _xtant) :
+	xgrid(std::shared_ptr<const grid_type>& _parent, const child_index_type<Ndim>& _xtant) :
 			parent(_parent), xtant(_xtant), origin((xtant.to_vector() * Dims::to_vector()) / 2) {
 	}
 	const T& operator[](const index_type& i) const {

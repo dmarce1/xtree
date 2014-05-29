@@ -18,7 +18,7 @@ public:
 	using grid_type = grid<T, Dims, Bw>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
 private:
-	const grid_type* local_ptr;
+	std::shared_ptr<const grid_type> local_ptr;
 	const dir_type<Ndim> dir;
 	int size;
 	std::vector<T> data;
@@ -49,8 +49,8 @@ private:
 	}
 public:
 	bgrid() {}
-	bgrid(const dir_type<Ndim>& _dir, const grid_type* lptr) :
-			dir(_dir), local_ptr(lptr) {
+	bgrid(const dir_type<Ndim>& _dir, const std::shared_ptr<const grid_type>& lptr) :
+			dir(_dir), local_ptr(lptr), data(0) {
 	}
 	virtual ~bgrid() {
 	}

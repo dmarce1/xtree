@@ -5,8 +5,8 @@
  *      Author: dmarce1
  */
 
-#ifndef TYPES_HPP_
-#define TYPES_HPP_
+#ifndef TYPES3_HPP_
+#define TYPES3_HPP_
 
 namespace xtree {
 
@@ -21,6 +21,9 @@ class indexer;
 
 template<int>
 class location;
+
+template<int>
+class node_base;
 
 template<typename, int>
 class node;

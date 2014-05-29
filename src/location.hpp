@@ -8,8 +8,6 @@
 #ifndef LOCATION_HPP_
 #define LOCATION_HPP_
 
-
-
 namespace xtree {
 
 template<int Ndim>
@@ -18,11 +16,26 @@ private:
 	int level;
 	vector<int, Ndim> loc;
 public:
+	dir_type<Ndim> relative_direction_to(const location<Ndim>& loc2) {
+		assert(loc2.level == level);
+		dir_type<Ndim> dir;
+		for (int d = 0; d < Ndim; d++) {
+			const int dif = loc2.loc[d] - loc[d];
+			if (dif > 0) {
+				dir[d] = +1;
+			} else if (dif < 0) {
+				dir[d] = -1;
+			} else {
+				dir[d] = 0;
+			}
+		}
+		return dir;
+	}
 	location() {
 		level = 0;
 		loc = 0;
 	}
-	location get_neighbor(const indexer<Ndim,3,-1>& dir) {
+	location get_neighbor(const indexer<Ndim, 3, -1>& dir) {
 		location rloc;
 		for (int i = 0; i < Ndim; i++) {
 			rloc.loc[i] = loc[i] + dir[i];
@@ -53,7 +66,7 @@ public:
 	int get_location(int i) const {
 		return loc[i];
 	}
-	location& shift( int d, int amount ) {
+	location& shift(int d, int amount) {
 		loc[d] += amount;
 		return *this;
 	}
@@ -69,14 +82,14 @@ public:
 		p.loc /= 2;
 		return p;
 	}
-	indexer<Ndim,2> this_child_index() const {
-		indexer<Ndim,2> ci;
+	indexer<Ndim, 2> this_child_index() const {
+		indexer<Ndim, 2> ci;
 		for (int i = 0; i < Ndim; i++) {
 			ci[i] = loc[i] & 1;
 		}
 		return ci;
 	}
-	location get_child(const indexer<Ndim,2>& ci) const {
+	location get_child(const indexer<Ndim, 2>& ci) const {
 		location c = *this;
 		c.level++;
 		c.loc *= 2;

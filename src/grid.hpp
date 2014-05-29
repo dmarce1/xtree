@@ -16,15 +16,19 @@ template<typename T, typename Dims, int Bw = 1>
 class grid: public grid_base<T, Dims::dim()> {
 	friend class bgrid<T, Dims, Bw> ;
 	friend class xgrid<T, Dims> ;
+	friend class std::allocator<grid>;
 public:
 	static constexpr int Ndim = Dims::dim();
 	static constexpr int Nchild = 1 << Ndim;
+	static constexpr int Size = Dims::size();
+	static constexpr int bw = Bw;
 	using base_type = grid_base<T, Ndim>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
+	using type = T;
+	using dims_type = Dims;
 private:
-	static constexpr int Size = Dims::size();
 	std::array<T, Size> data;
-	std::array<const base_type*, pow_<3, Ndim>::value> grid_selector;
+	std::array<std::shared_ptr<const base_type>, pow_<3, Ndim>::value> grid_selector;
 private:
 	T& get(const index_type& i) {
 		return data[base_type::template vector_to_index<Dims>(i)];
@@ -32,7 +36,7 @@ private:
 	const T& get(const index_type& i) const {
 		return data[base_type::template vector_to_index<Dims>(i)];
 	}
-public:
+private:
 	grid() {
 		for (dir_type<Ndim> i; !i.end(); i++) {
 			grid_selector[i] = nullptr;
@@ -41,7 +45,18 @@ public:
 		for (int di = 0; di < Ndim; di++) {
 			i[di] = 0;
 		}
-		grid_selector[i] = this;
+	}
+public:
+
+	static std::shared_ptr<grid> create() {
+		std::allocator<grid> alloc;
+		std::shared_ptr < grid > ptr(new grid<T, Dims, Bw>);
+		dir_type<Ndim> i;
+		for (int di = 0; di < Ndim; di++) {
+			i[di] = 0;
+		}
+		ptr->grid_selector[i] = ptr;
+		return ptr;
 	}
 	T& operator[](const index_type& i) {
 		return get(i);
@@ -56,7 +71,7 @@ public:
 		}
 		return grid_selector[grid_index]->get(local_index);
 	}
-	void set_neighbor(const base_type* n, dir_type<Ndim> dir) {
+	void set_neighbor(const std::shared_ptr<const base_type>& n, dir_type<Ndim> dir) {
 		grid_selector[dir] = n;
 	}
 	virtual ~grid() {

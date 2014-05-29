@@ -10,8 +10,16 @@
 
 namespace xtree {
 
+template<int Ndim>
+class node_base {
+public:
+	node_base() {}
+	virtual ~node_base() {}
+	virtual const location<Ndim>& get_self() const = 0;
+};
+
 template<typename Member, int Ndim>
-class node: public hpx::components::managed_component_base<node<Member, Ndim>> {
+class node: public hpx::components::managed_component_base<node<Member, Ndim>>, public node_base<Ndim> {
 public:
 	static constexpr int Nchild = pow_<2, Ndim>::value;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
@@ -75,6 +83,11 @@ private:
 	hpx::shared_future<void> flock, last_flock;
 
 public:
+
+	const location<Ndim>& get_self() const {
+		return self;
+	}
+
 
 	bool is_terminal() const {
 		return is_leaf;
