@@ -18,7 +18,7 @@ public:
 	static constexpr int Ndim = Dims::dim();
 	using base_type = grid_base<T, Ndim>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
-	using grid_type = grid<T,Dims>;
+	using grid_type = grid_base<T,Ndim>;
 private:
 	static constexpr int Size = Dims::size() / (1 << Ndim);
 	std::shared_ptr<const grid_type> parent;

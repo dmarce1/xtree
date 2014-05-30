@@ -9,7 +9,7 @@
 #define GRID_INDEX_HPP_
 
 #include "fwd.hpp"
-namespace xtree{
+namespace xtree {
 
 template<int Ndim>
 class grid_index: public vector<int, Ndim> {
@@ -18,10 +18,10 @@ private:
 	const vector<int, Ndim> max;
 public:
 	grid_index(const vector<int, Ndim>& min_, const vector<int, Ndim>& max_) :
-			min(min_), max(max_), vector<int, Ndim>(min_) {
+			vector<int, Ndim>(min_), min(min_), max(max_) {
 	}
 	grid_index(const vector<int, Ndim>& max_) :
-			min(0), max(max_), vector<int, Ndim>(0) {
+			vector<int, Ndim>(0), min(0), max(max_) {
 	}
 	void operator++() {
 		int i = 0;
@@ -31,6 +31,10 @@ public:
 			assert(i != Ndim);
 		}
 		(*this)[i]++;
+	}
+
+	void operator++(int) {
+		operator++();
 	}
 	bool end() {
 		for (int i = 0; i < Ndim; i++) {
@@ -44,7 +48,5 @@ public:
 	}
 };
 }
-
-
 
 #endif /* GRID_INDEX_HPP_ */

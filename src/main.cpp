@@ -78,12 +78,17 @@
  };*/
 
 //using namespace xtree;
-typedef xtree::grid<double, xtree::int_seq<8, 8, 8>> grid_type1;
+typedef xtree::grid<double, xtree::int_seq<8, 8, 8>, 1> grid_type1;
 typedef xtree::grid<int, xtree::int_seq<8, 8, 8>, 2> grid_type2;
 typedef xtree::grid_pack<grid_type1, grid_type2> grid_pack_type;
 XTREE_INSTANTIATE(grid_pack_type, 3);
 
+template<int N>
+using descend_operation = std::tuple<xtree::tree_type::operation<xtree::DESCEND,grid_pack_type::descend_type<N>,&grid_pack_type::get_descend<N>,&grid_pack_type::set_descend<N>>>;
+
 int hpx_main() {
 	hpx::id_type tree_gid = (hpx::new_<xtree::tree_type>(hpx::find_here())).get();
+	auto f = hpx::async<xtree::tree_type::action_execute_operators<descend_operation<0>>>(tree_gid);
+	f.get();
 	return hpx::finalize();
 }

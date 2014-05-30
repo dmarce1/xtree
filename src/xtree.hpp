@@ -14,23 +14,23 @@
 using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 											\
 /**/
 
-#define XTREE_INSTANTIATE( DERIVED_CLASS, ... )																		\
+#define XTREE_INSTANTIATE( MEMBER_CLASS, ... )																		\
 namespace xtree {																									\
-	typedef node<DERIVED_CLASS, __VA_ARGS__> base_node_type;   														\
-	typedef tree<DERIVED_CLASS, __VA_ARGS__> tree_type;   															\
+	typedef node<MEMBER_CLASS, __VA_ARGS__> node_type;   														\
+	typedef tree<MEMBER_CLASS, __VA_ARGS__> tree_type;   															\
 }																													\
-typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_get_new_node action_get_new_node_global;	\
-typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_get_max_level action_get_max_level_global;	\
-typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_get_terminal_future action_get_terminal_future_global;	\
-typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_lock_servlet action_lock_servlet_global;	\
-typedef xtree::tree<DERIVED_CLASS,__VA_ARGS__>::action_unlock_servlet action_unlock_servlet_global;	\
+typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_get_new_node action_get_new_node_global;	\
+typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_get_max_level action_get_max_level_global;	\
+typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_get_terminal_future action_get_terminal_future_global;	\
+typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_lock_servlet action_lock_servlet_global;	\
+typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_unlock_servlet action_unlock_servlet_global;	\
 HPX_REGISTER_PLAIN_ACTION(action_get_new_node_global);	\
 HPX_REGISTER_PLAIN_ACTION(action_get_max_level_global);	\
 HPX_REGISTER_PLAIN_ACTION(action_get_terminal_future_global);	\
 HPX_REGISTER_PLAIN_ACTION(action_lock_servlet_global);	\
 HPX_REGISTER_PLAIN_ACTION(action_unlock_servlet_global);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
-HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::base_node_type>, base_node_type);	\
+HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::node_type>, node_type);	\
 /**/
 
 
@@ -62,6 +62,7 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include "vector.hpp"
 #include "indexer.hpp"
 #include "location.hpp"
+#include "grid_index.hpp"
 #include "grid_base.hpp"
 #include "grid.hpp"
 #include "agrid.hpp"

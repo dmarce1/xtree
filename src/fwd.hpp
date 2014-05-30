@@ -38,7 +38,7 @@ template<typename, int...>
 class vector;
 
 template<int>
-class array_index;
+class grid_index;
 
 template<typename, int>
 class grid_base;
@@ -54,9 +54,6 @@ class bgrid;
 
 template<typename, typename>
 class xgrid;
-
-template<int>
-class grid_index;
 
 template<typename T>
 bool if_boolean_expression(T);

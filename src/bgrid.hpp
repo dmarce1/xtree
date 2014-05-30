@@ -11,7 +11,7 @@
 #include "fwd.hpp"
 
 namespace xtree {
-template<typename T, typename Dims, int Bw = 1>
+template<typename T, typename Dims, int Bw>
 class bgrid: public grid_base<T, Dims::dim()> {
 public:
 	static constexpr int Ndim = Dims::dim();

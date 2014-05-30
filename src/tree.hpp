@@ -308,7 +308,7 @@ public:
 
 
 private:
-	template<typename Ops, int Iter >
+	template<typename Ops, int Iter=std::tuple_size<Ops>::value >
 	struct execute_ops {
 		static hpx::shared_future<void> run(tree* _this) {
 			constexpr int ThisIter = std::tuple_size<Ops>::value - Iter;

@@ -12,98 +12,90 @@
 
 namespace xtree {
 
-template<typename Grid, typename ...Params>
-class grid_pack: public grid_pack<Params...> {
-public:
-	using T = typename Grid::type;
-	using restrict_type = vector<T, Grid::Size / Grid::Nchild>;
-	using Dims = typename Grid::dims_type;
-	static constexpr int Bw = Grid::bw;
-	static constexpr int Ndim = Dims::dim();
-	using base_type = grid_pack<Params...>;
-private:
-	std::shared_ptr<Grid> this_grid;
-public:
-	template<int N>
-	restrict_type get_descend_restrict(const location<Ndim>& requester) {
-		if (N == 0) {
-			return this_grid->restrict_to_stream();
-		} else {
-			return base_type::get_descend_restrict(requester);
-		}
+template<typename GridBase, typename Tuple, int Iter = (std::tuple_size<Tuple>::value - 1)>
+struct make_grid_pack {
+	using grid_array_type = std::array<std::shared_ptr<GridBase>, std::tuple_size<Tuple>::value>;
+	void operator()(grid_array_type& grids) const {
+		make_grid_pack<GridBase, Tuple, Iter - 1> make_more;
+		grids[Iter] = std::dynamic_pointer_cast<GridBase>(std::tuple_element<Iter, Tuple>::type::create());
+		make_more(grids);
 	}
-	template<int N>
-	void set_descend_restrict(const location<Ndim>& sender, restrict_type stream) {
-		if (N == 0) {
-			this_grid->restrict_from_stream(sender.this_child_index(), stream);
-		} else {
-			base_type::restrict_from_stream(sender, stream);
-		}
-	}
-	template<int N>
-	bgrid<T, Dims, Bw> get_decomp_boundary(const location<Ndim>& requester) {
-		if (N == 0) {
-			return bgrid<T, Dims, Bw>(requester.relative_direction_to(this->node_ptr->get_self()));
-		} else {
-			return base_type::get_decomp_boundary<N - 1>(requester);
-		}
-	}
-	template<int N>
-	void set_decomp_boundary(const location<Ndim>& sender, bgrid<T, Dims, Bw> bg) {
-		if (N == 0) {
-			this_grid->set_neighbor(std::make_shared<bgrid<T, Dims, Bw>>(std::move(bg)), this->node_ptr->get_self().relative_direction_to(sender));
-		} else {
-			base_type::set_decomp_boundary<N - 1>(sender, bg);
-		}
-	}
-
-	grid_pack(const node_base<Ndim>* nodeptr) :
-			base_type(nodeptr) {
-		this_grid = Grid::create();
-	}
-	virtual ~grid_pack() {
-	}
-
 };
 
-template<typename Grid>
-class grid_pack<Grid> {
-public:
-	using T = typename Grid::type;
-	using restrict_type = vector<T, Grid::Size / Grid::Nchild>;
-	using Dims = typename Grid::dims_type;
-	static constexpr int Bw = Grid::bw;
-	static constexpr int Ndim = Dims::dim();
-private:
-	std::shared_ptr<Grid> this_grid;
-protected:
-	const node_base<Ndim>* node_ptr;
-public:
-	template<int N>
-	restrict_type get_descend_restrict(const location<Ndim>& requester) {
-		return this_grid->restrict_to_stream();
+template<typename GridBase, typename Tuple>
+struct make_grid_pack<GridBase, Tuple, 0> {
+	using grid_array_type = std::array<std::shared_ptr<GridBase>, std::tuple_size<Tuple>::value>;
+	void operator()(grid_array_type& grids) const {
+		grids[0] = std::dynamic_pointer_cast<GridBase>(std::tuple_element<0, Tuple>::type::create());
 	}
-	template<int N>
-	void set_descend_restrict(const location<Ndim>& sender, restrict_type stream) {
-		this_grid->restrict_from_stream(sender.this_child_index(), stream);
-	}
-	template<int N>
-	bgrid<T, Dims, Bw> get_decomp_boundary(const location<Ndim>& requester) {
-		return bgrid<T, Dims, Bw>(requester.relative_direction_to(node_ptr->get_self()));
-	}
-	template<int N>
-	void set_decomp_boundary(const location<Ndim>& sender, bgrid<T, Dims, Bw> bg) {
-		this_grid->set_neighbor(std::make_shared<bgrid<T, Dims, Bw>>(std::move(bg)), node_ptr->get_self().relative_direction_to(sender));
-	}
-	grid_pack(const node_base<Ndim>* nodeptr) :
-			node_ptr(nodeptr) {
-		this_grid = Grid::create();
-	}
-	virtual ~grid_pack() {
-	}
+};
 
-}
-;
+template<typename ...Params>
+class grid_pack {
+	using grid_tuple = std::tuple<Params...>;
+	using first_grid_type = typename std::tuple_element<0,grid_tuple>::type;
+	using grid_base_type = grid_base<typename first_grid_type::type, first_grid_type::Ndim>;
+	using grid_array_type = std::array<std::shared_ptr<grid_base_type>,sizeof...(Params)>;
+	static constexpr int Ndim = first_grid_type::Ndim;
+	grid_array_type grids;
+	const node<grid_pack<Params...>, Ndim>& node_ref;
+public:
+	grid_pack(const node<grid_pack<Params...>, Ndim>& nref) :
+			node_ref(nref) {
+		make_grid_pack<grid_base_type, grid_tuple> make;
+		make(grids);
+	}
+	template<int N>
+	using grid_type = typename std::tuple_element<N, grid_tuple>::type;
+	template<int N>
+	using Dims = typename grid_type<N>::dims;
+	template<int N>
+	using T = typename grid_type<N>::type;
+	template<int N>
+	using descend_type = vector<typename grid_type<N>::type, grid_type<N>::Size / grid_type<N>::Nchild>;
+	template<int N>
+	std::shared_ptr<grid_type<N>> get_grid() {
+		return std::static_pointer_cast < grid_type < N >> (grids[N]);
+	}
+	template<int N>
+	descend_type<N> get_descend(const location<Ndim>& requester) {
+		return get_grid<N>()->restrict_to_stream();
+	}
+	template<int N>
+	void set_descend(const location<Ndim>& sender, descend_type<N> stream) {
+		get_grid<N>()->restrict_from_stream(sender.this_child_index(), stream);
+	}
+	template<int N>
+	bgrid<T<N>, Dims<N>, grid_type<N>::bw> get_decomp_boundary(const location<Ndim>& requester) {
+		return bgrid<T<N>, Dims<N>, grid_type<N>::bw>(requester.relative_direction_to(this->node_ref.get_self(), get_grid<N>()));
+	}
+	template<int N>
+	void set_decomp_boundary(const location<Ndim>& sender, bgrid<T<N>, Dims<N>, grid_type<N>::bw> bg) {
+		get_grid<N>()->set_neighbor(std::make_shared<bgrid<T<N>, Dims<N>, grid_type<N>::bw>>(std::move(bg)),
+				this->node_ref.get_self().relative_direction_to(sender));
+	}
+	template<int N>
+	typename agrid<T<N>, Dims<N>, grid_type<N>::bw>::neighbors_type get_amr_boundary(const location<Ndim>& receiver) {
+		typename agrid<T<N>, Dims<N>, grid_type<N>::bw>::neighbors_type v(pow_<3, Ndim>);
+		int cnt = 0;
+		for (dir_type<Ndim> dir; !dir.end(); dir++) {
+			if (node_ref.get_boundary_type(dir) == AMR) {
+				v[cnt].first = dir;
+				v[cnt].second = agrid<T<N>, Dims<N>, grid_type<N>::bw>(receiver.this_child_index(), dir, get_grid<N>());
+				cnt++;
+			}
+		}
+		v.resize(cnt);
+		return v;
+	}
+	template<int N>
+	void set_amr_boundary(const location<Ndim>& sender, typename agrid<T<N>, Dims<N>, grid_type<N>::bw>::neighbors_type v) {
+		for (int i = 0; i < v.size(); i++) {
+			get_grid<N>()->set_neighbor(v[i].second, v[i].first);
+		}
+	}
+};
+
 }
 
 #endif /* GRID_PACK_HPP_ */

@@ -11,13 +11,13 @@
 #include "fwd.hpp"
 
 namespace xtree {
-template<typename T, typename Dims, int Bw = 1>
+template<typename T, typename Dims, int Bw>
 class agrid: public grid_base<T, Dims::dim()> {
 public:
 	static constexpr int Ndim = Dims::dim();
 	static constexpr int Abw = (Bw - 1) / 2 + 1;
-//	using neighbors_type = std::array<agrid<T,Dims,Bw>,pow_<3,Ndim>>;
-	using grid_type = grid<T, Dims, Abw>;
+	using neighbors_type = std::vector<std::pair<dir_type<Ndim>,agrid<T,Dims,Bw>>>;
+	using grid_type = grid<T, Dims, Bw>;
 	using this_dims = int_seq_over2<Dims>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
 private:

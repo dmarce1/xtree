@@ -12,7 +12,7 @@
 
 namespace xtree {
 
-template<typename T, typename Dims, int Bw = 1>
+template<typename T, typename Dims, int Bw >
 class grid: public grid_base<T, Dims::dim()> {
 	friend class bgrid<T, Dims, Bw> ;
 	friend class xgrid<T, Dims> ;
@@ -77,7 +77,7 @@ public:
 	virtual ~grid() {
 	}
 	void prolong(const xgrid<T, Dims>& x) {
-		for (array_index<Ndim> i(Dims::to_vector() - 1); !i.end(); i++) {
+		for (grid_index<Ndim> i(Dims::to_vector() - 1); !i.end(); i++) {
 			(*this)[i] = x[i / 2];
 		}
 	}
@@ -86,8 +86,8 @@ public:
 		using this_dims = int_seq_over2<Dims>;
 		vector<T, Size / Nchild> stream(T(0));
 		const vector<int, Ndim> this_max = this_dims::to_vector() - 1;
-		for (array_index<Ndim> ci(this_max); !ci.end(); ci++) {
-			for (child_index_type<Ndim> xi; !xi.end; xi++) {
+		for (grid_index<Ndim> ci(this_max); !ci.end(); ci++) {
+			for (child_index_type<Ndim> xi; !xi.end(); xi++) {
 				const vector<int, Ndim> fi = ci * 2 + xi.to_vector();
 				stream[base_type::template vector_to_index<this_dims>(ci)] += (*this)[fi] * factor;
 			}
@@ -98,7 +98,7 @@ public:
 		const vector<int, Ndim> this_min = (xi.to_vector() * Dims::to_vector()) / 2;
 		const vector<int, Ndim> this_max = this_min + (Dims::to_vector() / 2) - 1;
 		int j = 0;
-		for (array_index<Ndim> ci(this_min, this_max); !ci.end(); ci++) {
+		for (grid_index<Ndim> ci(this_min, this_max); !ci.end(); ci++) {
 			(*this)[ci] = stream[j];
 			j++;
 		}

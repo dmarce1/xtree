@@ -98,7 +98,7 @@ public:
 	}
 
 	node(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors) {
-		data = std::unique_ptr < Member > (new Member(this));
+		data = std::unique_ptr < Member > (new Member(*this));
 		self = _loc;
 		flock = last_flock = hpx::make_ready_future();
 		neighbors = _neighbors;
@@ -235,7 +235,7 @@ public:
 		return this;
 	}
 
-	bound_type get_boundary_type(const dir_type<Ndim>& dir) {
+	bound_type get_boundary_type(const dir_type<Ndim>& dir) const {
 		if (neighbors[dir] != hpx::invalid_id) {
 			return DECOMP;
 		} else {

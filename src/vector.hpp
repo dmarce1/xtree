@@ -18,7 +18,7 @@ public:
 	}
 	T product() const {
 		T p = (*this)[0];
-		for( int i = 1; i < Ndim; i++) {
+		for (int i = 1; i < Ndim; i++) {
 			p *= (*this)[i];
 		}
 		return p;
@@ -80,6 +80,13 @@ public:
 	vector operator*(const T& a) const {
 		vector<T, Ndim> b = *this;
 		b *= a;
+		return b;
+	}
+	vector operator*(const vector<T, Ndim>& a) const {
+		vector<T, Ndim> b;
+		for (int i = 0; i < Ndim; i++) {
+			b[i] = (*this)[i] * a[i];
+		}
 		return b;
 	}
 	vector operator/(const T& a) const {
@@ -187,7 +194,7 @@ public:
 	}
 	T product() const {
 		T p = (*this)[0];
-		for( int i = 1; i < this->size(); i++) {
+		for (int i = 1; i < this->size(); i++) {
 			p *= (*this)[i];
 		}
 		return p;

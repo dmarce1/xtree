@@ -28,7 +28,7 @@ protected:
 		return index;
 	}
 
-private:
+public:
 	virtual const T& get(const index_type& i) const = 0;
 };
 
