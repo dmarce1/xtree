@@ -13,6 +13,9 @@ namespace xtree {
 template<int, int...>
 struct int_seq;
 
+template<int, int>
+class silo_output;
+
 template<typename>
 struct int_seq_over2;
 
@@ -54,6 +57,7 @@ class bgrid;
 
 template<typename, typename>
 class xgrid;
+
 
 template<typename T>
 bool if_boolean_expression(T);

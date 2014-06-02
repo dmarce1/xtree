@@ -23,6 +23,11 @@ public:
 	grid_index(const vector<int, Ndim>& max_) :
 			vector<int, Ndim>(0), min(0), max(max_) {
 	}
+	grid_index(const grid_index<Ndim>& gi) :
+			vector<int, Ndim>(gi), min(gi.min), max(gi.max) {
+	}
+	virtual ~grid_index() {
+	}
 	void operator++() {
 		int i = 0;
 		while ((*this)[i] == max[i]) {
@@ -32,7 +37,6 @@ public:
 		}
 		(*this)[i]++;
 	}
-
 	void operator++(int) {
 		operator++();
 	}
@@ -43,8 +47,6 @@ public:
 			}
 		}
 		return true;
-	}
-	virtual ~grid_index() {
 	}
 };
 }

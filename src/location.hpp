@@ -16,6 +16,26 @@ private:
 	int level;
 	vector<int, Ndim> loc;
 public:
+	location() {
+		level = 0;
+		loc = 0;
+	}
+	virtual ~location() {
+	}
+	location(const location& l) {
+		level = l.level;
+		loc = l.loc;
+	}
+	location& operator=(const location& l) {
+		level = l.level;
+		loc = l.loc;
+		return *this;
+	}
+	template<typename Arc>
+	void serialize(Arc& ar, const int v) {
+		ar & level;
+		ar & loc;
+	}
 	dir_type<Ndim> relative_direction_to(const location<Ndim>& loc2) {
 		assert(loc2.level == level);
 		dir_type<Ndim> dir;
@@ -31,10 +51,6 @@ public:
 		}
 		return dir;
 	}
-	location() {
-		level = 0;
-		loc = 0;
-	}
 	location get_neighbor(const indexer<Ndim, 3, -1>& dir) {
 		location rloc;
 		for (int i = 0; i < Ndim; i++) {
@@ -42,17 +58,6 @@ public:
 		}
 		rloc.level = level;
 		return rloc;
-	}
-	virtual ~location() {
-	}
-	location(const location& l) {
-		level = l.level;
-		loc = l.loc;
-	}
-	location& operator=(const location& l) {
-		level = l.level;
-		loc = l.loc;
-		return *this;
 	}
 	int get_level() const {
 		return level;
@@ -97,12 +102,6 @@ public:
 			c.loc[i] += ci[i];
 		}
 		return c;
-	}
-
-	template<typename Arc>
-	void serialize(Arc& ar, const int v) {
-		ar & level;
-		ar & loc;
 	}
 };
 }

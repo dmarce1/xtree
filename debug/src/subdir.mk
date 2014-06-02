@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/load_balancer.cpp \
 ../src/main.cpp 
 
 OBJS += \
+./src/load_balancer.o \
 ./src/main.o 
 
 CPP_DEPS += \
+./src/load_balancer.d \
 ./src/main.d 
 
 

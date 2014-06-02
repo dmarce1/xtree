@@ -78,13 +78,32 @@
  };*/
 
 //using namespace xtree;
+class mynode;
 typedef xtree::grid<double, xtree::int_seq<8, 8, 8>, 1> grid_type1;
-typedef xtree::grid<int, xtree::int_seq<8, 8, 8>, 2> grid_type2;
-typedef xtree::grid_pack<grid_type1, grid_type2> grid_pack_type;
-XTREE_INSTANTIATE(grid_pack_type, 3);
+//typedef xtree::grid<int, xtree::int_seq<8, 8, 8>, 2> grid_type2;
+typedef xtree::grid_pack<mynode, grid_type1> grid_pack_type;
+
+class mynode: public grid_pack_type {
+public:
+	mynode() = delete;
+	mynode(const xtree::node<mynode, 3>& nref) :
+			grid_pack_type(nref) {
+
+	}
+	grid_pack_type::descend_type<0> get( const xtree::location<Ndim>& ) {return grid_pack_type::descend_type<0>();}
+	virtual ~mynode() {
+	}
+};
+
+XTREE_INSTANTIATE(mynode, 3);
 
 template<int N>
-using descend_operation = std::tuple<xtree::tree_type::operation<xtree::DESCEND,grid_pack_type::descend_type<N>,&grid_pack_type::get_descend<N>,&grid_pack_type::set_descend<N>>>;
+using descend_operation = std::tuple<
+		xtree::tree_type::operation<xtree::DESCEND,
+		grid_pack_type::descend_type<N>,
+		mynode::get_descend<N>,
+		mynode::set_descend<N>
+	>>;
 
 int hpx_main() {
 	hpx::id_type tree_gid = (hpx::new_<xtree::tree_type>(hpx::find_here())).get();

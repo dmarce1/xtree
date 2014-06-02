@@ -13,8 +13,10 @@ namespace xtree {
 template<int Ndim>
 class node_base {
 public:
-	node_base() {}
-	virtual ~node_base() {}
+	node_base() {
+	}
+	virtual ~node_base() {
+	}
 	virtual const location<Ndim>& get_self() const = 0;
 };
 
@@ -24,18 +26,12 @@ public:
 	static constexpr int Nchild = pow_<2, Ndim>::value;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	static constexpr int Nniece = Nchild * Nneighbor;
+	using base_type = hpx::components::managed_component_base<node<Member, Ndim>>;
+	using child_array_type =vector<hpx::id_type, Nchild>;
+	using niece_array_type = vector<vector<hpx::id_type, Nchild>, Nneighbor>;
+	using neighbor_notify_type = vector<std::pair<int, hpx::id_type>, Nneighbor>;
+	using neighbor_array_type = vector<hpx::id_type, Nneighbor>;
 private:
-
-	typedef hpx::components::managed_component_base<node<Member, Ndim>> base_type;
-	typedef vector<hpx::id_type, Nchild> child_array_type;
-	typedef vector<vector<hpx::id_type, Nchild>, Nneighbor> niece_array_type;
-	typedef vector<std::pair<int, hpx::id_type>, Nneighbor> neighbor_notify_type;
-
-protected:
-	typedef vector<hpx::id_type, Nneighbor> neighbor_array_type;
-
-private:
-
 	static bool child_is_niece_of(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
 		for (int i = 0; i < Ndim; i++) {
 			if (dir[i] == +1) {
@@ -50,18 +46,18 @@ private:
 		}
 		return true;
 	}
-
 private:
-	std::unique_ptr<Member> data;
 	bool is_leaf;
 	child_array_type children;
-	neighbor_array_type neighbors;
-	niece_array_type nieces;
 	hpx::id_type parent;
+	hpx::shared_future<void> flock, last_flock;
 	location<Ndim> self;
+	niece_array_type nieces;
+	neighbor_array_type neighbors;
+	std::shared_ptr<Member> data;
+	tree<Member, Ndim>* local_tree;
 
 private:
-
 	hpx::id_type get_niece(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
 		child_index_type<Ndim> nci;
 		dir_type<Ndim> ndi;
@@ -79,26 +75,13 @@ private:
 		}
 		return nieces[ndi][nci];
 	}
-
-	hpx::shared_future<void> flock, last_flock;
-
 public:
-
-	const location<Ndim>& get_self() const {
-		return self;
-	}
-
-
-	bool is_terminal() const {
-		return is_leaf;
-	}
-
 	node() {
 		assert(false);
 	}
-
-	node(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors) {
-		data = std::unique_ptr < Member > (new Member(*this));
+	node(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors, tree<Member, Ndim>* ltree) :
+			local_tree(ltree) {
+		data = std::make_shared<Member >(*this);
 		self = _loc;
 		flock = last_flock = hpx::make_ready_future();
 		neighbors = _neighbors;
@@ -115,13 +98,30 @@ public:
 
 	}
 
+	virtual ~node() {
+		if (!is_leaf) {
+			debranch().get();
+		}
+		local_tree->delete_node(this);
+	}
+
+	template<typename Arc>
+	void serialize(Arc& ar, const int) {
+	}
+
+	const location<Ndim>& get_self() const {
+		return self;
+	}
+
+	bool is_terminal() const {
+		return is_leaf;
+	}
+
 	hpx::future<void> branch() {
 		if (!is_leaf) {
 			return hpx::make_ready_future();
 		}
-
 		is_leaf = false;
-
 		auto fut0 = hpx::make_ready_future();
 
 		/* Allocate new nodes on localities */
@@ -132,7 +132,7 @@ public:
 				for( dir_type<Ndim> dir; !dir.end(); dir++ ) {
 					pack[dir] = get_niece(ci,dir);
 				}
-				futures[ci] = tree<Member,Ndim>::new_node(self.get_child(ci), base_type::get_gid(), pack);
+				futures[ci] = local_tree->new_node(self.get_child(ci), base_type::get_gid(), pack);
 			}
 			return futures;
 		}), std::move(fut0));
@@ -173,16 +173,8 @@ public:
 				futures[dir] = hpx::make_ready_future();
 			}
 		}
-		return when_all(futures);
+		return when_all(std::move(futures));
 	}
-
-	virtual ~node() {
-		if (!is_leaf) {
-			debranch().get();
-		}
-		tree<Member, Ndim>::delete_node(this);
-	}
-
 	int get_level() const {
 		return self.get_level();
 	}
@@ -200,7 +192,7 @@ public:
 				}
 			}
 			futs.resize(index);
-			ret_fut = when_all(futs);
+			ret_fut = when_all(std::move(futs));
 		} else {
 			ret_fut = hpx::make_ready_future();
 		}
@@ -267,7 +259,8 @@ public:
 			if ((parent != hpx::invalid_id) && this->has_amr_boundary()) {
 				auto fut = hpx::async<action>(parent, self);
 				future = fut.then(hpx::util::unwrapped([this](typename Op::type arg) {
-					((data.get())->*(Op::set))(self.get_parent(),arg);
+					Op op;
+					op.set( data, self.get_parent(), arg);
 				}));
 			} else {
 				future = hpx::make_ready_future();
@@ -277,7 +270,8 @@ public:
 			if (parent != hpx::invalid_id) {
 				auto fut = hpx::async<action>(parent, self);
 				future = fut.then(hpx::util::unwrapped([this](typename Op::type arg) {
-					((data.get())->*(Op::set))(self.get_parent(),arg);
+					Op op;
+					op.set( data, self.get_parent(), arg);
 				}));
 			} else {
 				future = hpx::make_ready_future();
@@ -289,7 +283,8 @@ public:
 				for (child_index_type<Ndim> ci; !ci.end(); ci++) {
 					auto fut = hpx::async<action>(children[ci], self);
 					futures[ci] = fut.then(hpx::util::unwrapped([this,ci](typename Op::type arg) {
-						((data.get())->*(Op::set))(self.get_child(ci),arg);
+						Op op;
+						op.set( data, self.get_child(ci),arg);
 					}));
 				}
 			} else {
@@ -304,7 +299,8 @@ public:
 				if (neighbors[dir] != hpx::invalid_id) {
 					auto fut = hpx::async<action>(children[dir], self);
 					futures[dir] = fut.then(hpx::util::unwrapped([this,dir](typename Op::type arg) {
-						((data.get())->*(Op::set))(self.get_neighbor(dir),arg);
+						Op op;
+						op.set( data, self.get_neighbor(dir),arg);
 					}));
 				} else {
 					futures[dir] = hpx::make_ready_future();
@@ -314,7 +310,8 @@ public:
 			break;
 		case REBRANCH:
 			if (is_leaf) {
-				if (if_boolean_expression(((data.get())->*(Op::get))(self))) {
+				Op op;
+				if (if_boolean_expression(op.get(data, self))) {
 					future = this->branch().share();
 				} else {
 					this->debranch();
@@ -336,16 +333,12 @@ public:
 	template<typename Op>
 	hpx::future<typename Op::type> get_op_data(location<Ndim> requester) {
 		return ((Op::op == EXCHANGE) ? last_flock : flock).then(hpx::util::unwrapped([this, requester]() {
-			return ((data.get())->*(Op::get))(requester);
+			Op op;
+			return op.get(data,requester);
 		}));
 	}
 	template<typename Op>
 	using action_get_op_data = typename hpx::actions::make_action<decltype(&node<Member,Ndim>::get_op_data<Op>), &node<Member,Ndim>::get_op_data<Op>>;
-
-	template<typename Arc>
-	void serialize(Arc& arc, const int v) {
-		assert(false);
-	}
 
 	XTREE_MAKE_ACTION(action_get_this, node::get_this);
 

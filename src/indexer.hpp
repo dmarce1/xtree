@@ -15,27 +15,34 @@ class indexer {
 private:
 	std::array<int, Ndim> value;
 	bool is_end;
+private:
 	int abs_value(int i) const {
 		return value[i] - Origin;
 	}
 public:
+	indexer() {
+		begin();
+	}
+	indexer& operator=(int i) {
+		for (int j = 0; j < Ndim; j++) {
+			auto d = div(i, Size);
+			value[j] = d.rem;
+			j = d.quot;
+		}
+		return *this;
+	}
+	template<typename Archive>
+	void serialize(Archive& ar, const int v) {
+		ar & is_end;
+		for (int i = 0; i < Ndim; i++) {
+			ar & value[i];
+		}
+	}
 	int operator[](int i) const {
 		return value[i];
 	}
 	int& operator[](int i) {
 		return value[i];
-	}
-	indexer() {
-		begin();
-	}
-	void begin() {
-		for (int i = 0; i < Ndim; i++) {
-			value[i] = Origin;
-		}
-		is_end = false;
-	}
-	bool end() {
-		return is_end;
 	}
 	operator int() const {
 		int j = abs_value(Ndim - 1);
@@ -57,6 +64,15 @@ public:
 		}
 		value[i]++;
 	}
+	void begin() {
+		for (int i = 0; i < Ndim; i++) {
+			value[i] = Origin;
+		}
+		is_end = false;
+	}
+	bool end() {
+		return is_end;
+	}
 	indexer& flip(int i) {
 		value[i] = -value[i] + 2 * Origin + Size - 1;
 		return *this;
@@ -66,13 +82,6 @@ public:
 			flip(i);
 		}
 		return *this;
-	}
-	template<typename Archive>
-	void serialize(Archive& ar, const int v) {
-		ar & is_end;
-		for (int i = 0; i < Ndim; i++) {
-			ar & value[i];
-		}
 	}
 	vector<int, Ndim> to_vector() const {
 		vector<int, Ndim> v;

@@ -10,11 +10,11 @@
 
 namespace xtree {
 
-template<typename U, typename T, int Ndim>
-using get_type = T (U::*)(const location<Ndim>&);
+//template<typename U, typename T, int Ndim>
+//using get_type = T (U::*)(const location<Ndim>&);
 
-template<typename U, typename T, int Ndim>
-using set_type = void (U::*)(const location<Ndim>&, T);
+//template<typename U, typename T, int Ndim>
+//using set_type = void (U::*)(const location<Ndim>&, T);
 
 template<int Ndim>
 using child_index_type = indexer<Ndim, 2, 0>;

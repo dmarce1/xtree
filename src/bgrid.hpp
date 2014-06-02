@@ -18,41 +18,24 @@ public:
 	using grid_type = grid<T, Dims, Bw>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
 private:
-	std::shared_ptr<const grid_type> local_ptr;
 	const dir_type<Ndim> dir;
 	int size;
+	std::shared_ptr<const grid_type> local_ptr;
 	std::vector<T> data;
-private:
-	const T& get(const index_type& i) const {
-		if (local_ptr) {
-			return (*local_ptr)[i];
-		} else {
-			int index = 0;
-			for (int d = Ndim - 1; d >= 0; d--) {
-				switch (dir[d]) {
-				case -1:
-					index *= Bw;
-					index += i[d] + Bw - Dims::get(d);
-					break;
-				case 0:
-					index *= Dims::get(d);
-					index += i[d];
-					break;
-				case +1:
-					index *= Bw;
-					index += i[d];
-					break;
-				}
-			}
-			return data[index];
-		}
-	}
 public:
-	bgrid() {}
+	bgrid() {
+	}
 	bgrid(const dir_type<Ndim>& _dir, const std::shared_ptr<const grid_type>& lptr) :
 			dir(_dir), local_ptr(lptr), data(0) {
 	}
 	virtual ~bgrid() {
+	}
+	bgrid(bgrid<T, Dims, Bw> && bg) :
+			dir(std::move(bg.dir)) {
+		size = bg.size;
+		data = std::move(bg.data);
+		local_ptr = std::move(local_ptr);
+		bg.local_ptr = nullptr;
 	}
 	template<typename Arc>
 	void load(Arc& ar, const int v) {
@@ -66,7 +49,7 @@ public:
 			}
 		}
 		data.resize(size);
-		data.load(ar,v);
+		data.load(ar, v);
 	}
 	template<typename Arc>
 	void save(Arc& ar, const int v) const {
@@ -93,6 +76,30 @@ public:
 			}
 		} else {
 			data.save(ar, v);
+		}
+	}
+	const T& get(const index_type& i) const {
+		if (local_ptr) {
+			return (*local_ptr)[i];
+		} else {
+			int index = 0;
+			for (int d = Ndim - 1; d >= 0; d--) {
+				switch (dir[d]) {
+				case -1:
+					index *= Bw;
+					index += i[d] + Bw - Dims::get(d);
+					break;
+				case 0:
+					index *= Dims::get(d);
+					index += i[d];
+					break;
+				case +1:
+					index *= Bw;
+					index += i[d];
+					break;
+				}
+			}
+			return data[index];
 		}
 	}
 };

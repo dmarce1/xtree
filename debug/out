@@ -1,0 +1,3 @@
+Building file: ../src/main.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 `pkg-config --cflags hpx_debug` -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"

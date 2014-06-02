@@ -16,36 +16,24 @@ using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 										
 
 #define XTREE_INSTANTIATE( MEMBER_CLASS, ... )																		\
 namespace xtree {																									\
+	typedef silo_output<__VA_ARGS__, 1> silo_output_type;   														\
 	typedef node<MEMBER_CLASS, __VA_ARGS__> node_type;   														\
 	typedef tree<MEMBER_CLASS, __VA_ARGS__> tree_type;   															\
 }																													\
-typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_get_new_node action_get_new_node_global;	\
-typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_get_max_level action_get_max_level_global;	\
-typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_get_terminal_future action_get_terminal_future_global;	\
-typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_lock_servlet action_lock_servlet_global;	\
-typedef xtree::tree<MEMBER_CLASS,__VA_ARGS__>::action_unlock_servlet action_unlock_servlet_global;	\
-HPX_REGISTER_PLAIN_ACTION(action_get_new_node_global);	\
-HPX_REGISTER_PLAIN_ACTION(action_get_max_level_global);	\
-HPX_REGISTER_PLAIN_ACTION(action_get_terminal_future_global);	\
-HPX_REGISTER_PLAIN_ACTION(action_lock_servlet_global);	\
-HPX_REGISTER_PLAIN_ACTION(action_unlock_servlet_global);	\
+HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::silo_output_type>, silo_output_type);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::node_type>, node_type);	\
 /**/
 
 
 #include <hpx/hpx_init.hpp>
-#include <hpx/lcos/local/counting_semaphore.hpp>
-#include <hpx/include/components.hpp>
 #include <hpx/lcos/local/dataflow.hpp>
-#include <hpx/lcos/local/mutex.hpp>
 #include <hpx/lcos/when_all.hpp>
 #include <hpx/lcos/wait_all.hpp>
 #include <hpx/runtime/actions/plain_action.hpp>
 #include <hpx/util/unwrapped.hpp>
 
 #include <boost/mpl/int.hpp>
-#include <boost/serialization/list.hpp>
 
 #include <silo.h>
 
@@ -58,6 +46,7 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include <vector>
 
 
+#include "load_balancer.hpp"
 #include "util.hpp"
 #include "vector.hpp"
 #include "indexer.hpp"
@@ -69,6 +58,7 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include "bgrid.hpp"
 #include "xgrid.hpp"
 #include "grid_pack.hpp"
+#include "silo_output.hpp"
 #include "node.hpp"
 #include "tree.hpp"
 

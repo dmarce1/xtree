@@ -12,13 +12,17 @@
 namespace xtree {
 
 template<typename T, int Ndim>
-class grid_base {
+class grid_base: public boost::noncopyable {
 public:
 	using index_type = vector<int, Ndim>;
+	grid_base() {
+	}
+	grid_base(grid_base&&) {
+	}
 	virtual ~grid_base() {
 	}
 protected:
-	template< typename Dims >
+	template<typename Dims>
 	static int vector_to_index(const index_type& i) {
 		int index = i[Ndim - 1];
 		for (int d = Ndim - 2; d >= 0; d--) {

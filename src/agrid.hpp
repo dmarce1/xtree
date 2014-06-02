@@ -13,6 +13,7 @@
 namespace xtree {
 template<typename T, typename Dims, int Bw>
 class agrid: public grid_base<T, Dims::dim()> {
+
 public:
 	static constexpr int Ndim = Dims::dim();
 	static constexpr int Abw = (Bw - 1) / 2 + 1;
@@ -21,40 +22,12 @@ public:
 	using this_dims = int_seq_over2<Dims>;
 	using index_type = typename grid_base<T, Ndim>::index_type;
 private:
-	std::shared_ptr<const grid_type> local_ptr;
-	const dir_type<Ndim> dir;
 	const child_index_type<Ndim> xi;
-	vector<int, Ndim> offset;
+	const dir_type<Ndim> dir;
 	int size;
+	std::shared_ptr<const grid_type> local_ptr;
 	std::vector<T> data;
-private:
-	const T& get(const index_type& i) const {
-		if (local_ptr) {
-			return (*local_ptr)[offset + i / 2];
-		} else {
-			int index = 0;
-			for (int d = Ndim - 1; d >= 0; d--) {
-				switch (dir[d]) {
-				case 0:
-					index *= this_dims::get(d);
-					index += i[d] / 2;
-					break;
-				case -1:
-					index *= Abw;
-					index += i[d] / 2 + Abw - this_dims::get(d);
-					break;
-				case +1:
-					index *= Abw;
-					index += i[d] / 2;
-					break;
-				default:
-					assert(false);
-					break;
-				}
-			}
-			return data[index];
-		}
-	}
+	vector<int, Ndim> offset;
 public:
 	agrid() {
 	}
@@ -69,6 +42,14 @@ public:
 		}
 	}
 	virtual ~agrid() {
+	}
+	agrid(agrid<T, Dims, Bw> && ag) :
+			dir(std::move(ag.dir), xi(std::move(ag.xi))) {
+		local_ptr = std::move(ag.local_ptr);
+		offset = std::move(ag.offset);
+		size = ag.size;
+		data = std::move(data);
+		ag.local_ptr = nullptr;
 	}
 	template<typename Arc>
 	void load(Arc& ar, const int v) {
@@ -112,6 +93,33 @@ public:
 			}
 		} else {
 			data.save(ar, v);
+		}
+	}
+	const T& get(const index_type& i) const {
+		if (local_ptr) {
+			return (*local_ptr)[offset + i / 2];
+		} else {
+			int index = 0;
+			for (int d = Ndim - 1; d >= 0; d--) {
+				switch (dir[d]) {
+				case 0:
+					index *= this_dims::get(d);
+					index += i[d] / 2;
+					break;
+				case -1:
+					index *= Abw;
+					index += i[d] / 2 + Abw - this_dims::get(d);
+					break;
+				case +1:
+					index *= Abw;
+					index += i[d] / 2;
+					break;
+				default:
+					assert(false);
+					break;
+				}
+			}
+			return data[index];
 		}
 	}
 };

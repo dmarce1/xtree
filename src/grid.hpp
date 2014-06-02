@@ -12,7 +12,7 @@
 
 namespace xtree {
 
-template<typename T, typename Dims, int Bw >
+template<typename T, typename Dims, int Bw>
 class grid: public grid_base<T, Dims::dim()> {
 	friend class bgrid<T, Dims, Bw> ;
 	friend class xgrid<T, Dims> ;
@@ -26,28 +26,7 @@ public:
 	using index_type = typename grid_base<T, Ndim>::index_type;
 	using type = T;
 	using dims_type = Dims;
-private:
-	std::array<T, Size> data;
-	std::array<std::shared_ptr<const base_type>, pow_<3, Ndim>::value> grid_selector;
-private:
-	T& get(const index_type& i) {
-		return data[base_type::template vector_to_index<Dims>(i)];
-	}
-	const T& get(const index_type& i) const {
-		return data[base_type::template vector_to_index<Dims>(i)];
-	}
-private:
-	grid() {
-		for (dir_type<Ndim> i; !i.end(); i++) {
-			grid_selector[i] = nullptr;
-		}
-		dir_type<Ndim> i;
-		for (int di = 0; di < Ndim; di++) {
-			i[di] = 0;
-		}
-	}
 public:
-
 	static std::shared_ptr<grid> create() {
 		std::allocator<grid> alloc;
 		std::shared_ptr < grid > ptr(new grid<T, Dims, Bw>);
@@ -57,6 +36,23 @@ public:
 		}
 		ptr->grid_selector[i] = ptr;
 		return ptr;
+	}
+
+private:
+	std::array<T, Size> data;
+	std::array<std::shared_ptr<const base_type>, pow_<3, Ndim>::value> grid_selector;
+public:
+	grid(grid<T, Dims, Bw> &&) = delete;
+	grid() {
+		for (dir_type<Ndim> i; !i.end(); i++) {
+			grid_selector[i] = nullptr;
+		}
+		dir_type<Ndim> i;
+		for (int di = 0; di < Ndim; di++) {
+			i[di] = 0;
+		}
+	}
+	virtual ~grid() {
 	}
 	T& operator[](const index_type& i) {
 		return get(i);
@@ -71,10 +67,14 @@ public:
 		}
 		return grid_selector[grid_index]->get(local_index);
 	}
+	T& get(const index_type& i) {
+		return data[base_type::template vector_to_index<Dims>(i)];
+	}
+	const T& get(const index_type& i) const {
+		return data[base_type::template vector_to_index<Dims>(i)];
+	}
 	void set_neighbor(const std::shared_ptr<const base_type>& n, dir_type<Ndim> dir) {
 		grid_selector[dir] = n;
-	}
-	virtual ~grid() {
 	}
 	void prolong(const xgrid<T, Dims>& x) {
 		for (grid_index<Ndim> i(Dims::to_vector() - 1); !i.end(); i++) {
