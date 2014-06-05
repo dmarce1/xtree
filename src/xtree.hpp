@@ -8,7 +8,9 @@
 #ifndef XTREE_HPP_
 #define XTREE_HPP_
 
+#include <hpx/hpx_init.hpp>
 #include "fwd.hpp"
+#include "container_math.hpp"
 
 #define XTREE_MAKE_ACTION( a, b ) 																					\
 using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 											\
@@ -16,7 +18,7 @@ using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 										
 
 #define XTREE_INSTANTIATE( MEMBER_CLASS, ... )																		\
 namespace xtree {																									\
-	typedef silo_output<__VA_ARGS__, 1> silo_output_type;   														\
+	typedef silo_output<__VA_ARGS__, 0> silo_output_type;   														\
 	typedef node<MEMBER_CLASS, __VA_ARGS__> node_type;   														\
 	typedef tree<MEMBER_CLASS, __VA_ARGS__> tree_type;   															\
 }																													\
@@ -26,7 +28,6 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 /**/
 
 
-#include <hpx/hpx_init.hpp>
 #include <hpx/lcos/local/dataflow.hpp>
 #include <hpx/lcos/when_all.hpp>
 #include <hpx/lcos/wait_all.hpp>
@@ -34,6 +35,7 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include <hpx/util/unwrapped.hpp>
 
 #include <boost/mpl/int.hpp>
+#include <boost/serialization/vector.hpp>
 
 #include <silo.h>
 
@@ -45,6 +47,17 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 #include <utility>
 #include <vector>
 
+namespace boost {
+namespace serialization {
+
+template<class Archive, class T, size_t N>
+void serialize(Archive & ar, std::array<T,N> & a, const unsigned int version)
+{
+  ar & boost::serialization::make_array(a.data(), a.size());
+}
+
+} // namespace serialization
+} // namespace boost
 
 #include "load_balancer.hpp"
 #include "util.hpp"

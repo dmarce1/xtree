@@ -4,7 +4,7 @@
  *  Created on: May 19, 2014
  *      Author: dmarce1
  */
-
+/*
 #ifndef VECTOR21_HPP_
 #define VECTOR21_HPP
 
@@ -117,6 +117,17 @@ public:
 			ar & (*this)[i];
 		}
 	}
+
+
+	template<typename U>
+	operator vector<U,N...>() {
+		vector<U, N...>  v;
+		for (int i = 0; i < Ndim; i++) {
+			v[i] = U((*this)[i]);
+		}
+		return v;
+	}
+
 };
 
 template<typename T>
@@ -199,9 +210,10 @@ public:
 		}
 		return p;
 	}
-
 };
 
-}
 
-#endif /* VECTOR_HPP_ */
+}
+#endif
+
+*/

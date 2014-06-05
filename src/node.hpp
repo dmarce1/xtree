@@ -26,11 +26,12 @@ public:
 	static constexpr int Nchild = pow_<2, Ndim>::value;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	static constexpr int Nniece = Nchild * Nneighbor;
+	using dims_type = typename Member::dims_type;
 	using base_type = hpx::components::managed_component_base<node<Member, Ndim>>;
-	using child_array_type =vector<hpx::id_type, Nchild>;
-	using niece_array_type = vector<vector<hpx::id_type, Nchild>, Nneighbor>;
-	using neighbor_notify_type = vector<std::pair<int, hpx::id_type>, Nneighbor>;
-	using neighbor_array_type = vector<hpx::id_type, Nneighbor>;
+	using child_array_type = std::array<hpx::id_type, Nchild>;
+	using niece_array_type = std::array<std::array<hpx::id_type, Nchild>, Nneighbor>;
+	using neighbor_notify_type = std::array<std::pair<int, hpx::id_type>, Nneighbor>;
+	using neighbor_array_type = std::array<hpx::id_type, Nneighbor>;
 private:
 	static bool child_is_niece_of(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
 		for (int i = 0; i < Ndim; i++) {
@@ -56,7 +57,6 @@ private:
 	neighbor_array_type neighbors;
 	std::shared_ptr<Member> data;
 	tree<Member, Ndim>* local_tree;
-
 private:
 	hpx::id_type get_niece(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
 		child_index_type<Ndim> nci;
@@ -81,7 +81,7 @@ public:
 	}
 	node(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors, tree<Member, Ndim>* ltree) :
 			local_tree(ltree) {
-		data = std::make_shared<Member >(*this);
+		data = std::make_shared < Member > (*this);
 		self = _loc;
 		flock = last_flock = hpx::make_ready_future();
 		neighbors = _neighbors;
@@ -126,7 +126,7 @@ public:
 
 		/* Allocate new nodes on localities */
 		auto fut1 = hpx::lcos::local::dataflow(hpx::util::unwrapped([this](void) {
-			vector<hpx::future<hpx::id_type>> futures(Nchild);
+			std::vector<hpx::future<hpx::id_type>> futures(Nchild);
 			for (child_index_type<Ndim> ci; !ci.end(); ci++) {
 				neighbor_array_type pack;
 				for( dir_type<Ndim> dir; !dir.end(); dir++ ) {
@@ -144,7 +144,7 @@ public:
 				children[ci] = vfut[ci].get();
 			}
 
-			vector<hpx::future<void>> futures(Nneighbor);
+			std::vector<hpx::future<void>> futures(Nneighbor);
 			for( dir_type<Ndim> si; !si.end(); si++) {
 				if( neighbors[si] != hpx::invalid_id ) {
 					futures[si] = hpx::async<action_notify_branch>(neighbors[si], si, children);
@@ -202,7 +202,7 @@ public:
 	hpx::future<void> notify_debranch(dir_type<Ndim> dir) {
 		hpx::future<void> ret_fut;
 		dir.flip();
-		nieces[dir] = std::vector<hpx::id_type>(Nneighbor, hpx::invalid_id);
+		std::fill(nieces[dir].begin(), nieces[dir].end(), hpx::invalid_id);
 		if (!is_leaf) {
 			std::vector<hpx::future<void>> futs(Nchild / 2);
 			int index = 0;

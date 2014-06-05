@@ -34,9 +34,9 @@ public:
 	void serialize(Archive& ar, const int v) {
 		assert(false);
 	}
-	hpx::future<hpx::id_type> increment_load();
+	hpx::future<int> increment_load();
 	void decrement_load();
-	hpx::id_type unlock_servlet(bool inc_cnt);
+	int unlock_servlet(bool inc_cnt);
 	hpx::future<std::pair<int, hpx::id_type>> lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining);
 	int get_load();
 	load_balancer* get_ptr();

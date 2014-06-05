@@ -17,22 +17,28 @@ public:
 	static constexpr int Nchild = 1 << Ndim;
 	struct zone {
 		std::vector<double> fields;
-		std::vector<double> position;
-		double span;
+		std::array<double, Ndim> position;
+		std::array<double, Ndim> span;
 		zone() :
-				fields(NFields), position(Ndim) {
+				fields(NFields) {
 		}
 		zone(const zone& z) :
-				fields(NFields), position(Ndim) {
+				fields(NFields) {
 			fields = z.fields;
 			position = z.position;
 			span = z.span;
 		}
 		zone(zone&& z) :
-				fields(NFields), position(Ndim) {
+				fields(NFields) {
 			fields = std::move(z.fields);
 			position = std::move(z.position);
 			span = std::move(z.span);
+		}
+		template<typename Archive>
+		void serialize(Archive& ar, const int v) {
+			ar & fields;
+			ar & position;
+			ar & span;
 		}
 	};
 	struct silo_zone {
@@ -70,11 +76,13 @@ public:
 	struct vertex_less_functor: std::binary_function<vertex, vertex, bool> {
 		bool operator()(const vertex& x, const vertex& y) const {
 			for (int i = 0; i < Ndim; i++) {
-				if (y[i] - x[i] < precision * 0.5) {
+				if (x[i] - y[i] > precision) {
 					return false;
+				} else if (x[i] - y[i] < -precision) {
+					return true;
 				}
 			}
-			return true;
+			return false;
 		}
 	};
 	using vertex_dir_type = std::set<vertex,vertex_less_functor>;
@@ -95,16 +103,6 @@ public:
 	}
 	virtual ~silo_output() {
 	}
-	bool all_received() const {
-		mutex0.lock();
-		for (int i = 0; i < received.size(); i++) {
-			if (!received[i]) {
-				return false;
-			}
-		}
-		mutex0.unlock();
-		return true;
-	}
 
 	void do_output() {
 		mutex0.lock();
@@ -116,24 +114,27 @@ public:
 		int shapecnt[1] = { nzones };
 		DBfile* db;
 		DBoptlist* olist;
+		std::vector<double> coord_vectors[Ndim];
+		std::string coordname_strs[Ndim];
 		double* coords[Ndim];
-		char* coordnames[Ndim];
+		const char* coordnames[Ndim];
 
 		for (int di = 0; di < Ndim; di++) {
-			coords[di] = new double[nnodes];
-			coordnames[di] = new char[2];
-			coordnames[di][0] = 'x' + char(di);
-			coordnames[di][1] = '\0';
+			coord_vectors[di].resize(nnodes);
+			coords[di] = coord_vectors[di].data();
+			coordname_strs[di] = ('x' + char(di));
+			coordnames[di] = coordname_strs[di].c_str();
 		}
 
 		for (auto ni = nodedir.begin(); ni != nodedir.end(); ni++) {
 			for (int di = 0; di < Ndim; di++) {
 				coords[di][ni->index] = (*ni)[di];
+				printf("%e\n", (*ni)[di]);
 			}
 		}
 		nodedir.clear();
 
-		int* zone_nodes = new int[zonedir.size() * Nchild];
+		std::vector<int> zone_nodes(zonedir.size() * Nchild);
 		int zni = 0;
 		for (auto zi = zonedir.begin(); zi != zonedir.end(); zi++) {
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
@@ -144,10 +145,10 @@ public:
 
 		olist = DBMakeOptlist(1);
 		db = DBCreate("X.silo", DB_CLOBBER, DB_LOCAL, "Euler Mesh", DB_PDB);
-		DBPutZonelist2(db, "zones", nzones, Ndim, zone_nodes, Nchild * nzones, 0, 0, 0, shapetype, shapesize, shapecnt, nshapes, olist);
-		DBPutUcdmesh(db, "mesh", Ndim, coordnames, reinterpret_cast<float **>(coords), nnodes, nzones, "zones", NULL, DB_DOUBLE, olist);
+		DBPutZonelist2(db, "zones", nzones, Ndim, zone_nodes.data(), Nchild * nzones, 0, 0, 0, shapetype, shapesize, shapecnt, nshapes, olist);
+		DBPutUcdmesh(db, "mesh", Ndim, const_cast<char**>(coordnames), reinterpret_cast<float **>(coords), nnodes, nzones, "zones", NULL, DB_DOUBLE, olist);
 
-		double* data = new double[nzones];
+		std::vector<double> data(nzones);
 		char fname[2];
 		fname[1] = '\0';
 		for (int fi = 0; fi < NFields; fi++) {
@@ -157,16 +158,11 @@ public:
 				i++;
 			}
 			fname[0] = '1' + char(fi);
-			DBPutUcdvar1(db, fname, "mesh", data, nzones, 0, 0, DB_DOUBLE, DB_ZONECENT, olist);
+			DBPutUcdvar1(db, fname, "mesh", data.data(), nzones, 0, 0, DB_DOUBLE, DB_ZONECENT, olist);
 		}
 
 		zonedir.clear();
 
-		delete[] zone_nodes;
-		for (int di = 0; di < Ndim; di++) {
-			delete[] coords[di];
-			delete[] coordnames[di];
-		}
 		DBClose(db);
 		mutex0.unlock();
 		reset();
@@ -175,27 +171,26 @@ public:
 	void reset() {
 		mutex0.lock();
 		current_index = 0;
-		for (int i = 0; i < received.size(); i++) {
-			received[i] = false;
-		}
+		std::fill(received.begin(), received.end(), false);
 		mutex0.unlock();
 	}
 
 	void send_zones_to_silo(int proc_num_from, std::vector<zone> zones) {
-		constexpr int vertex_order[8] = { 0, 1, 3, 2, 4, 5, 7, 6 };
+		const int vertex_order[8] = { 0, 1, 3, 2, 4, 5, 7, 6 };
 		const int sz = zones.size();
 		assert(!received[proc_num_from]);
 		for (int i = 0; i < sz; i++) {
 			silo_zone s;
 			int j;
 			s.fields = std::move(zones[i].fields);
-			for (int ci0; ci0 < Nchild; ci0++) {
+			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				vertex v;
-				child_index_type<Ndim> ci;
-				ci = vertex_order[ci0];
-				for (int k = 0; k < Nchild; k++) {
-					v[k] = zones[i].position[k] + double(2 * ci[k] - 1) * zones[i].span * 0.5;
+				int ci = vertex_order[ci0];
+				for (int k = 0; k < Ndim; k++) {
+					const double factor = (0.5 * double(2 * ((ci >> k) & 1) - 1));
+					v[k] = zones[i].position[k] + zones[i].span[k] * factor;
 				}
+				printf("%e %e %e\n", v[0], v[1], v[2]);
 				mutex0.lock();
 				auto iter = nodedir.find(v);
 				if (iter == nodedir.end()) {
@@ -207,7 +202,7 @@ public:
 					j = iter->index;
 				}
 				mutex0.unlock();
-				s.vertices[ci] = j;
+				s.vertices[ci0] = j;
 			}
 			mutex0.lock();
 			zonedir.push_back(std::move(s));
@@ -216,12 +211,12 @@ public:
 		mutex0.lock();
 		received[proc_num_from] = true;
 		mutex0.unlock();
-		if (all_received()) {
+		if (std::all_of(received.begin(), received.end(), [](bool b) {return b;})) {
 			hpx::apply([this]() {do_output();});
 		}
 
 	}
-	XTREE_MAKE_ACTION( action_send_zones_to_siloe, silo_output::send_zones_to_silo );
+	XTREE_MAKE_ACTION( action_send_zones_to_silo, silo_output::send_zones_to_silo );
 }
 ;
 

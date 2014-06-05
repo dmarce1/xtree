@@ -28,8 +28,7 @@ public:
 	using dims_type = Dims;
 public:
 	static std::shared_ptr<grid> create() {
-		std::allocator<grid> alloc;
-		std::shared_ptr < grid > ptr(new grid<T, Dims, Bw>);
+		auto ptr = std::make_shared<grid>();
 		dir_type<Ndim> i;
 		for (int di = 0; di < Ndim; di++) {
 			i[di] = 0;

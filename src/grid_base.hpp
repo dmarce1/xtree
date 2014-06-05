@@ -14,7 +14,7 @@ namespace xtree {
 template<typename T, int Ndim>
 class grid_base: public boost::noncopyable {
 public:
-	using index_type = vector<int, Ndim>;
+	using index_type = std::array<int, Ndim>;
 	grid_base() {
 	}
 	grid_base(grid_base&&) {

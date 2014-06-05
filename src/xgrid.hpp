@@ -24,7 +24,7 @@ private:
 	const child_index_type<Ndim> xtant;
 	const vector<int, Ndim> origin;
 	std::shared_ptr<const grid_type> parent;
-	std::unique_ptr<vector<T, Size>> data_ptr;
+	std::shared_ptr<vector<T, Size>> data_ptr;
 public:
 	xgrid() {
 	}
@@ -40,7 +40,7 @@ public:
 	}
 	template<typename Arc>
 	void load(Arc& ar, const int v) {
-		data_ptr = std::unique_ptr<vector<T, Size>>(new vector<T, Size>);
+		data_ptr = std::make_shared<vector<T, Size>>();
 		data_ptr->load(ar, v);
 	}
 	template<typename Arc>

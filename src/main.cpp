@@ -88,26 +88,42 @@ public:
 	mynode() = delete;
 	mynode(const xtree::node<mynode, 3>& nref) :
 			grid_pack_type(nref) {
-
 	}
-	grid_pack_type::descend_type<0> get( const xtree::location<Ndim>& ) {return grid_pack_type::descend_type<0>();}
+	struct refine_check {
+		bool operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>&) const {
+			if (_this->node_ref.get_level() < 2) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	};
+	template<typename T>
+	struct null_set {
+		void operator()(const std::shared_ptr<mynode>&, const xtree::location<Ndim>&, const T&) const {
+		}
+	};
 	virtual ~mynode() {
 	}
 };
-
 XTREE_INSTANTIATE(mynode, 3);
 
 template<int N>
 using descend_operation = std::tuple<
-		xtree::tree_type::operation<xtree::DESCEND,
-		grid_pack_type::descend_type<N>,
-		mynode::get_descend<N>,
-		mynode::set_descend<N>
-	>>;
+xtree::tree_type::operation<xtree::DESCEND,
+grid_pack_type::descend_type<N>,
+mynode::get_descend<N>,
+mynode::set_descend<N>
+>>;
+using refine_operation = std::tuple<xtree::tree_type::operation<xtree::REBRANCH,bool,mynode::refine_check,mynode::null_set<bool>>>;
 
 int hpx_main() {
 	hpx::id_type tree_gid = (hpx::new_<xtree::tree_type>(hpx::find_here())).get();
-	auto f = hpx::async<xtree::tree_type::action_execute_operators<descend_operation<0>>>(tree_gid);
-	f.get();
+	auto f0 = hpx::async<xtree::tree_type::action_place_root>(tree_gid);
+	f0.get();
+	auto f1 = hpx::async<xtree::tree_type::action_execute_operators<refine_operation>>(tree_gid);
+	f1.get();
+	auto f2 = hpx::async<xtree::tree_type::action_output>(tree_gid);
+	f2.get();
 	return hpx::finalize();
 }

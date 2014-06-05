@@ -14,11 +14,11 @@ template<int Ndim>
 class location {
 private:
 	int level;
-	vector<int, Ndim> loc;
+	std::array<int, Ndim> loc;
 public:
 	location() {
 		level = 0;
-		loc = 0;
+		std::fill(loc.begin(), loc.end(), 0);
 	}
 	virtual ~location() {
 	}
@@ -65,7 +65,7 @@ public:
 	void set_level(int i) {
 		level = i;
 	}
-	vector<int, Ndim> get_location() const {
+	std::array<int, Ndim> get_location() const {
 		return loc;
 	}
 	int get_location(int i) const {
@@ -75,16 +75,27 @@ public:
 		loc[d] += amount;
 		return *this;
 	}
-	void set_position(const vector<int, Ndim>& p) {
+	void set_location(const std::array<int, Ndim>& p) {
 		loc = p;
 	}
-	void set_position(int i, int j) {
+	void set_location(int i, int j) {
 		loc[i] = j;
+	}
+	std::array<double, Ndim> get_position() const {
+		std::array<double, Ndim> pos;
+		const double dx = get_dx();
+		for (int i = 0; i < Ndim; i++) {
+			pos[i] = loc[i] * dx;
+		}
+		return pos;
+	}
+	double get_dx() const {
+		return 1.0 / double(1 << level);
 	}
 	location get_parent() const {
 		location p = *this;
 		p.level--;
-		p.loc /= 2;
+		p.loc = p.loc / 2;
 		return p;
 	}
 	indexer<Ndim, 2> this_child_index() const {
@@ -97,7 +108,7 @@ public:
 	location get_child(const indexer<Ndim, 2>& ci) const {
 		location c = *this;
 		c.level++;
-		c.loc *= 2;
+		c.loc = c.loc * 2;
 		for (int i = 0; i < Ndim; i++) {
 			c.loc[i] += ci[i];
 		}

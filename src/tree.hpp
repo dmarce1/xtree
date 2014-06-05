@@ -16,10 +16,12 @@ public:
 	static constexpr int Nbranch = 2;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	const char* name = "tree";
+	const char* silo_name = "silo_output";
 private:
 	using base_type = hpx::components::managed_component_base<tree<Member,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<tree<Member,Ndim>>;
-	using silo_output_type = silo_output<Ndim, 1>;
+	using silo_output_type = silo_output<Ndim, 0>;
+	using dims_type = typename Member::dims_type;
 	hpx::id_type silo_gid;
 	hpx::id_type this_gid;
 	hpx::id_type root_node_gid;
@@ -28,7 +30,7 @@ private:
 	std::array<hpx::id_type, Nbranch> child_gids;
 	load_balancer* load_balancer_ptr;
 	hpx::id_type load_balancer_gid;
-	hpx::lcos::local::mutex dir_lock;
+	mutable hpx::lcos::local::mutex dir_lock;
 public:
 
 	tree() {
@@ -47,7 +49,8 @@ public:
 		id_cnt = localities.size();
 		this_gid = base_type::get_gid();
 		this_ptr = this;
-		hpx::register_id_with_basename(name, this_gid, my_id);
+		bool test = hpx::register_id_with_basename(name, this_gid, my_id).get();
+		assert(test);
 
 		for (int i = 0; i < Nbranch; i++) {
 			int j = my_id * Nbranch + i + 1;
@@ -64,16 +67,23 @@ public:
 		load_balancer_ptr = (hpx::async<load_balancer::action_get_ptr>(load_balancer_gid)).get();
 		if (my_id == 0) {
 			hpx::future < hpx::id_type > fut1;
-			hpx::future < hpx::id_type > fut2;
 			fut1 = hpx::new_ < silo_output_type > (hpx::find_here());
-			fut2 = new_node(location<Ndim>(), hpx::invalid_id, vector<hpx::id_type, Nneighbor>(hpx::invalid_id));
 			silo_gid = fut1.get();
-			root_node_gid = fut2.get();
+			hpx::register_id_with_basename(silo_name, silo_gid, 0).get();
 		} else {
-			silo_gid = hpx::invalid_id;
-			root_node_gid = hpx::invalid_id;
+			silo_gid = (hpx::find_id_from_basename(silo_name, 0)).get();
 		}
+		root_node_gid = hpx::invalid_id;
 	}
+
+	void place_root() {
+		hpx::future < hpx::id_type > fut2;
+		std::array < hpx::id_type, Nneighbor > neighbors;
+		std::fill(neighbors.begin(), neighbors.end(), hpx::invalid_id);
+		fut2 = new_node(location<Ndim>(), hpx::invalid_id, neighbors);
+		root_node_gid = fut2.get();
+	}
+
 	template<typename Archive>
 	void serialize(Archive& ar, const int v) {
 		assert(false);
@@ -82,8 +92,10 @@ public:
 	virtual ~tree() {
 	}
 
-	hpx::future<hpx::id_type> get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const vector<hpx::id_type, Nneighbor>& _neighbors) {
-		hpx::shared_future < hpx::id_type > id_future = hpx::new_<node<Member, Ndim>>(hpx::find_here(), _loc, _parent_id, std::move(_neighbors), this).share();
+	hpx::future<hpx::id_type> get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors) {
+		hpx::shared_future < hpx::id_type > id_future;
+		auto fut0 = hpx::new_<node<Member, Ndim>>(hpx::find_here(), _loc, _parent_id, std::move(_neighbors), this);
+		id_future = fut0.share();
 		auto fut1 = id_future.then(hpx::util::unwrapped([](hpx::id_type id) {
 			return hpx::async<typename node<Member,Ndim>::action_get_this>(id);
 		}));
@@ -96,10 +108,12 @@ public:
 		}));
 	}
 
-	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const vector<hpx::id_type, Nneighbor>& _neighbors) {
-		return load_balancer_ptr->increment_load().then(hpx::util::unwrapped([_loc,_parent_id,_neighbors](hpx::id_type id) {
-			return hpx::async<action_get_new_node>(id, _loc,_parent_id,_neighbors);
-		}));
+	XTREE_MAKE_ACTION( action_get_new_node, tree::get_new_node ); //
+
+	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors) {
+		auto proc_num = load_balancer_ptr->increment_load().get();
+		auto gid = hpx::find_id_from_basename(name, proc_num).get();
+		return hpx::async<action_get_new_node>(gid, _loc, _parent_id, _neighbors);
 	}
 
 	void delete_node(node<Member, Ndim>* ptr) {
@@ -259,7 +273,53 @@ public:
 	template<typename Op>
 	using action_execute = typename hpx::actions::make_action<decltype(&tree::execute<Op>), &tree::execute<Op>>::type;
 	template<typename Ops>
-	using action_execute_operators = typename hpx::actions::make_action<decltype(&tree::execute_operators<Ops>), &tree::execute_operators<Ops>>::type;XTREE_MAKE_ACTION( action_get_new_node, tree::get_new_node );XTREE_MAKE_ACTION( action_get_max_level, tree::get_max_level );XTREE_MAKE_ACTION( action_get_terminal_future, tree::get_terminal_future );
+	using action_execute_operators = typename hpx::actions::make_action<decltype(&tree::execute_operators<Ops>), &tree::execute_operators<Ops>>::type;
+
+	void output() const {
+		for (int i = 0; i < Nbranch; i++) {
+			if (child_gids[i] != hpx::invalid_id) {
+				hpx::apply<action_output>(child_gids[i]);
+			}
+		}
+		dir_lock.lock();
+		int leaf_cnt = 0;
+		for (auto i = nodes.begin(); i != nodes.end(); i++) {
+			if ((*i)->is_terminal()) {
+				leaf_cnt++;
+			}
+		}
+		printf( "Counted %i leaves\n", leaf_cnt);
+		std::vector<typename silo_output_type::zone> zones(leaf_cnt * dims_type::size());
+		std::array<double, Ndim> dx0;
+		for (int di = 0; di < Ndim; di++) {
+			dx0[di] = 1.0 / double(dims_type::get(di));
+		}
+		int counter = 0;
+		for (auto i = nodes.begin(), j = zones.begin(); i != nodes.end(); i++) {
+			if ((*i)->is_terminal()) {
+				const auto loc = (*i)->get_self();
+				const auto dx = dx0 * loc.get_dx();
+				auto corner = loc.get_position();
+				printf( "Corner = %e %e %e\n", corner[0], corner[1], corner[2]);
+				corner = corner + dx * 0.5;
+				for (grid_index<Ndim> gi(dims_type::to_vector() - 1); !gi.end(); gi++) {
+					j->position = corner + gi.to_double() * dx;
+					j->span = dx;
+					j++;
+					counter++;
+				}
+			}
+		}
+		assert( counter == zones.size() );
+		hpx::apply<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(), zones);
+		dir_lock.unlock();
+
+	}
+
+	XTREE_MAKE_ACTION( action_place_root, tree::place_root ); //
+	XTREE_MAKE_ACTION( action_output, tree::output ); //
+	XTREE_MAKE_ACTION( action_get_max_level, tree::get_max_level ); //
+	XTREE_MAKE_ACTION( action_get_terminal_future, tree::get_terminal_future );
 
 };
 

@@ -5,7 +5,6 @@
  *      Author: dmarce1
  */
 
-
 #include <hpx/config.hpp>
 #include <boost/serialization/list.hpp>
 #include "load_balancer.hpp"
@@ -16,20 +15,18 @@ load_balancer::load_balancer() {
 	assert(false);
 }
 
-
-
 load_balancer::load_balancer(component_type* back_ptr) :
-		base_type(back_ptr) {
+		base_type(back_ptr), mins_begin(INT_MAX, hpx::invalid_id), semaphore(1) {
 	static bool initialized = false;
 	assert(!initialized);
 	initialized = true;
 	int mask, neighbor_id, my_id, id_cnt;
 	auto localities = hpx::find_all_localities();
 	std::vector<hpx::future<hpx::id_type>> futures;
-
+	my_load = 0;
 	my_id = hpx::get_locality_id();
 	id_cnt = localities.size();
-	hpx::register_id_with_basename(name, base_type::get_gid(), my_id);
+	hpx::register_id_with_basename(name, base_type::get_gid(), my_id).get();
 	std::list<int> tmp;
 	tmp.push_front(my_id);
 	for (mask = 1; mask > 0; mask <<= 1) {
@@ -55,22 +52,20 @@ load_balancer::~load_balancer() {
 	// TODO Auto-generated destructor stub
 }
 
-
 void load_balancer::decrement_load() {
 	semaphore.wait();
 	my_load--;
 	semaphore.signal();
 }
 
-hpx::id_type load_balancer::unlock_servlet(bool inc_cnt) {
+int load_balancer::unlock_servlet(bool inc_cnt) {
 
 	if (inc_cnt) {
 		my_load++;
 	}
 	semaphore.signal();
-	return hpx::find_here();
+	return hpx::get_locality_id();
 }
-
 
 hpx::future<std::pair<int, hpx::id_type>> load_balancer::lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining) {
 	hpx::future<std::pair<int, hpx::id_type>> fut;
@@ -81,7 +76,7 @@ hpx::future<std::pair<int, hpx::id_type>> load_balancer::lock_servlet(std::pair<
 			hpx::apply<action_unlock_servlet>(best_mins.second, false);
 		}
 		best_mins.first = my_load;
-		best_mins.second = hpx::find_here();
+		best_mins.second = base_type::get_gid();
 	} else {
 		semaphore.signal();
 	}
@@ -97,7 +92,7 @@ hpx::future<std::pair<int, hpx::id_type>> load_balancer::lock_servlet(std::pair<
 	return fut;
 }
 
-hpx::future<hpx::id_type> load_balancer::increment_load() {
+hpx::future<int> load_balancer::increment_load() {
 
 	std::pair<int, hpx::id_type> mins;
 	mins.first = INT_MAX;
@@ -108,6 +103,7 @@ hpx::future<hpx::id_type> load_balancer::increment_load() {
 	}
 	auto fut1 = hpx::async<action_lock_servlet>(neighbors[0], mins_begin, remaining);
 	auto fut2 = fut1.then(hpx::util::unwrapped([](std::pair<int, hpx::id_type> mins) {
+		assert(mins.second != hpx::invalid_id);
 		return hpx::async<action_unlock_servlet>(mins.second, true);
 	}));
 	return fut2;
@@ -117,7 +113,6 @@ load_balancer* load_balancer::get_ptr() {
 	return this;
 }
 
-
 int load_balancer::get_load() {
 	int i;
 	semaphore.wait();
@@ -125,9 +120,6 @@ int load_balancer::get_load() {
 	semaphore.signal();
 	return i;
 }
-
-
-
 
 } /* namespace xtree */
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::load_balancer>, load_balancer);

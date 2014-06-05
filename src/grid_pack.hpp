@@ -12,6 +12,12 @@
 
 namespace xtree {
 
+
+
+
+
+
+
 template<typename GridBase, typename Tuple, int Iter = (std::tuple_size < Tuple > ::value - 1)>
 struct make_grid_pack {
 	using grid_array_type = std::array<std::shared_ptr<GridBase>, std::tuple_size<Tuple>::value>;
@@ -35,6 +41,7 @@ class grid_pack: public boost::noncopyable {
 public:
 	using grid_tuple = std::tuple<Params...>;
 	using first_grid_type = typename std::tuple_element<0,grid_tuple>::type;
+	using dims_type = typename first_grid_type::dims_type;
 	using grid_base_type = grid_base<typename first_grid_type::type, first_grid_type::Ndim>;
 	using grid_array_type = std::array<std::shared_ptr<grid_base_type>,sizeof...(Params)>;
 	template<int N>
@@ -48,6 +55,7 @@ public:
 	static constexpr int Ndim = first_grid_type::Ndim;
 private:
 	grid_array_type grids;
+protected:
 	const node<Derived, Ndim>& node_ref;
 public:
 	grid_pack<Derived, Params...>(grid_pack<Derived, Params...> && gp) {

@@ -41,8 +41,8 @@ struct int_seq {
 	static constexpr int size() {
 		return N * int_seq<Params...>::size();
 	}
-	static vector<int, dim()> to_vector() {
-		vector<int, dim()> v;
+	static std::array<int, dim()> to_vector() {
+		std::array<int, dim()> v;
 		for (int i = 0; i < dim(); i++) {
 			v[i] = get(i);
 		}
@@ -61,8 +61,8 @@ struct int_seq_over2 {
 	static constexpr int size() {
 		return Sequence::size() / (1 << dim());
 	}
-	static vector<int, dim()> to_vector() {
-		vector<int, dim()> v;
+	static std::array<int, dim()> to_vector() {
+		std::array<int, dim()> v;
 		for (int i = 0; i < dim(); i++) {
 			v[i] = get(i);
 		}
@@ -81,8 +81,8 @@ struct int_seq<N> {
 	static constexpr int size() {
 		return N;
 	}
-	static vector<int, dim()> to_vector() {
-		return vector<int, dim()>(N);
+	static std::array<int, dim()> to_vector() {
+		return std::array<int, dim()>(N);
 	}
 };
 
@@ -95,6 +95,16 @@ template<int Base>
 struct pow_<Base, 0> {
 	static constexpr int value = 1;
 };
+
+template<typename T>
+bool if_boolean_expression(T) {
+	return false;
+}
+
+template<>
+bool if_boolean_expression<bool>(bool) {
+	return true;
+}
 
 }
 
