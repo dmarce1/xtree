@@ -59,15 +59,15 @@ public:
 				switch (dir[d]) {
 				case -1:
 					min[d] = Dims::get(d) - Bw;
-					max[d] = Dims::get(d) - 1;
+					max[d] = Dims::get(d);
 					break;
 				case 0:
 					min[d] = 0;
-					max[d] = Dims::get(d) - 1;
+					max[d] = Dims::get(d);
 					break;
 				case +1:
 					min[d] = 0;
-					max[d] = Bw - 1;
+					max[d] = Bw;
 					break;
 				}
 			}

@@ -73,15 +73,15 @@ public:
 				switch (dir[d]) {
 				case 0:
 					min[d] = offset[d];
-					max[d] = this_dims::get(d) + offset[d] - 1;
+					max[d] = this_dims::get(d) + offset[d];
 					break;
 				case -1:
 					min[d] = this_dims::get(d) - Abw;
-					max[d] = this_dims::get(d) - 1;
+					max[d] = this_dims::get(d);
 					break;
 				case +1:
 					min[d] = 0;
-					max[d] = Abw - 1;
+					max[d] = Abw;
 					break;
 				default:
 					assert(false);

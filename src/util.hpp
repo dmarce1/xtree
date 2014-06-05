@@ -10,6 +10,10 @@
 
 namespace xtree {
 
+struct nullclass {
+};
+
+
 //template<typename U, typename T, int Ndim>
 //using get_type = T (U::*)(const location<Ndim>&);
 
@@ -27,7 +31,7 @@ enum bound_type {
 };
 
 enum op_type {
-	REBRANCH, ASCEND, DESCEND, EXCHANGE, AMR_ASCEND
+	REBRANCH, ASCEND, DESCEND, EXCHANGE, AMR_ASCEND, LOCAL
 };
 
 template<int N, int ...Params>
@@ -97,8 +101,8 @@ struct pow_<Base, 0> {
 };
 
 template<typename T>
-bool if_boolean_expression(T) {
-	return false;
+bool if_boolean_expression(T b) {
+	return b;
 }
 
 template<>

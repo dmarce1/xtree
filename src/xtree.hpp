@@ -74,6 +74,7 @@ void serialize(Archive & ar, std::array<T,N> & a, const unsigned int version)
 #include "silo_output.hpp"
 #include "node.hpp"
 #include "tree.hpp"
+#include "state.hpp"
 
 
 #endif /* XTREE_HPP_ */

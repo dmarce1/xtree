@@ -90,6 +90,9 @@ public:
 	}
 
 	virtual ~tree() {
+		if (root_node_gid != hpx::invalid_id) {
+			hpx::async<typename node<Member, Ndim>::action_debranch>(root_node_gid).get();
+		}
 	}
 
 	hpx::future<hpx::id_type> get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors) {
@@ -119,7 +122,9 @@ public:
 	void delete_node(node<Member, Ndim>* ptr) {
 		load_balancer_ptr->decrement_load();
 		dir_lock.lock();
-		nodes.erase(nodes.find(ptr));
+		auto iter = nodes.find(ptr);
+		assert(iter != nodes.end());
+		nodes.erase(iter);
 		dir_lock.unlock();
 	}
 
@@ -151,6 +156,7 @@ public:
 			}
 			break;
 		case op_type::EXCHANGE:
+		case op_type::LOCAL:
 		case op_type::REBRANCH:
 			this_ptr->execute<Op>(-1).get();
 			break;
@@ -242,7 +248,8 @@ public:
 		for (auto i = nodes.begin(); i != nodes.end(); i++) {
 			if (level == -1 || ((*i)->get_level() == level)) {
 				rc = true;
-				(*i)->template setup_op_dataflow<Op>();
+				typename node<Member,Ndim>::template setup_op_dataflow<Op> functor;
+				functor(*(*i));
 			}
 		}
 		return when_all(futures).then(hpx::util::unwrapped([rc](std::vector<hpx::future<bool>> futures) {
@@ -259,7 +266,7 @@ public:
 		}));
 	}
 
-	template<op_type Op, typename T, typename Get, typename Set>
+	template<op_type Op, typename T, typename Get, typename Set=nullclass >
 	struct operation {
 		static constexpr op_type op = Op;
 		const Get get;
@@ -288,7 +295,6 @@ public:
 				leaf_cnt++;
 			}
 		}
-		printf( "Counted %i leaves\n", leaf_cnt);
 		std::vector<typename silo_output_type::zone> zones(leaf_cnt * dims_type::size());
 		std::array<double, Ndim> dx0;
 		for (int di = 0; di < Ndim; di++) {
@@ -300,9 +306,8 @@ public:
 				const auto loc = (*i)->get_self();
 				const auto dx = dx0 * loc.get_dx();
 				auto corner = loc.get_position();
-				printf( "Corner = %e %e %e\n", corner[0], corner[1], corner[2]);
 				corner = corner + dx * 0.5;
-				for (grid_index<Ndim> gi(dims_type::to_vector() - 1); !gi.end(); gi++) {
+				for (grid_index<Ndim> gi(dims_type::to_vector()); !gi.end(); gi++) {
 					j->position = corner + gi.to_double() * dx;
 					j->span = dx;
 					j++;
@@ -310,7 +315,7 @@ public:
 				}
 			}
 		}
-		assert( counter == zones.size() );
+		assert(counter == zones.size());
 		hpx::apply<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(), zones);
 		dir_lock.unlock();
 

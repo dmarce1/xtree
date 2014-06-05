@@ -16,6 +16,8 @@ struct int_seq;
 template<int, int>
 class silo_output;
 
+struct nullclass;
+
 template<typename>
 struct int_seq_over2;
 

@@ -129,7 +129,6 @@ public:
 		for (auto ni = nodedir.begin(); ni != nodedir.end(); ni++) {
 			for (int di = 0; di < Ndim; di++) {
 				coords[di][ni->index] = (*ni)[di];
-				printf("%e\n", (*ni)[di]);
 			}
 		}
 		nodedir.clear();
@@ -190,7 +189,6 @@ public:
 					const double factor = (0.5 * double(2 * ((ci >> k) & 1) - 1));
 					v[k] = zones[i].position[k] + zones[i].span[k] * factor;
 				}
-				printf("%e %e %e\n", v[0], v[1], v[2]);
 				mutex0.lock();
 				auto iter = nodedir.find(v);
 				if (iter == nodedir.end()) {

@@ -53,9 +53,8 @@ public:
 	template<int N>
 	using descend_type = vector<typename grid_type<N>::type, grid_type<N>::Size / grid_type<N>::Nchild>;
 	static constexpr int Ndim = first_grid_type::Ndim;
-private:
-	grid_array_type grids;
 protected:
+	grid_array_type grids;
 	const node<Derived, Ndim>& node_ref;
 public:
 	grid_pack<Derived, Params...>(grid_pack<Derived, Params...> && gp) {

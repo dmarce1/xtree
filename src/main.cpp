@@ -6,88 +6,28 @@
  */
 
 #include "xtree.hpp"
-/*
- class IntegrationTree;
 
- XTREE_INSTANTIATE(IntegrationTree, 1);
-
- class IntegrationTree {
- private:
- std::pair<double, double> this_range;
- double this_sum;
- const xtree::node<IntegrationTree, 1>* node_ptr;
- public:
- IntegrationTree(const xtree::node<IntegrationTree, 1>* ptr) {
- node_ptr = ptr;
- this_range.first = 0.0;
- this_range.second = 1.0;
- this_sum = 0.0;
- }
- double func(double x) {
- return x * x;
- }
- void setter_a(xtree::location<1> requester, std::pair<double, double> range) {
- //	printf("calling setter_a\n");
- this_range = range;
- if (node_ptr->is_terminal()) {
- auto mid = (range.first + range.second) * 0.5;
- this_sum = (func(range.first) + 4.0 * func(mid) + func(range.second)) * (range.second - range.first) * (1.0 / 6.0);
- }
- }
-
- std::pair<double, double> getter_a(xtree::location<1> requester) {
- //	printf("calling getter_a\n");
- std::pair<double, double> range;
- if (requester.this_child_index() == 0) {
- range.first = this_range.first;
- range.second = (this_range.first + this_range.second) * 0.5;
- } else {
- range.first = (this_range.first + this_range.second) * 0.5;
- range.second = this_range.second;
- }
- return range;
- }
-
- void setter_d(xtree::location<1> requester, double sum) {
- //	printf("calling setter_d\n");
- this_sum += sum;
- if (node_ptr->get_level() == 0) {
- printf("%e\n", this_sum);
- }
- }
-
- bool getter_refine(xtree::location<1> self) {
- //	printf("getter_refine\n");
- if (self.get_level() < 10) {
- return true;
- } else {
- return false;
- }
- }
-
- double getter_d(xtree::location<1> requester) {
- //	printf("calling getter_d\n");
- return this_sum;
- }
-
- int exchange_test1() {
- return 1;
- }
- void exchange_test2(int) {
- }
- };*/
-
-//using namespace xtree;
 class mynode;
-typedef xtree::grid<double, xtree::int_seq<8, 8, 8>, 1> grid_type1;
-//typedef xtree::grid<int, xtree::int_seq<8, 8, 8>, 2> grid_type2;
+typedef xtree::grid<xtree::state<3>, xtree::int_seq<8, 8, 8>, 1> grid_type1;
 typedef xtree::grid_pack<mynode, grid_type1> grid_pack_type;
 
 class mynode: public grid_pack_type {
 public:
+	using dims_type = grid_type1::dims_type;
+	static constexpr int Ndim = dims_type::dim();
+private:
+	std::array<double, Ndim> dx;
+	grid_type1& Uc;
+	double this_dtmin;
+	double t;
+public:
 	mynode() = delete;
 	mynode(const xtree::node<mynode, 3>& nref) :
-			grid_pack_type(nref) {
+			grid_pack_type(nref), Uc(*std::static_pointer_cast < grid_type1 > (grid_pack_type::grids[0])) {
+		const double dx0 = nref.get_self().get_dx();
+		for (int di = 0; di < Ndim; di++) {
+			dx[di] = dx0 / dims_type::get(di);
+		}
 	}
 	struct refine_check {
 		bool operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>&) const {
@@ -98,32 +38,123 @@ public:
 			}
 		}
 	};
-	template<typename T>
 	struct null_set {
-		void operator()(const std::shared_ptr<mynode>&, const xtree::location<Ndim>&, const T&) const {
+		void operator()(const std::shared_ptr<mynode>&, const xtree::location<Ndim>&) const {
 		}
 	};
 	virtual ~mynode() {
 	}
-};
+	struct local_operation {
+		void operator()(const std::shared_ptr<mynode>&, const xtree::location<Ndim>& self) const {
+			printf("Local operation\n");
+		}
+	};
+	struct initialize_op {
+		void operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>& self) const {
+			_this->this_dtmin = std::numeric_limits<double>::max();
+		}
+	};
+
+	struct initialize_at_t0_op {
+		void operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>&) const {
+			_this->initialize_at_t0();
+		}
+	};
+
+	struct cfl_descend_get_op {
+		double operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>& self) const {
+			_this->this_dtmin = std::min(0.4 / _this->get_maxdtinv(), _this->this_dtmin);
+			printf("descend:get %e\n", _this->this_dtmin);
+			return _this->this_dtmin;
+		}
+	};
+	struct cfl_descend_set_op {
+		void operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>&, double mindt) const {
+			_this->this_dtmin = std::min(_this->this_dtmin, mindt);
+			printf("descend:set %e\n", _this->this_dtmin);
+		}
+	};
+
+	struct cfl_ascend_get_op {
+		double operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>&) const {
+			printf("ascend:get %e\n", _this->this_dtmin);
+			return _this->this_dtmin;
+		}
+	};
+	struct cfl_ascend_set_op {
+		void operator()(const std::shared_ptr<mynode>& _this, const xtree::location<Ndim>&, double mindt) const {
+			printf("ascend:set %e\n", _this->this_dtmin);
+			_this->this_dtmin = std::min(_this->this_dtmin, mindt);
+		}
+	};
+
+	friend class initialize_op;
+	friend class initialize_at_t0_op;
+	friend class cfl_descend_get_op;
+	friend class cfl_descend_set_op;
+	friend class cfl_ascend_get_op;
+	friend class cfl_ascend_set_op;
+
+	double get_maxdtinv() const {
+		double max_dtinv = 0.0;
+		for (xtree::grid_index<Ndim> gi(dims_type::to_vector()); !gi.end(); gi++) {
+			for (int di = 0; di < Ndim; di++) {
+				max_dtinv = std::max(max_dtinv, Uc[gi].get_signal_speed(di) / dx[di]);
+			}
+		}
+		return max_dtinv;
+	}
+
+	std::array<double, Ndim> get_position(xtree::grid_index<Ndim>& gi) const {
+		return node_ref.get_self().get_position() + dx * (gi.to_double() + 0.5);
+	}
+
+	double get_position(const xtree::grid_index<Ndim>& gi, int d) const {
+		return node_ref.get_self().get_position()[d] + dx[d] * (double(gi[d]) + 0.5);
+	}
+
+	void initialize_at_t0() {
+		printf("Computing CFL\n");
+		t = 0.0;
+		for (xtree::grid_index<Ndim> gi(dims_type::to_vector()); !gi.end(); gi++) {
+			for (int di = 0; di < Ndim; di++) {
+				Uc[gi].set_momentum(di, 0.0);
+			}
+			if (get_position(gi, 0) > 0.5) {
+				Uc[gi].set_density(1.0);
+				Uc[gi].set_energy(2.5);
+			} else {
+				Uc[gi].set_density(1.0e-1);
+				Uc[gi].set_energy(1.25e-1);
+			}
+		}
+	}
+
+}
+;
 XTREE_INSTANTIATE(mynode, 3);
 
-template<int N>
-using descend_operation = std::tuple<
-xtree::tree_type::operation<xtree::DESCEND,
-grid_pack_type::descend_type<N>,
-mynode::get_descend<N>,
-mynode::set_descend<N>
->>;
-using refine_operation = std::tuple<xtree::tree_type::operation<xtree::REBRANCH,bool,mynode::refine_check,mynode::null_set<bool>>>;
+using init_t0_operation = xtree::tree_type::operation<xtree::LOCAL , void, mynode::initialize_at_t0_op>;
+using init_operation = xtree::tree_type::operation<xtree::LOCAL , void, mynode::initialize_op>;
+using cfl_descend_operation = xtree::tree_type::operation<xtree::DESCEND, double, mynode::cfl_descend_get_op, mynode::cfl_descend_set_op>;
+using cfl_ascend_operation = xtree::tree_type::operation<xtree::ASCEND , double, mynode::cfl_ascend_get_op, mynode::cfl_ascend_set_op>;
+
+using startup_operation = std::tuple<init_t0_operation >;
+using hydro_step_operation = std::tuple<init_operation, cfl_descend_operation, cfl_ascend_operation >;
+using refine_operation = std::tuple<xtree::tree_type::operation<xtree::REBRANCH,bool,mynode::refine_check>>;
 
 int hpx_main() {
+
 	hpx::id_type tree_gid = (hpx::new_<xtree::tree_type>(hpx::find_here())).get();
 	auto f0 = hpx::async<xtree::tree_type::action_place_root>(tree_gid);
 	f0.get();
 	auto f1 = hpx::async<xtree::tree_type::action_execute_operators<refine_operation>>(tree_gid);
 	f1.get();
+	auto f4 = hpx::async<xtree::tree_type::action_execute_operators<startup_operation>>(tree_gid);
+	f4.get();
 	auto f2 = hpx::async<xtree::tree_type::action_output>(tree_gid);
 	f2.get();
+	auto f3 = hpx::async<xtree::tree_type::action_execute_operators<hydro_step_operation>>(tree_gid);
+	f3.get();
 	return hpx::finalize();
 }

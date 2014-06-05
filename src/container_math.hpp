@@ -8,7 +8,6 @@
 #ifndef CONTAINER_MATH_HPP_
 #define CONTAINER_MATH_HPP_
 
-namespace xtree {
 
 template<typename T, std::size_t ...Size, template<typename, std::size_t...> class Container, typename U>
 Container<T, Size...> operator*(const Container<T, Size...>& a, const U& b) {
@@ -82,6 +81,5 @@ Container<T, Size...> operator-(const Container<T, Size...>& a,const Container<T
 	return c;
 }
 
-}
 
 #endif /* CONTAINER_MATH_HPP_ */

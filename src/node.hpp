@@ -10,6 +10,9 @@
 
 namespace xtree {
 
+template<typename, int, typename, op_type>
+class ___setup_op_dataflow;
+
 template<int Ndim>
 class node_base {
 public:
@@ -102,7 +105,9 @@ public:
 		if (!is_leaf) {
 			debranch().get();
 		}
-		local_tree->delete_node(this);
+		if (get_level() != 0) {
+			local_tree->delete_node(this);
+		}
 	}
 
 	template<typename Arc>
@@ -162,18 +167,29 @@ public:
 
 	hpx::future<void> debranch() {
 		is_leaf = true;
+		std::vector<hpx::future<void>> nfutures(Nneighbor);
+		std::vector<hpx::future<void>> cfutures(Nchild);
 		for (child_index_type<Ndim> ci; !ci.end(); ci++) {
-			children[ci] = hpx::invalid_id;
-		}
-		std::vector<hpx::future<void>> futures(Nneighbor);
-		for (dir_type<Ndim> dir; !dir.end(); dir++) {
-			if (neighbors[dir] != hpx::invalid_id) {
-				futures[dir] = hpx::async<action_notify_debranch>(neighbors[dir], dir);
+			if (children[ci] != hpx::invalid_id) {
+				cfutures[ci] = hpx::async<action_debranch>(children[ci]);
 			} else {
-				futures[dir] = hpx::make_ready_future();
+				cfutures[ci] = hpx::make_ready_future();
 			}
 		}
-		return when_all(std::move(futures));
+		for (dir_type<Ndim> dir; !dir.end(); dir++) {
+			if (neighbors[dir] != hpx::invalid_id) {
+				nfutures[dir] = hpx::async<action_notify_debranch>(neighbors[dir], dir);
+			} else {
+				nfutures[dir] = hpx::make_ready_future();
+			}
+		}
+		auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
+			for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+				children[ci] = hpx::invalid_id;
+			}
+		}));
+		fut1.get();
+		return when_all(nfutures);
 	}
 	int get_level() const {
 		return self.get_level();
@@ -249,82 +265,11 @@ public:
 		return false;
 	}
 
+	template<typename, int, typename, op_type>
+	friend class ___setup_op_dataflow;
+
 	template<typename Op>
-	void setup_op_dataflow() {
-		using action = action_get_op_data<Op>;
-		hpx::shared_future<void> future;
-		std::vector<hpx::shared_future<void>> futures;
-		switch (Op::op) {
-		case AMR_ASCEND:
-			if ((parent != hpx::invalid_id) && this->has_amr_boundary()) {
-				auto fut = hpx::async<action>(parent, self);
-				future = fut.then(hpx::util::unwrapped([this](typename Op::type arg) {
-					Op op;
-					op.set( data, self.get_parent(), arg);
-				}));
-			} else {
-				future = hpx::make_ready_future();
-			}
-			break;
-		case ASCEND:
-			if (parent != hpx::invalid_id) {
-				auto fut = hpx::async<action>(parent, self);
-				future = fut.then(hpx::util::unwrapped([this](typename Op::type arg) {
-					Op op;
-					op.set( data, self.get_parent(), arg);
-				}));
-			} else {
-				future = hpx::make_ready_future();
-			}
-			break;
-		case DESCEND:
-			if (!is_leaf) {
-				futures.resize(Nchild);
-				for (child_index_type<Ndim> ci; !ci.end(); ci++) {
-					auto fut = hpx::async<action>(children[ci], self);
-					futures[ci] = fut.then(hpx::util::unwrapped([this,ci](typename Op::type arg) {
-						Op op;
-						op.set( data, self.get_child(ci),arg);
-					}));
-				}
-			} else {
-				futures.resize(1);
-				futures[0] = hpx::make_ready_future();
-			}
-			future = when_all(futures).share();
-			break;
-		case EXCHANGE:
-			futures.resize(Nneighbor);
-			for (dir_type<Ndim> dir; !dir.end(); dir++) {
-				if (neighbors[dir] != hpx::invalid_id) {
-					auto fut = hpx::async<action>(children[dir], self);
-					futures[dir] = fut.then(hpx::util::unwrapped([this,dir](typename Op::type arg) {
-						Op op;
-						op.set( data, self.get_neighbor(dir),arg);
-					}));
-				} else {
-					futures[dir] = hpx::make_ready_future();
-				}
-			}
-			future = when_all(futures).share();
-			break;
-		case REBRANCH:
-			if (is_leaf) {
-				Op op;
-				if (if_boolean_expression(op.get(data, self))) {
-					future = this->branch().share();
-				} else {
-					this->debranch();
-					future = hpx::make_ready_future().share();
-				}
-			} else {
-				future = hpx::make_ready_future().share();
-			}
-			break;
-		}
-		last_flock = flock;
-		flock = when_all(future, last_flock).share();
-	}
+	using setup_op_dataflow = ___setup_op_dataflow<Member,Ndim,Op,Op::op>;
 
 	hpx::shared_future<void> get_last_future() {
 		return flock;
@@ -340,6 +285,8 @@ public:
 	template<typename Op>
 	using action_get_op_data = typename hpx::actions::make_action<decltype(&node<Member,Ndim>::get_op_data<Op>), &node<Member,Ndim>::get_op_data<Op>>;
 
+	XTREE_MAKE_ACTION(action_debranch, node::debranch);
+
 	XTREE_MAKE_ACTION(action_get_this, node::get_this);
 
 	XTREE_MAKE_ACTION(action_notify_branch, node::notify_branch);
@@ -350,6 +297,106 @@ public:
 
 }
 ;
+
+template<typename Member, int Ndim, typename Op, op_type Optype>
+struct ___setup_op_dataflow {
+	void operator()(node<Member, Ndim>& node_ref) const {
+		using action = typename node<Member, Ndim>::template action_get_op_data<Op>;
+		hpx::shared_future<void> future;
+		std::vector<hpx::shared_future<void>> futures;
+		switch (Optype) {
+		case AMR_ASCEND:
+			if ((node_ref.parent != hpx::invalid_id) && node_ref.has_amr_boundary()) {
+				auto fut = hpx::async<action>(node_ref.parent, node_ref.self);
+				future = fut.then(hpx::util::unwrapped([&node_ref](typename Op::type arg) {
+					Op op;
+					op.set( node_ref.data, node_ref.self.get_parent(), arg);
+				}));
+			} else {
+				future = hpx::make_ready_future();
+			}
+			break;
+		case ASCEND:
+			if (node_ref.parent != hpx::invalid_id) {
+				auto fut = hpx::async<action>(node_ref.parent, node_ref.self);
+				future = fut.then(hpx::util::unwrapped([&node_ref](typename Op::type arg) {
+					Op op;
+					op.set( node_ref.data, node_ref.self.get_parent(), arg);
+				}));
+			} else {
+				future = hpx::make_ready_future();
+			}
+			break;
+		case DESCEND:
+			if (!node_ref.is_leaf) {
+				futures.resize(node_ref.Nchild);
+				for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+					auto fut = hpx::async<action>(node_ref.children[ci], node_ref.self);
+					futures[ci] = fut.then(hpx::util::unwrapped([&](typename Op::type arg) {
+						Op op;
+						op.set( node_ref.data, node_ref.self.get_child(ci),arg);
+					}));
+				}
+			} else {
+				futures.resize(1);
+				futures[0] = hpx::make_ready_future();
+			}
+			future = when_all(futures).share();
+			break;
+		case EXCHANGE:
+			futures.resize(node_ref.Nneighbor);
+			for (dir_type<Ndim> dir; !dir.end(); dir++) {
+				if (node_ref.neighbors[dir] != hpx::invalid_id) {
+					auto fut = hpx::async<action>(node_ref.children[dir], node_ref.self);
+					futures[dir] = fut.then(hpx::util::unwrapped([&node_ref,dir](typename Op::type arg) {
+						Op op;
+						op.set( node_ref.data, node_ref.self.get_neighbor(dir),arg);
+					}));
+				} else {
+					futures[dir] = hpx::make_ready_future();
+				}
+			}
+			future = when_all(futures).share();
+			break;
+		}
+		node_ref.last_flock = node_ref.flock;
+		node_ref.flock = when_all(future, node_ref.last_flock).share();
+	}
+};
+
+template<typename Member, int Ndim, typename Op>
+struct ___setup_op_dataflow<Member, Ndim, Op, op_type::REBRANCH> {
+	void operator()(node<Member, Ndim>& node_ref) const {
+		using action = typename node<Member, Ndim>::template action_get_op_data<Op>;
+		hpx::shared_future<void> future;
+		if (node_ref.is_leaf) {
+			Op op;
+			if (op.get(node_ref.data, node_ref.self)) {
+				future = node_ref.branch().share();
+			} else {
+				node_ref.debranch();
+				future = hpx::make_ready_future().share();
+			}
+		} else {
+			future = hpx::make_ready_future().share();
+		}
+		node_ref.last_flock = node_ref.flock;
+		node_ref.flock = when_all(future, node_ref.last_flock).share();
+	}
+};
+
+template<typename Member, int Ndim, typename Op>
+struct ___setup_op_dataflow<Member, Ndim, Op, op_type::LOCAL> {
+	void operator()(node<Member, Ndim>& node_ref) const {
+		hpx::shared_future<void> future = (node_ref.flock).then(hpx::util::unwrapped([&]() {
+			Op op;
+			op.get(node_ref.data, node_ref.self);
+		}));
+		node_ref.last_flock = node_ref.flock;
+		node_ref.flock = when_all(future, node_ref.last_flock).share();
+	}
+
+};
 
 }
 

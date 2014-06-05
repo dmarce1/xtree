@@ -39,7 +39,7 @@ public:
 	}
 	void operator++() {
 		int i = 0;
-		while (((*this)[i] == max[i]) && (i != Ndim - 1)) {
+		while (((*this)[i] == max[i]-1) && (i != Ndim - 1)) {
 			(*this)[i] = min[i];
 			i++;
 		}
@@ -54,7 +54,7 @@ public:
 				return false;
 			}
 		}
-		return bool((*this)[Ndim - 1] == max[Ndim - 1] + 1);
+		return bool((*this)[Ndim - 1] == max[Ndim - 1]);
 	}
 };
 }

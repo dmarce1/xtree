@@ -46,7 +46,7 @@ public:
 	template<typename Arc>
 	void save(Arc& ar, const int v) const {
 		if (parent) {
-			for (grid_index<Ndim> ci(Dims::to_vector() - 1); !ci.end(); ++ci) {
+			for (grid_index<Ndim> ci(Dims::to_vector()); !ci.end(); ++ci) {
 				ar & (*this)[ci];
 			}
 		} else {

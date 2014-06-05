@@ -76,7 +76,7 @@ public:
 		grid_selector[dir] = n;
 	}
 	void prolong(const xgrid<T, Dims>& x) {
-		for (grid_index<Ndim> i(Dims::to_vector() - 1); !i.end(); i++) {
+		for (grid_index<Ndim> i(Dims::to_vector()); !i.end(); i++) {
 			(*this)[i] = x[i / 2];
 		}
 	}
@@ -84,7 +84,7 @@ public:
 		constexpr T factor = T(1) / T(Nchild);
 		using this_dims = int_seq_over2<Dims>;
 		vector<T, Size / Nchild> stream(T(0));
-		const vector<int, Ndim> this_max = this_dims::to_vector() - 1;
+		const vector<int, Ndim> this_max = this_dims::to_vector();
 		for (grid_index<Ndim> ci(this_max); !ci.end(); ci++) {
 			for (child_index_type<Ndim> xi; !xi.end(); xi++) {
 				const vector<int, Ndim> fi = ci * 2 + xi.to_vector();
@@ -95,7 +95,7 @@ public:
 	}
 	void restrict_from_stream(const child_index_type<Ndim>& xi, const vector<T, Size / Nchild>& stream) {
 		const vector<int, Ndim> this_min = (xi.to_vector() * Dims::to_vector()) / 2;
-		const vector<int, Ndim> this_max = this_min + (Dims::to_vector() / 2) - 1;
+		const vector<int, Ndim> this_max = this_min + (Dims::to_vector() / 2);
 		int j = 0;
 		for (grid_index<Ndim> ci(this_min, this_max); !ci.end(); ci++) {
 			(*this)[ci] = stream[j];
