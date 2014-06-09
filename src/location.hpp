@@ -36,7 +36,7 @@ public:
 		ar & level;
 		ar & loc;
 	}
-	dir_type<Ndim> relative_direction_to(const location<Ndim>& loc2) {
+	dir_type<Ndim> relative_direction_to(const location<Ndim>& loc2) const {
 		assert(loc2.level == level);
 		dir_type<Ndim> dir;
 		for (int d = 0; d < Ndim; d++) {

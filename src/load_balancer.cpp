@@ -120,6 +120,6 @@ int load_balancer::get_load() {
 	semaphore.signal();
 	return i;
 }
-
 } /* namespace xtree */
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::load_balancer>, load_balancer);
+

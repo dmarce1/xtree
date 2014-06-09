@@ -16,9 +16,7 @@ struct int_seq;
 template<int, int>
 class silo_output;
 
-struct nullclass;
-
-template<typename>
+template<typename >
 struct int_seq_over2;
 
 template<int, int, int>
@@ -38,27 +36,6 @@ class tree;
 
 template<int, int>
 struct pow_;
-
-template<typename, int...>
-class vector;
-
-template<int>
-class grid_index;
-
-template<typename, int>
-class grid_base;
-
-template<typename, typename, int>
-class grid;
-
-template<typename, typename, int>
-class agrid;
-
-template<typename, typename, int>
-class bgrid;
-
-template<typename, typename>
-class xgrid;
 
 
 template<typename T>

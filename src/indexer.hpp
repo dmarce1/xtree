@@ -83,8 +83,8 @@ public:
 		}
 		return *this;
 	}
-	vector<int, Ndim> to_vector() const {
-		vector<int, Ndim> v;
+	std::array<int, Ndim> to_vector() const {
+		std::array<int, Ndim> v;
 		for (int di = 0; di < Ndim; di++) {
 			v[di] = value[di];
 		}

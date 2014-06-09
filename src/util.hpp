@@ -13,7 +13,6 @@ namespace xtree {
 struct nullclass {
 };
 
-
 //template<typename U, typename T, int Ndim>
 //using get_type = T (U::*)(const location<Ndim>&);
 
@@ -34,6 +33,11 @@ enum op_type {
 	REBRANCH, ASCEND, DESCEND, EXCHANGE, AMR_ASCEND, LOCAL
 };
 
+template<int N>
+struct int2type {
+	static constexpr int value = N;
+};
+
 template<int N, int ...Params>
 struct int_seq {
 	static constexpr int dim() {
@@ -44,6 +48,26 @@ struct int_seq {
 	}
 	static constexpr int size() {
 		return N * int_seq<Params...>::size();
+	}
+	static std::array<int, dim()> to_vector() {
+		std::array<int, dim()> v;
+		for (int i = 0; i < dim(); i++) {
+			v[i] = get(i);
+		}
+		return v;
+	}
+};
+
+template<typename Sequence, int Incdim>
+struct int_seq_plus_one {
+	static constexpr int dim() {
+		return Sequence::dim();
+	}
+	static constexpr int get(const int i) {
+		return Sequence::get(i) + ((i == Incdim) ? 1 : 0);
+	}
+	static constexpr int size() {
+		return Sequence::size() + Sequence::size() / Sequence::get(Incdim);
 	}
 	static std::array<int, dim()> to_vector() {
 		std::array<int, dim()> v;
