@@ -27,7 +27,7 @@ namespace xtree {																									\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::silo_output_type>, silo_output_type);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
 HPX_DEFINE_GET_COMPONENT_TYPE(xtree::node_type);\
-HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::simple_component<xtree::derived_type>, derived_type, "node_type");	\
+HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::managed_component<DERIVED_CLASS>, DERIVED_CLASS, "node_type");	\
 /**/
 
 #include <hpx/lcos/local/dataflow.hpp>
@@ -69,6 +69,7 @@ void serialize(Archive & ar, const std::vector<T> & a, const unsigned int versio
 } // namespace serialization
 } // namespace boost
 
+#include "multi_array.hpp"
 #include "load_balancer.hpp"
 #include "util.hpp"
 #include "indexer.hpp"

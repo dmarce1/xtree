@@ -24,7 +24,7 @@ public:
 };
 
 template<typename Derived, int Ndim>
-struct node: hpx::components::abstract_simple_component_base<node<Derived, Ndim>> {
+class node: public hpx::components::abstract_managed_component_base<node<Derived, Ndim>> {
 public:
 	static constexpr int Nchild = pow_<2, Ndim>::value;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
@@ -34,6 +34,8 @@ public:
 	using niece_array_type = std::array<std::array<hpx::id_type, Nchild>, Nneighbor>;
 	using neighbor_notify_type = std::array<std::pair<int, hpx::id_type>, Nneighbor>;
 	using neighbor_array_type = std::array<hpx::id_type, Nneighbor>;
+	using wrapped_type = Derived;
+
 private:
 	static bool child_is_niece_of(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
 		for (int i = 0; i < Ndim; i++) {
@@ -56,7 +58,7 @@ private:
 	location<Ndim> self;
 	niece_array_type nieces;
 	neighbor_array_type neighbors;
-	tree<Derived, Ndim>* local_tree;
+	tree<wrapped_type, Ndim>* local_tree;
 	hpx::shared_future<void> last_operation_future;
 	int subcycle;
 	hpx::lcos::local::mutex subcycle_lock;
@@ -81,7 +83,7 @@ private:
 public:
 	node() {
 	}
-	Derived* initialize(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors, tree<Derived, Ndim>* ltree) {
+	wrapped_type* initialize(const location<Ndim>& _loc, hpx::id_type _parent_id, neighbor_array_type _neighbors, tree<wrapped_type, Ndim>* ltree) {
 		subcycle = 0;
 		last_operation_future = hpx::make_ready_future();
 		local_tree = ltree;
@@ -98,7 +100,7 @@ public:
 			children[ci] = hpx::invalid_id;
 		}
 		parent = _parent_id;
-		return static_cast<Derived*>(this);
+		return dynamic_cast<wrapped_type*>(this);
 	}
 
 	virtual ~node() {
@@ -106,7 +108,7 @@ public:
 			debranch().get();
 		}
 		if (get_level() != 0) {
-			local_tree->delete_node(static_cast<Derived*>(this));
+			local_tree->delete_node(static_cast<wrapped_type*>(this));
 		}
 	}
 
@@ -195,6 +197,10 @@ public:
 		return self.get_level();
 	}
 
+	int get_subcycle() const {
+		return subcycle;
+	}
+
 	hpx::future<void> notify_branch(dir_type<Ndim> dir, const child_array_type& nephews) {
 		hpx::future<void> ret_fut;
 		dir.flip();
@@ -239,8 +245,8 @@ public:
 		neighbors[dir] = id;
 	}
 
-	Derived* get_this() {
-		return static_cast<Derived*>(this);
+	wrapped_type* get_this() {
+		return static_cast<wrapped_type*>(this);
 	}
 
 	bound_type get_boundary_type(const dir_type<Ndim>& dir) const {
@@ -267,31 +273,118 @@ public:
 
 	void wait_my_turn(int this_subcycle) {
 		subcycle_lock.lock();
-		while( this_subcycle != subcycle ) {
+		while (this_subcycle != subcycle) {
 			subcycle_lock.unlock();
 			hpx::this_thread::suspend();
+			subcycle_lock.lock();
 		}
+		subcycle_lock.unlock();
 	}
 
 	template<typename T>
-	using ascend_type = std::vector<T> (Derived::*)(T);
+	using ascend_type = std::vector<T> (wrapped_type::*)(const T&);
 	template<typename T>
-	using descend_type = T (Derived::*)(std::vector<T>);
+	using descend_type = T (wrapped_type::*)(const std::vector<T>&);
 	template<typename T>
-	using exchange_get_type = T (Derived::*)(const dir_type<Ndim>&);
+	using exchange_get_type = T (wrapped_type::*)(const dir_type<Ndim>&);
 	template<typename T>
-	using exchange_set_type = void (Derived::*)(const dir_type<Ndim>&, const T&);
+	using exchange_set_type = void (wrapped_type::*)(const dir_type<Ndim>&, const T&);
 
 	template<typename T, ascend_type<T> Function>
-	void ascend(hpx::shared_future<T> input_data_future, int this_subcycle) {
+	struct ascend_function {
+		static constexpr ascend_type<T> value = Function;
+		using type = T;
+	};
+
+	template<typename T, descend_type<T> Function>
+	struct descend_function {
+		static constexpr descend_type<T> value = Function;
+		using type = T;
+	};
+
+	template<typename T, exchange_get_type<T> Function>
+	struct exchange_get_function {
+		static constexpr exchange_get_type<T> value = Function;
+		using type = T;
+	};
+
+	template<typename T, exchange_set_type<T> Function>
+	struct exchange_set_function {
+		static constexpr exchange_set_type<T> value = Function;
+		using type = T;
+	};
+
+	struct operation_base {
+		virtual ~operation_base() {
+		}
+		virtual void operator()(wrapped_type&) const = 0;
+	};
+
+	using operation_type = std::shared_ptr<operation_base>;
+
+	void execute_operations(std::vector<operation_type> operations) {
+		for (int i = 0; i < operations.size(); i++) {
+			operations[i]->operator()(*this);
+		}
+	}
+
+	template<typename T, typename Function>
+	struct ascend_operation: operation_base {
+		void operator()(wrapped_type& root) const {
+			root.ascend<T, Function>(hpx::make_ready_future<T>(0), root.get_subcycle());
+		}
+	};
+
+	template<typename T, typename Function>
+	struct descend_operation: operation_base {
+		void operator()(wrapped_type& root) const {
+			root.descend<T, Function>(root.get_subcycle());
+		}
+	};
+
+	template<typename T, typename Get, typename Set>
+	struct exchange_operation: operation_base {
+		void operator()(wrapped_type& root) const {
+			root.exchange_get<T, Get, Set>(root.get_subcycle());
+		}
+	};
+
+	template<typename T, typename Function>
+	static operation_type make_ascend_operation() {
+		auto operation = std::make_shared<ascend_operation<T, Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename T, typename Function>
+	static operation_type make_descend_operation() {
+		auto operation = std::make_shared<descend_operation<T, Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename T, typename Get, typename Set>
+	static operation_type make_exchange_operation() {
+		auto operation = std::make_shared<exchange_operation<T, Get, Set>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename T, typename Function>
+	void ascend(hpx::future<T> input_data_future, int this_subcycle) {
 		wait_my_turn(this_subcycle);
-		auto f = when_all(input_data_future, last_operation_future).then(hpx::util::unwrapped([this](const T& input_data) {
-			std::vector<T> output_data;
-			output_data = std::move((this->*Function)(input_data));
-		}));
+		auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
+		auto f = when_all(input_data_future, last_operation_future).then(
+			hpx::util::unwrapped([this,promises](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
+				std::vector<T> output_data;
+				auto& g = HPX_STD_GET(0, tupfut);
+				auto input_data = g.get();
+				output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
+				for( int i = 0; i < Nchild; i++) {
+					(*promises)[i].set_value(output_data[i]);
+				}
+			}
+		));
 		if (!is_leaf) {
 			for (int i = 0; i < Nchild; i++) {
-				hpx::apply<action_ascend>(children[i], std::move(f), this_subcycle);
+				hpx::apply<action_ascend<T, Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
 			}
 		}
 		subcycle_lock.lock();
@@ -300,37 +393,48 @@ public:
 		subcycle_lock.unlock();
 	}
 
-	template<typename T, descend_type<T> Function>
-	hpx::shared_future<std::vector<T>> descend(int this_subcycle) {
+	template<typename T, typename Function>
+	hpx::shared_future<T> descend(int this_subcycle) {
 		wait_my_turn(this_subcycle);
+		hpx::shared_future < T > return_future;
 		hpx::future < T > f;
 		if (!is_leaf) {
 			std::vector < hpx::future < T >> futures(Nchild);
 			for (int i = 0; i < Nchild; i++) {
-				futures[i] = hpx::async<action_descend>(children[i], this_subcycle);
+				futures[i] = hpx::async<action_descend<T, Function>>(children[i], this_subcycle);
 			}
-			f = when_all(std::move(futures), last_operation_future).then(hpx::util::unwrapped([this](const std::vector<T>& input_data) {
-				return std::move((this->*Function)(input_data));
-			}));
+			auto f = when_all(when_all(futures), last_operation_future).then(
+					hpx::util::unwrapped([this](HPX_STD_TUPLE<hpx::future<std::vector<hpx::future<T>>>, hpx::shared_future<void>> tuple_futs) {
+						std::vector<T> input_data;
+						auto& h = HPX_STD_GET(0, tuple_futs);
+						std::vector<hpx::future<T>> input_data_futures = h.get();
+						input_data.resize(input_data_futures.size());
+						for( int i = 0; i < input_data_futures.size(); i++ ) {
+							input_data[i] = input_data_futures[i].get();
+						}
+						return (static_cast<Derived*>(this)->*(Function::value))(input_data);
+					}));
+			return_future = f.share();
 		} else {
-			f = hpx::make_ready_future((this->*Function)(std::vector<T>()));
+			std::vector<T> empty_vector;
+			f = hpx::make_ready_future((static_cast<Derived*>(this)->*(Function::value))(empty_vector));
+			return_future = f.share();
 		}
 		subcycle_lock.lock();
-		last_operation_future = f.share();
+		last_operation_future = return_future;
 		subcycle++;
 		subcycle_lock.unlock();
-		return last_operation_future;
+		return return_future;
 	}
 
 	template<typename T, exchange_set_type<T> Set>
 	void exchange_set(const dir_type<Ndim>& dir, const hpx::shared_future<T>& fut, int this_subcycle) {
 		wait_my_turn(this_subcycle);
-		auto f = when_all(fut,last_operation_future).then(hpx::util::unwrapped([this,dir](const T& data){
+		auto f = when_all(fut, last_operation_future).then(hpx::util::unwrapped([this,dir](const T& data) {
 			return (this->*Set)(dir, data);
 		}));
 		last_operation_future = f.share();
 	}
-
 
 	template<typename T, exchange_get_type<T> Get>
 	void exchange_get(int this_subcycle) {
@@ -342,8 +446,8 @@ public:
 		}
 		std::vector<hpx::shared_future<void>> futures(Nneighbor);
 		for (dir_type<Ndim> dir = 0; dir < Nneighbor; dir++) {
-			hpx::shared_future<T> future;
-			future = last_operation_future.then(hpx::util::unwrapped([this,dir](){
+			hpx::shared_future < T > future;
+			future = last_operation_future.then(hpx::util::unwrapped([this,dir]() {
 				return (this->*Get)(dir);
 			}));
 			if (neighbors[dir] != hpx::invalid_id) {
@@ -352,22 +456,21 @@ public:
 				futures[dir] = hpx::make_ready_future();
 			}
 		}
-		auto f = when_all(futures,last_operation_future);
+		auto f = when_all(futures, last_operation_future);
 		subcycle_lock.lock();
 		last_operation_future = f.share();
 		subcycle++;
 		subcycle_lock.unlock();
 	}
 
-
-	template<typename T, ascend_type<T> Function>
-	using action_ascend = hpx::actions::make_action<hpx::shared_future<void>(node::*)(const T&), &node::ascend>; //
-	template<typename T, descend_type<T> Function>
-	using action_descend = hpx::actions::make_action<hpx::shared_future<std::vector<T>>(node::*)(), &node::descend>; //
-	template<typename T, exchange_set_type<T> Set>
-	using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, const hpx::shared_future<T>&), &node::exchange_set>; //
-	template<typename T, exchange_get_type<T> Get>
-	using action_exchange_get = hpx::actions::make_action<void(node::*)(void), &node::exchange_get<T,Get>>; //
+	template<typename T, typename Function>
+	using action_ascend = hpx::actions::make_action< void(node::*)(hpx::future<T>, int), &node::ascend<T,Function>>; //
+	template<typename T, typename Function>
+	using action_descend = hpx::actions::make_action<hpx::shared_future<T>(node::*)(int), &node::descend<T,Function>>; //
+	template<typename T, typename Set>
+	using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, const hpx::shared_future<T>&,int), &node::exchange_set>; //
+	template<typename T, typename Get>
+	using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<T,Get>>; //
 
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, debranch, action_debranch); //

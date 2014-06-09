@@ -82,6 +82,14 @@ public:
 		root_node_gid = fut2.get();
 	}
 
+	hpx::future<Derived*> get_root() {
+		if( root_node_gid != hpx::invalid_id) {
+			return hpx::async<typename node<Derived,Ndim>::action_get_this>(root_node_gid);
+		} else {
+			return hpx::make_ready_future<Derived*>(nullptr);
+		}
+	}
+
 	template<typename Archive>
 	void serialize(Archive& ar, const int v) {
 		assert(false);
