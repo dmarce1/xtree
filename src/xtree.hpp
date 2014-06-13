@@ -36,6 +36,8 @@ HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::managed_component<DERIVE
 #include <hpx/runtime/actions/plain_action.hpp>
 #include <hpx/util/unwrapped.hpp>
 
+
+#include <boost/serialization/valarray.hpp>
 #include <boost/mpl/int.hpp>
 
 #include <silo.h>
@@ -68,8 +70,6 @@ void serialize(Archive & ar, const std::vector<T> & a, const unsigned int versio
 
 } // namespace serialization
 } // namespace boost
-
-#include "multi_array.hpp"
 #include "load_balancer.hpp"
 #include "util.hpp"
 #include "indexer.hpp"

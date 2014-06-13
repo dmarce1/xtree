@@ -18,13 +18,6 @@ struct nullclass {
 
 //template<typename U, typename T, int Ndim>
 //using set_type = void (U::*)(const location<Ndim>&, T);
-
-template<int Ndim>
-using child_index_type = indexer<Ndim, 2, 0>;
-
-template<int Ndim>
-using dir_type = indexer<Ndim, 3, -1>;
-
 enum bound_type {
 	DECOMP, AMR, PHYS
 };
@@ -123,16 +116,6 @@ template<int Base>
 struct pow_<Base, 0> {
 	static constexpr int value = 1;
 };
-
-template<typename T>
-bool if_boolean_expression(T b) {
-	return b;
-}
-
-template<>
-bool if_boolean_expression<bool>(bool) {
-	return true;
-}
 
 }
 

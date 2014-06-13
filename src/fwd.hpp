@@ -10,6 +10,9 @@
 
 namespace xtree {
 
+
+
+
 template<int, int...>
 struct int_seq;
 
@@ -38,8 +41,12 @@ template<int, int>
 struct pow_;
 
 
-template<typename T>
-bool if_boolean_expression(T);
+
+template<int Ndim>
+using child_index_type = indexer<Ndim, 2, 0>;
+
+template<int Ndim>
+using dir_type = indexer<Ndim, 3, -1>;
 
 }
 
