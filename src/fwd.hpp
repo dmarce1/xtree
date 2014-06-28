@@ -10,8 +10,7 @@
 
 namespace xtree {
 
-
-
+using iter_type = std::size_t;
 
 template<int, int...>
 struct int_seq;
@@ -31,6 +30,9 @@ class location;
 template<int>
 class node_base;
 
+template<typename T>
+T factorial(T);
+
 template<typename, int>
 class node;
 
@@ -39,8 +41,6 @@ class tree;
 
 template<int, int>
 struct pow_;
-
-
 
 template<int Ndim>
 using child_index_type = indexer<Ndim, 2, 0>;

@@ -134,9 +134,9 @@ public:
 		/* Allocate new nodes on localities */
 		auto fut1 = hpx::lcos::local::dataflow(hpx::util::unwrapped([this](void) {
 			std::vector<hpx::future<hpx::id_type>> futs(Nchild);
-			for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
 				neighbor_array_type pack;
-				for( dir_type<Ndim> dir; !dir.end(); dir++ ) {
+				for( dir_type<Ndim> dir; !dir.is_end(); dir++ ) {
 					pack[dir] = get_niece(ci,dir);
 				}
 				futs[ci] = local_tree->new_node(self.get_child(ci), base_type::get_gid(), pack);
@@ -152,7 +152,7 @@ public:
 			}
 
 			std::vector<hpx::future<void>> futs(Nneighbor);
-			for( dir_type<Ndim> si; !si.end(); si++) {
+			for( dir_type<Ndim> si; !si.is_end(); si++) {
 				if( neighbors[si] != hpx::invalid_id ) {
 					futs[si] = hpx::async<action_notify_branch>(neighbors[si], si, children);
 				} else {
@@ -171,14 +171,14 @@ public:
 		is_leaf = true;
 		std::vector<hpx::future<void>> nfutures(Nneighbor);
 		std::vector<hpx::future<void>> cfutures(Nchild);
-		for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
 			if (children[ci] != hpx::invalid_id) {
 				cfutures[ci] = hpx::async<action_debranch>(children[ci]);
 			} else {
 				cfutures[ci] = hpx::make_ready_future();
 			}
 		}
-		for (dir_type<Ndim> dir; !dir.end(); dir++) {
+		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
 			if (neighbors[dir] != hpx::invalid_id) {
 				nfutures[dir] = hpx::async<action_notify_debranch>(neighbors[dir], dir);
 			} else {
@@ -186,7 +186,8 @@ public:
 			}
 		}
 		auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
-			for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+			child_index_type<Ndim> ci;
+			for (ci = 0; !ci.is_end(); ci++) {
 				children[ci] = hpx::invalid_id;
 			}
 		}));
@@ -208,7 +209,7 @@ public:
 		if (!is_leaf) {
 			std::vector<hpx::future<void>> futs(Nchild / 2);
 			int index = 0;
-			for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
 				if (child_is_niece_of(ci, dir)) {
 					futs[index++] = hpx::async<action_notify_of_neighbor>(children[ci], dir, get_niece(ci, dir));
 				}
@@ -228,7 +229,7 @@ public:
 		if (!is_leaf) {
 			std::vector<hpx::future<void>> futs(Nchild / 2);
 			int index = 0;
-			for (child_index_type<Ndim> ci; !ci.end(); ci++) {
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
 				if (child_is_niece_of(ci, dir)) {
 					futs[index++] = hpx::async<action_notify_of_neighbor>(children[ci], dir, hpx::invalid_id);
 				}
@@ -263,7 +264,7 @@ public:
 	}
 
 	bool has_amr_boundary() const {
-		for (dir_type<Ndim> dir; !dir.end(); dir++) {
+		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
 			if (get_boundary_type(dir) == AMR) {
 				return true;
 			}
@@ -282,13 +283,13 @@ public:
 	}
 
 	template<typename T>
-	using ascend_type = std::vector<T> (wrapped_type::*)(const T&);
+	using ascend_type = std::vector<T> (wrapped_type::*)(T&);
 	template<typename T>
-	using descend_type = T (wrapped_type::*)(const std::vector<T>&);
+	using descend_type = T (wrapped_type::*)(std::vector<T>&);
 	template<typename T>
-	using exchange_get_type = T (wrapped_type::*)(const dir_type<Ndim>&);
+	using exchange_get_type = T (wrapped_type::*)(dir_type<Ndim>);
 	template<typename T>
-	using exchange_set_type = void (wrapped_type::*)(const dir_type<Ndim>&, const T&);
+	using exchange_set_type = void (wrapped_type::*)(dir_type<Ndim>, T&);
 
 	template<typename T, ascend_type<T> Function>
 	struct ascend_function {
@@ -451,7 +452,7 @@ public:
 			}
 		}
 		std::vector<hpx::future<void>> futures(Nneighbor);
-		for (dir_type<Ndim> dir; !dir.end(); dir++) {
+		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
 			hpx::shared_future < T > future;
 			auto f = last_operation_future.then(hpx::util::unwrapped([this,dir]() {
 				return (static_cast<Derived*>(this)->*(Get::value))(dir);

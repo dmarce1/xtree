@@ -10,13 +10,14 @@
 
 namespace xtree {
 
+
 template<int Ndim, int Size, int Origin = 0>
-class indexer: public std::array<int, Ndim> {
-private:
-	bool is_end;
-private:
+class indexer {
+protected:
+	std::array<int, Ndim>  values;
+	bool __is_end;
 	int abs_value(int i) const {
-		return (*this)[i] - Origin;
+		return values[i] - Origin;
 	}
 public:
 	indexer(const std::array<int, Ndim>& is) {
@@ -28,14 +29,14 @@ public:
 	indexer& operator=(int i) {
 		for (int j = 0; j < Ndim; j++) {
 			auto d = div(i, Size);
-			(*this)[j] = d.rem;
-			j = d.quot;
+			(*this)[j] = d.rem + Origin;
+			i = d.quot;
 		}
 		return *this;
 	}
 	template<typename Archive>
 	void serialize(Archive& ar, const int v) {
-		ar & is_end;
+		ar & __is_end;
 		for (int i = 0; i < Ndim; i++) {
 			ar & (*this)[i];
 		}
@@ -60,7 +61,7 @@ public:
 			(*this)[i] = Origin;
 			i++;
 			if (i == Ndim) {
-				is_end = true;
+				__is_end = true;
 				return;
 			}
 		}
@@ -70,10 +71,10 @@ public:
 		for (int i = 0; i < Ndim; i++) {
 			(*this)[i] = Origin;
 		}
-		is_end = false;
+		__is_end = false;
 	}
-	bool end() {
-		return is_end;
+	bool is_end() {
+		return __is_end;
 	}
 	indexer& flip(int i) {
 		(*this)[i] = -(*this)[i] + 2 * Origin + Size - 1;
@@ -92,10 +93,11 @@ public:
 		}
 		return v;
 	}
-	void set_zero() {
+	indexer& set_zero() {
 		for (int i = 0; i < Ndim; i++) {
-			std::array<int, Ndim>::operator[](i) = 0;
+			values[i] = 0;
 		}
+		return *this;
 	}
 	bool is_zero() {
 		bool rc = true;
@@ -108,6 +110,7 @@ public:
 		return rc;
 	}
 };
+
 
 }
 #endif /* INDEXER_HPP_ */

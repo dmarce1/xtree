@@ -89,6 +89,12 @@ public:
 		}
 		return pos;
 	}
+	double get_position(int di) const {
+		double pos;
+		const double dx = get_dx();
+		pos = loc[di] * dx;
+		return pos;
+	}
 	double get_dx() const {
 		return 1.0 / double(1 << level);
 	}
