@@ -23,9 +23,15 @@ int hpx_main() {
 	tree_type* tree_ptr = hpx::async<tree_type::action_get_this>(root_gid).get();
 	fmmx_node_type* root_node = tree_ptr->get_root().get();
 	using dfunc = fmmx_node_type::descend_function<fmmx_node_type::descend_type, &fmmx_node_type::descend>;
+	using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
 	using eg_func = fmmx_node_type::exchange_get_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_get>;
 	using es_func = fmmx_node_type::exchange_set_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_set>;
 	using afunc = fmmx_node_type::ascend_function<fmmx_node_type::ascend_type, &fmmx_node_type::ascend>;
+
+	std::vector<fmmx_node_type::operation_type> init_ops(1);
+	init_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
+	root_node->execute_operations(init_ops);
+/*
 	std::vector<fmmx_node_type::operation_type> ops(3);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
@@ -33,6 +39,6 @@ int hpx_main() {
 	ops[0] = dop;
 	ops[1] = eop;
 	ops[2] = aop;
-	root_node->execute_operations(ops);
+	root_node->execute_operations(ops);*/
 	return hpx::finalize();
 }

@@ -83,11 +83,14 @@ struct fmmx_node_static_data {
 };
 
 template<std::size_t Ndim, std::size_t Nx, std::size_t P>
-class fmmx_node: public node<fmmx_node<Ndim, Nx, P>, Ndim>, public hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>> {
+class fmmx_node: public node<fmmx_node<Ndim, Nx, P>, Ndim>, public hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>,
+		hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr> {
 public:
 	static constexpr std::size_t Bw = BOUND_WIDTH;
 	static constexpr std::size_t Nchild = 1 << Ndim;
 	static constexpr std::size_t Size = pow_<Nx, Ndim>::value;
+	using base_type = hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
+	using component_type = hpx::components::managed_component<fmmx_node<Ndim, Nx, P>>;
 	using multipoles_type = std::valarray<expansion<P>>;
 	using expansions_type = std::valarray<expansion<P>>;
 	using exchange_type = delayed_action<multipoles_type>;
@@ -175,6 +178,10 @@ public:
 		});
 
 	}
+	fmmx_node(component_type* back_ptr) :
+			base_type(back_ptr) {
+
+	}
 	fmmx_node() :
 			node<fmmx_node, Ndim>() {
 		std::valarray<std::size_t> dims(Ndim, Nx);
@@ -186,6 +193,13 @@ public:
 		for (std::size_t i = 0; i < Size; i++) {
 			X[i].resize(Ndim);
 			dx[i] = 1.0 / double(Nx) / double(1 << this->get_self().get_level());
+		}
+	}
+	bool regrid_test() {
+		if (this->get_self().get_level() < 3) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {

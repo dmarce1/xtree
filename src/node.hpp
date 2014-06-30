@@ -28,7 +28,6 @@ class node: public hpx::components::abstract_managed_component_base<node<Derived
 public:
 	static constexpr int Nchild = pow_<2, Ndim>::value;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
-	static constexpr int Nniece = Nchild * Nneighbor;
 	using base_type = hpx::components::managed_component_base<Derived>;
 	using child_array_type = std::array<hpx::id_type, Nchild>;
 	using niece_array_type = std::array<std::array<hpx::id_type, Nchild>, Nneighbor>;
@@ -139,7 +138,7 @@ public:
 				for( dir_type<Ndim> dir; !dir.is_end(); dir++ ) {
 					pack[dir] = get_niece(ci,dir);
 				}
-				futs[ci] = local_tree->new_node(self.get_child(ci), base_type::get_gid(), pack);
+				futs[ci] = local_tree->new_node(self.get_child(ci), static_cast<Derived*>(this)->get_gid(), pack);
 			}
 			return futs;
 		}), std::move(fut0));
@@ -282,14 +281,25 @@ public:
 		subcycle_lock.unlock();
 	}
 
+	using regrid_type = bool (wrapped_type::*)();
+
 	template<typename T>
 	using ascend_type = std::vector<T> (wrapped_type::*)(T&);
+
 	template<typename T>
 	using descend_type = T (wrapped_type::*)(std::vector<T>&);
+
 	template<typename T>
 	using exchange_get_type = T (wrapped_type::*)(dir_type<Ndim>);
+
 	template<typename T>
 	using exchange_set_type = void (wrapped_type::*)(dir_type<Ndim>, T&);
+
+	template<regrid_type Function>
+	struct regrid_function {
+		static constexpr regrid_type value = Function;
+		using type = bool;
+	};
 
 	template<typename T, ascend_type<T> Function>
 	struct ascend_function {
@@ -330,6 +340,13 @@ public:
 	}
 
 	template<typename Function>
+	struct regrid_operation: operation_base {
+		void operator()(node& root) const {
+			root.regrid<Function>(root.get_subcycle());
+		}
+	};
+
+	template<typename Function>
 	struct ascend_operation: operation_base {
 		void operator()(node& root) const {
 			root.ascend<Function>(hpx::make_ready_future<typename Function::type>(typename Function::type()), root.get_subcycle());
@@ -351,12 +368,18 @@ public:
 	};
 
 	template<typename Function>
+	static operation_type make_regrid_operation() {
+		auto operation = std::make_shared<regrid_operation<Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Function>
 	static operation_type make_ascend_operation() {
 		auto operation = std::make_shared<ascend_operation<Function>>();
 		return std::static_pointer_cast < operation_base > (operation);
 	}
 
-	template< typename Function>
+	template<typename Function>
 	static operation_type make_descend_operation() {
 		auto operation = std::make_shared<descend_operation<Function>>();
 		return std::static_pointer_cast < operation_base > (operation);
@@ -369,21 +392,53 @@ public:
 	}
 
 	template<typename Function>
+	hpx::shared_future<bool> regrid(int this_subcycle) {
+		wait_my_turn(this_subcycle);
+		std::vector<hpx::future<bool>> futures;
+		hpx::shared_future<bool> rc;
+		if (!is_leaf) {
+			futures.resize(Nchild);
+			for (int i = 0; i < Nchild; i++) {
+				futures[i] = hpx::async<action_regrid<Function>>(children[i], this_subcycle);
+			}
+			rc = when_all(futures).then(hpx::util::unwrapped([this]( std::vector<hpx::future<bool>> futures) {
+				for( auto i = 0; i != Nchild; i++) {
+					if( !futures[i].get()) {
+						hpx::async<action_debranch>(children[i]);
+					}
+				}
+				return true;
+			}));
+		} else {
+			bool result = (static_cast<Derived*>(this)->*(Function::value))();
+			rc = hpx::make_ready_future(result).share();
+			if (result) {
+				branch();
+			}
+		}
+
+		subcycle_lock.lock();
+		last_operation_future = rc;
+		subcycle++;
+		subcycle_lock.unlock();
+		return rc;
+	}
+
+	template<typename Function>
 	void ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle) {
 		using T = typename Function::type;
 		wait_my_turn(this_subcycle);
 		auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
 		auto f = when_all(input_data_future, last_operation_future).then(
-			hpx::util::unwrapped([this,promises](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
-				std::vector<T> output_data;
-				auto& g = HPX_STD_GET(0, tupfut);
-				auto input_data = g.get();
-				output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
-				for( int i = 0; i < Nchild; i++) {
-					(*promises)[i].set_value(output_data[i]);
-				}
-			}
-		));
+				hpx::util::unwrapped([this,promises](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
+					std::vector<T> output_data;
+					auto& g = HPX_STD_GET(0, tupfut);
+					auto input_data = g.get();
+					output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
+					for( int i = 0; i < Nchild; i++) {
+						(*promises)[i].set_value(output_data[i]);
+					}
+				}));
 		if (!is_leaf) {
 			for (int i = 0; i < Nchild; i++) {
 				hpx::apply<action_ascend<Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
@@ -448,7 +503,7 @@ public:
 		wait_my_turn(this_subcycle);
 		if (!is_leaf) {
 			for (int i = 0; i < Nchild; i++) {
-				hpx::apply<action_exchange_get<Get,Set>>(children[i], this_subcycle);
+				hpx::apply<action_exchange_get<Get, Set>>(children[i], this_subcycle);
 			}
 		}
 		std::vector<hpx::future<void>> futures(Nneighbor);
@@ -471,8 +526,10 @@ public:
 	}
 
 	template<typename Function>
+	using action_regrid = hpx::actions::make_action< hpx::shared_future<bool>(node::*)(int), &node::regrid<Function>>; //
+	template<typename Function>
 	using action_ascend = hpx::actions::make_action< void(node::*)(hpx::future<typename Function::type>, int), &node::ascend<Function>>; //
-	template< typename Function>
+	template<typename Function>
 	using action_descend = hpx::actions::make_action<hpx::shared_future<typename Function::type>(node::*)(int), &node::descend<Function>>; //
 	template<typename Set>
 	using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, hpx::shared_future<typename Set::type>, int), &node::exchange_set<Set>>; //
@@ -482,7 +539,7 @@ public:
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, debranch, action_debranch); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, get_this, action_get_this); //
-	HPX_DEFINE_COMPONENT_ACTION_TPL(node,notify_branch, action_notify_branch); //
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_branch, action_notify_branch); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_debranch, action_notify_debranch); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_of_neighbor, action_notify_of_neighbor);
 	//
