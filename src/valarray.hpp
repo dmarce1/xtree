@@ -10,7 +10,6 @@
 
 #include <valarray>
 
-
 std::gslice get_slice(const std::valarray<std::size_t>& dims, const std::valarray<std::size_t>& mins, const std::valarray<std::size_t>& maxes) {
 	std::valarray<std::size_t> strides;
 	const std::size_t ndim = dims.size();
@@ -94,18 +93,16 @@ std::valarray<std::valarray<double>> create_position_array(std::valarray<std::si
 	}
 	for (std::size_t di = 0; di < dims.size(); di++) {
 		std::valarray<std::size_t> these_dims(dims);
-		dims[di] = 1;
+		these_dims[di] = 1;
 		for (std::size_t i = 0; i < dims[di]; i++) {
 			const auto start = i * strides[di];
-			const auto slice = std::gslice(start, dims, strides);
-			std::valarray<std::valarray<double>> x(product(dims) / dims[di]);
+			const auto slice = std::gslice(start, these_dims, strides);
+			std::valarray<double> x(product(these_dims));
 			x = std::valarray<double>(unit[di] * (double(i) + 0.5));
-			X[slice] += x;
+			X[slice] += std::valarray<std::valarray<double>>(x, product(these_dims));
 		}
 	}
 	return X;
 }
-
-
 
 #endif /* VALARRAY_HPP_ */

@@ -83,8 +83,8 @@ public:
 	}
 
 	hpx::future<Derived*> get_root() {
-		if( root_node_gid != hpx::invalid_id) {
-			return hpx::async<typename node<Derived,Ndim>::action_get_this>(root_node_gid);
+		if (root_node_gid != hpx::invalid_id) {
+			return hpx::async<typename node<Derived, Ndim>::action_get_this>(root_node_gid);
 		} else {
 			return hpx::make_ready_future<Derived*>(nullptr);
 		}
@@ -145,15 +145,26 @@ public:
 		}
 		dir_lock.lock();
 
-		/*************/
+		std::vector<typename silo_output_type::zone> zones(nodes.size() * Derived::Size);
+		auto j = zones.begin();
+		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
+			const auto these_zones = (*i)->get_output_zones();
+			for (auto k = these_zones.begin(); k != these_zones.end(); ++k) {
+				*j = *k;
+				++j;
+			}
+		}
 
+		auto fut = hpx::async<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(), zones);
+		fut.get();
 		dir_lock.unlock();
 
 	}
 
 	XTREE_MAKE_ACTION( action_get_this, tree::get_this ); //
 	XTREE_MAKE_ACTION( action_place_root, tree::place_root ); //
-	XTREE_MAKE_ACTION( action_output, tree::output ); //
+	XTREE_MAKE_ACTION( action_output, tree::output );
+//
 
 };
 

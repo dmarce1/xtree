@@ -22,17 +22,25 @@ public:
 		zone() :
 				fields(NFields) {
 		}
-		zone(const zone& z) :
-				fields(NFields) {
+		zone(const zone& z) {
+			*this = z;
+		}
+		zone(zone&& z) {
+			*this = z;
+		}
+		zone& operator=(const zone& z) {
+			fields.resize(NFields);
 			fields = z.fields;
 			position = z.position;
 			span = z.span;
+			return *this;
 		}
-		zone(zone&& z) :
-				fields(NFields) {
+		zone& operator=(zone&& z) {
+			fields.resize(NFields);
 			fields = std::move(z.fields);
 			position = std::move(z.position);
 			span = std::move(z.span);
+			return *this;
 		}
 		template<typename Archive>
 		void serialize(Archive& ar, const int v) {
@@ -129,7 +137,9 @@ public:
 		for (auto ni = nodedir.begin(); ni != nodedir.end(); ni++) {
 			for (int di = 0; di < Ndim; di++) {
 				coords[di][ni->index] = (*ni)[di];
+				//	printf( "%e ",  (*ni)[di]);
 			}
+			//	printf( "\n");
 		}
 		nodedir.clear();
 
@@ -138,8 +148,10 @@ public:
 		for (auto zi = zonedir.begin(); zi != zonedir.end(); zi++) {
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				zone_nodes[zni] = zi->vertices[ci0];
+				printf("%i ", zone_nodes[zni]);
 				zni++;
 			}
+			printf("\n");
 		}
 
 		olist = DBMakeOptlist(1);
@@ -189,6 +201,8 @@ public:
 					const double factor = (0.5 * double(2 * ((ci >> k) & 1) - 1));
 					v[k] = zones[i].position[k] + zones[i].span[k] * factor;
 				}
+		//		printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
+		//				zones[i].span[2]);
 				mutex0.lock();
 				auto iter = nodedir.find(v);
 				if (iter == nodedir.end()) {
@@ -210,7 +224,7 @@ public:
 		received[proc_num_from] = true;
 		mutex0.unlock();
 		if (std::all_of(received.begin(), received.end(), [](bool b) {return b;})) {
-			hpx::apply([this]() {do_output();});
+			/*hpx::apply([this]() {*/do_output();/*});*/
 		}
 
 	}

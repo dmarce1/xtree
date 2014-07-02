@@ -10,11 +10,10 @@
 
 namespace xtree {
 
-
 template<int Ndim, int Size, int Origin = 0>
 class indexer {
 protected:
-	std::array<int, Ndim>  values;
+	std::array<int, Ndim> values;
 	bool __is_end;
 	int abs_value(int i) const {
 		return values[i] - Origin;
@@ -42,10 +41,10 @@ public:
 		}
 	}
 	int operator[](int i) const {
-		return (*this)[i];
+		return values[i];
 	}
 	int& operator[](int i) {
-		return (*this)[i];
+		return values[i];
 	}
 	operator int() const {
 		int j = abs_value(Ndim - 1);
@@ -110,7 +109,6 @@ public:
 		return rc;
 	}
 };
-
 
 }
 #endif /* INDEXER_HPP_ */

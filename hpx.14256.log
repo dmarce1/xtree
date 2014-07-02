@@ -1,0 +1,153 @@
+(T00000000/0000000001b4c230.----/----------------) P--------/----------------.---- 15:53.28.688 [0000000000000001]  <always> [ERR] default_errorsink: unhandled exception: 
+{env}: 109 entries:
+  ArchType=x86_64
+  BuildArtifactFileBaseName=${ProjName}
+  BuildArtifactFileExt=
+  BuildArtifactFileName=${ProjName}
+  BuildArtifactFilePrefix=
+  BuilderVersion=0.0.4
+  CDTVersion=5.6.0.201402142303
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  COLUMNS=80
+  CWD=/home/dmarce1/workspace/xtree/debug
+  ConfigDescription=
+  ConfigName=debug
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-0srjwki1zz
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  DirectoryDelimiter=/
+  EclipseVersion=4.3.2.v20140221-1700
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GJS_DEBUG_OUTPUT=stderr
+  GJS_DEBUG_TOPICS=JS ERROR;JS LOG
+  GLIBCPP_FORCE_NEW=1
+  GLIBCXX_FORCE_NEW=1
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-107JJx
+  GNOME_KEYRING_PID=1814
+  GPG_AGENT_INFO=/run/user/1000/keyring-107JJx/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  HostArchName=amd64
+  HostOsName=Linux
+  IM_CONFIG_PHASE=1
+  INSTANCE=
+  JOB=dbus
+  LANG=en_US.UTF-8
+  LESSCLOSE=/usr/bin/lesspipe %s %s
+  LESSOPEN=| /usr/bin/lesspipe %s
+  LINES=24
+  LOGNAME=dmarce1
+  LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  OsType=linux
+  PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/packages/visit2_7_2.linux-x86_64/bin
+  PWD=/home/dmarce1/workspace/xtree
+  PathDelimiter=:
+  ProjDirPath=/home/dmarce1/workspace/xtree
+  ProjName=xtree
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSION=gnome-classic
+  SESSIONTYPE=gnome-session
+  SESSION_MANAGER=local/neutrino:@/tmp/.ICE-unix/1959,unix/neutrino:/tmp/.ICE-unix/1959
+  SHELL=/bin/bash
+  SHLVL=1
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1906
+  SSH_AUTH_SOCK=/run/user/1000/keyring-107JJx/ssh
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  ToolChainVersion=0.0.4
+  UBUNTU_MENUPROXY=1
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1816
+  USER=dmarce1
+  USERNAME=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=39845899
+  WINDOWPATH=7
+  WorkspaceDirPath=/home/dmarce1/workspace
+  XAUTHORITY=/var/run/gdm/auth-for-dmarce1-iJrclr/database
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_MENU_PREFIX=gnome-
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SESSION_ID=c2
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/eclipse
+  build_files=null
+  build_project=null
+  build_type=none
+  cdt_pathentry_var=null
+  config_description=null
+  config_name=null
+  current_date=20140701_1550
+  eclipse_home=/usr/packages/eclipse/
+  env_var=null
+  git_branch=null
+  git_dir=null
+  git_repo_relative_path=null
+  git_work_tree=null
+  payload=""
+  payload_args=""
+  ptp_lc=
+  ptp_rm=null
+  selected_resource_loc=null
+  selected_resource_name=null
+  selected_resource_path=null
+  system=null
+  system_path=null
+  system_property=null
+  workspace_loc=/home/dmarce1/workspace
+{locality-id}: 0
+{hostname}: 127.0.0.1:0
+{process-id}: 14256
+{function}: bool hpx::applier::detail::apply_l_p(hpx::actions::continuation*, const hpx::naming::id_type&, const hpx::naming::address&, hpx::threads::thread_priority) [with Action = hpx::actions::result_action0<xtree::tree<xtree::fmmx::fmmx_node<3ul, 8ul, 5ul>, 3>* (xtree::tree<xtree::fmmx::fmmx_node<3ul, 8ul, 5ul>, 3>::*)(), &xtree::tree<xtree::fmmx::fmmx_node<3ul, 8ul, 5ul>, 3>::get_this, hpx::actions::detail::this_type>]
+{file}: /usr/include/hpx/runtime/applier/apply.hpp
+{line}: 395
+{os-thread}: 0, worker-thread#0
+{thread-id}: 0000000001b4c230
+{thread-description}: <unknown>
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_HAVE_PARCELPORT_IPC=OFF
+  HPX_HAVE_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX=/usr/builds/hpx:/usr
+{version}: V0.9.9-trunk (AGAS: V3.0), Git: fb66c1be8093cbe8e5102b6c2ee04e19255d6c19
+{boost}: V1.54.0
+{build-type}: release
+{date}: Jul  1 2014 15:28:03
+{platform}: linux
+{compiler}: GNU C++ version 4.8.2
+{stdlib}: GNU libstdc++ version 20140404
+{what}: assertion 'traits::component_type_is_compatible< typename action_type_::component_type>::call(addr)' failed: HPX(assertion_failure)
+

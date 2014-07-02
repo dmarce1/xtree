@@ -19,9 +19,12 @@ void test() {
 
 int hpx_main() {
 
-	hpx::id_type root_gid = (hpx::new_<node_type>(hpx::find_here())).get();
-	tree_type* tree_ptr = hpx::async<tree_type::action_get_this>(root_gid).get();
-	fmmx_node_type* root_node = tree_ptr->get_root().get();
+	hpx::id_type tree_gid = (hpx::new_<tree_type>(hpx::find_here())).get();
+	auto fut0 = hpx::async<tree_type::action_get_this>(tree_gid);
+	tree_type* tree_ptr = fut0.get();
+	tree_ptr->place_root();
+	auto fut1 = tree_ptr->get_root();
+	fmmx_node_type* root_node = fut1.get();
 	using dfunc = fmmx_node_type::descend_function<fmmx_node_type::descend_type, &fmmx_node_type::descend>;
 	using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
 	using eg_func = fmmx_node_type::exchange_get_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_get>;
@@ -31,14 +34,15 @@ int hpx_main() {
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
 	init_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	root_node->execute_operations(init_ops);
-/*
-	std::vector<fmmx_node_type::operation_type> ops(3);
-	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
-	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
-	auto aop = fmmx_node_type::make_ascend_operation<afunc>();
-	ops[0] = dop;
-	ops[1] = eop;
-	ops[2] = aop;
-	root_node->execute_operations(ops);*/
+	tree_ptr->output();
+	/*
+	 std::vector<fmmx_node_type::operation_type> ops(3);
+	 auto dop = fmmx_node_type::make_descend_operation<dfunc>();
+	 auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
+	 auto aop = fmmx_node_type::make_ascend_operation<afunc>();
+	 ops[0] = dop;
+	 ops[1] = eop;
+	 ops[2] = aop;
+	 root_node->execute_operations(ops);*/
 	return hpx::finalize();
 }

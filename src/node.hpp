@@ -328,42 +328,44 @@ public:
 	struct operation_base {
 		virtual ~operation_base() {
 		}
-		virtual void operator()(node&) const = 0;
+		virtual hpx::shared_future<void> operator()(node&) const = 0;
 	};
 
 	using operation_type = std::shared_ptr<operation_base>;
 
 	void execute_operations(std::vector<operation_type> operations) {
+		hpx::shared_future<void> fut;
 		for (int i = 0; i < operations.size(); i++) {
-			operations[i]->operator()(*this);
+			fut = operations[i]->operator()(*this);
 		}
+		fut.get();
 	}
 
 	template<typename Function>
 	struct regrid_operation: operation_base {
-		void operator()(node& root) const {
-			root.regrid<Function>(root.get_subcycle());
+		hpx::shared_future<void> operator()(node& root) const {
+			return root.regrid<Function>(root.get_subcycle());
 		}
 	};
 
 	template<typename Function>
 	struct ascend_operation: operation_base {
-		void operator()(node& root) const {
-			root.ascend<Function>(hpx::make_ready_future<typename Function::type>(typename Function::type()), root.get_subcycle());
+		hpx::shared_future<void> operator()(node& root) const {
+			return root.ascend<Function>(hpx::make_ready_future<typename Function::type>(typename Function::type()), root.get_subcycle());
 		}
 	};
 
 	template<typename Function>
 	struct descend_operation: operation_base {
-		void operator()(node& root) const {
-			root.descend<Function>(root.get_subcycle());
+		hpx::shared_future<void> operator()(node& root) const {
+			return root.descend<Function>(root.get_subcycle());
 		}
 	};
 
 	template<typename Get, typename Set>
 	struct exchange_operation: operation_base {
-		void operator()(node& root) const {
-			root.exchange_get<Get, Set>(root.get_subcycle());
+		hpx::shared_future<void> operator()(node& root) const {
+			return root.exchange_get<Get, Set>(root.get_subcycle());
 		}
 	};
 
@@ -393,6 +395,7 @@ public:
 
 	template<typename Function>
 	hpx::shared_future<bool> regrid(int this_subcycle) {
+		return hpx::make_ready_future(true).share();
 		wait_my_turn(this_subcycle);
 		std::vector<hpx::future<bool>> futures;
 		hpx::shared_future<bool> rc;
@@ -404,7 +407,7 @@ public:
 			rc = when_all(futures).then(hpx::util::unwrapped([this]( std::vector<hpx::future<bool>> futures) {
 				for( auto i = 0; i != Nchild; i++) {
 					if( !futures[i].get()) {
-						hpx::async<action_debranch>(children[i]);
+						hpx::async<action_debranch>(children[i]).get();
 					}
 				}
 				return true;
@@ -413,7 +416,7 @@ public:
 			bool result = (static_cast<Derived*>(this)->*(Function::value))();
 			rc = hpx::make_ready_future(result).share();
 			if (result) {
-				branch();
+				branch().get();
 			}
 		}
 
