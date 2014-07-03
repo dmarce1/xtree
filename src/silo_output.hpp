@@ -137,9 +137,9 @@ public:
 		for (auto ni = nodedir.begin(); ni != nodedir.end(); ni++) {
 			for (int di = 0; di < Ndim; di++) {
 				coords[di][ni->index] = (*ni)[di];
-				//	printf( "%e ",  (*ni)[di]);
+				printf("%e ", (*ni)[di]);
 			}
-			//	printf( "\n");
+			printf("\n");
 		}
 		nodedir.clear();
 
@@ -194,6 +194,8 @@ public:
 			silo_zone s;
 			int j;
 			s.fields = std::move(zones[i].fields);
+			printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
+					zones[i].span[2]);
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				vertex v;
 				int ci = vertex_order[ci0];
@@ -201,8 +203,6 @@ public:
 					const double factor = (0.5 * double(2 * ((ci >> k) & 1) - 1));
 					v[k] = zones[i].position[k] + zones[i].span[k] * factor;
 				}
-		//		printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
-		//				zones[i].span[2]);
 				mutex0.lock();
 				auto iter = nodedir.find(v);
 				if (iter == nodedir.end()) {

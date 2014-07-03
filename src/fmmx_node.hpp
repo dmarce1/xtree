@@ -119,9 +119,9 @@ private:
 	std::valarray<expansion<P>> M;
 	std::valarray<expansion<P>> L;
 	std::valarray<std::valarray<double>> X;
-	std::valarray<double> dx;
 public:
 	std::vector<ascend_type> ascend(ascend_type& parent) {
+		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		auto dir_center = dir_type<Ndim>().set_zero();
 		exchange_type center = exchange_get(dir_center);
@@ -158,6 +158,7 @@ public:
 
 	}
 	descend_type descend(std::vector<descend_type>& children) {
+		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		std::fill(std::begin(L), std::end(L), 0.0);
 		if (children.size() > 0) {
@@ -170,7 +171,7 @@ public:
 				return std::valarray<complex>(cube * complex(rhoin, 0.0));
 			});
 		}
-		return descend_type(M, [dims,this](const multipoles_type& Mfine) {
+		return descend_type(M, [dims,dx,this](const multipoles_type& Mfine) {
 			multipoles_type Mthis(Size/Nchild);
 			multipoles_type Mcoarse(Size/Nchild);
 			std::fill(std::begin(Mcoarse), std::end(Mcoarse), 0.0);
@@ -198,12 +199,8 @@ public:
 		M.resize(Size);
 		L.resize(Size);
 		rho.resize(Size);
-		dx.resize(Ndim);
 		for (std::size_t i = 0; i < Size; i++) {
 			X[i].resize(Ndim);
-		}
-		for (std::size_t i = 0; i < Ndim; i++) {
-			dx[i] = 1.0 / double(Nx) / double(1 << this->get_self().get_level());
 		}
 	}
 	fmmx_node(component_type* back_ptr) :
@@ -214,6 +211,8 @@ public:
 			node<fmmx_node, Ndim>() {
 		allocate();
 	}
+	virtual ~fmmx_node() {
+	}
 	bool regrid_test() {
 		if (this->get_self().get_level() < 3) {
 			return true;
@@ -222,6 +221,7 @@ public:
 		}
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
+		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);
 		for (std::size_t d = 0; d < Ndim; d++) {
 			corner0[d] = this->get_self().get_position(d);
@@ -268,16 +268,27 @@ public:
 		});
 	}
 	std::vector<typename silo_output<Ndim, 0>::zone> get_output_zones() {
+		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::vector<typename silo_output<Ndim, 0>::zone> zones(Size);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		std::valarray<std::valarray<double>> position_array0 = create_position_array(dims);
-		position_array0 /= std::valarray<double>(double(Nchild),Ndim);
+		auto corner = this->get_self().get_position();
+		for (auto i = std::begin(position_array0); i != std::end(position_array0); ++i) {
+			for (std::size_t d = 0; d != Ndim; ++d) {
+				(*i)[d] /= dims[d];
+				(*i)[d] *= this->get_self().get_dx();
+				(*i)[d] += corner[d];
+			}
+		}
 		for (std::size_t i = 0; i < Size; i++) {
 			std::copy(std::begin(dx), std::end(dx), std::begin(zones[i].span));
-			printf("%e %e %e\n", dx[0], dx[1],dx[2]);
+			//		printf("%e %e %e\n", dx[0], dx[1],dx[2]);
 			std::copy(std::begin(position_array0[i]), std::end(position_array0[i]), std::begin(zones[i].position));
 		}
 		return zones;
+	}
+	void initialize() {
+		printf("Initializing...\n");
 	}
 }
 ;

@@ -17,7 +17,7 @@ XTREE_INSTANTIATE(fmmx_node_type, 3);
 void test() {
 }
 
-int hpx_main() {
+void execute() {
 
 	hpx::id_type tree_gid = (hpx::new_<tree_type>(hpx::find_here())).get();
 	auto fut0 = hpx::async<tree_type::action_get_this>(tree_gid);
@@ -25,14 +25,16 @@ int hpx_main() {
 	tree_ptr->place_root();
 	auto fut1 = tree_ptr->get_root();
 	fmmx_node_type* root_node = fut1.get();
-	using dfunc = fmmx_node_type::descend_function<fmmx_node_type::descend_type, &fmmx_node_type::descend>;
 	using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
+//	using init_func = fmmx_node_type::local_function<&fmmx_node_type::initialize>;
+	using dfunc = fmmx_node_type::descend_function<fmmx_node_type::descend_type, &fmmx_node_type::descend>;
 	using eg_func = fmmx_node_type::exchange_get_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_get>;
 	using es_func = fmmx_node_type::exchange_set_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_set>;
 	using afunc = fmmx_node_type::ascend_function<fmmx_node_type::ascend_type, &fmmx_node_type::ascend>;
 
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
 	init_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
+//	init_ops[1] = fmmx_node_type::make_local_operation<init_func>();
 	root_node->execute_operations(init_ops);
 	tree_ptr->output();
 	/*
@@ -44,5 +46,12 @@ int hpx_main() {
 	 ops[1] = eop;
 	 ops[2] = aop;
 	 root_node->execute_operations(ops);*/
+	(root_node->debranch()).get();
+	tree_ptr->delete_node(root_node);
+}
+
+int hpx_main() {
+	execute();
 	return hpx::finalize();
+
 }

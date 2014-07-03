@@ -109,6 +109,7 @@ public:
 		if (get_level() != 0) {
 			local_tree->delete_node(static_cast<wrapped_type*>(this));
 		}
+		parent = hpx::invalid_id;
 	}
 
 	template<typename Arc>
@@ -138,7 +139,8 @@ public:
 				for( dir_type<Ndim> dir; !dir.is_end(); dir++ ) {
 					pack[dir] = get_niece(ci,dir);
 				}
-				futs[ci] = local_tree->new_node(self.get_child(ci), static_cast<Derived*>(this)->get_gid(), pack);
+				auto tgid = static_cast<Derived*>(this)->get_gid();
+				futs[ci] = local_tree->new_node(self.get_child(ci), tgid, pack);
 			}
 			return futs;
 		}), std::move(fut0));
@@ -185,8 +187,7 @@ public:
 			}
 		}
 		auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
-			child_index_type<Ndim> ci;
-			for (ci = 0; !ci.is_end(); ci++) {
+			for (std::size_t ci = 0; ci != Nchild; ++ci) {
 				children[ci] = hpx::invalid_id;
 			}
 		}));
@@ -281,6 +282,8 @@ public:
 		subcycle_lock.unlock();
 	}
 
+	using local_type = void (wrapped_type::*)();
+
 	using regrid_type = bool (wrapped_type::*)();
 
 	template<typename T>
@@ -294,6 +297,12 @@ public:
 
 	template<typename T>
 	using exchange_set_type = void (wrapped_type::*)(dir_type<Ndim>, T&);
+
+	template<local_type Function>
+	struct local_function {
+		static constexpr local_type value = Function;
+		using type = void;
+	};
 
 	template<regrid_type Function>
 	struct regrid_function {
@@ -342,6 +351,13 @@ public:
 	}
 
 	template<typename Function>
+	struct local_operation: operation_base {
+		hpx::shared_future<void> operator()(node& root) const {
+			return root.local<Function>(root.get_subcycle());
+		}
+	};
+
+	template<typename Function>
 	struct regrid_operation: operation_base {
 		hpx::shared_future<void> operator()(node& root) const {
 			return root.regrid<Function>(root.get_subcycle());
@@ -370,6 +386,12 @@ public:
 	};
 
 	template<typename Function>
+	static operation_type make_local_operation() {
+		auto operation = std::make_shared<local_operation<Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Function>
 	static operation_type make_regrid_operation() {
 		auto operation = std::make_shared<regrid_operation<Function>>();
 		return std::static_pointer_cast < operation_base > (operation);
@@ -394,20 +416,46 @@ public:
 	}
 
 	template<typename Function>
+	hpx::shared_future<void> local(int this_subcycle) {
+		wait_my_turn(this_subcycle);
+		std::vector<hpx::future<void>> futures;
+		hpx::shared_future<void> rc;
+		if (!is_leaf) {
+			//	futures.resize(Nchild);
+			for (int i = 0; i < Nchild; ++i) {
+				//		futures[i] = hpx::async<action_local<Function>>(children[i], this_subcycle);
+			}
+		}
+		rc = hpx::async([this]() {
+			(static_cast<Derived*>(this)->*(Function::value))();
+		}).share();
+
+		if (futures.size()) {
+			rc = when_all(rc, when_all(futures)).share();
+		}
+
+		subcycle_lock.lock();
+		last_operation_future = rc;
+		subcycle++;
+		subcycle_lock.unlock();
+		return rc;
+	}
+
+	template<typename Function>
 	hpx::shared_future<bool> regrid(int this_subcycle) {
-		return hpx::make_ready_future(true).share();
 		wait_my_turn(this_subcycle);
 		std::vector<hpx::future<bool>> futures;
 		hpx::shared_future<bool> rc;
 		if (!is_leaf) {
 			futures.resize(Nchild);
-			for (int i = 0; i < Nchild; i++) {
+			for (int i = 0; i < Nchild; ++i) {
 				futures[i] = hpx::async<action_regrid<Function>>(children[i], this_subcycle);
 			}
 			rc = when_all(futures).then(hpx::util::unwrapped([this]( std::vector<hpx::future<bool>> futures) {
 				for( auto i = 0; i != Nchild; i++) {
 					if( !futures[i].get()) {
-						hpx::async<action_debranch>(children[i]).get();
+						printf( "debranching...\n");
+						debranch().get();
 					}
 				}
 				return true;
@@ -416,7 +464,9 @@ public:
 			bool result = (static_cast<Derived*>(this)->*(Function::value))();
 			rc = hpx::make_ready_future(result).share();
 			if (result) {
+				printf("Branching...\n");
 				branch().get();
+				printf("Done Branching...\n");
 			}
 		}
 
@@ -528,6 +578,8 @@ public:
 		subcycle_lock.unlock();
 	}
 
+	template<typename Function>
+	using action_local = hpx::actions::make_action< hpx::shared_future<void>(node::*)(int), &node::local<Function>>; //
 	template<typename Function>
 	using action_regrid = hpx::actions::make_action< hpx::shared_future<bool>(node::*)(int), &node::regrid<Function>>; //
 	template<typename Function>

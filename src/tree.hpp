@@ -109,7 +109,7 @@ public:
 		hpx::shared_future < hpx::id_type > id_future;
 		auto fut0 = hpx::new_ < Derived > (hpx::find_here());
 		id_future = fut0.share();
-		auto fut1 = id_future.then(hpx::util::unwrapped([&](hpx::id_type id) {
+		auto fut1 = id_future.then(hpx::util::unwrapped([=](hpx::id_type id) {
 			return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, _parent_id, std::move(_neighbors), this);
 		}));
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
@@ -145,13 +145,22 @@ public:
 		}
 		dir_lock.lock();
 
-		std::vector<typename silo_output_type::zone> zones(nodes.size() * Derived::Size);
+		std::size_t leaf_cnt = 0;
+		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
+			if ((*i)->is_terminal()) {
+				leaf_cnt++;
+			}
+		}
+		printf( "Leaf cnt = %li\n", leaf_cnt);
+		std::vector<typename silo_output_type::zone> zones(leaf_cnt * Derived::Size);
 		auto j = zones.begin();
 		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
-			const auto these_zones = (*i)->get_output_zones();
-			for (auto k = these_zones.begin(); k != these_zones.end(); ++k) {
-				*j = *k;
-				++j;
+			if ((*i)->is_terminal()) {
+				const auto these_zones = (*i)->get_output_zones();
+				for (auto k = these_zones.begin(); k != these_zones.end(); ++k) {
+					*j = *k;
+					++j;
+				}
 			}
 		}
 
