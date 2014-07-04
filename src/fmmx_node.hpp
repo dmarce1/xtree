@@ -120,6 +120,18 @@ private:
 	std::valarray<expansion<P>> L;
 	std::valarray<std::valarray<double>> X;
 public:
+	void initialize() {
+		std::valarray<std::size_t> dims(Nx, Ndim);
+		X = create_position_array(dims);
+		auto corner = this->get_self().get_position();
+		for (auto i = std::begin(X); i != std::end(X); ++i) {
+			for (std::size_t d = 0; d != Ndim; ++d) {
+				(*i)[d] /= dims[d];
+				(*i)[d] *= this->get_self().get_dx();
+				(*i)[d] += corner[d];
+			}
+		}
+	}
 	std::vector<ascend_type> ascend(ascend_type& parent) {
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
@@ -158,7 +170,7 @@ public:
 
 	}
 	descend_type descend(std::vector<descend_type>& children) {
-		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
+		std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		std::fill(std::begin(L), std::end(L), 0.0);
 		if (children.size() > 0) {
@@ -180,9 +192,9 @@ public:
 				std::valarray<double> dist(Ndim);
 				for( std::size_t d = 0; d < Ndim; d++ ) {
 					if( (ci >> d) & 1) {
-						dist[ci] = +0.25*dx[d];
+						dist[d] = +0.25*dx[d];
 					} else {
-						dist[ci] = -0.25*dx[d];
+						dist[d] = -0.25*dx[d];
 					}
 				}
 				for( std::size_t i = 0; i <Size/Nchild; i++ ) {
@@ -214,21 +226,16 @@ public:
 	virtual ~fmmx_node() {
 	}
 	bool regrid_test() {
-		if (this->get_self().get_level() < 3) {
-			return true;
-		} else {
-			return false;
-		}
+		return true;
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
+		return;
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);
 		for (std::size_t d = 0; d < Ndim; d++) {
 			corner0[d] = this->get_self().get_position(d);
 		}
 		std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
-		dir.set_zero();
-		std::valarray<std::valarray<double>> Xc = (static_data.position_array[dir] * dx) + corner0;
 		std::valarray<std::valarray<std::size_t>> indexes = this->is_terminal() ? static_data.near_indexes[dir] : static_data.neighbor_indexes[dir];
 		std::valarray<double> x(Xb.size());
 		std::valarray<double> xdif;
@@ -236,9 +243,10 @@ public:
 		Mb = boundary.get();
 		for (std::size_t i = 0; i < indexes.size(); i++) {
 			std::valarray<expansion<P>> l(indexes[i].size());
-			std::valarray<std::valarray<double>> x = Xc[indexes[i]];
+			std::valarray<std::valarray<double>> x = X[indexes[i]];
 			for (std::size_t j = 0; j < indexes[i].size(); j++) {
-				std::valarray<double> dist = x[j] - Xb[i];
+				auto tmp = Xb[i];
+				std::valarray<double> dist = x[j] - tmp;
 				static_data.exafmm.M2L(l[j], Mb[i], dist);
 			}
 			L[indexes[i]] += l;
@@ -250,45 +258,48 @@ public:
 			std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
 			for( std::size_t d = 0; d < Ndim; d++) {
 				switch(dir[d]) {
-					case 0:
+				case 0:
 					mins[d] = 0;
 					maxes[d] = Nx;
 					break;
-					case +1:
+				case +1:
 					mins[d] = Nx - Bw;
 					maxes[d] = Nx;
 					break;
-					case -1:
+				case -1:
 					mins[d] = 0;
 					maxes[d] = Bw;
 					break;
 				}
 			}
-			return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Ndim,Nx), mins, maxes)]);
+			return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)]);
 		});
 	}
-	std::vector<typename silo_output<Ndim, 0>::zone> get_output_zones() {
+	std::vector<typename silo_output<Ndim>::zone> get_output_zones() {
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::vector<typename silo_output<Ndim, 0>::zone> zones(Size);
+		std::vector<typename silo_output<Ndim>::zone> zones(Size);
 		std::valarray<std::size_t> dims(Nx, Ndim);
-		std::valarray<std::valarray<double>> position_array0 = create_position_array(dims);
-		auto corner = this->get_self().get_position();
-		for (auto i = std::begin(position_array0); i != std::end(position_array0); ++i) {
-			for (std::size_t d = 0; d != Ndim; ++d) {
-				(*i)[d] /= dims[d];
-				(*i)[d] *= this->get_self().get_dx();
-				(*i)[d] += corner[d];
-			}
-		}
 		for (std::size_t i = 0; i < Size; i++) {
+			std::vector<double> fields(1);
+			fields[0] = rho[i];
 			std::copy(std::begin(dx), std::end(dx), std::begin(zones[i].span));
-			//		printf("%e %e %e\n", dx[0], dx[1],dx[2]);
-			std::copy(std::begin(position_array0[i]), std::end(position_array0[i]), std::begin(zones[i].position));
+			std::copy(std::begin(X[i]), std::end(X[i]), std::begin(zones[i].position));
+			zones[i].fields = fields;
 		}
 		return zones;
 	}
-	void initialize() {
+	void init_grid() {
+		const double R0 = 0.5;
+		const std::valarray<double> x0(0.5, Ndim);
 		printf("Initializing...\n");
+		for (std::size_t i = 0; i < Size; i++) {
+			auto r = std::sqrt(((X[i] - x0) * (X[i] - x0)).sum());
+			if (r < R0) {
+				rho[i] = 1.0;
+			} else {
+				rho[i] = 0.0;
+			}
+		}
 	}
 }
 ;

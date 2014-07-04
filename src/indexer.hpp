@@ -101,7 +101,7 @@ public:
 	bool is_zero() {
 		bool rc = true;
 		for (int i = 0; i < Ndim; i++) {
-			if (std::array<int, Ndim>::operator[](i) != 0) {
+			if (values[i] != 0) {
 				rc = false;
 				break;
 			}

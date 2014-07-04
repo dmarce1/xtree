@@ -10,8 +10,8 @@
 
 namespace xtree {
 
-template<int Ndim, int NFields>
-class silo_output: public hpx::components::managed_component_base<silo_output<Ndim, NFields>> {
+template<int Ndim>
+class silo_output: public hpx::components::managed_component_base<silo_output<Ndim>> {
 public:
 	static constexpr double precision = 1.0e-10;
 	static constexpr int Nchild = 1 << Ndim;
@@ -19,8 +19,7 @@ public:
 		std::vector<double> fields;
 		std::array<double, Ndim> position;
 		std::array<double, Ndim> span;
-		zone() :
-				fields(NFields) {
+		zone()  {
 		}
 		zone(const zone& z) {
 			*this = z;
@@ -29,14 +28,12 @@ public:
 			*this = z;
 		}
 		zone& operator=(const zone& z) {
-			fields.resize(NFields);
 			fields = z.fields;
 			position = z.position;
 			span = z.span;
 			return *this;
 		}
 		zone& operator=(zone&& z) {
-			fields.resize(NFields);
 			fields = std::move(z.fields);
 			position = std::move(z.position);
 			span = std::move(z.span);
@@ -53,15 +50,15 @@ public:
 		std::vector<double> fields;
 		std::vector<int> vertices;
 		silo_zone() :
-				fields(NFields), vertices(Nchild) {
+				vertices(Nchild) {
 		}
 		silo_zone(const silo_zone& s) :
-				fields(NFields), vertices(Nchild) {
+				vertices(Nchild) {
 			fields = s.fields;
 			vertices = s.vertices;
 		}
 		silo_zone(silo_zone&& s) :
-				fields(NFields), vertices(Nchild) {
+				vertices(Nchild) {
 			fields = std::move(s.fields);
 			vertices = std::move(s.vertices);
 		}
@@ -103,8 +100,7 @@ private:
 	std::vector<bool> received;
 	mutable hpx::lcos::local::mutex mutex0;
 public:
-	silo_output() :
-			names(NFields) {
+	silo_output() {
 		received.resize((hpx::find_all_localities()).size());
 		reset();
 
@@ -126,6 +122,7 @@ public:
 		std::string coordname_strs[Ndim];
 		double* coords[Ndim];
 		const char* coordnames[Ndim];
+		const int nfields = (zonedir.begin())->fields.size();
 
 		for (int di = 0; di < Ndim; di++) {
 			coord_vectors[di].resize(nnodes);
@@ -137,9 +134,9 @@ public:
 		for (auto ni = nodedir.begin(); ni != nodedir.end(); ni++) {
 			for (int di = 0; di < Ndim; di++) {
 				coords[di][ni->index] = (*ni)[di];
-				printf("%e ", (*ni)[di]);
+			//	printf("%e ", (*ni)[di]);
 			}
-			printf("\n");
+		//	printf("\n");
 		}
 		nodedir.clear();
 
@@ -148,10 +145,10 @@ public:
 		for (auto zi = zonedir.begin(); zi != zonedir.end(); zi++) {
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				zone_nodes[zni] = zi->vertices[ci0];
-				printf("%i ", zone_nodes[zni]);
+		//		printf("%i ", zone_nodes[zni]);
 				zni++;
 			}
-			printf("\n");
+	//		printf("\n");
 		}
 
 		olist = DBMakeOptlist(1);
@@ -162,7 +159,7 @@ public:
 		std::vector<double> data(nzones);
 		char fname[2];
 		fname[1] = '\0';
-		for (int fi = 0; fi < NFields; fi++) {
+		for (int fi = 0; fi != nfields; ++fi) {
 			int i = 0;
 			for (auto zi = zonedir.begin(); zi != zonedir.end(); zi++) {
 				data[i] = zi->fields[fi];
@@ -194,8 +191,8 @@ public:
 			silo_zone s;
 			int j;
 			s.fields = std::move(zones[i].fields);
-			printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
-					zones[i].span[2]);
+		//	printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
+		//			zones[i].span[2]);
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				vertex v;
 				int ci = vertex_order[ci0];

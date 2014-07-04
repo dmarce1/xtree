@@ -15,7 +15,7 @@ using iter_type = std::size_t;
 template<int, int...>
 struct int_seq;
 
-template<int, int>
+template<int>
 class silo_output;
 
 template<typename >

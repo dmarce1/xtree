@@ -11,7 +11,7 @@
 #include <valarray>
 
 std::gslice get_slice(const std::valarray<std::size_t>& dims, const std::valarray<std::size_t>& mins, const std::valarray<std::size_t>& maxes) {
-	std::valarray<std::size_t> strides;
+	std::valarray<std::size_t> strides(dims.size());
 	const std::size_t ndim = dims.size();
 	std::size_t start;
 	const std::valarray<std::size_t> these_dims(maxes - mins);

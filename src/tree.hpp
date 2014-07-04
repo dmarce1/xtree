@@ -20,7 +20,7 @@ public:
 private:
 	using base_type = hpx::components::managed_component_base<tree<Derived,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<tree<Derived,Ndim>>;
-	using silo_output_type = silo_output<Ndim, 0>;
+	using silo_output_type = silo_output<Ndim>;
 	hpx::id_type silo_gid;
 	hpx::id_type this_gid;
 	hpx::id_type root_node_gid;
@@ -78,7 +78,7 @@ public:
 		hpx::future < hpx::id_type > fut2;
 		std::array < hpx::id_type, Nneighbor > neighbors;
 		std::fill(neighbors.begin(), neighbors.end(), hpx::invalid_id);
-		fut2 = new_node(location<Ndim>(), hpx::invalid_id, neighbors);
+		fut2 = new_node(location<Ndim>(), hpx::invalid_id, neighbors, 0);
 		root_node_gid = fut2.get();
 	}
 
@@ -105,13 +105,17 @@ public:
 		return this;
 	}
 
-	hpx::future<hpx::id_type> get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors) {
+	hpx::future<hpx::id_type> get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors,
+			int subcyc) {
 		hpx::shared_future < hpx::id_type > id_future;
 		auto fut0 = hpx::new_ < Derived > (hpx::find_here());
 		id_future = fut0.share();
-		auto fut1 = id_future.then(hpx::util::unwrapped([=](hpx::id_type id) {
-			return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, _parent_id, std::move(_neighbors), this);
-		}));
+		auto fut1 =
+				id_future.then(
+						hpx::util::unwrapped(
+								[=](hpx::id_type id) {
+									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), subcyc+1, this);
+								}));
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
 			dir_lock.lock();
 			auto test = nodes.insert(ptr);
@@ -123,10 +127,10 @@ public:
 
 	XTREE_MAKE_ACTION( action_get_new_node, tree::get_new_node ); //
 
-	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors) {
+	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors, int subcyc) {
 		auto proc_num = load_balancer_ptr->increment_load().get();
 		auto gid = hpx::find_id_from_basename(name, proc_num).get();
-		return hpx::async<action_get_new_node>(gid, _loc, _parent_id, _neighbors);
+		return hpx::async<action_get_new_node>(gid, _loc, _parent_id, _neighbors, subcyc);
 	}
 
 	void delete_node(Derived* ptr) {
@@ -151,7 +155,7 @@ public:
 				leaf_cnt++;
 			}
 		}
-		printf( "Leaf cnt = %li\n", leaf_cnt);
+		printf("Leaf cnt = %li\n", leaf_cnt);
 		std::vector<typename silo_output_type::zone> zones(leaf_cnt * Derived::Size);
 		auto j = zones.begin();
 		for (auto i = nodes.begin(); i != nodes.end(); ++i) {

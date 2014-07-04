@@ -18,7 +18,7 @@ using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 										
 
 #define XTREE_INSTANTIATE( DERIVED_CLASS, ... )																		\
 namespace xtree {																									\
-	typedef silo_output<__VA_ARGS__, 0> silo_output_type;   														\
+	typedef silo_output<__VA_ARGS__> silo_output_type;   														\
 	typedef node<DERIVED_CLASS, __VA_ARGS__> node_type;   														\
 	typedef tree<DERIVED_CLASS, __VA_ARGS__> tree_type;   															\
 	typedef  hpx::components::managed_component<xtree::node_type> node_component_type; \

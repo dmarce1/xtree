@@ -26,18 +26,21 @@ void execute() {
 	auto fut1 = tree_ptr->get_root();
 	fmmx_node_type* root_node = fut1.get();
 	using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
-//	using init_func = fmmx_node_type::local_function<&fmmx_node_type::initialize>;
+	using init_func = fmmx_node_type::local_function<&fmmx_node_type::init_grid>;
 	using dfunc = fmmx_node_type::descend_function<fmmx_node_type::descend_type, &fmmx_node_type::descend>;
 	using eg_func = fmmx_node_type::exchange_get_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_get>;
 	using es_func = fmmx_node_type::exchange_set_function<fmmx_node_type::exchange_type, &fmmx_node_type::exchange_set>;
 	using afunc = fmmx_node_type::ascend_function<fmmx_node_type::ascend_type, &fmmx_node_type::ascend>;
 
+	std::vector<fmmx_node_type::operation_type> refine_ops(1);
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
-	init_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
-//	init_ops[1] = fmmx_node_type::make_local_operation<init_func>();
+	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
+	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
+	root_node->execute_operations(refine_ops);
+	//root_node->execute_operations(refine_ops);
 	root_node->execute_operations(init_ops);
 	tree_ptr->output();
-	/*
+
 	 std::vector<fmmx_node_type::operation_type> ops(3);
 	 auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	 auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
@@ -45,13 +48,13 @@ void execute() {
 	 ops[0] = dop;
 	 ops[1] = eop;
 	 ops[2] = aop;
-	 root_node->execute_operations(ops);*/
+	 root_node->execute_operations(ops);
 	(root_node->debranch()).get();
 	tree_ptr->delete_node(root_node);
 }
 
 int hpx_main() {
-	execute();
+//	execute();
 	return hpx::finalize();
 
 }
