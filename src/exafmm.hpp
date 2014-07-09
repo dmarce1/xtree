@@ -287,7 +287,7 @@ public:
 			Ynm[nmn] = std::conj(Ynm[npn]);                           //  Use conjugate relation for m < 0
 			real p1 = p;                                              //  Pnm-1
 			p = x * (2 * m + 1) * p1;                                 //  Pnm using recurrence relation
-			YnmTheta[npn] = rhom * (p - (m + 1) * x * p1) / y * prefactor[npn] * eim;                                 // theta derivative of r^n * Ynm
+		//	YnmTheta[npn] = rhom * (p - (m + 1) * x * p1) / y * prefactor[npn] * eim;                                 // theta derivative of r^n * Ynm
 			rhom /= rho;                                              //  rho^(-m-1)
 			real rhon = rhom;                                         //  rho^(-n-1)
 			for (int n = m + 1; n != P; ++n) {                             //  Loop over n in Ynm
@@ -298,7 +298,7 @@ public:
 				real p2 = p1;                                           //   Pnm-2
 				p1 = p;                                                 //   Pnm-1
 				p = (x * (2 * n + 1) * p1 - (n + m) * p2) / (n - m + 1);                                                 //   Pnm using recurrence relation
-				YnmTheta[npm] = rhon * ((n - m + 1) * p - (n + 1) * x * p1) / y * prefactor[npm] * eim;                                      // theta derivative
+			//	YnmTheta[npm] = rhon * ((n - m + 1) * p - (n + 1) * x * p1) / y * prefactor[npm] * eim;                                      // theta derivative
 				rhon /= rho;                                            //   rho^(-n-1)
 			}                                                         //  End loop over n in Ynm
 			pn = -pn * fact * y;                                      //  Pn

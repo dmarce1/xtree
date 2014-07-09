@@ -541,27 +541,28 @@ public:
 	void ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle) {
 		using T = typename Function::type;
 		wait_my_turn(this_subcycle);
-		if( !is_leaf ) {
-			auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
-			promises->resize(Nchild);
-			auto f = when_all(input_data_future, last_operation_future).then( hpx::util::unwrapped([=](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
-				std::vector<T> output_data;
-				auto& g = HPX_STD_GET(0, tupfut);
-				auto input_data = g.get();
+		auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
+		promises->resize(Nchild);
+		auto f = when_all(input_data_future, last_operation_future).then( hpx::util::unwrapped([=](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
+			std::vector<T> output_data;
+			auto& g = HPX_STD_GET(0, tupfut);
+			auto input_data = g.get();
+			if( !is_leaf ) {
 				output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
 				for( int i = 0; i < Nchild; i++) {
 					(*promises)[i].set_value(output_data[i]);
 				}
-			}));
-			for (int i = 0; i < Nchild; i++) {
-				hpx::apply<action_ascend<Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
+			} else {
+				(static_cast<Derived*>(this)->*(Function::value))(input_data);
 			}
-			subcycle_lock.lock();
-			last_operation_future = f.share();
-		} else {
-			subcycle_lock.lock();
-			last_operation_future = hpx::make_ready_future().share();
+		}));
+		if( !is_leaf ) {
+			for (int i = 0; i < Nchild; i++) {
+			hpx::apply<action_ascend<Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
+			}
 		}
+		subcycle_lock.lock();
+		last_operation_future = f.share();
 		subcycle++;
 		subcycle_lock.unlock();
 	}

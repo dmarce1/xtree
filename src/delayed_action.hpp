@@ -30,8 +30,8 @@ public:
 		done = true;
 	}
 	template<class FuncType>
-	delayed_action(const T& i, FuncType func) :
-			input_reference(&i), action(func) {
+	delayed_action(const T* i, FuncType func) :
+			input_reference(i), action(func) {
 		done = false;
 	}
 

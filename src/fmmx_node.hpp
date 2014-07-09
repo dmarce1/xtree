@@ -163,16 +163,16 @@ public:
 			});
 			L[get_restrict_slice(dims, ci)] += Lthis;
 		}
-		std::vector<ascend_type> children;
+		std::vector<ascend_type> child_data;
 		if (!this->is_terminal()) {
-			children.resize(Nchild);
+			child_data.resize(Nchild);
 			for (std::size_t ci = 0; ci < Nchild; ci++) {
-				children[ci] = ascend_type(L, [dims,ci](const expansions_type& Lc) {
-					return Lc[get_xtant_slice(dims, ci)];
+				child_data[ci] = ascend_type(&L, [dims,ci](const expansions_type& Lc) {
+					return expansions_type(Lc[get_xtant_slice(dims, ci)]);
 				});
 			}
 		}
-		return children;
+		return child_data;
 
 	}
 	descend_type descend(std::vector<descend_type>& children) {
@@ -189,7 +189,7 @@ public:
 				return std::valarray<complex>(cube * complex(rhoin, 0.0));
 			});
 		}
-		return descend_type(M, [dims,dx,this](const multipoles_type& Mfine) {
+		return descend_type(&M, [dims,dx,this](const multipoles_type& Mfine) {
 			multipoles_type Mthis(Size/Nchild);
 			multipoles_type Mcoarse(Size/Nchild);
 			std::fill(std::begin(Mcoarse), std::end(Mcoarse), 0.0);
@@ -235,9 +235,6 @@ public:
 		return true;
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
-//		if( !dir.is_zero()) {
-	//		return;
-	//	}
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);
 		for (std::size_t d = 0; d < Ndim; d++) {
@@ -255,7 +252,11 @@ public:
 			for (std::size_t j = 0; j < indexes[i].size(); j++) {
 				auto tmp = Xb[i];
 				std::valarray<double> dist = x[j] - tmp;
-				static_data.exafmm.M2L(l[j], Mb[i], dist);
+				if( (dist*dist).sum() > 0.0 )  {
+					static_data.exafmm.M2L(l[j], Mb[i], dist);
+				} //else {
+			//		printf("Self\n");
+			//	}
 		//			printf("%i %e\n", this->get_self().get_level(), l[j][0].real());
 			}
 		//	abort();
@@ -265,7 +266,7 @@ public:
 
 	}
 	exchange_type exchange_get(dir_type<Ndim> dir) {
-		return exchange_type(M, [dir](const multipoles_type& M) {
+		return exchange_type(&M, [dir](const multipoles_type& M) {
 			std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
 			for( std::size_t d = 0; d < Ndim; d++) {
 				switch(dir[d]) {

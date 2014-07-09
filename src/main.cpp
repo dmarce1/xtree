@@ -7,6 +7,7 @@
 
 #include "xtree.hpp"
 #include "./fmmx_node.hpp"
+#include <fenv.h>
 
 using namespace xtree;
 using namespace fmmx;
@@ -54,6 +55,11 @@ void execute() {
 }
 
 int hpx_main() {
+#ifndef NDEBUG
+    feenableexcept (FE_DIVBYZERO);
+    feenableexcept (FE_INVALID);
+    feenableexcept (FE_OVERFLOW);
+#endif
 	execute();
 	return hpx::finalize();
 
