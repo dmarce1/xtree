@@ -138,16 +138,22 @@ public:
 		auto dir_center = dir_type<Ndim>().set_zero();
 		exchange_type center = exchange_get(dir_center);
 		exchange_set(dir_center, center);
-		auto Lcoarse = parent.get();
-		decltype(Lcoarse) Lthis(Lcoarse.size());
-		for (std::size_t ci = 0; ci < Nchild; ci++) {
+		expansions_type Lcoarse, Lthis;
+		Lcoarse.resize(Size/Nchild);
+		Lthis.resize(Size/Nchild);
+		if( this->get_level() != 0 ) {
+			Lcoarse = parent.get();
+		} else {
+			Lcoarse = expansion<P>(0.0);
+		}
+		for (std::size_t ci = 0; ci != Nchild; ++ci) {
 			std::fill(std::begin(Lthis), std::end(Lthis), 0.0);
 			std::valarray<double> dist(Ndim);
 			for (std::size_t d = 0; d < Ndim; d++) {
 				if ((ci >> d) & 1) {
-					dist[ci] = +0.25 * dx[d];
+					dist[d] = +0.25 * dx[d];
 				} else {
-					dist[ci] = -0.25 * dx[d];
+					dist[d] = -0.25 * dx[d];
 				}
 			}
 			std::transform(std::begin(Lcoarse), std::end(Lcoarse), std::begin(Lthis), [dist](const expansion<P>& Lin) {
@@ -229,7 +235,9 @@ public:
 		return true;
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
-		return;
+//		if( !dir.is_zero()) {
+	//		return;
+	//	}
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);
 		for (std::size_t d = 0; d < Ndim; d++) {
@@ -248,9 +256,12 @@ public:
 				auto tmp = Xb[i];
 				std::valarray<double> dist = x[j] - tmp;
 				static_data.exafmm.M2L(l[j], Mb[i], dist);
+		//			printf("%i %e\n", this->get_self().get_level(), l[j][0].real());
 			}
+		//	abort();
 			L[indexes[i]] += l;
 		}
+	//	printf( "Exchange set\n");
 
 	}
 	exchange_type exchange_get(dir_type<Ndim> dir) {
@@ -258,15 +269,15 @@ public:
 			std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
 			for( std::size_t d = 0; d < Ndim; d++) {
 				switch(dir[d]) {
-				case 0:
+					case 0:
 					mins[d] = 0;
 					maxes[d] = Nx;
 					break;
-				case +1:
+					case +1:
 					mins[d] = Nx - Bw;
 					maxes[d] = Nx;
 					break;
-				case -1:
+					case -1:
 					mins[d] = 0;
 					maxes[d] = Bw;
 					break;
@@ -279,9 +290,18 @@ public:
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::vector<typename silo_output<Ndim>::zone> zones(Size);
 		std::valarray<std::size_t> dims(Nx, Ndim);
+
+	//	if( this->get_self().get_level() > 0 ) {
+		//	for( auto i = std::begin(L); i != std::end(L); i++) {
+		//		printf( "%e\n", (*i)[0].real());
+	//		}
+	//	}
+
 		for (std::size_t i = 0; i < Size; i++) {
-			std::vector<double> fields(1);
+			std::vector<double> fields(3);
 			fields[0] = rho[i];
+			fields[1] = L[i][0].real();
+			fields[2] = M[i][0].real();
 			std::copy(std::begin(dx), std::end(dx), std::begin(zones[i].span));
 			std::copy(std::begin(X[i]), std::end(X[i]), std::begin(zones[i].position));
 			zones[i].fields = fields;
@@ -291,7 +311,7 @@ public:
 	void init_grid() {
 		const double R0 = 0.5;
 		const std::valarray<double> x0(0.5, Ndim);
-		printf("Initializing...\n");
+		//	printf("Initializing...\n");
 		for (std::size_t i = 0; i < Size; i++) {
 			auto r = std::sqrt(((X[i] - x0) * (X[i] - x0)).sum());
 			if (r < R0) {

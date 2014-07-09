@@ -24,18 +24,27 @@ public:
 		return base_ref;
 	}
 	expansion() :
-			std::valarray<complex>(P * (P + 1) / 2), base_ref(*static_cast<std::valarray<complex>*>(this)) {
+			std::valarray<complex>(P * (P + 1) / 2), base_ref(
+					*static_cast<std::valarray<complex>*>(this)) {
 	}
 	template<typename T>
 	void serialize(T& arc, const unsigned v) {
-		boost::serialization::serialize(arc, *static_cast<std::valarray<complex>*>(this), v);
+		boost::serialization::serialize(arc,
+				*static_cast<std::valarray<complex>*>(this), v);
 	}
 	expansion(const expansion& other) :
-			std::valarray<complex>(P * (P + 1) / 2), base_ref(*static_cast<std::valarray<complex>*>(this)) {
+			std::valarray<complex>(P * (P + 1) / 2), base_ref(
+					*static_cast<std::valarray<complex>*>(this)) {
 		base_ref = other;
 	}
+	expansion(real zero) :
+			std::valarray<complex>(P * (P + 1) / 2), base_ref(
+					*static_cast<std::valarray<complex>*>(this)) {
+		std::fill(std::begin(*this), std::end(*this), zero);
+	}
 	expansion(expansion&& other) :
-			std::valarray<complex>(P * (P + 1) / 2), base_ref(*static_cast<std::valarray<complex>*>(this)) {
+			std::valarray<complex>(P * (P + 1) / 2), base_ref(
+					*static_cast<std::valarray<complex>*>(this)) {
 		base_ref = std::move(other);
 	}
 	expansion& operator=(const expansion& other) {
@@ -51,7 +60,8 @@ public:
 		return *this;
 	}
 	expansion(const std::valarray<complex>& other) :
-			std::valarray<complex>(P * (P + 1) / 2), base_ref(*static_cast<std::valarray<complex>*>(this)) {
+			std::valarray<complex>(P * (P + 1) / 2), base_ref(
+					*static_cast<std::valarray<complex>*>(this)) {
 		std::copy(std::begin(other), std::end(other), std::begin(*this));
 	}
 };

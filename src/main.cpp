@@ -11,7 +11,7 @@
 using namespace xtree;
 using namespace fmmx;
 
-using fmmx_node_type = fmmx_node<3,8,5>;
+using fmmx_node_type = fmmx_node<3,8,2>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 void test() {
@@ -37,24 +37,24 @@ void execute() {
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
 	root_node->execute_operations(refine_ops);
-	//root_node->execute_operations(refine_ops);
+//	root_node->execute_operations(refine_ops);
 	root_node->execute_operations(init_ops);
-	tree_ptr->output();
 
-	 std::vector<fmmx_node_type::operation_type> ops(3);
-	 auto dop = fmmx_node_type::make_descend_operation<dfunc>();
-	 auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
-	 auto aop = fmmx_node_type::make_ascend_operation<afunc>();
-	 ops[0] = dop;
-	 ops[1] = eop;
-	 ops[2] = aop;
-	 root_node->execute_operations(ops);
+	std::vector<fmmx_node_type::operation_type> ops(3);
+	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
+	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
+	auto aop = fmmx_node_type::make_ascend_operation<afunc>();
+	ops[0] = dop;
+	ops[1] = eop;
+	ops[2] = aop;
+	root_node->execute_operations(ops);
+	tree_ptr->output();
 	(root_node->debranch()).get();
 	tree_ptr->delete_node(root_node);
 }
 
 int hpx_main() {
-//	execute();
+	execute();
 	return hpx::finalize();
 
 }

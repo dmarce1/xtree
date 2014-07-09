@@ -27,6 +27,7 @@ public:
 
 	delayed_action() :
 			input_reference(nullptr) {
+		done = true;
 	}
 	template<class FuncType>
 	delayed_action(const T& i, FuncType func) :

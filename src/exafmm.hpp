@@ -104,7 +104,7 @@ public:
 		}
 	}
 
-	static void M2L(std::valarray<complex> CiL, const std::valarray<complex>& CjM, const std::valarray<real>& dist) {
+	static void M2L(std::valarray<complex>& CiL, const std::valarray<complex> CjM, const std::valarray<real>& dist) {
 		complex Ynm[P * P], YnmTheta[P * P];
 		real rho, alpha, beta;
 		cart2sph(rho, alpha, beta, dist);
@@ -131,6 +131,7 @@ public:
 					}
 				}
 				CiL[jks] = L;
+			//	printf( "%i %e %e\n", jks, L.real(), L.imag());
 			}
 		}
 	}
