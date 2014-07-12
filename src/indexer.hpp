@@ -47,8 +47,8 @@ public:
 		return values[i];
 	}
 	operator int() const {
-		int j = abs_value(Ndim - 1);
-		for (int i = Ndim - 2; i >= 0; i--) {
+		int j = abs_value(Ndim-1);
+		for (int i = Ndim-2; i >= 0; i--) {
 			j *= Size;
 			j += abs_value(i);
 		}

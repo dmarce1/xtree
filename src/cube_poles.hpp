@@ -47,7 +47,7 @@ public:
 					std::valarray<complex> Ynm_theta(P * P);
 					exafmm.cart2sph(r, theta, phi, X);
 					if (r > 1.0) {
-						exafmm.evalMultipole(r, theta, phi, std::begin(Ynm), std::begin(Ynm_theta));
+						exafmm.evalMultipole(r, theta, phi, Ynm);
 						Y += w[i] * w[j] * w[k] * Ynm;
 					}
 				}

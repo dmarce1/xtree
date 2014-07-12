@@ -10,21 +10,30 @@
 
 #include <valarray>
 
-std::gslice get_slice(const std::valarray<std::size_t>& dims, const std::valarray<std::size_t>& mins, const std::valarray<std::size_t>& maxes) {
+std::gslice gslice_row_major(std::size_t start, std::valarray<std::size_t> dims,
+		std::valarray<std::size_t> strides) {
+	std::reverse(std::begin(dims), std::end(dims));
+	std::reverse(std::begin(strides), std::end(strides));
+	return std::gslice(start, dims, strides);
+}
+
+std::gslice get_slice(std::valarray<std::size_t> dims,
+		std::valarray<std::size_t> mins, std::valarray<std::size_t> maxes) {
 	std::valarray<std::size_t> strides(dims.size());
 	const std::size_t ndim = dims.size();
 	std::size_t start;
-	const std::valarray<std::size_t> these_dims(maxes - mins);
+	std::valarray<std::size_t> these_dims(maxes - mins);
 	strides[0] = 1;
 	start = mins[0];
-	for (std::size_t i = 1; i < ndim; i++) {
+	for (std::size_t i = 1; i != ndim; ++i) {
 		strides[i] = strides[i - 1] * dims[i - 1];
 		start += strides[i] * mins[i];
 	}
-	return std::gslice(start, these_dims, strides);
+	return gslice_row_major(start, these_dims, strides);
 }
 
-std::gslice get_xtant_slice(const std::valarray<std::size_t>& dims, std::size_t ci) {
+std::gslice get_xtant_slice(const std::valarray<std::size_t>& dims,
+		std::size_t ci) {
 	std::valarray<std::size_t> mins(dims.size());
 	std::valarray<std::size_t> maxes(dims.size());
 	for (std::size_t d = 0; d < dims.size(); d++) {
@@ -40,7 +49,8 @@ std::gslice get_xtant_slice(const std::valarray<std::size_t>& dims, std::size_t 
 
 }
 
-std::gslice get_restrict_slice(const std::valarray<std::size_t>& dims, std::size_t ci) {
+std::gslice get_restrict_slice(const std::valarray<std::size_t>& dims,
+		std::size_t ci) {
 	std::valarray<std::size_t> strides(dims.size());
 	std::valarray<std::size_t> these_dims = dims / std::size_t(2);
 	strides[0] = 1;
@@ -52,12 +62,13 @@ std::gslice get_restrict_slice(const std::valarray<std::size_t>& dims, std::size
 		start += strides[d] * ((ci >> d) & 1);
 	}
 	strides *= std::size_t(2);
-	return std::gslice(start, these_dims, strides);
+	return gslice_row_major(start, these_dims, strides);
 
 }
 
 template<typename T>
-std::valarray<T> get_prolong_array(const std::valarray<T>& a, const std::valarray<std::size_t>& dims) {
+std::valarray<T> get_prolong_array(const std::valarray<T>& a,
+		const std::valarray<std::size_t>& dims) {
 	const auto nchild = 1 << dims.size();
 	std::valarray<T> b(nchild);
 	for (std::size_t ci = 0; ci < nchild; ci++) {
@@ -75,7 +86,8 @@ T product(std::valarray<T> dims) {
 	return p;
 }
 
-std::valarray<std::valarray<double>> create_position_array(std::valarray<std::size_t> dims) {
+std::valarray<std::valarray<double>> create_position_array(
+		std::valarray<std::size_t> dims) {
 	std::valarray<std::valarray<double>> X;
 	std::valarray<std::size_t> strides(dims.size());
 	X.resize(product(dims));
@@ -96,10 +108,11 @@ std::valarray<std::valarray<double>> create_position_array(std::valarray<std::si
 		these_dims[di] = 1;
 		for (std::size_t i = 0; i < dims[di]; i++) {
 			const auto start = i * strides[di];
-			const auto slice = std::gslice(start, these_dims, strides);
+			const auto slice = gslice_row_major(start, these_dims, strides);
 			std::valarray<double> x(product(these_dims));
 			x = std::valarray<double>(unit[di] * (double(i) + 0.5));
-			X[slice] += std::valarray<std::valarray<double>>(x, product(these_dims));
+			X[slice] += std::valarray<std::valarray<double>>(x,
+					product(these_dims));
 		}
 	}
 	return X;

@@ -12,7 +12,7 @@
 using namespace xtree;
 using namespace fmmx;
 
-using fmmx_node_type = fmmx_node<3,8,2>;
+using fmmx_node_type = fmmx_node<3,8,3>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 void test() {
@@ -38,7 +38,8 @@ void execute() {
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
 	root_node->execute_operations(refine_ops);
-//	root_node->execute_operations(refine_ops);
+	root_node->execute_operations(refine_ops);
+	//root_node->execute_operations(refine_ops);
 	root_node->execute_operations(init_ops);
 
 	std::vector<fmmx_node_type::operation_type> ops(3);
@@ -49,6 +50,8 @@ void execute() {
 	ops[1] = eop;
 	ops[2] = aop;
 	root_node->execute_operations(ops);
+//	root_node->execute_operations(ops);
+	printf("OUtput\n");
 	tree_ptr->output();
 	(root_node->debranch()).get();
 	tree_ptr->delete_node(root_node);
@@ -56,9 +59,9 @@ void execute() {
 
 int hpx_main() {
 #ifndef NDEBUG
-    feenableexcept (FE_DIVBYZERO);
-    feenableexcept (FE_INVALID);
-    feenableexcept (FE_OVERFLOW);
+	feenableexcept(FE_DIVBYZERO);
+	feenableexcept(FE_INVALID);
+	feenableexcept(FE_OVERFLOW);
 #endif
 	execute();
 	return hpx::finalize();
