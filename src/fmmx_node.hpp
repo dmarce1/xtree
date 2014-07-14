@@ -132,6 +132,7 @@ public:
 	using wrapped_type = fmmx_node;
 private:
 	static fmmx_node_static_data<Ndim, Nx, P> static_data;
+	hpx::lcos::local::mutex lock;
 	std::valarray<double> rho;
 	std::valarray<expansion<P>> M;
 	std::valarray<expansion<P>> L;
@@ -150,6 +151,8 @@ public:
 		}
 	}
 	std::vector<ascend_type> ascend(ascend_type& parent) {
+		printf("Ascend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+				this->get_self().get_location(2), this->get_self().get_level());
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		auto dir_center = dir_type<Ndim>().set_zero();
@@ -193,6 +196,9 @@ public:
 
 	}
 	descend_type descend(std::vector<descend_type>& children) {
+		printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+				this->get_self().get_location(2), this->get_self().get_level());
+
 		std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		std::fill(std::begin(L), std::end(L), 0.0);
@@ -252,20 +258,9 @@ public:
 		return true;
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
-		//	if( this->get_self().get_level() != 0 ) {
-		//		return;
-		//	}
-		//	printf( "Set\n");
-		/*************************************/
-		//	if (!dir.is_zero())
-		//		return;
-		//	if( dir[0] != 0 ) {
-		//		return;
-		//	}
-		//	if( dir[2] != 0 ) {
-		//		return;
-		//	}
-		/**************************************/
+
+	//	printf("Set %i %i %i - %i %i %i - %i \n", dir[0], dir[1], dir[2], this->get_self().get_location(0),
+	//		this->get_self().get_location(1), this->get_self().get_location(2), this->get_self().get_level());
 
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);
@@ -290,7 +285,9 @@ public:
 					static_data.exafmm.M2L(l[j], Mb[i], dist);
 				}
 			}
+			lock.lock();
 			L[indexes[i]] += l;
+			lock.unlock();
 		}
 	}
 
