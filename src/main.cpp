@@ -52,7 +52,7 @@ void execute() {
 	root_node->execute_operations(ops);
 //	root_node->execute_operations(ops);
 	printf("OUtput\n");
-	//tree_ptr->output();
+	tree_ptr->output();
 	(root_node->debranch()).get();
 	tree_ptr->delete_node(root_node);
 }

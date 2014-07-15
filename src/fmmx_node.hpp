@@ -132,7 +132,6 @@ public:
 	using wrapped_type = fmmx_node;
 private:
 	static fmmx_node_static_data<Ndim, Nx, P> static_data;
-	hpx::lcos::local::mutex lock;
 	std::valarray<double> rho;
 	std::valarray<expansion<P>> M;
 	std::valarray<expansion<P>> L;
@@ -285,9 +284,7 @@ public:
 					static_data.exafmm.M2L(l[j], Mb[i], dist);
 				}
 			}
-			lock.lock();
 			L[indexes[i]] += l;
-			lock.unlock();
 		}
 	}
 

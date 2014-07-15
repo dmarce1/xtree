@@ -219,10 +219,12 @@ public:
 		}
 		mutex0.lock();
 		received[proc_num_from] = true;
-		mutex0.unlock();
 		if (std::all_of(received.begin(), received.end(), [](bool b) {return b;})) {
+			mutex0.unlock();
 			/*hpx::apply([this]() {*/do_output();/*});*/
+			mutex0.lock();
 		}
+		mutex0.unlock();
 
 	}
 	XTREE_MAKE_ACTION( action_send_zones_to_silo, silo_output::send_zones_to_silo );
