@@ -53,8 +53,8 @@ public:
 				}
 			}
 		}
-		Y[0] = 1.0;
 		Y *= dx3;
+		Y[0] = 1.0;
 		for (int n = 0; n != P; ++n) {
 			for (int m = 0; m <= n; ++m) {
 				M[n * (n + 1) / 2 + m] = 0.5 * (Y[n * n + n + m] + Y[n * n + n - m]);
@@ -63,7 +63,7 @@ public:
 		NN.resize(N * (N + 1) / 2);
 		for (int n = 0; n != P; ++n) {
 			for (int m = 0; m <= n; ++m) {
-				NN[n * (n + 1) / 2 + m] = double(n);
+				NN[n * (n + 1) / 2 + m] = double(n+3);
 				M[n * (n + 1) / 2 + m] = 0.5 * (Y[n * n + n + m] + Y[n * n + n - m]);
 			}
 		}

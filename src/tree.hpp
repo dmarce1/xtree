@@ -114,7 +114,7 @@ public:
 				id_future.then(
 						hpx::util::unwrapped(
 								[=](hpx::id_type id) {
-									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), subcyc+1, this);
+									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), this);
 								}));
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
 			dir_lock.lock();

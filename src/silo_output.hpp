@@ -165,7 +165,7 @@ public:
 				data[i] = zi->fields[fi];
 				i++;
 			}
-			fname[0] = '1' + char(fi);
+			fname[0] = 'A' + char(fi);
 			DBPutUcdvar1(db, fname, "mesh", data.data(), nzones, 0, 0, DB_DOUBLE, DB_ZONECENT, olist);
 		}
 

@@ -38,9 +38,9 @@ void execute() {
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
 	root_node->execute_operations(refine_ops);
+ 	root_node->execute_operations(refine_ops);
 	root_node->execute_operations(refine_ops);
-	//root_node->execute_operations(refine_ops);
-	root_node->execute_operations(init_ops);
+	//root_node->execute_operations(init_ops);
 
 	std::vector<fmmx_node_type::operation_type> ops(3);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
@@ -53,7 +53,7 @@ void execute() {
 //	root_node->execute_operations(ops);
 	printf("OUtput\n");
 	tree_ptr->output();
-	(root_node->debranch()).get();
+	//(root_node->debranch()).get();
 	tree_ptr->delete_node(root_node);
 }
 

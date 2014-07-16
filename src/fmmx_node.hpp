@@ -195,8 +195,8 @@ public:
 
 	}
 	descend_type descend(std::vector<descend_type>& children) {
-		printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
-				this->get_self().get_location(2), this->get_self().get_level());
+	//	printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+	//			this->get_self().get_location(2), this->get_self().get_level());
 
 		std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
@@ -208,7 +208,7 @@ public:
 		} else {
 			auto cube = static_data.cubes.get_M(dx[0]);
 			std::transform(std::begin(rho), std::end(rho), std::begin(M), [&cube](double rhoin) {
-				return std::valarray<complex>(cube * complex(rhoin, 0.0));
+				return std::valarray<complex>(cube * complex(rhoin, 0.0) );
 			});
 		}
 		return descend_type(&M, [dims,dx,this](const multipoles_type& Mfine) {
@@ -258,8 +258,8 @@ public:
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
 
-	//	printf("Set %i %i %i - %i %i %i - %i \n", dir[0], dir[1], dir[2], this->get_self().get_location(0),
-	//		this->get_self().get_location(1), this->get_self().get_location(2), this->get_self().get_level());
+		//	printf("Set %i %i %i - %i %i %i - %i \n", dir[0], dir[1], dir[2], this->get_self().get_location(0),
+		//		this->get_self().get_location(1), this->get_self().get_location(2), this->get_self().get_level());
 
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);
