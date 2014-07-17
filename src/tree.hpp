@@ -44,13 +44,13 @@ public:
 		int my_id, id_cnt;
 		auto localities = hpx::find_all_localities();
 		std::vector < hpx::future < hpx::id_type >> futures(Nbranch);
-		printf("1\n");
+//		printf("1\n");
 		my_id = hpx::get_locality_id();
 		id_cnt = localities.size();
 		this_gid = base_type::get_gid();
 		this_ptr = this;
 		hpx::register_id_with_basename(name, this_gid, my_id).get();
-		printf("2\n");
+//		printf("2\n");
 		for (int i = 0; i < Nbranch; i++) {
 			int j = my_id * Nbranch + i + 1;
 			if (j < localities.size()) {
@@ -59,19 +59,19 @@ public:
 				futures[i] = hpx::make_ready_future(hpx::invalid_id);
 			}
 		}
-		printf("3\n");
+//		printf("3\n");
 		load_balancer_gid = hpx::new_ < load_balancer > (hpx::find_here()).get();
-		printf("3.4\n");
+//		printf("3.4\n");
 		load_balancer_ptr = (hpx::async < load_balancer::action_get_ptr > (load_balancer_gid)).get();
-		printf("3.6\n");
-		printf("3.7\n");
+	//	printf("3.6\n");
+	//	printf("3.7\n");
 		if (my_id == 0) {
 			hpx::future < hpx::id_type > fut1;
-			printf("silonewin\n");
+	//		printf("silonewin\n");
 			fut1 = hpx::new_ < silo_output_type > (hpx::find_here());
-			printf("silonewout\n");
+	//		printf("silonewout\n");
 			silo_gid = fut1.get();
-			printf("silonewout2\n");
+	//		printf("silonewout2\n");
 			hpx::register_id_with_basename(silo_name, silo_gid, 0).get();
 		} else {
 			silo_gid = (hpx::find_id_from_basename(silo_name, 0)).get();
@@ -79,7 +79,7 @@ public:
 		for (int i = 0; i < Nbranch; i++) {
 			child_gids[i] = futures[i].get();
 		}
-		printf("4\n");
+//		printf("4\n");
 		root_node_gid = hpx::invalid_id;
 	}
 

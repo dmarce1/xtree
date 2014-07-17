@@ -15,7 +15,7 @@ using namespace fmmx;
 
 
 
-using fmmx_node_type = fmmx_node<3,8,3>;
+using fmmx_node_type = fmmx_node<3,10,6>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
@@ -32,7 +32,7 @@ typedef fmmx_node_type::action_ascend<afunc> action_ascend_func;
 typedef fmmx_node_type::action_exchange_get<eg_func,es_func> action_get_func;
 typedef fmmx_node_type::action_exchange_set<es_func> action_set_func;
 
-
+/*
 HPX_REGISTER_ACTION_DECLARATION( action_regrid );
 HPX_REGISTER_ACTION_DECLARATION( action_local );
 HPX_REGISTER_ACTION_DECLARATION( action_descend_func );
@@ -45,7 +45,7 @@ HPX_REGISTER_ACTION( action_local );
 HPX_REGISTER_ACTION( action_descend_func );
 HPX_REGISTER_ACTION( action_ascend_func );
 HPX_REGISTER_ACTION( action_get_func );
-HPX_REGISTER_ACTION( action_set_func);
+HPX_REGISTER_ACTION( action_set_func);*/
 
 void test() {
 }
@@ -53,32 +53,22 @@ void test() {
 
 void execute() {
 
-	printf( "Loading....\n");
 	hpx::id_type tree_gid = (hpx::new_<tree_type>(hpx::find_here())).get();
-	printf( "....\n");
 	auto fut0 = hpx::async<tree_type::action_get_this>(tree_gid);
-	printf( "....\n");
 	tree_type* tree_ptr = fut0.get();
-	printf( "....\n");
 	tree_ptr->place_root();
-	printf( "....\n");
 	auto fut1 = tree_ptr->get_root();
-	printf( "....\n");
 	fmmx_node_type* root_node = fut1.get();
-	printf( "....\n");
 	std::vector<fmmx_node_type::operation_type> refine_ops(1);
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
-	printf( "Refining...\n");
 	root_node->execute_operations(refine_ops);
  	root_node->execute_operations(refine_ops);
 	root_node->execute_operations(refine_ops);
-	root_node->execute_operations(refine_ops);
-	printf( "Initializing...\n");
+//	root_node->execute_operations(refine_ops);
 	root_node->execute_operations(init_ops);
 
-	printf( "Executing...\n");
 	std::vector<fmmx_node_type::operation_type> ops(3);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
@@ -91,6 +81,7 @@ void execute() {
 	printf("OUtput\n");
 	tree_ptr->output();
 	//(root_node->debranch()).get();
+	printf( "Output done\n");
 	tree_ptr->delete_node(root_node);
 }
 

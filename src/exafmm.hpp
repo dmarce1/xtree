@@ -44,9 +44,6 @@ class exafmm_kernel {
 public:
 	static void cart2sph(real& r, real& theta, real& phi,
 			std::valarray<real> dist) {
-		//	auto tmp = dist[0];
-		//	dist[0] = dist[2];
-		//	dist[2] = tmp;
 		r = sqrt((dist * dist).sum()) * (1.0);      // r = sqrt(x^2 + y^2 + z^2)
 		if (r < EPS) {                                             // If r == 0
 			theta = 0;               //  theta can be anything so we set it to 0
@@ -54,15 +51,6 @@ public:
 			theta = acos(dist[2] / r);                   //  theta = acos(z / r)
 		}                                                   // End if for r == 0
 		phi = atan2(dist[1], dist[0]);
-		/*	if (fabs(dist[0]) + fabs(dist[1]) < EPS) {   // If |x| < eps & |y| < eps
-		 phi = 0;                   //  phi can be anything so we set it to 0
-		 } else if (fabs(dist[0]) < EPS) {                        // If |x| < eps
-		 phi = dist[1] / fabs(dist[1]) * M_PI * 0.5; //  phi = sign(y) * pi / 2
-		 } else if (dist[0] > 0) {                                  // If x > 0
-		 phi = atan(dist[1] / dist[0]);                 //  phi = atan(y / x)
-		 } else {                                                    // If x < 0
-		 phi = atan(dist[1] / dist[0]) + M_PI;     //  phi = atan(y / x) + pi
-		 }                                                // End if for x,y cases*/
 	}
 	static void M2M(std::valarray<complex>& CiM,
 			const std::valarray<complex>& CjM,

@@ -79,7 +79,7 @@ private:
 				ndi[i] = +(ci[i] ^ 0);
 				nci[i] = ci[i] ^ 1;
 			} else /*if( dir[i] == -1)*/{
-				ndi[i] = -(nci[i] ^ 1);
+				ndi[i] = -(ci[i] ^ 1);
 				nci[i] = ci[i] ^ 1;
 			}
 		}
@@ -107,654 +107,681 @@ public:
 				nieces[ni][ci] = hpx::invalid_id;
 			}
 		}
-		 //	children.resize(Nchild);
-		for (int ci = 0; ci < Nchild;
-				ci++
-				) {
-					children[ci] = hpx::invalid_id;
-				}
-				parent = hpx::util::get<0>(other_ids);
-				static_cast<Derived*>(this)->initialize();
-				return dynamic_cast<wrapped_type*>(this);
-			}
+		//	children.resize(Nchild);
+		for (int ci = 0; ci < Nchild; ci++) {
+			children[ci] = hpx::invalid_id;
+		}
+		parent = hpx::util::get<0>(other_ids);
+		static_cast<Derived*>(this)->initialize();
+		return dynamic_cast<wrapped_type*>(this);
+	}
 
-			virtual ~node() {
-				if (!is_leaf) {
-					debranch().get();
-				}
-				if (get_level() != 0) {
-					local_tree->delete_node(static_cast<wrapped_type*>(this));
-				}
-				parent = hpx::invalid_id;
-			}
+	virtual ~node() {
+		if (!is_leaf) {
+			debranch().get();
+		}
+		if (get_level() != 0) {
+			local_tree->delete_node(static_cast<wrapped_type*>(this));
+		}
+		parent = hpx::invalid_id;
+	}
 
-			template<typename Arc>
-			void serialize(Arc& ar, const int) {
-			}
+	template<typename Arc>
+	void serialize(Arc& ar, const int) {
+	}
 
-			const location<Ndim>& get_self() const {
-				return self;
-			}
+	const location<Ndim>& get_self() const {
+		return self;
+	}
 
-			bool is_terminal() const {
-				return is_leaf;
-			}
+	bool is_terminal() const {
+		return is_leaf;
+	}
 
-			hpx::shared_future<void> branch() {
-				if (!is_leaf) {
-					return hpx::make_ready_future();
-				}
-				is_branching = true;
-				std::vector < hpx::future < hpx::id_type >> futs(Nchild);
-				for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-					neighbor_array_type pack;
-					for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
-						pack[dir] = get_sibling_of_child(ci, dir);
-					}
-					auto tgid = static_cast<Derived*>(this)->get_gid();
+	hpx::shared_future<void> branch() {
+		if (!is_leaf) {
+			return hpx::make_ready_future();
+		}
+		is_branching = true;
+		std::vector < hpx::future < hpx::id_type >> futs(Nchild);
+		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+			neighbor_array_type pack;
+			for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+				pack[dir] = get_sibling_of_child(ci, dir);
+			}
+			auto tgid = static_cast<Derived*>(this)->get_gid();
 			//		printf("Making new child\n");
-					futs[ci] = local_tree->new_node(self.get_child(ci), tgid, pack, subcycle);
-				}
-				hpx::future<void> f = when_all(futs).then(
-						hpx::util::unwrapped([this](std::vector < hpx::future < hpx::id_type >> futs) {
-							is_leaf = false;
-							dir_type<Ndim> zero;
-							zero.set_zero();
-							for (int ci = 0; ci < Nchild; ci++) {
-								children[ci] = futs[ci].get();
-								nieces[zero][ci] = children[ci];
-							}
-						}));
-				return f.share();
-			}
-
-			hpx::shared_future<void> find_neighbors() {
-		//		printf("Finding neighbors\n");
-				std::vector<hpx::future<void>> cfuts;
-				if (!is_leaf && !is_branching) {
-			//		cd ("!!!!!\n");
-					cfuts.resize(Nchild);
-					for (std::size_t i = 0; i != Nchild; ++i) {
-						cfuts[i] = hpx::async<action_find_neighbors>(children[i]);
+			futs[ci] = local_tree->new_node(self.get_child(ci), tgid, pack, subcycle);
+		}
+		hpx::future<void> f = when_all(futs).then(
+				hpx::util::unwrapped([this](std::vector < hpx::future < hpx::id_type >> futs) {
+					is_leaf = false;
+					dir_type<Ndim> zero;
+					zero.set_zero();
+					for (int ci = 0; ci < Nchild; ci++) {
+						children[ci] = futs[ci].get();
+						nieces[zero][ci] = children[ci];
 					}
-				} else {
-					cfuts.resize(1);
-					cfuts[0] = hpx::make_ready_future();
-				}
-				hpx::shared_future<void> return_f;
-				branch_lock.lock();
-				if (!is_branching) {
-					branch_lock.unlock();
-					return_f = when_all(cfuts).share();
-				} else {
-					std::vector<hpx::future<void>> futs(Nneighbor + Nchild);
-					for (dir_type<Ndim> si; !si.is_end(); si++) {
-						if (neighbors[si] != hpx::invalid_id && !si.is_zero()) {
-							futs[si] = hpx::async<action_notify_branch>(neighbors[si], si, children);
-						} else {
-							futs[si] = hpx::make_ready_future();
-						}
-					}
-					for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-						assert(children[ci] != hpx::invalid_id);
-			//			printf("Starting Action\n");
-						futs[ci + Nneighbor] = hpx::async<action_note_sibs>(children[ci], children);
-				//		printf("Action Called\n");
-					}
-
-					hpx::future<void> rfut = when_all(futs).then(
-							hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
-								is_branching = false;
-							}));
-					branch_lock.unlock();
-			//		printf("Done calling actions\n");
-					return_f = when_all(when_all(cfuts),rfut).share();
-				}
-				return return_f;
-			}
-
-			void note_sibs(std::array<hpx::id_type,Nchild> xtet) {
-		//		printf("SIBLINGS %i\n", hpx::get_locality_id());
-				branch_lock.lock();
-				child_index_type<Ndim> myci = get_self().this_child_index();
-				for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-					if (ci != myci) {
-						dir_type<Ndim> dir;
-						for (int d = 0; d < Ndim; d++) {
-							dir[d] = ci[d] - myci[d];
-						}
-						neighbors[dir] = xtet[ci];
-					}
-				}
-				branch_lock.unlock();
-			}
-
-			hpx::future<void> notify_branch(dir_type<Ndim> dir, const child_array_type& nephews) {
-				branch_lock.lock();
-				hpx::future<void> ret_fut;
-				dir.flip();
-				nieces[dir] = nephews;
-				if (!is_leaf) {
-					std::vector<hpx::future<void>> futs(Nchild);
-					for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-						if (child_is_niece_of(ci, dir)) {
-							assert(children[ci] != hpx::invalid_id);
-							futs[ci] = hpx::async<action_notify_of_neighbor>(children[ci], dir,
-									get_sibling_of_child(ci, dir));
-						} else {
-							futs[ci] = hpx::make_ready_future();
-						}
-					}
-					ret_fut = when_all(std::move(futs));
-				} else {
-					ret_fut = hpx::make_ready_future();
-				}
-				branch_lock.unlock();
-				return ret_fut;
-			}
-
-			hpx::future<void> debranch() {
-				branch_lock.lock();
-				is_leaf = true;
-				std::vector<hpx::future<void>> nfutures(Nneighbor);
-				std::vector<hpx::future<void>> cfutures(Nchild);
-				for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-					if (children[ci] != hpx::invalid_id) {
-						cfutures[ci] = hpx::async<action_debranch>(children[ci]);
-					} else {
-						cfutures[ci] = hpx::make_ready_future();
-					}
-				}
-				/*		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
-				 if (neighbors[dir] != hpx::invalid_id) {
-				 nfutures[dir] = hpx::async<action_notify_debranch>(neighbors[dir], dir);
-				 } else {
-				 nfutures[dir] = hpx::make_ready_future();
-				 }
-				 }*/
-				auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
-					branch_lock.lock();
-					for (std::size_t ci = 0; ci != Nchild; ++ci) {
-						children[ci] = hpx::invalid_id;
-					}
-					branch_lock.unlock();
 				}));
-				branch_lock.unlock();
-				return fut1;
-			}
-			int get_level() const {
-				return self.get_level();
-			}
+		return f.share();
+	}
 
-			int get_subcycle() const {
-				return subcycle;
+	hpx::shared_future<void> find_neighbors() {
+		//		printf("Finding neighbors\n");
+		std::vector<hpx::future<void>> cfuts;
+		if (!is_leaf && !is_branching) {
+			//		cd ("!!!!!\n");
+			cfuts.resize(Nchild);
+			for (std::size_t i = 0; i != Nchild; ++i) {
+				cfuts[i] = hpx::async<action_find_neighbors>(children[i]);
 			}
-			hpx::future<void> notify_debranch(dir_type<Ndim> dir) {
+		} else {
+			cfuts.resize(1);
+			cfuts[0] = hpx::make_ready_future();
+		}
+		hpx::shared_future<void> return_f;
+		branch_lock.lock();
+		if (!is_branching) {
+			branch_lock.unlock();
+			return_f = when_all(cfuts).share();
+		} else {
+			std::vector<hpx::future<void>> c2futs(Nchild);
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+				assert(children[ci] != hpx::invalid_id);
+				//			printf("Starting Action\n");
+				c2futs[ci] = hpx::async<action_note_sibs>(children[ci], children);
+				//		printf("Action Called\n");
+			}
+			auto f = when_all(c2futs).then(hpx::util::unwrapped([=](std::vector<hpx::future<void>>) {
 				branch_lock.lock();
-				hpx::future<void> ret_fut;
-				dir.flip();
-				std::fill(nieces[dir].begin(), nieces[dir].end(), hpx::invalid_id);
-				if (!is_leaf) {
-					std::vector<hpx::future<void>> futs(Nchild / 2);
-					int index = 0;
-					for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-						if (child_is_niece_of(ci, dir)) {
-							futs[index++] = hpx::async<action_notify_of_neighbor>(children[ci], dir, hpx::invalid_id);
+				std::vector<hpx::future<void>> futs(Nneighbor);
+				for (dir_type<Ndim> si; !si.is_end(); si++) {
+					if (neighbors[si] != hpx::invalid_id && !si.is_zero()) {
+						futs[si] = hpx::async<action_notify_branch>(neighbors[si], si, children);
+					} else {
+						futs[si] = hpx::make_ready_future();
+					}
+				}
+				branch_lock.unlock();
+				return when_all(futs);
+			}));
+			hpx::future<void> rfut = f.then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
+				is_branching = false;
+			}));
+			branch_lock.unlock();
+			//		printf("Done calling actions\n");
+			return_f = when_all(when_all(cfuts), rfut).share();
+		}
+		return return_f;
+	}
+
+	void note_sibs(std::array<hpx::id_type, Nchild> xtet) {
+		//		printf("SIBLINGS %i\n", hpx::get_locality_id());
+		branch_lock.lock();
+		child_index_type<Ndim> myci = get_self().this_child_index();
+		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+			if (ci != myci) {
+				dir_type<Ndim> dir;
+				for (int d = 0; d < Ndim; d++) {
+					dir[d] = ci[d] - myci[d];
+				}
+				neighbors[dir] = xtet[ci];
+			}
+		}
+		branch_lock.unlock();
+	}
+
+	hpx::future<void> notify_branch(dir_type<Ndim> dir, const child_array_type& nephews) {
+		branch_lock.lock();
+		hpx::future<void> ret_fut;
+		dir.flip();
+		nieces[dir] = nephews;
+		if (!is_leaf) {
+			std::list<hpx::future<void>> futs;
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+				if (child_is_niece_of(ci, dir)) {
+					assert(children[ci] != hpx::invalid_id);
+					for (dir_type<Ndim> dir2; !dir2.is_end(); dir2++) {
+						bool use = true;
+						for (int di = 0; di < Ndim; di++) {
+							if (dir[di] == 0) {
+								if ((ci[di] == 0 && dir2[di] == -1) || (ci[di] == 1 && dir2[di] == +1)) {
+									use = false;
+									break;
+								}
+							} else if (dir[di] != dir2[di]) {
+								use = false;
+								break;
+							}
+						}
+						if (use) {
+							futs.push_back(
+									hpx::async<action_notify_of_neighbor>(children[ci], dir2,
+											get_sibling_of_child(ci, dir2)));
 						}
 					}
-					futs.resize(index);
-					ret_fut = when_all(futs);
 				} else {
-					ret_fut = hpx::make_ready_future();
-				}
-				branch_lock.unlock();
-				return ret_fut;
-			}
-
-			void notify_of_neighbor(dir_type<Ndim> dir, hpx::id_type id) {
-				branch_lock.lock();
-				neighbors[dir] = id;
-				branch_lock.unlock();
-
-			}
-
-			wrapped_type* get_this() {
-				return static_cast<wrapped_type*>(this);
-			}
-
-			bound_type get_boundary_type(const dir_type<Ndim>& dir) const {
-				if (neighbors[dir] != hpx::invalid_id) {
-					return DECOMP;
-				} else {
-					for (int di = 0; di < Ndim; di++) {
-						if (((dir[di] == -1) && (self.get_location(di) == 0))
-								|| ((dir[di] == +1) && (self.get_location(di) == ((1 << self.get_level()) - 1)))) {
-							return PHYS;
-						}
-					}
-					return AMR;
+					futs.push_back(hpx::make_ready_future());
 				}
 			}
-
-			bool has_amr_boundary() const {
-				for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
-					if (get_boundary_type(dir) == AMR) {
-						return true;
-					}
-				}
-				return false;
+			std::vector<hpx::future<void>> vfuts(futs.size());
+			int j = 0;
+			for (auto i = futs.begin(); i != futs.end(); i++, j++) {
+				vfuts[j] = std::move(*i);
 			}
+			ret_fut = when_all(vfuts);
+		} else {
+			ret_fut = hpx::make_ready_future();
+		}
+		branch_lock.unlock();
+		return ret_fut;
+	}
 
-			void wait_my_turn(int this_subcycle) {
-				//	subcycle_lock.lock();
-				while (this_subcycle != subcycle) {
-					//	subcycle_lock.unlock();
-					hpx::this_thread::suspend();
-					//		subcycle_lock.lock();
-				}
-				//	subcycle_lock.unlock();
+	hpx::future<void> debranch() {
+		branch_lock.lock();
+		is_leaf = true;
+		std::vector<hpx::future<void>> nfutures(Nneighbor);
+		std::vector<hpx::future<void>> cfutures(Nchild);
+		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+			if (children[ci] != hpx::invalid_id) {
+				cfutures[ci] = hpx::async<action_debranch>(children[ci]);
+			} else {
+				cfutures[ci] = hpx::make_ready_future();
 			}
-
-			using local_type = void (wrapped_type::*)();
-
-			using regrid_type = bool (wrapped_type::*)();
-
-			template<typename T>
-			using ascend_type = std::vector<T> (wrapped_type::*)(T&);
-
-			template<typename T>
-			using descend_type = T (wrapped_type::*)(std::vector<T>&);
-
-			template<typename T>
-			using exchange_get_type = T (wrapped_type::*)(dir_type<Ndim>);
-
-			template<typename T>
-			using exchange_set_type = void (wrapped_type::*)(dir_type<Ndim>, T&);
-
-			template<local_type Function>
-			struct local_function {
-				static constexpr local_type value = Function;
-				using type = void;
-			};
-
-			template<regrid_type Function>
-			struct regrid_function {
-				static constexpr regrid_type value = Function;
-				using type = bool;
-			};
-
-			template<typename T, ascend_type<T> Function>
-			struct ascend_function {
-				static constexpr ascend_type<T> value = Function;
-				using type = T;
-			};
-
-			template<typename T, descend_type<T> Function>
-			struct descend_function {
-				static constexpr descend_type<T> value = Function;
-				using type = T;
-			};
-
-			template<typename T, exchange_get_type<T> Function>
-			struct exchange_get_function {
-				static constexpr exchange_get_type<T> value = Function;
-				using type = T;
-			};
-
-			template<typename T, exchange_set_type<T> Function>
-			struct exchange_set_function {
-				static constexpr exchange_set_type<T> value = Function;
-				using type = T;
-			};
-
-			struct operation_base {
-				virtual ~operation_base() {
-				}
-				virtual void operator()(node&) const = 0;
-				virtual bool is_regrid() const {
-					return false;
-				}
-			};
-
-			using operation_type = std::shared_ptr<operation_base>;
-
-			hpx::shared_future<void> operations_end(int this_subcycle) {
-				wait_my_turn(this_subcycle);
-				hpx::future<void> future;
-				if (!is_leaf) {
-					std::vector<hpx::future<void>> futs(Nchild);
-					for (std::size_t i = 0; i != Nchild; ++i) {
-						futs[i] = hpx::async<action_operations_end>(children[i], this_subcycle);
-					}
-					future = when_all(futs);
-				} else {
-					future = hpx::make_ready_future();
-				}
-				auto f = when_all(future, last_operation_future).then(
-						hpx::util::unwrapped([this](hpx::util::tuple<hpx::future<void>, hpx::shared_future<void>>) {
-							subcycle = 0;
-						}));
-				last_operation_future = f.share();
-				return last_operation_future;
+		}
+		/*		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+		 if (neighbors[dir] != hpx::invalid_id) {
+		 nfutures[dir] = hpx::async<action_notify_debranch>(neighbors[dir], dir);
+		 } else {
+		 nfutures[dir] = hpx::make_ready_future();
+		 }
+		 }*/
+		auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
+			branch_lock.lock();
+			for (std::size_t ci = 0; ci != Nchild; ++ci) {
+				children[ci] = hpx::invalid_id;
 			}
+			branch_lock.unlock();
+		}));
+		branch_lock.unlock();
+		return fut1;
+	}
+	int get_level() const {
+		return self.get_level();
+	}
 
-			void execute_operations(std::vector<operation_type> operations) {
-				hpx::shared_future<void> fut;
-				int i;
-				fut = hpx::make_ready_future().share();
-				for (i = 0; i < operations.size(); i++) {
-					auto f = fut.then(hpx::util::unwrapped([i,this,&operations]() {
-						operations[i]->operator()(*this);
-					}));
-					fut = f.share();
+	int get_subcycle() const {
+		return subcycle;
+	}
+	hpx::future<void> notify_debranch(dir_type<Ndim> dir) {
+		branch_lock.lock();
+		hpx::future<void> ret_fut;
+		dir.flip();
+		std::fill(nieces[dir].begin(), nieces[dir].end(), hpx::invalid_id);
+		if (!is_leaf) {
+			std::vector<hpx::future<void>> futs(Nchild / 2);
+			int index = 0;
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+				if (child_is_niece_of(ci, dir)) {
+					futs[index++] = hpx::async<action_notify_of_neighbor>(children[ci], dir, hpx::invalid_id);
 				}
+			}
+			futs.resize(index);
+			ret_fut = when_all(futs);
+		} else {
+			ret_fut = hpx::make_ready_future();
+		}
+		branch_lock.unlock();
+		return ret_fut;
+	}
+
+	void notify_of_neighbor(dir_type<Ndim> dir, hpx::id_type id) {
+		branch_lock.lock();
+		neighbors[dir] = id;
+		branch_lock.unlock();
+
+	}
+
+	wrapped_type* get_this() {
+		return static_cast<wrapped_type*>(this);
+	}
+
+	bound_type get_boundary_type(const dir_type<Ndim>& dir) const {
+		if (neighbors[dir] != hpx::invalid_id) {
+			return DECOMP;
+		} else {
+			for (int di = 0; di < Ndim; di++) {
+				if (((dir[di] == -1) && (self.get_location(di) == 0))
+						|| ((dir[di] == +1) && (self.get_location(di) == ((1 << self.get_level()) - 1)))) {
+					return PHYS;
+				}
+			}
+			return AMR;
+		}
+	}
+
+	bool has_amr_boundary() const {
+		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+			if (get_boundary_type(dir) == AMR) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void wait_my_turn(int this_subcycle) {
+		//	subcycle_lock.lock();
+		while (this_subcycle != subcycle) {
+			//	subcycle_lock.unlock();
+			hpx::this_thread::suspend();
+			//		subcycle_lock.lock();
+		}
+		//	subcycle_lock.unlock();
+	}
+
+	using local_type = void (wrapped_type::*)();
+
+	using regrid_type = bool (wrapped_type::*)();
+
+	template<typename T>
+	using ascend_type = std::vector<T> (wrapped_type::*)(T&);
+
+	template<typename T>
+	using descend_type = T (wrapped_type::*)(std::vector<T>&);
+
+	template<typename T>
+	using exchange_get_type = T (wrapped_type::*)(dir_type<Ndim>);
+
+	template<typename T>
+	using exchange_set_type = void (wrapped_type::*)(dir_type<Ndim>, T&);
+
+	template<local_type Function>
+	struct local_function {
+		static constexpr local_type value = Function;
+		using type = void;
+	};
+
+	template<regrid_type Function>
+	struct regrid_function {
+		static constexpr regrid_type value = Function;
+		using type = bool;
+	};
+
+	template<typename T, ascend_type<T> Function>
+	struct ascend_function {
+		static constexpr ascend_type<T> value = Function;
+		using type = T;
+	};
+
+	template<typename T, descend_type<T> Function>
+	struct descend_function {
+		static constexpr descend_type<T> value = Function;
+		using type = T;
+	};
+
+	template<typename T, exchange_get_type<T> Function>
+	struct exchange_get_function {
+		static constexpr exchange_get_type<T> value = Function;
+		using type = T;
+	};
+
+	template<typename T, exchange_set_type<T> Function>
+	struct exchange_set_function {
+		static constexpr exchange_set_type<T> value = Function;
+		using type = T;
+	};
+
+	struct operation_base {
+		virtual ~operation_base() {
+		}
+		virtual void operator()(node&) const = 0;
+		virtual bool is_regrid() const {
+			return false;
+		}
+	};
+
+	using operation_type = std::shared_ptr<operation_base>;
+
+	hpx::shared_future<void> operations_end(int this_subcycle) {
+		wait_my_turn(this_subcycle);
+		hpx::future<void> future;
+		if (!is_leaf) {
+			std::vector<hpx::future<void>> futs(Nchild);
+			for (std::size_t i = 0; i != Nchild; ++i) {
+				futs[i] = hpx::async<action_operations_end>(children[i], this_subcycle);
+			}
+			future = when_all(futs);
+		} else {
+			future = hpx::make_ready_future();
+		}
+		auto f = when_all(future, last_operation_future).then(
+				hpx::util::unwrapped([this](hpx::util::tuple<hpx::future<void>, hpx::shared_future<void>>) {
+					subcycle = 0;
+				}));
+		last_operation_future = f.share();
+		return last_operation_future;
+	}
+
+	void execute_operations(std::vector<operation_type> operations) {
+		hpx::shared_future<void> fut;
+		int i;
+		fut = hpx::make_ready_future().share();
+		for (i = 0; i < operations.size(); i++) {
+			auto f = fut.then(hpx::util::unwrapped([i,this,&operations]() {
+				operations[i]->operator()(*this);
+			}));
+			fut = f.share();
+		}
 		//		printf("Done with ops - pre----1\n");
-				fut.get();
-				if (!operations[i - 1]->is_regrid()) {
-					fut = operations_end(subcycle);
-				} else {
-					fut = last_operation_future;
-				}
+		fut.get();
+		if (!operations[i - 1]->is_regrid()) {
+			fut = operations_end(subcycle);
+		} else {
+			fut = last_operation_future;
+		}
 		//		printf("Done with ops - pre----2\n");
 		//		printf("Done with ops - pre\n");
-				fut.get();
+		fut.get();
 		//		printf("Done with ops\n");
+	}
+
+	template<typename Function>
+	struct local_operation: operation_base {
+		void operator()(node& root) const {
+			root.local<Function>(root.get_subcycle());
+		}
+	};
+
+	template<typename Function>
+	struct regrid_operation: operation_base {
+		virtual bool is_regrid() const {
+			return true;
+		}
+		void operator()(node& root) const {
+			root.regrid<Function>(root.get_subcycle());
+		}
+	};
+
+	template<typename Function>
+	struct ascend_operation: operation_base {
+		void operator()(node& root) const {
+			root.ascend<Function>(hpx::make_ready_future<typename Function::type>(typename Function::type()),
+					root.get_subcycle());
+		}
+	};
+
+	template<typename Function>
+	struct descend_operation: operation_base {
+		void operator()(node& root) const {
+			root.descend<Function>(root.get_subcycle());
+		}
+	};
+
+	template<typename Get, typename Set>
+	struct exchange_operation: operation_base {
+		void operator()(node& root) const {
+			root.exchange_get<Get, Set>(root.get_subcycle());
+		}
+	};
+
+	template<typename Function>
+	static operation_type make_local_operation() {
+		auto operation = std::make_shared<local_operation<Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Function>
+	static operation_type make_regrid_operation() {
+		auto operation = std::make_shared<regrid_operation<Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Function>
+	static operation_type make_ascend_operation() {
+		auto operation = std::make_shared<ascend_operation<Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Function>
+	static operation_type make_descend_operation() {
+		auto operation = std::make_shared<descend_operation<Function>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Get, typename Set>
+	static operation_type make_exchange_operation() {
+		auto operation = std::make_shared<exchange_operation<Get, Set>>();
+		return std::static_pointer_cast < operation_base > (operation);
+	}
+
+	template<typename Function>
+	void local(int this_subcycle) {
+		wait_my_turn(this_subcycle);
+		std::vector<hpx::future<void>> futures;
+		hpx::shared_future<void> rc;
+		if (!is_leaf) {
+			futures.resize(Nchild);
+			for (int i = 0; i < Nchild; ++i) {
+				futures[i] = hpx::async<action_local<Function>>(children[i], this_subcycle);
 			}
+		}
+		rc = hpx::async([this]() {
+			(static_cast<Derived*>(this)->*(Function::value))();
+		}).share();
 
-			template<typename Function>
-			struct local_operation: operation_base {
-				void operator()(node& root) const {
-					root.local<Function>(root.get_subcycle());
-				}
-			};
+		if (futures.size()) {
+			rc = when_all(rc, when_all(futures)).share();
+		}
 
-			template<typename Function>
-			struct regrid_operation: operation_base {
-				virtual bool is_regrid() const {
-					return true;
-				}
-				void operator()(node& root) const {
-					root.regrid<Function>(root.get_subcycle());
-				}
-			};
-
-			template<typename Function>
-			struct ascend_operation: operation_base {
-				void operator()(node& root) const {
-					root.ascend<Function>(hpx::make_ready_future<typename Function::type>(typename Function::type()),
-							root.get_subcycle());
-				}
-			};
-
-			template<typename Function>
-			struct descend_operation: operation_base {
-				void operator()(node& root) const {
-					root.descend<Function>(root.get_subcycle());
-				}
-			};
-
-			template<typename Get, typename Set>
-			struct exchange_operation: operation_base {
-				void operator()(node& root) const {
-					root.exchange_get<Get, Set>(root.get_subcycle());
-				}
-			};
-
-			template<typename Function>
-			static operation_type make_local_operation() {
-				auto operation = std::make_shared<local_operation<Function>>();
-				return std::static_pointer_cast < operation_base > (operation);
-			}
-
-			template<typename Function>
-			static operation_type make_regrid_operation() {
-				auto operation = std::make_shared<regrid_operation<Function>>();
-				return std::static_pointer_cast < operation_base > (operation);
-			}
-
-			template<typename Function>
-			static operation_type make_ascend_operation() {
-				auto operation = std::make_shared<ascend_operation<Function>>();
-				return std::static_pointer_cast < operation_base > (operation);
-			}
-
-			template<typename Function>
-			static operation_type make_descend_operation() {
-				auto operation = std::make_shared<descend_operation<Function>>();
-				return std::static_pointer_cast < operation_base > (operation);
-			}
-
-			template<typename Get, typename Set>
-			static operation_type make_exchange_operation() {
-				auto operation = std::make_shared<exchange_operation<Get, Set>>();
-				return std::static_pointer_cast < operation_base > (operation);
-			}
-
-			template<typename Function>
-			void local(int this_subcycle) {
-				wait_my_turn(this_subcycle);
-				std::vector<hpx::future<void>> futures;
-				hpx::shared_future<void> rc;
-				if (!is_leaf) {
-					futures.resize(Nchild);
-					for (int i = 0; i < Nchild; ++i) {
-						futures[i] = hpx::async<action_local<Function>>(children[i], this_subcycle);
-					}
-				}
-				rc = hpx::async([this]() {
-					(static_cast<Derived*>(this)->*(Function::value))();
-				}).share();
-
-				if (futures.size()) {
-					rc = when_all(rc, when_all(futures)).share();
-				}
-
-				//	subcycle_lock.lock();
-				last_operation_future = rc;
-				subcycle++;
+		//	subcycle_lock.lock();
+		last_operation_future = rc;
+		subcycle++;
 //		subcycle_lock.unlock();
-			}
+	}
 
-			template<typename Function>
-			hpx::shared_future<bool> regrid(int this_subcycle) {
+	template<typename Function>
+	hpx::shared_future<bool> regrid(int this_subcycle) {
 		//		printf("Regridding\n");
-				//	wait_my_turn(this_subcycle);
-				std::vector<hpx::future<bool>> futures;
-				hpx::shared_future<bool> rc;
-				if (!is_leaf) {
-					futures.resize(Nchild);
-					for (int i = 0; i < Nchild; ++i) {
-						futures[i] = hpx::async<action_regrid<Function>>(children[i], this_subcycle);
-					}
-					rc = when_all(futures).then(hpx::util::unwrapped([this]( std::vector<hpx::future<bool>> futures) {
-						for( auto i = 0; i != Nchild; i++) {
-							if( !futures[i].get()) {
-								debranch().get();
-							}
-						}
-						return true;
-					}));
-				} else {
-					bool result = (static_cast<Derived*>(this)->*(Function::value))();
-					rc = hpx::make_ready_future(result).share();
-					if (result) {
-						branch().get();
+		//	wait_my_turn(this_subcycle);
+		std::vector<hpx::future<bool>> futures;
+		hpx::shared_future<bool> rc;
+		if (!is_leaf) {
+			futures.resize(Nchild);
+			for (int i = 0; i < Nchild; ++i) {
+				futures[i] = hpx::async<action_regrid<Function>>(children[i], this_subcycle);
+			}
+			rc = when_all(futures).then(hpx::util::unwrapped([this]( std::vector<hpx::future<bool>> futures) {
+				for( auto i = 0; i != Nchild; i++) {
+					if( !futures[i].get()) {
+						debranch().get();
 					}
 				}
+				return true;
+			}));
+		} else {
+			bool result = (static_cast<Derived*>(this)->*(Function::value))();
+			rc = hpx::make_ready_future(result).share();
+			if (result) {
+				branch().get();
+			}
+		}
 
-				if (this->get_self().get_level() == 0) {
-					rc.get();
-					hpx::async<action_find_neighbors>(static_cast<Derived*>(this)->get_gid()).get();
-				}
+		if (this->get_self().get_level() == 0) {
+			rc.get();
+			hpx::async<action_find_neighbors>(static_cast<Derived*>(this)->get_gid()).get();
+		}
 
-				//	subcycle_lock.lock();
-				last_operation_future = hpx::make_ready_future();
-				//	subcycle++;
-				//	subcycle_lock.unlock();
+		//	subcycle_lock.lock();
+		last_operation_future = hpx::make_ready_future();
+		//	subcycle++;
+		//	subcycle_lock.unlock();
 		//		printf("Done Regridding\n");
-				return rc;
-			}
+		return rc;
+	}
 
-			template<typename Function>
-			void ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle) {
-				using T = typename Function::type;
-				wait_my_turn(this_subcycle);
-				auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
-				promises->resize(Nchild);
-				auto f = when_all(input_data_future, last_operation_future).then(
-						hpx::util::unwrapped([=](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
-							std::vector<T> output_data;
-							auto& g = HPX_STD_GET(0, tupfut);
-							auto input_data = g.get();
-							if( !is_leaf ) {
-								output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
-								for( int i = 0; i < Nchild; i++) {
-									(*promises)[i].set_value(output_data[i]);
-								}
-							} else {
-								(static_cast<Derived*>(this)->*(Function::value))(input_data);
-							}
-						}));
-				if (!is_leaf) {
-					for (int i = 0; i < Nchild; i++) {
-						hpx::apply<action_ascend<Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
-					}
-				}
-				//	subcycle_lock.lock();
-				last_operation_future = f.share();
-				subcycle++;
-				//	subcycle_lock.unlock();
-			}
-
-			template<typename Function>
-			hpx::shared_future<typename Function::type> descend(int this_subcycle) {
-				//test = 0;
-				using T = typename Function::type;
-				wait_my_turn(this_subcycle);
-				hpx::shared_future < T > return_future;
-				hpx::future < T > f;
-				if (!is_leaf) {
-					std::vector < hpx::future < T >> futures(Nchild);
-					for (int i = 0; i < Nchild; i++) {
-						futures[i] = hpx::async<action_descend<Function>>(children[i], this_subcycle);
-					}
-					auto f =
-							when_all(when_all(futures), last_operation_future).then(
-									hpx::util::unwrapped(
-											[this](HPX_STD_TUPLE<hpx::future<std::vector<hpx::future<T>>>, hpx::shared_future<void>> tuple_futs) {
-												std::vector<T> input_data;
-												auto& h = HPX_STD_GET(0, tuple_futs);
-												std::vector<hpx::future<T>> input_data_futures = h.get();
-												input_data.resize(input_data_futures.size());
-												for( int i = 0; i < input_data_futures.size(); i++ ) {
-													input_data[i] = input_data_futures[i].get();
-												}
-												return (static_cast<Derived*>(this)->*(Function::value))(input_data);
-											}));
-					return_future = f.share();
-				} else {
-
-					auto f = last_operation_future.then(hpx::util::unwrapped([this]() {
-						std::vector<T> empty_vector;
-						return (static_cast<Derived*>(this)->*(Function::value))(empty_vector);
-					}));
-
-					return_future = f.share();
-				}
-//		subcycle_lock.lock();
-				last_operation_future = return_future;
-				subcycle++;
-//		subcycle_lock.unlock();
-				return return_future;
-			}
-
-			template<typename Set>
-			void exchange_set(const dir_type<Ndim>& dir, typename Set::type data) {
-				set_lock.lock();
-				assert(neighbors[dir] != hpx::invalid_id);
-				exchange_semaphore.wait();
-				(static_cast<Derived*>(this)->*(Set::value))(dir, data);
-				exchange_promises[dir].set_value();
-				set_lock.unlock();
-			}
-
-			template<typename Get, typename Set>
-			void exchange_get(int this_subcycle) {
-				using T = typename Get::type;
-				wait_my_turn(this_subcycle);
-				if (!is_leaf) {
-					for (int i = 0; i < Nchild; i++) {
-						hpx::apply<action_exchange_get<Get, Set>>(children[i], this_subcycle);
-					}
-				}
-				//	subcycle_lock.lock();
-				exchange_promises.resize(Nneighbor);
-				std::vector<hpx::shared_future<void>> futures(2 * Nneighbor + 1);
-				for (int i = 0; i < Nneighbor; i++) {
-					futures[i + Nneighbor] = exchange_promises[i].get_future();
-				}
-				for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
-					if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {
-						auto f = last_operation_future.then(hpx::util::unwrapped([this,dir]() {
-							auto tmp = (static_cast<Derived*>(this)->*(Get::value))(dir);
-							auto dir_set = dir;
-							dir_set.flip();
-							return hpx::async<action_exchange_set<Set>>(neighbors[dir], dir_set, tmp);
-						}));
-						futures[dir] = f.share();
-					} else {
-						futures[dir] = last_operation_future;
-					}
-				}
-				auto f = last_operation_future.then(hpx::util::unwrapped([this]() {
-					for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
-						if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {
-							exchange_semaphore.signal();
-						} else {
-							exchange_promises[dir].set_value();
+	template<typename Function>
+	void ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle) {
+		using T = typename Function::type;
+		wait_my_turn(this_subcycle);
+		auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
+		promises->resize(Nchild);
+		auto f = when_all(input_data_future, last_operation_future).then(
+				hpx::util::unwrapped([=](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
+					std::vector<T> output_data;
+					auto& g = HPX_STD_GET(0, tupfut);
+					auto input_data = g.get();
+					if( !is_leaf ) {
+						output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
+						for( int i = 0; i < Nchild; i++) {
+							(*promises)[i].set_value(output_data[i]);
 						}
+					} else {
+						(static_cast<Derived*>(this)->*(Function::value))(input_data);
 					}
 				}));
-				futures[2 * Nneighbor] = f.share();
-				last_operation_future = when_all(futures).share();
-				subcycle++;
+		if (!is_leaf) {
+			for (int i = 0; i < Nchild; i++) {
+				hpx::apply<action_ascend<Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
+			}
+		}
+		//	subcycle_lock.lock();
+		last_operation_future = f.share();
+		subcycle++;
+		//	subcycle_lock.unlock();
+	}
+
+	template<typename Function>
+	hpx::shared_future<typename Function::type> descend(int this_subcycle) {
+		//test = 0;
+		using T = typename Function::type;
+		wait_my_turn(this_subcycle);
+		hpx::shared_future < T > return_future;
+		hpx::future < T > f;
+		if (!is_leaf) {
+			std::vector < hpx::future < T >> futures(Nchild);
+			for (int i = 0; i < Nchild; i++) {
+				futures[i] = hpx::async<action_descend<Function>>(children[i], this_subcycle);
+			}
+			auto f =
+					when_all(when_all(futures), last_operation_future).then(
+							hpx::util::unwrapped(
+									[this](HPX_STD_TUPLE<hpx::future<std::vector<hpx::future<T>>>, hpx::shared_future<void>> tuple_futs) {
+										std::vector<T> input_data;
+										auto& h = HPX_STD_GET(0, tuple_futs);
+										std::vector<hpx::future<T>> input_data_futures = h.get();
+										input_data.resize(input_data_futures.size());
+										for( int i = 0; i < input_data_futures.size(); i++ ) {
+											input_data[i] = input_data_futures[i].get();
+										}
+										return (static_cast<Derived*>(this)->*(Function::value))(input_data);
+									}));
+			return_future = f.share();
+		} else {
+
+			auto f = last_operation_future.then(hpx::util::unwrapped([this]() {
+				std::vector<T> empty_vector;
+				return (static_cast<Derived*>(this)->*(Function::value))(empty_vector);
+			}));
+
+			return_future = f.share();
+		}
+//		subcycle_lock.lock();
+		last_operation_future = return_future;
+		subcycle++;
+//		subcycle_lock.unlock();
+		return return_future;
+	}
+
+	template<typename Set>
+	void exchange_set(const dir_type<Ndim>& dir, typename Set::type data) {
+		set_lock.lock();
+		assert(neighbors[dir] != hpx::invalid_id);
+		exchange_semaphore.wait();
+		(static_cast<Derived*>(this)->*(Set::value))(dir, data);
+		exchange_promises[dir].set_value();
+		set_lock.unlock();
+	}
+
+	template<typename Get, typename Set>
+	void exchange_get(int this_subcycle) {
+		using T = typename Get::type;
+		wait_my_turn(this_subcycle);
+		if (!is_leaf) {
+			for (int i = 0; i < Nchild; i++) {
+				hpx::apply<action_exchange_get<Get, Set>>(children[i], this_subcycle);
+			}
+		}
+		//	subcycle_lock.lock();
+		exchange_promises.resize(Nneighbor);
+		std::vector<hpx::shared_future<void>> futures(2 * Nneighbor + 1);
+		for (int i = 0; i < Nneighbor; i++) {
+			futures[i + Nneighbor] = exchange_promises[i].get_future();
+		}
+		int nn = 0;
+		for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+			if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {
+				auto f = last_operation_future.then(hpx::util::unwrapped([this,dir]() {
+					auto tmp = (static_cast<Derived*>(this)->*(Get::value))(dir);
+					auto dir_set = dir;
+					dir_set.flip();
+					return hpx::async<action_exchange_set<Set>>(neighbors[dir], dir_set, tmp);
+				}));
+				futures[dir] = f.share();
+				nn++;
+			} else {
+				futures[dir] = last_operation_future;
+			}
+		}
+		printf("%i %i\n", nn, this->get_self().get_level());
+		auto f = last_operation_future.then(hpx::util::unwrapped([this]() {
+			for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+				if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {
+					exchange_semaphore.signal();
+				} else {
+					exchange_promises[dir].set_value();
+				}
+			}
+		}));
+		futures[2 * Nneighbor] = f.share();
+		last_operation_future = when_all(futures).share();
+		subcycle++;
 //		subcycle_lock.unlock();
 
-			}
+	}
 
-			template<typename Function>
-			using action_local = hpx::actions::make_action<void(node::*)(int), &node::local<Function>>;
-			//
-			template<typename Function>
-			using action_regrid = hpx::actions::make_action< hpx::shared_future<bool>(node::*)(int), &node::regrid<Function>>;
-			//
-			template<typename Function>
-			using action_ascend = hpx::actions::make_action< void(node::*)(hpx::future<typename Function::type>, int), &node::ascend<Function>>;
-			//
-			template<typename Function>
-			using action_descend = hpx::actions::make_action<hpx::shared_future<typename Function::type>(node::*)(int), &node::descend<Function>>;
-			//
-			template<typename Set>
-			using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, typename Set::type), &node::exchange_set<Set>>;
-			//
-			template<typename Get, typename Set>
-			using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<Get,Set>>;
-			//
-
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, note_sibs, action_note_sibs); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, debranch, action_debranch); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, get_this, action_get_this); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, find_neighbors, action_find_neighbors); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_branch, action_notify_branch); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_debranch, action_notify_debranch); //
-			HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_of_neighbor, action_notify_of_neighbor);
-			//
+	template<typename Function>
+	using action_local = hpx::actions::make_action<void(node::*)(int), &node::local<Function>>;
 //
-		}
-		;
+	template<typename Function>
+	using action_regrid = hpx::actions::make_action< hpx::shared_future<bool>(node::*)(int), &node::regrid<Function>>;
+//
+	template<typename Function>
+	using action_ascend = hpx::actions::make_action< void(node::*)(hpx::future<typename Function::type>, int), &node::ascend<Function>>;
+//
+	template<typename Function>
+	using action_descend = hpx::actions::make_action<hpx::shared_future<typename Function::type>(node::*)(int), &node::descend<Function>>;
+//
+	template<typename Set>
+	using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, typename Set::type), &node::exchange_set<Set>>;
+//
+	template<typename Get, typename Set>
+	using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<Get,Set>>;
+//
 
-		}
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, note_sibs, action_note_sibs);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, debranch, action_debranch);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, get_this, action_get_this);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, find_neighbors, action_find_neighbors);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_branch, action_notify_branch);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_debranch, action_notify_debranch);	//
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_of_neighbor, action_notify_of_neighbor);
+//
+//
+}
+;
+
+}
 
 #endif /* NODE_HPP_ */

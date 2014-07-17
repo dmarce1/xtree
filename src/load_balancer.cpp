@@ -19,14 +19,14 @@ load_balancer::load_balancer(component_type* back_ptr) :
 		base_type(back_ptr), mins_begin(INT_MAX, hpx::invalid_id), semaphore(1) {
 	static bool initialized = false;
 	assert(!initialized);
-	printf( "A\n");
+//	printf( "A\n");
 	initialized = true;
 	int mask, neighbor_id, my_id, id_cnt;
 	auto localities = hpx::find_all_localities();
 	std::vector<hpx::future<hpx::id_type>> futures;
 	my_load = 0;
 	my_id = hpx::get_locality_id();
-	printf( "B\n");
+//	printf( "B\n");
 	id_cnt = localities.size();
 	hpx::register_id_with_basename(name, base_type::get_gid(), my_id).get();
 	std::list<int> tmp;
@@ -37,7 +37,7 @@ load_balancer::load_balancer(component_type* back_ptr) :
 			tmp.push_front(neighbor_id);
 		}
 	}
-	printf( "C\n");
+//	printf( "C\n");
 	std::vector<int> tmp2(tmp.size());
 	std::copy(tmp.begin(), tmp.end(), tmp2.begin());
 	std::sort(tmp2.begin(), tmp2.end());
@@ -47,12 +47,12 @@ load_balancer::load_balancer(component_type* back_ptr) :
 	//	printf( "%i\n", tmp2[i]);
 		futures[i] = hpx::find_id_from_basename(name, tmp2[i]);
 	}
-	printf( "D\n");
+	//printf( "D\n");
 	for (size_t i = 0; i < neighbors.size(); i++) {
-		printf( "----D\n");
+//		printf( "----D\n");
 		neighbors[i] = futures[i].get();
 	}
-	printf( "E\n");
+//	printf( "E\n");
 
 }
 

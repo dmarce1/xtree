@@ -133,6 +133,7 @@ public:
 private:
 	static fmmx_node_static_data<Ndim, Nx, P> static_data;
 	std::valarray<double> rho;
+	hpx::lcos::local::mutex lock;
 	std::valarray<expansion<P>> M;
 	std::valarray<expansion<P>> L;
 	std::valarray<std::valarray<double>> X;
@@ -180,7 +181,9 @@ public:
 				static_data.exafmm.L2L((std::valarray<complex>&)Lout, (std::valarray<complex>)Lin, dist);
 				return Lout;
 			});
+			lock.lock();
 			L[get_restrict_slice(dims, ci)] += Lthis;
+			lock.unlock();
 		}
 		std::vector<ascend_type> child_data;
 		if (!this->is_terminal()) {
@@ -284,7 +287,9 @@ public:
 					static_data.exafmm.M2L(l[j], Mb[i], dist);
 				}
 			}
+			lock.lock();
 			L[indexes[i]] += l;
+			lock.unlock();
 		}
 	}
 

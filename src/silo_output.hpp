@@ -101,10 +101,10 @@ private:
 	mutable hpx::lcos::local::mutex mutex0;
 public:
 	silo_output() {
-		printf("Silo in\n");
+	//	printf("Silo in\n");
 		received.resize((hpx::find_all_localities()).size());
 		reset();
-		printf("Silo out\n");
+	//	printf("Silo out\n");
 
 	}
 	virtual ~silo_output() {
@@ -223,7 +223,9 @@ public:
 		}
 		mutex0.lock();
 		received[proc_num_from] = true;
+		printf( "Receive output from %i\n", proc_num_from );
 		if (std::all_of(received.begin(), received.end(), [](bool b) {return b;})) {
+			printf( "Doing output\n");
 			mutex0.unlock();
 			/*hpx::apply([this]() {*/do_output();/*});*/
 			mutex0.lock();
