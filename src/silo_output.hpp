@@ -19,7 +19,7 @@ public:
 		std::vector<double> fields;
 		std::array<double, Ndim> position;
 		std::array<double, Ndim> span;
-		zone()  {
+		zone() {
 		}
 		zone(const zone& z) {
 			*this = z;
@@ -101,8 +101,10 @@ private:
 	mutable hpx::lcos::local::mutex mutex0;
 public:
 	silo_output() {
+		printf("Silo in\n");
 		received.resize((hpx::find_all_localities()).size());
 		reset();
+		printf("Silo out\n");
 
 	}
 	virtual ~silo_output() {
@@ -134,9 +136,9 @@ public:
 		for (auto ni = nodedir.begin(); ni != nodedir.end(); ni++) {
 			for (int di = 0; di < Ndim; di++) {
 				coords[di][ni->index] = (*ni)[di];
-			//	printf("%e ", (*ni)[di]);
+				//	printf("%e ", (*ni)[di]);
 			}
-		//	printf("\n");
+			//	printf("\n");
 		}
 		nodedir.clear();
 
@@ -145,16 +147,18 @@ public:
 		for (auto zi = zonedir.begin(); zi != zonedir.end(); zi++) {
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				zone_nodes[zni] = zi->vertices[ci0];
-		//		printf("%i ", zone_nodes[zni]);
+				//		printf("%i ", zone_nodes[zni]);
 				zni++;
 			}
-	//		printf("\n");
+			//		printf("\n");
 		}
 
 		olist = DBMakeOptlist(1);
 		db = DBCreate("X.silo", DB_CLOBBER, DB_LOCAL, "Euler Mesh", DB_PDB);
-		DBPutZonelist2(db, "zones", nzones, Ndim, zone_nodes.data(), Nchild * nzones, 0, 0, 0, shapetype, shapesize, shapecnt, nshapes, olist);
-		DBPutUcdmesh(db, "mesh", Ndim, const_cast<char**>(coordnames), reinterpret_cast<float **>(coords), nnodes, nzones, "zones", NULL, DB_DOUBLE, olist);
+		DBPutZonelist2(db, "zones", nzones, Ndim, zone_nodes.data(), Nchild * nzones, 0, 0, 0, shapetype, shapesize,
+				shapecnt, nshapes, olist);
+		DBPutUcdmesh(db, "mesh", Ndim, const_cast<char**>(coordnames), reinterpret_cast<float **>(coords), nnodes,
+				nzones, "zones", NULL, DB_DOUBLE, olist);
 
 		std::vector<double> data(nzones);
 		char fname[2];
@@ -191,8 +195,8 @@ public:
 			silo_zone s;
 			int j;
 			s.fields = std::move(zones[i].fields);
-		//	printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
-		//			zones[i].span[2]);
+			//	printf("%e %e %e %e %e %e\n", zones[i].position[0], zones[i].position[1], zones[i].position[2], zones[i].span[0], zones[i].span[1],
+			//			zones[i].span[2]);
 			for (int ci0 = 0; ci0 < Nchild; ci0++) {
 				vertex v;
 				int ci = vertex_order[ci0];
@@ -227,7 +231,7 @@ public:
 		mutex0.unlock();
 
 	}
-	XTREE_MAKE_ACTION( action_send_zones_to_silo, silo_output::send_zones_to_silo );
+	HPX_DEFINE_COMPONENT_ACTION_TPL( silo_output,send_zones_to_silo,action_send_zones_to_silo );
 }
 ;
 

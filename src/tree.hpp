@@ -11,7 +11,8 @@
 namespace xtree {
 
 template<typename Derived, int Ndim>
-class tree: public hpx::components::managed_component_base<tree<Derived, Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr> {
+class tree: public hpx::components::managed_component_base<tree<Derived, Ndim>, hpx::components::detail::this_type,
+		hpx::traits::construct_with_back_ptr> {
 public:
 	static constexpr int Nbranch = 2;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
@@ -43,13 +44,13 @@ public:
 		int my_id, id_cnt;
 		auto localities = hpx::find_all_localities();
 		std::vector < hpx::future < hpx::id_type >> futures(Nbranch);
-
+		printf("1\n");
 		my_id = hpx::get_locality_id();
 		id_cnt = localities.size();
 		this_gid = base_type::get_gid();
 		this_ptr = this;
 		hpx::register_id_with_basename(name, this_gid, my_id).get();
-
+		printf("2\n");
 		for (int i = 0; i < Nbranch; i++) {
 			int j = my_id * Nbranch + i + 1;
 			if (j < localities.size()) {
@@ -58,19 +59,27 @@ public:
 				futures[i] = hpx::make_ready_future(hpx::invalid_id);
 			}
 		}
-		for (int i = 0; i < Nbranch; i++) {
-			child_gids[i] = futures[i].get();
-		}
+		printf("3\n");
 		load_balancer_gid = hpx::new_ < load_balancer > (hpx::find_here()).get();
-		load_balancer_ptr = (hpx::async<load_balancer::action_get_ptr>(load_balancer_gid)).get();
+		printf("3.4\n");
+		load_balancer_ptr = (hpx::async < load_balancer::action_get_ptr > (load_balancer_gid)).get();
+		printf("3.6\n");
+		printf("3.7\n");
 		if (my_id == 0) {
 			hpx::future < hpx::id_type > fut1;
+			printf("silonewin\n");
 			fut1 = hpx::new_ < silo_output_type > (hpx::find_here());
+			printf("silonewout\n");
 			silo_gid = fut1.get();
+			printf("silonewout2\n");
 			hpx::register_id_with_basename(silo_name, silo_gid, 0).get();
 		} else {
 			silo_gid = (hpx::find_id_from_basename(silo_name, 0)).get();
 		}
+		for (int i = 0; i < Nbranch; i++) {
+			child_gids[i] = futures[i].get();
+		}
+		printf("4\n");
 		root_node_gid = hpx::invalid_id;
 	}
 
@@ -105,8 +114,8 @@ public:
 		return this;
 	}
 
-	hpx::future<hpx::id_type> get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors,
-			int subcyc) {
+	hpx::id_type get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id,
+			const std::array<hpx::id_type, Nneighbor>& _neighbors, int subcyc) {
 		hpx::shared_future < hpx::id_type > id_future;
 		auto fut0 = hpx::new_ < Derived > (hpx::find_here());
 		id_future = fut0.share();
@@ -122,15 +131,14 @@ public:
 			dir_lock.unlock();
 			assert(test.second);
 			return id_future;
-		}));
+		})).get();
 	}
 
-	XTREE_MAKE_ACTION( action_get_new_node, tree::get_new_node ); //
-
-	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, const std::array<hpx::id_type, Nneighbor>& _neighbors, int subcyc) {
+	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id,
+			const std::array<hpx::id_type, Nneighbor>& _neighbors, int subcyc) {
 		auto proc_num = load_balancer_ptr->increment_load().get();
 		auto gid = hpx::find_id_from_basename(name, proc_num).get();
-		return hpx::async<action_get_new_node>(gid, _loc, _parent_id, _neighbors, subcyc);
+		return hpx::async < action_get_new_node > (gid, _loc, _parent_id, _neighbors, subcyc);
 	}
 
 	void delete_node(Derived* ptr) {
@@ -144,7 +152,7 @@ public:
 	void output() const {
 		for (int i = 0; i < Nbranch; i++) {
 			if (child_gids[i] != hpx::invalid_id) {
-				hpx::apply<action_output>(child_gids[i]);
+				hpx::apply < action_output > (child_gids[i]);
 			}
 		}
 		dir_lock.lock();
@@ -168,18 +176,21 @@ public:
 			}
 		}
 
-		auto fut = hpx::async<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(), zones);
+		auto fut = hpx::async<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(),
+				zones);
 		fut.get();
 		dir_lock.unlock();
 
 	}
 
-	XTREE_MAKE_ACTION( action_get_this, tree::get_this ); //
-	XTREE_MAKE_ACTION( action_place_root, tree::place_root ); //
-	XTREE_MAKE_ACTION( action_output, tree::output );
+	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,get_new_node,action_get_new_node ); //
+	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,get_this,action_get_this ); //
+	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,place_root, action_place_root); //
+	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,output,action_output );
 //
 
 };
+
 
 }
 

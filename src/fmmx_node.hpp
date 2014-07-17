@@ -150,8 +150,8 @@ public:
 		}
 	}
 	std::vector<ascend_type> ascend(ascend_type& parent) {
-		printf("Ascend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
-				this->get_self().get_location(2), this->get_self().get_level());
+		printf("Ascend - %i %i %i - %i -%i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+				this->get_self().get_location(2), this->get_self().get_level(), hpx::get_locality_id());
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
 		auto dir_center = dir_type<Ndim>().set_zero();
@@ -195,8 +195,8 @@ public:
 
 	}
 	descend_type descend(std::vector<descend_type>& children) {
-	//	printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
-	//			this->get_self().get_location(2), this->get_self().get_level());
+		printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+				this->get_self().get_location(2), this->get_self().get_level());
 
 		std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<std::size_t> dims(Nx, Ndim);
@@ -353,6 +353,9 @@ template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 fmmx_node_static_data<Ndim, Nx, P> fmmx_node<Ndim, Nx, P>::static_data;
 
 }
+
+
 }
+
 
 #endif /* FMMX_NODE_HPP_ */

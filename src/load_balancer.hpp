@@ -48,4 +48,14 @@ public:
 
 } /* namespace xtree */
 
+typedef xtree::load_balancer::action_lock_servlet lock_servlet_action;
+typedef xtree::load_balancer::action_unlock_servlet unlock_servlet_action;
+typedef xtree::load_balancer::action_get_ptr get_ptr_action;
+
+
+
+HPX_REGISTER_ACTION_DECLARATION(lock_servlet_action);
+HPX_REGISTER_ACTION_DECLARATION(unlock_servlet_action);
+HPX_REGISTER_ACTION_DECLARATION(get_ptr_action);
+
 #endif /* LOAD_BALANCER_H_ */

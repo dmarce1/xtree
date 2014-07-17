@@ -12,9 +12,6 @@
 #include "fwd.hpp"
 #include "container_math.hpp"
 #include <hpx/runtime/components/derived_component_factory.hpp>
-#define XTREE_MAKE_ACTION( a, b ) 																					\
-using a = typename hpx::actions::make_action<decltype(&b),&b>::type;	 											\
-/**/
 
 #define XTREE_INSTANTIATE( DERIVED_CLASS, ... )																		\
 namespace xtree {																									\
@@ -28,6 +25,45 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
 HPX_DEFINE_GET_COMPONENT_TYPE(xtree::node_type);\
 HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::managed_component<DERIVED_CLASS>, DERIVED_CLASS, "node_type");	\
+typedef DERIVED_CLASS::action_operations_end action0_operations_end; \
+HPX_REGISTER_ACTION_DECLARATION(action0_operations_end); \
+HPX_REGISTER_ACTION(action0_operations_end); \
+typedef DERIVED_CLASS::action_initialize action0_initialize; \
+HPX_REGISTER_ACTION_DECLARATION(action0_initialize); \
+HPX_REGISTER_ACTION(action0_initialize); \
+typedef DERIVED_CLASS::action_debranch action0_debranch; \
+HPX_REGISTER_ACTION_DECLARATION(action0_debranch); \
+HPX_REGISTER_ACTION(action0_debranch); \
+typedef DERIVED_CLASS::action_get_this action0_get_this; \
+HPX_REGISTER_ACTION_DECLARATION(action0_get_this); \
+HPX_REGISTER_ACTION(action0_get_this); \
+typedef DERIVED_CLASS::action_find_neighbors action0_find_neighbors; \
+HPX_REGISTER_ACTION_DECLARATION(action0_find_neighbors); \
+HPX_REGISTER_ACTION(action0_find_neighbors); \
+typedef DERIVED_CLASS::action_notify_branch action0_notify_branch; \
+HPX_REGISTER_ACTION_DECLARATION(action0_notify_branch); \
+HPX_REGISTER_ACTION(action0_notify_branch); \
+typedef DERIVED_CLASS::action_notify_debranch action0_notify_debranch; \
+HPX_REGISTER_ACTION_DECLARATION(action0_notify_debranch); \
+HPX_REGISTER_ACTION(action0_notify_debranch); \
+typedef DERIVED_CLASS::action_note_sibs action0_note_sibs0; \
+HPX_REGISTER_ACTION_DECLARATION(action0_note_sibs0); \
+HPX_REGISTER_ACTION(action0_note_sibs0); \
+typedef DERIVED_CLASS::action_notify_of_neighbor action0_notify_of_neighbor; \
+HPX_REGISTER_ACTION_DECLARATION(action0_notify_of_neighbor); \
+HPX_REGISTER_ACTION(action0_notify_of_neighbor); \
+typedef xtree::tree_type::action_get_new_node action_get_new_node; \
+HPX_REGISTER_ACTION (action_get_new_node); \
+typedef xtree::tree_type::action_get_this action_get_this;  \
+HPX_REGISTER_ACTION (action_get_this); \
+typedef xtree::tree_type::action_place_root action_place_root;  \
+HPX_REGISTER_ACTION (action_place_root); \
+typedef xtree::tree_type::action_output action_output; \
+HPX_REGISTER_ACTION (action_output); \
+typedef xtree::silo_output_type::action_send_zones_to_silo action_send_zones_to_silo; \
+HPX_REGISTER_ACTION( action_send_zones_to_silo );
+
+
 /**/
 
 #include <hpx/lcos/local/dataflow.hpp>
@@ -35,7 +71,6 @@ HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::managed_component<DERIVE
 #include <hpx/lcos/wait_all.hpp>
 #include <hpx/runtime/actions/plain_action.hpp>
 #include <hpx/util/unwrapped.hpp>
-
 
 #include <boost/serialization/valarray.hpp>
 #include <boost/mpl/int.hpp>

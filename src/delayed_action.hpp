@@ -29,6 +29,9 @@ public:
 			input_reference(nullptr) {
 		done = true;
 	}
+	delayed_action(hpx::shared_future<delayed_action> fut) {
+		*this = fut.get();
+	}
 	template<class FuncType>
 	delayed_action(const T* i, FuncType func) :
 			input_reference(i), action(func) {

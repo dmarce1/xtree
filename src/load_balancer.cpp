@@ -19,12 +19,14 @@ load_balancer::load_balancer(component_type* back_ptr) :
 		base_type(back_ptr), mins_begin(INT_MAX, hpx::invalid_id), semaphore(1) {
 	static bool initialized = false;
 	assert(!initialized);
+	printf( "A\n");
 	initialized = true;
 	int mask, neighbor_id, my_id, id_cnt;
 	auto localities = hpx::find_all_localities();
 	std::vector<hpx::future<hpx::id_type>> futures;
 	my_load = 0;
 	my_id = hpx::get_locality_id();
+	printf( "B\n");
 	id_cnt = localities.size();
 	hpx::register_id_with_basename(name, base_type::get_gid(), my_id).get();
 	std::list<int> tmp;
@@ -35,16 +37,22 @@ load_balancer::load_balancer(component_type* back_ptr) :
 			tmp.push_front(neighbor_id);
 		}
 	}
-	std::vector<int> tmp2 = std::vector<int>(tmp.begin(), tmp.end());
+	printf( "C\n");
+	std::vector<int> tmp2(tmp.size());
+	std::copy(tmp.begin(), tmp.end(), tmp2.begin());
 	std::sort(tmp2.begin(), tmp2.end());
 	neighbors.resize(tmp2.size());
 	futures.resize(neighbors.size());
 	for (size_t i = 0; i < neighbors.size(); i++) {
+	//	printf( "%i\n", tmp2[i]);
 		futures[i] = hpx::find_id_from_basename(name, tmp2[i]);
 	}
+	printf( "D\n");
 	for (size_t i = 0; i < neighbors.size(); i++) {
+		printf( "----D\n");
 		neighbors[i] = futures[i].get();
 	}
+	printf( "E\n");
 
 }
 
@@ -123,3 +131,10 @@ int load_balancer::get_load() {
 } /* namespace xtree */
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::load_balancer>, load_balancer);
 
+HPX_REGISTER_ACTION(lock_servlet_action);
+HPX_REGISTER_ACTION(unlock_servlet_action);
+HPX_REGISTER_ACTION(get_ptr_action);
+
+
+
+HPX_REGISTER_COMPONENT_MODULE();
