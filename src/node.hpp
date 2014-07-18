@@ -29,10 +29,9 @@ public:
 	static constexpr int Nchild = pow_<2, Ndim>::value;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	using base_type = hpx::components::managed_component_base<Derived>;
-	using child_array_type = std::array<hpx::id_type,Nchild>;
-	using niece_array_type = std::array<std::array<hpx::id_type,Nchild>,Nneighbor>;
-	using neighbor_notify_type = std::array<std::pair<int, hpx::id_type>, Nneighbor>;
-	using neighbor_array_type = std::array<hpx::id_type, Nneighbor>;
+	using child_array_type = std::vector<hpx::id_type>;
+	using niece_array_type = std::vector<std::vector<hpx::id_type>>;
+	using neighbor_array_type = std::vector<hpx::id_type>;
 	using wrapped_type = Derived;
 
 private:
@@ -64,9 +63,9 @@ private:
 	std::vector<hpx::promise<void>> exchange_promises;
 	int subcycle;
 //	hpx::lcos::local::mutex subcycle_lock;
-	hpx::lcos::local::mutex branch_lock;
-	hpx::lcos::local::mutex sem_lock;
-	hpx::lcos::local::mutex set_lock;
+	mutable hpx::lcos::local::mutex branch_lock;
+	mutable hpx::lcos::local::mutex sem_lock;
+	mutable hpx::lcos::local::mutex set_lock;
 private:
 	hpx::id_type get_sibling_of_child(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
 		child_index_type<Ndim> nci;
@@ -100,14 +99,14 @@ public:
 		neighbors = hpx::util::get<1>(other_ids);
 		is_leaf = true;
 		is_branching = false;
-		//	nieces.resize(Nneighbor);
+		nieces.resize(Nneighbor);
 		for (int ni = 0; ni < Nneighbor; ni++) {
-			//	nieces[ni].resize(Nchild);
+			nieces[ni].resize(Nchild);
 			for (int ci = 0; ci < Nchild; ci++) {
 				nieces[ni][ci] = hpx::invalid_id;
 			}
 		}
-		//	children.resize(Nchild);
+		children.resize(Nchild);
 		for (int ci = 0; ci < Nchild; ci++) {
 			children[ci] = hpx::invalid_id;
 		}
@@ -145,7 +144,7 @@ public:
 		is_branching = true;
 		std::vector < hpx::future < hpx::id_type >> futs(Nchild);
 		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
-			neighbor_array_type pack;
+			neighbor_array_type pack(Nneighbor);
 			for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
 				pack[dir] = get_sibling_of_child(ci, dir);
 			}
@@ -215,7 +214,7 @@ public:
 		return return_f;
 	}
 
-	void note_sibs(std::array<hpx::id_type, Nchild> xtet) {
+	void note_sibs(std::vector<hpx::id_type> xtet) {
 		//		printf("SIBLINGS %i\n", hpx::get_locality_id());
 		branch_lock.lock();
 		child_index_type<Ndim> myci = get_self().this_child_index();
@@ -766,8 +765,33 @@ public:
 //
 	template<typename Get, typename Set>
 	using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<Get,Set>>;
-//
 
+	std::vector<hpx::id_type> neighbors_exchange_get(dir_type<Ndim> dir) {
+		return children;
+	}
+
+	void neighbors_exchange_set(dir_type<Ndim> dir, std::vector<hpx::id_type> nephews) {
+		nieces[dir] = nephews;
+	}
+
+	std::vector<std::vector<hpx::id_type>> neighbors_ascend(std::vector<hpx::id_type> _neighbors) {
+		if( this->get_self().get_level() != 0 ) {
+			neighbors = _neighbors;
+		}
+		std::vector < std::vector < hpx::id_type >> child_neighbors;
+		if (!is_leaf) {
+			child_neighbors.resize(Nchild);
+			for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+				child_neighbors[ci].resize(Nneighbor);
+				for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+					child_neighbors[ci][dir] = get_sibling_of_child(ci, dir);
+				}
+			}
+		}
+		return child_neighbors;
+	}
+
+//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, note_sibs, action_note_sibs);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize);	//

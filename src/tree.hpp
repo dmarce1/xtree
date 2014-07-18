@@ -85,7 +85,7 @@ public:
 
 	void place_root() {
 		hpx::future < hpx::id_type > fut2;
-		std::array < hpx::id_type, Nneighbor > neighbors;
+		std::vector < hpx::id_type > neighbors( Nneighbor);
 		std::fill(neighbors.begin(), neighbors.end(), hpx::invalid_id);
 		fut2 = new_node(location<Ndim>(), hpx::invalid_id, neighbors, 0);
 		root_node_gid = fut2.get();
@@ -115,7 +115,7 @@ public:
 	}
 
 	hpx::id_type get_new_node(const location<Ndim>& _loc, hpx::id_type _parent_id,
-			const std::array<hpx::id_type, Nneighbor>& _neighbors, int subcyc) {
+			const std::vector<hpx::id_type>& _neighbors, int subcyc) {
 		hpx::shared_future < hpx::id_type > id_future;
 		auto fut0 = hpx::new_ < Derived > (hpx::find_here());
 		id_future = fut0.share();
@@ -130,12 +130,12 @@ public:
 			auto test = nodes.insert(ptr);
 			dir_lock.unlock();
 			assert(test.second);
-			return id_future;
+			return id_future.get();
 		})).get();
 	}
 
 	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id,
-			const std::array<hpx::id_type, Nneighbor>& _neighbors, int subcyc) {
+			const std::vector<hpx::id_type>& _neighbors, int subcyc) {
 		auto proc_num = load_balancer_ptr->increment_load().get();
 		auto gid = hpx::find_id_from_basename(name, proc_num).get();
 		return hpx::async < action_get_new_node > (gid, _loc, _parent_id, _neighbors, subcyc);

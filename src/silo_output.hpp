@@ -170,7 +170,7 @@ public:
 				i++;
 			}
 			fname[0] = 'A' + char(fi);
-			DBPutUcdvar1(db, fname, "mesh", data.data(), nzones, 0, 0, DB_DOUBLE, DB_ZONECENT, olist);
+			DBPutUcdvar1(db, fname, "mesh", reinterpret_cast<float*>(data.data()), nzones, 0, 0, DB_DOUBLE, DB_ZONECENT, olist);
 		}
 
 		zonedir.clear();
