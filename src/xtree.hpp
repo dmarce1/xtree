@@ -25,8 +25,8 @@ HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree:
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
 HPX_DEFINE_GET_COMPONENT_TYPE(xtree::node_type);\
 HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::managed_component<DERIVED_CLASS>, DERIVED_CLASS, "node_type");	\
-typedef DERIVED_CLASS::action_operations_end action0_operations_end;
-/*HPX_REGISTER_ACTION_DECLARATION(action0_operations_end); \
+typedef DERIVED_CLASS::action_operations_end action0_operations_end; \
+HPX_REGISTER_ACTION_DECLARATION(action0_operations_end); \
 HPX_REGISTER_ACTION(action0_operations_end); \
 typedef DERIVED_CLASS::action_initialize action0_initialize; \
 HPX_REGISTER_ACTION_DECLARATION(action0_initialize); \
@@ -62,7 +62,7 @@ typedef xtree::tree_type::action_output action_output; \
 HPX_REGISTER_ACTION (action_output); \
 typedef xtree::silo_output_type::action_send_zones_to_silo action_send_zones_to_silo; \
 HPX_REGISTER_ACTION( action_send_zones_to_silo );
-*/
+
 
 /**/
 

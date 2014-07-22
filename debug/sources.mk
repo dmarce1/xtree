@@ -3,8 +3,8 @@
 ################################################################################
 
 O_SRCS := 
-C_UPPER_SRCS := 
 CPP_SRCS := 
+C_UPPER_SRCS := 
 C_SRCS := 
 S_UPPER_SRCS := 
 OBJ_SRCS := 

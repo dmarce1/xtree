@@ -44,7 +44,7 @@ all: xtree
 xtree: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ $(OBJS) $(USER_OBJS) $(LIBS) `pkg-config --libs hpx_application_debug` -o "xtree"
+	g++ $(OBJS) $(USER_OBJS) $(LIBS) -L/home/dmarce1/lib `pkg-config --libs hpx_application_debug` -o "xtree"
 	@echo 'Finished building target: $@'
 	@echo ' '
 

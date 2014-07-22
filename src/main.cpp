@@ -8,6 +8,7 @@
 #include "xtree.hpp"
 #include "./fmmx_node.hpp"
 #include <fenv.h>
+#include <mpi.h>
 
 using namespace xtree;
 using namespace fmmx;
@@ -15,7 +16,7 @@ using namespace fmmx;
 
 
 
-using fmmx_node_type = fmmx_node<3,10,5>;
+using fmmx_node_type = fmmx_node<3,8,5>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
@@ -32,7 +33,7 @@ typedef fmmx_node_type::action_ascend<afunc> action_ascend_func;
 typedef fmmx_node_type::action_exchange_get<eg_func,es_func> action_get_func;
 typedef fmmx_node_type::action_exchange_set<es_func> action_set_func;
 
-/*
+
 HPX_REGISTER_ACTION_DECLARATION( action_regrid );
 HPX_REGISTER_ACTION_DECLARATION( action_local );
 HPX_REGISTER_ACTION_DECLARATION( action_descend_func );
@@ -45,7 +46,7 @@ HPX_REGISTER_ACTION( action_local );
 HPX_REGISTER_ACTION( action_descend_func );
 HPX_REGISTER_ACTION( action_ascend_func );
 HPX_REGISTER_ACTION( action_get_func );
-HPX_REGISTER_ACTION( action_set_func);*/
+HPX_REGISTER_ACTION( action_set_func);
 
 void test() {
 }
@@ -76,8 +77,11 @@ void execute() {
 	ops[0] = dop;
 	ops[1] = eop;
 	ops[2] = aop;
+	double tstart = MPI_Wtime();
+	printf( "Starting \n");
 	root_node->execute_operations(ops);
 //	root_node->execute_operations(ops);
+	printf( "Done in %e seconds\n", MPI_Wtime() - tstart );
 	printf("OUtput\n");
 	tree_ptr->output();
 	//(root_node->debranch()).get();

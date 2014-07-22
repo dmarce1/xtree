@@ -1,39 +1,3 @@
- 1008  cd usr
- 1009  cd /usr
- 1010  cd lib
- 1011  ls
- 1012  cd pkgconfig/
- 1013  sudo rm -r hpx_application.pc 
- 1014  sudo rm -r hpx*
- 1015  cd
- 1016  cd /usr/local
- 1017  cd lib
- 1018  ls
- 1019  cd hpx
- 1020  ls
- 1021  cd ..
- 1022  cd local
- 1023  cd lib
- 1024  cd pkgconfig/
- 1025  ls
- 1026  exit
- 1027  top
- 1028  ssh -X mike.hpc.lsu.edu
- 1029  cd hpx_build/
- 1030  cd
- 1031  cd /usr
- 1032  cd include
- 1033  ls
- 1034  sudo rm -r boost
- 1035  cd boost/
- 1036  ls
- 1037  vi version.hpp 
- 1038  cd ..
- 1039  sudo rm -r boost
- 1040  cd 
- 1041  cd lib
- 1042  ls
- 1043  cd /usr/lib
  1044  ls
  1045  cd boost
  1046  sudo rm -r libboost*
@@ -991,10 +955,46 @@
  1998  vi CMakeCache.txt 
  1999  q!
  2000  exit
- 2001  ./eclipse/eclipse &
- 2002  cd workspace
- 2003  cd xtree
- 2004  cd debug
- 2005  ./xtree
- 2006  history
- 2007  history > out
+ 2001  cd workspace
+ 2002  cd xtree
+ 2003  cd src
+ 2004  ./a.out
+ 2005  mpirun -np 4 ./a.out
+ 2006  which mpirun
+ 2007  ~/bin/mpirun -np 4 ./a.out
+ 2008  cd ..
+ 2009  cd 
+ 2010  cd builds
+ 2011  cd hpx
+ 2012  git checkout
+ 2013  git pull
+ 2014  cd
+ 2015  cd workspace
+ 2016  cd xtree
+ 2017  cd src
+ 2018  ~/bin/mpirun -np 4 ./a.out
+ 2019  cd
+ 2020  cd builds
+ 2021  cd hpx
+ 2022  ls
+ 2023  cd ..
+ 2024  rm -r hpx
+ 2025  rm -r hpx -f
+ 2026  git clone https://github.com/STEllAR-GROUP/hpx
+ 2027  cd hpx_build
+ 2028  ls
+ 2029  make clean
+ 2030  ./config_hpx.sh 
+ 2031  make  -j4
+ 2032  make install
+ 2033  rm /home/dmarce1/lib/hpx/*
+ 2034  rm /home/dmarce1/lib/hpx/* -f
+ 2035  rm /home/dmarce1/include/hpx/* -f
+ 2036  rm /home/dmarce1/include/hpx/* -f -r
+ 2037  make install
+ 2038  cd
+ 2039  cd workspace
+ 2040  cd xtree
+ 2041  cd src
+ 2042  vi config_hpx.sh 
+ 2043  history > out
