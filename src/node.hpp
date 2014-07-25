@@ -766,15 +766,15 @@ public:
 	template<typename Get, typename Set>
 	using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<Get,Set>>;
 
-	std::vector<hpx::id_type> neighbors_exchange_get(dir_type<Ndim> dir) {
+	std::vector<hpx::id_type> neighbors_exchange_get(dir_type<Ndim>& dir) {
 		return children;
 	}
 
-	void neighbors_exchange_set(dir_type<Ndim> dir, std::vector<hpx::id_type> nephews) {
+	void neighbors_exchange_set(dir_type<Ndim> dir, std::vector<hpx::id_type>& nephews) {
 		nieces[dir] = nephews;
 	}
 
-	std::vector<std::vector<hpx::id_type>> neighbors_ascend(std::vector<hpx::id_type> _neighbors) {
+	std::vector<std::vector<hpx::id_type>> neighbors_ascend(std::vector<hpx::id_type>& _neighbors) {
 		if( this->get_self().get_level() != 0 ) {
 			neighbors = _neighbors;
 		}
@@ -791,6 +791,7 @@ public:
 		return child_neighbors;
 	}
 
+
 //
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, note_sibs, action_note_sibs);	//
@@ -803,9 +804,14 @@ public:
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, notify_of_neighbor, action_notify_of_neighbor);
 //
 //
+//	using regrid_ascend_func = ascend_function<std::vector<hpx::id_type>, &Derived::neighbors_ascend>;
+//	using regrid_exchange_get_func = exchange_get_function<std::vector<hpx::id_type>, &Derived::neighbors_exchange_get>;
+//	using regrid_exchange_set_func = exchange_set_function<std::vector<hpx::id_type>, &Derived::neighbors_exchange_set>;
+
 }
 ;
 
 }
+
 
 #endif /* NODE_HPP_ */

@@ -3,10 +3,6 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-O_SRCS += \
-../src/load_balancer.o \
-../src/main.o 
-
 CPP_SRCS += \
 ../src/load_balancer.cpp \
 ../src/main.cpp 

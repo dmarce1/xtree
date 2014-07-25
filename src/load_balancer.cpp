@@ -136,5 +136,3 @@ HPX_REGISTER_ACTION(unlock_servlet_action);
 HPX_REGISTER_ACTION(get_ptr_action);
 
 
-
-HPX_REGISTER_COMPONENT_MODULE();

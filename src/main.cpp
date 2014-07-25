@@ -34,13 +34,6 @@ typedef fmmx_node_type::action_exchange_get<eg_func,es_func> action_get_func;
 typedef fmmx_node_type::action_exchange_set<es_func> action_set_func;
 
 
-HPX_REGISTER_ACTION_DECLARATION( action_regrid );
-HPX_REGISTER_ACTION_DECLARATION( action_local );
-HPX_REGISTER_ACTION_DECLARATION( action_descend_func );
-HPX_REGISTER_ACTION_DECLARATION( action_ascend_func );
-HPX_REGISTER_ACTION_DECLARATION( action_get_func );
-HPX_REGISTER_ACTION_DECLARATION( action_set_func);
-
 HPX_REGISTER_ACTION( action_regrid );
 HPX_REGISTER_ACTION( action_local );
 HPX_REGISTER_ACTION( action_descend_func );
@@ -53,7 +46,7 @@ void test() {
 
 
 void execute() {
-
+	printf( "Initializing program...\n");
 	hpx::id_type tree_gid = (hpx::new_<tree_type>(hpx::find_here())).get();
 	auto fut0 = hpx::async<tree_type::action_get_this>(tree_gid);
 	tree_type* tree_ptr = fut0.get();
@@ -64,10 +57,12 @@ void execute() {
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
+	printf( "Refining...\n");
 	root_node->execute_operations(refine_ops);
  	root_node->execute_operations(refine_ops);
 	root_node->execute_operations(refine_ops);
-//	root_node->execute_operations(refine_ops);
+	root_node->execute_operations(refine_ops);
+	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
 	std::vector<fmmx_node_type::operation_type> ops(3);
@@ -82,7 +77,7 @@ void execute() {
 	root_node->execute_operations(ops);
 //	root_node->execute_operations(ops);
 	printf( "Done in %e seconds\n", MPI_Wtime() - tstart );
-	printf("OUtput\n");
+	printf("Output\n");
 	tree_ptr->output();
 	//(root_node->debranch()).get();
 	printf( "Output done\n");
