@@ -58,13 +58,13 @@ void execute() {
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
 	printf( "Refining...\n");
-	root_node->execute_operations(refine_ops);
+	root_node->regrid(0);
 	printf( "Refining...\n");
- 	root_node->execute_operations(refine_ops);
+	root_node->regrid(0);
 	printf( "Refining...\n");
-	root_node->execute_operations(refine_ops);
+	root_node->regrid(0);
 	printf( "Refining...\n");
-	root_node->execute_operations(refine_ops);
+	root_node->regrid(0);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
