@@ -320,7 +320,7 @@ public:
 									subcycle = 0;
 								}));
 		last_operation_future = f.share();
-		printf("%i\n", this->get_self().get_level());
+	//	printf("%i\n", this->get_self().get_level());
 
 		return last_operation_future;
 	}
@@ -463,13 +463,13 @@ public:
 					debranch().get();
 				}
 			}
-			printf("Inside\n");
+		//	printf("Inside\n");
 			rc = true;
 		} else {
 			rc = (static_cast<Derived*>(this)->*(Function::value))();
 			if (rc) {
 				branch().get();
-				printf("Ready\n");
+			//	printf("Ready\n");
 			}
 		}
 
@@ -718,7 +718,7 @@ void node<Derived, Ndim>::neighbors_ascend(
 							}));
 	if (!is_leaf) {
 		for (int i = 0; i < Nchild; i++) {
-			printf("--1\n");
+		//	printf("--1\n");
 			hpx::apply < action_neighbors_ascend
 					> (children[i], (*promises)[i].get_future(), this_subcycle);
 		}
@@ -743,7 +743,7 @@ void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
 	exchange_promises.resize(Nneighbor);
 	std::vector<hpx::shared_future<void>> futures(2 * Nneighbor + 1);
 	for (int i = 0; i < Nneighbor; i++) {
-		printf("--2 %i\n", this->get_self().get_level());
+	//	printf("--2 %i\n", this->get_self().get_level());
 		futures[i + Nneighbor] = exchange_promises[i].get_future();
 	}
 	int nn = 0;

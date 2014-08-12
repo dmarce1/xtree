@@ -61,8 +61,10 @@ void execute() {
 	root_node->execute_operations(refine_ops);
 	printf( "Refining...\n");
  	root_node->execute_operations(refine_ops);
-//	root_node->execute_operations(refine_ops);
-	//root_node->execute_operations(refine_ops);
+	printf( "Refining...\n");
+	root_node->execute_operations(refine_ops);
+	printf( "Refining...\n");
+	root_node->execute_operations(refine_ops);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
