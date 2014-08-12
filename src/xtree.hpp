@@ -39,16 +39,6 @@ typedef DERIVED_CLASS::action_debranch action0_debranch; \
 HPX_REGISTER_ACTION(action0_debranch); \
 typedef DERIVED_CLASS::action_get_this action0_get_this; \
 HPX_REGISTER_ACTION(action0_get_this); \
-typedef DERIVED_CLASS::action_find_neighbors action0_find_neighbors; \
-HPX_REGISTER_ACTION(action0_find_neighbors); \
-typedef DERIVED_CLASS::action_notify_branch action0_notify_branch; \
-HPX_REGISTER_ACTION(action0_notify_branch); \
-typedef DERIVED_CLASS::action_notify_debranch action0_notify_debranch; \
-HPX_REGISTER_ACTION(action0_notify_debranch); \
-typedef DERIVED_CLASS::action_note_sibs action0_note_sibs0; \
-HPX_REGISTER_ACTION(action0_note_sibs0); \
-typedef DERIVED_CLASS::action_notify_of_neighbor action0_notify_of_neighbor; \
-HPX_REGISTER_ACTION(action0_notify_of_neighbor); \
 typedef xtree::tree_type::action_get_new_node action_get_new_node; \
 HPX_REGISTER_ACTION (action_get_new_node); \
 typedef xtree::tree_type::action_get_this action_get_this;  \
@@ -59,8 +49,6 @@ typedef xtree::tree_type::action_output action_output; \
 HPX_REGISTER_ACTION (action_output); \
 typedef xtree::silo_output_type::action_send_zones_to_silo action_send_zones_to_silo; \
 HPX_REGISTER_ACTION( action_send_zones_to_silo );
-
-
 /**/
 
 #include <hpx/lcos/local/dataflow.hpp>
@@ -92,15 +80,15 @@ void serialize(Archive & ar, std::array<T, N> & a, const unsigned int version) {
 }
 
 /*template<class Archive, class T>
-void serialize(Archive & ar, std::vector<T> & a, const unsigned int version) {
-	ar & boost::serialization::make_array(a.data(), a.size());
-}
+ void serialize(Archive & ar, std::vector<T> & a, const unsigned int version) {
+ ar & boost::serialization::make_array(a.data(), a.size());
+ }
 
-template<class Archive, class T>
-void serialize(Archive & ar, const std::vector<T> & a, const unsigned int version) {
-	ar << boost::serialization::make_array(a.data(), a.size());
-}
-*/
+ template<class Archive, class T>
+ void serialize(Archive & ar, const std::vector<T> & a, const unsigned int version) {
+ ar << boost::serialization::make_array(a.data(), a.size());
+ }
+ */
 } // namespace serialization
 } // namespace boost
 #include "load_balancer.hpp"
