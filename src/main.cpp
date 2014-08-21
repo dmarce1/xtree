@@ -61,34 +61,35 @@ void execute() {
 	root_node->regrid<rg_func>(0);
 	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
 //	printf( "Refining...\n");
-	//root_node->regrid<rg_func>(0);
-	printf( "Initializing grid...\n");
-	root_node->execute_operations(init_ops);
+//	root_node->regrid<rg_func>(0);
+//	printf( "Refining...\n");
+//.	root_node->regrid<rg_func>(0);
+//	printf( "Initializing grid...\n");
+//	root_node->execute_operations(init_ops);
 
-		std::vector<fmmx_node_type::operation_type> ops(3);
+		std::vector<fmmx_node_type::operation_type> ops(2);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
 	auto aop = fmmx_node_type::make_ascend_operation<afunc>();
 	ops[0] = dop;
 	ops[1] = eop;
-	ops[2] = aop;
+//	ops[1] = aop;
 	double tstart = MPI_Wtime();
 	printf( "Starting \n");
 	root_node->execute_operations(ops);
 //	root_node->execute_operations(ops);
 
 	printf( "Done in %e seconds\n", MPI_Wtime() - tstart );
-/*	printf("Output\n");
+	printf("Output\n");
 	tree_ptr->output();
 	//(root_node->debranch()).get();
 	printf( "Output done\n");
-	tree_ptr->delete_node(root_node);*/
+	tree_ptr->delete_node(root_node);
 }
 
 int hpx_main() {
+	printf( "HPX MAIN\n");
 #ifndef NDEBUG
 	feenableexcept(FE_DIVBYZERO);
 	feenableexcept(FE_INVALID);

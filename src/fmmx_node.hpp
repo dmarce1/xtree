@@ -261,8 +261,8 @@ public:
 	}
 	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
 
-			printf("Set %i %i %i - %i %i %i - %i \n", dir[0], dir[1], dir[2], this->get_self().get_location(0),
-				this->get_self().get_location(1), this->get_self().get_location(2), this->get_self().get_level());
+		//	printf("Set %i %i %i - %i %i %i - %i \n", dir[0], dir[1], dir[2], this->get_self().get_location(0),
+		//		this->get_self().get_location(1), this->get_self().get_location(2), this->get_self().get_level());
 
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::valarray<double> corner0(Ndim);

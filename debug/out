@@ -1,1000 +1,120 @@
- 1008  cd usr
- 1009  cd /usr
- 1010  cd lib
- 1011  ls
- 1012  cd pkgconfig/
- 1013  sudo rm -r hpx_application.pc 
- 1014  sudo rm -r hpx*
- 1015  cd
- 1016  cd /usr/local
- 1017  cd lib
- 1018  ls
- 1019  cd hpx
- 1020  ls
- 1021  cd ..
- 1022  cd local
- 1023  cd lib
- 1024  cd pkgconfig/
- 1025  ls
- 1026  exit
- 1027  top
- 1028  ssh -X mike.hpc.lsu.edu
- 1029  cd hpx_build/
- 1030  cd
- 1031  cd /usr
- 1032  cd include
- 1033  ls
- 1034  sudo rm -r boost
- 1035  cd boost/
- 1036  ls
- 1037  vi version.hpp 
- 1038  cd ..
- 1039  sudo rm -r boost
- 1040  cd 
- 1041  cd lib
- 1042  ls
- 1043  cd /usr/lib
- 1044  ls
- 1045  cd boost
- 1046  sudo rm -r libboost*
- 1047  d
- 1048  cd
- 1049  cd /usr/local/lib
- 1050  ls
- 1051  cd
- 1052  cd /usr/lib
- 1053  ls
- 1054  cd boost
- 1055  ls
- 1056  ls lib*
- 1057  ls
- 1058  ls libb*
- 1059  cd /usr/local/include
- 1060  ls
- 1061  cd 
- 1062  cd /usr/share
- 1063  ls
- 1064  cd boost
- 1065  ls
- 1066  cd boost
- 1067  sudo rm -r boost
- 1068  cd
- 1069  cd hpx_build/
- 1070  rm -r *
- 1071  cp ../config_hpx.sh .
- 1072  ./config_hpx.sh 
- 1073  vi config_hpx.sh 
- 1074  ./config_hpx.sh 
- 1075  vi config_
- 1076  vi config_hpx.sh 
- 1077  ./config_hpx.sh 
- 1078  ./config_hpx.sh && make -j3
- 1079  sudo make install
- 1080  cd /work/
- 1081  cd 
- 1082  cd workspace
- 1083  cd xtree
- 1084  cd src
- 1085  g++ `pkg-config --cflags --libs hpx_application` *.cpp
- 1086  pkg-config --cflags --libs hpx_application
- 1087  cd
- 1088  find . -name "libhpx*"
- 1089  cd
- 1090  cd /
- 1091  find . -name "libhpx*"
- 1092  cd /usr/local/lib/hpx
- 1093  ls
- 1094  ls -ralt
- 1095  cd /usr/lib/hpx
- 1096  cd
- 1097  cd hpx_build/
- 1098  vi config_hpx.sh 
- 1099  rm -r *
- 1100  rm -r * -f
- 1101  cd
- 1102  cd ./usr
- 1103  cd /usr
- 1104  rm -r ./*/hpx
- 1105  sudo rm -r ./*/hpx*
- 1106  sudo rm -r ./*/hpx
- 1107  sudo rm -r ./*/local/hpx*
- 1108  sudo rm -r ./local/*/hpx*
- 1109  cd 
- 1110  g++ `pkg-config --cflags --libs hpx_application` *.cpp
- 1111  pkg-config --cflags --libs hpx_application
- 1112  sudo rm -r /usr/local/lib/pkgconfig/hpx_*
- 1113  cd
- 1114  cd Downloads/
- 1115  ls
- 1116  cd
- 1117  cp ./Downloads/boost_1_55_0.tar.gz .
- 1118  tar -xvf boost_1_55_0.tar.gz 
- 1119  cd boost
- 1120  ls
- 1121  cd
- 1122  cd boost_1_55_0/
- 1123  cd
- 1124  rm -r boost
- 1125  cd include
- 1126  ls
- 1127  cd include
- 1128  ls
- 1129  cd lib
- 1130  ls
- 1131  mkdir builds
- 1132  cd builds
- 1133  cp -r ../boost_1_55_0 .
- 1134  cd boost_1_55_0/
- 1135  ls
- 1136  ./b2 --prefix=/home/dmarce1
- 1137  ./bootstrap.sh --prefix=/home/dmarce1
- 1138  find . -name "user-config.jam"
- 1139  vi ./tools/build/v2/user-config.jam 
- 1140  ./bootstrap.sh --prefix=/home/dmarce1
- 1141  ./b2 -j4 install
- 1142  vi ./tools/build/v2/user-config.jam 
- 1143  ./b2 -j4 install
- 1144  ./bootstrap.sh --prefix=/home/dmarce1
- 1145  ./b2 -j4 install
- 1146  ./bootstrap.sh --prefix=/home/dmarce1
- 1147  ./b2 -j4 install 
- 1148  cd
- 1149  cd builds
- 1150  cd hpx_build/
- 1151  ls
- 1152  cp ~/config_hpx.sh .
- 1153  vi config_hpx.sh 
- 1154  ls ..
- 1155  vi config_hpx.sh 
- 1156  cat config_hpx.sh 
- 1157  cd ..
- 1158  cd hpx
- 1159  find . -name "*pool" *
- 1160  find . -name "*pool*"
- 1161  find . -name "thread*"
- 1162  find . -name "*thread"
- 1163  find . -name "*.cpp"
- 1164  ks
- 1165  ls
- 1166  cd
- 1167  cd /usr
- 1168  cd src
- 1169  ls
- 1170  cd
- 1171  cd hpx
- 1172  cd /usr
- 1173  cd builds
- 1174  ls
- 1175  cd
- 1176  cd /home
- 1177  cd dmarce1/
- 1178  ls
- 1179  cd hpx_build/
- 1180  ls
- 1181  cd ..
- 1182  cd builds
- 1183  ls
- 1184  cd hpx
- 1185  ls
- 1186  ssh -X mike.hpc.lsu.edu
- 1187  cd /usr
- 1188  ls
- 1189  cd local
- 1190  ls
- 1191  cd /ver
- 1192  cd /var
- 1193  ls
- 1194  cd opt
- 1195  ls
- 1196  cd ..
- 1197  cd local
- 1198  ls
- 1199  cd /opt
- 1200  ls
- 1201  cd intel/
- 1202  ls
- 1203  cd parallel_studio_xe_2013/
- 1204  l
- 1205  ls
- 1206  cd
- 1207  cd opt
- 1208  cd
- 1209  cd opt
- 1210  cd
- 1211  cd /opt
- 1212  sudo rm -r intel
- 1213  top
- 1214  cd
- 1215  cd /opt
- 1216  ls
- 1217  cd intel
- 1218  ls
- 1219  cd
- 1220  cd /opt
- 1221  cd intel
- 1222  cd composer_xe_2013.5.192/
- 1223  ls
- 1224  cd bin
- 1225  cd intel64
- 1226  sl
- 1227  ls
- 1228  vi icpc.cfg
- 1229  sudo vi icpc.cfg
- 1230  cd /usr/include/x86_64-linux-gnu/c++/4.6/
- 1231  cd /usr/include/x86_64-linux-gnu/c++/
- 1232  lks
- 1233  ls
- 1234  cd
- 1235  cd /opt
- 1236  cd intel
- 1237  cd composer_xe_2013
- 1238  cd ..
- 1239  cd composer_xe_2013.5.192/
- 1240  cd bin
- 1241  cd intel64
- 1242  sudo vi icpc.cfg 
- 1243  cd
- 1244  cd /usr/bin
- 1245  ls g++*
- 1246  sudo cp g++-4.6 g++
- 1247  g++
- 1248  g++ -v
- 1249  cd
- 1250  cd builds
- 1251  cd hpx_build/
- 1252  ./config.sh
- 1253  ./config_hpx.sh 
- 1254  icpc
- 1255  cd
- 1256  source /opt/intel/bin/compilervars.sh intel64
- 1257  icpc
- 1258  cd builds
- 1259  cd hpx_build/
- 1260  ./config_hpx.sh 
- 1261  make -j4
- 1262  gedit /home/dmarce1/builds/hpx/src/runtime/threads/executors/thread_pool_executors.cpp &
- 1263  make -j4
- 1264  gedit /home/dmarce1/builds/hpx/hpx/util/coroutine/detail/tss.hpp &
- 1265  cd builds
- 1266  cd hpx
- 1267  ls
- 1268  cd ..
- 1269  cd hpx_build
- 1270  make
- 1271  gedit /usr/include/c++/4.7/bits/stl_construct.h &
- 1272  cd
- 1273  cd builds/
- 1274  cd hpx_build/
- 1275  ./config.sh
- 1276  ./config_hpx.sh
- 1277  make -j4
- 1278  gedit /usr/include/c++/4.7/bits/stl_uninitialized.h &
- 1279  gedit /usr/include/c++/4.7/bits/stl_construct.h &
- 1280  gedit /usr/include/c++/4.7/bits/vector.tcc &
- 1281  gedit /usr/include/c++/4.7/bits/stl_vector.h &
- 1282  cd .
- 1283  cd ..
- 1284  cd hpx
- 1285  ls
- 1286  git checkout master
- 1287  git pull
- 1288  cd ..
- 1289  cd hpx_builds
- 1290  cd hpx_build
- 1291  make -j3
- 1292  top
- 1293  ssh -X mike.hpc.lsu.edu
- 1294  top
- 1295  icc
- 1296  icpc
- 1297  icc -V
- 1298  cd
- 1299  cd hpx
- 1300  cd hpx_build
- 1301  ls
- 1302  cd
- 1303  cd builds
- 1304  ls
- 1305  cd hpx_build/
- 1306  vi config.sh
- 1307  vi config_hpx.sh 
- 1308  ./config_hpx.sh 
- 1309  icpc -dM -E'
- 1310  icpc -dM -E
- 1311  icpc -dM -E -std=c++
- 1312  icpc -dM -E -std=c++11
- 1313  make -j3
- 1314  cd
- 1315  find /usr -name c++config.h
- 1316  cd /opt
- 1317  cd intel
- 1318  cd bin
- 1319  sudo vi icpc.cfg
- 1320  cd
- 1321  cd build
- 1322  cd hpx
- 1323  ls
- 1324  cd
- 1325  cd builds
- 1326  cd hpx
- 1327  make
- 1328  ls
- 1329  cd ..
- 1330  cd hpx_build
- 1331  make
- 1332  which icpc
- 1333  vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1334  sudo mv /opt/intel/bin/icpc.cfg /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1335  vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1336  make
- 1337  vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1338  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1339  make
- 1340  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1341  ls /usr/include/x86_64-linux-gnu/c++/4.8/bits/
- 1342  make
- 1343  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1344  make
- 1345  make -j4
- 1346  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1347  make -j4
- 1348  ./config_hpx.sh 
- 1349  make -j4
- 1350  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1351  ./config_hpx.sh 
- 1352  make -j4
- 1353  vi /usr/include/c++/4.8/tuple
- 1354  gedit  /usr/include/c++/4.8/tuple &
- 1355  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1356  cd /usr/include/x86_64-linux-gnu/c++
- 1357  ls
- 1358  cd 4.8
- 1359  ls
- 1360  g++
- 1361  ls
- 1362  cd .
- 1363  cd ..
- 1364  ls
- 1365  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1366  ls
- 1367  cd ..
- 1368  ls
- 1369  cd c++
- 1370  ls
- 1371  cd 4.7
- 1372  ls
- 1373  cd
- 1374  icpc
- 1375  cd builds
- 1376  cd hpx_build/
- 1377  make
- 1378  vi config_hpx.sh 
- 1379  ./config.sh
- 1380  ./config_hpx.sh.sh
- 1381  ./config_hpx.sh
- 1382  g++
- 1383  sudo apt-get install g++
- 1384  ./config_hpx.sh
- 1385  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1386  ls /usr/include/x86_64-linux-gnu/c++/4.7/
- 1387  make
- 1388  ./config_hpx.sh 
- 1389  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1390  ls /usr/include/x86_64-linux-gnu/c++/
- 1391  ls /usr/lib/x86_64-linux-gnu/c++/
- 1392  ls /usr/lib/x86_64-linux-gnu
- 1393  ls /usr/lib/x86*
- 1394  make
- 1395  cd
- 1396  cd /opt
- 1397  sudo rm -r intel
- 1398  cd
- 1399  cd Downloads/
- 1400  ls
- 1401  ./parallel_studio_xe_2013_update4_intel64/
- 1402  ls *.sh
- 1403  cd
- 1404  ls *.sh
- 1405  cd Downloads/
- 1406  cd parallel_studio_xe_2013_update4_intel64/
- 1407  ls
- 1408  sudo ./install.sh
- 1409  cd
- 1410  /usr/src
- 1411  cd
- 1412  cd builds
- 1413  cd hpx
- 1414  grep -r "HPX_MOVABLE_BUT_NOT_COPYABLE" *
- 1415  gedit hpx/util/move.hpp &
- 1416  cd
- 1417  cd builds
- 1418  cd boost
- 1419  ls
- 1420  cd boost_1_55_0/
- 1421  ls
- 1422  ./bootstrap.sh --prefix=/home/dmarce1
- 1423  rm -r ~/include/boost
- 1424  rm -r ~/lib/libboost*
- 1425  ./bootstrap.sh --prefix=/home/dmarce1
- 1426  ./b2 toolset=intel -j4
- 1427  ./b2 clean
- 1428  ./b2 toolset=intel -j4
- 1429  ./b2 clean
- 1430  ./bootstrap.sh --prefix=/home/dmarce1
- 1431  ./b2 clean
- 1432  ./b2 toolset=intel -j4
- 1433  ./b2 toolset=intel -j4 install
- 1434  ./b2 toolset=intel -j5 install
- 1435  ./b2 toolset=intel -j8 install
- 1436  ./b2 toolset=intel -j8
- 1437  ./b2 toolset=intel 
- 1438  ls
- 1439  cd ..
- 1440  ls
- 1441  cd boost_1_55_0/
- 1442  ls
- 1443  ./b2
- 1444  ./b2 toolset=intel 
- 1445  cd ..
- 1446  ls
- 1447  rm -r boost_1_55_0/
- 1448  cp ~/Downloads/boost_1_55_0.tar.gz .
- 1449  gunzip *.gz
- 1450  tar -xvf boost_1_55_0.tar 
- 1451  rm -r /home/dmarce1/include/boost
- 1452  rm -r /home/dmarce1/lib/libboost*
- 1453  ls
- 1454  cd boost_1_55_0/
- 1455  ./bootstrap.sh --prefix=/home/dmarce1
- 1456  find . -name "user-config.jam"
- 1457  vi ./tools/build/v2/user-config.jam 
- 1458  ./bootstrap.sh --prefix=/home/dmarce1
- 1459  ./b2 toolset=intel -j8
- 1460  ./b2 toolset=intel -j8 install
- 1461  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1462  ./b2 toolset=intel -j8
- 1463  ./b2 toolset=intel -j8 install
- 1464  ./bootstrap.sh --prefix=/home/dmarce1
- 1465  ./b2
- 1466  ./b2 install
- 1467  ./b2 toolset=intel -j8 install
- 1468  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1469  ./b2 clean
- 1470  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1471  ./b2 toolset=intel -j8 install
- 1472  ./b2 toolset=intelinstall
- 1473  ./b2 toolset=intel install
- 1474  ./b2 toolset=intel -j8 install
- 1475  gedit /home/dmarce1/builds/hpx/hpx/lcos/preprocessed/broadcast_5.hpp &
- 1476  ls
- 1477  rm -r /usr/include/boost
- 1478  rm -r /home/dmarce1/boost
- 1479  rm -r /home/dmarce1/include/boost
- 1480  rm -r /home/dmarce1/lib/libboo*
- 1481  cd ..
- 1482  cd hpx_build/
- 1483  ls
- 1484  vi config_hpx.sh 
- 1485  ./config_hpx.sh
- 1486  make
- 1487  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1488  ./config_hpx.sh
- 1489  make
- 1490  cd
- 1491  cd /usr
- 1492  cd bin
- 1493  ls g++*
- 1494  sudo cp g++4.4 g++
- 1495  sudo cp "g++4.4" g++
- 1496  sudo cp "g++-4.4" g++
- 1497  cd
- 1498  cd build
- 1499  cd
- 1500  cd builds
- 1501  cd hpx_build/
- 1502  ls
- 1503  make
- 1504  make -j4
- 1505  cat config_hpx.sh 
- 1506  make -j4
- 1507  make install
- 1508  cd
- 1509  cd workspace
- 1510  cd xtree
- 1511  cd src
- 1512  export PKG_CONFIG_PATH=/home/dmarce1/lib/pkgconfig/
- 1513  icc *.cpp `pkg-config --libs --cflags hpx_application`
- 1514  icpc *.cpp `pkg-config --libs --cflags hpx_application`
- 1515  icpc -std=c++11*.cpp `pkg-config --libs --cflags hpx_application`
- 1516  icpc -std=c++11 *.cpp `pkg-config --libs --cflags hpx_application`
- 1517  cd
- 1518  cd hpx_build/
- 1519  cd
- 1520  cd builds/
- 1521  ls
- 1522  cd hpx_build/
- 1523  ./config_hpx.sh
- 1524  rm -r /home/dmarce1/lib/hpx
- 1525  rm -r /home/dmarce1/lib/hpx -f
- 1526  rm -r /home/dmarce1/include/hpx -f
- 1527  ./config_hpx.sh
- 1528  make -j4
- 1529  make install
- 1530  cd
- 1531  cd workspace
- 1532  cd xtree
- 1533  ls
- 1534  cd release
- 1535  icpc *.cpp `pkg-config --libs --cflags hpx_application`
- 1536  cd ..
- 1537  cd src
- 1538  icpc *.cpp `pkg-config --libs --cflags hpx_application`
- 1539  cd builds
- 1540  mkdir hpx
- 1541  cp ~/config_hpx.sh .
- 1542  vi config_hpx.sh 
- 1543  cp -r ~/hpx hpx_src
- 1544  cp -r ~/usr/src/hpx hpx_src
- 1545  cp -r /usr/src/hp hpx_src
- 1546  cd /usr
- 1547  cd src
- 1548  ls
- 1549  cd
- 1550  cd /sr
- 1551  cd 
- 1552  cd builds
- 1553  ls
- 1554  mkdir hpx_build
- 1555  rm -r hpx
- 1556  git clone https://github.com/STEllAR-GROUP/hpx
- 1557  cd hpx
- 1558  git checkout 3057d83bea762931034a6407d35175ef1c014cd9
- 1559  cd ..
- 1560  cd hpx_build/
- 1561  ./config_hpx.sh 
- 1562  make -j3
- 1563  make install
- 1564  cd
- 1565  export PKG_CONFIG_PATH=/home/dmarce1/lib/pkgconfig/
- 1566  cd workspace
- 1567  cd xtree
- 1568  g++ `pkg-config --cflags hpx_application` *.cpp
- 1569  cd src
- 1570  g++ `pkg-config --libs --cflags hpx_application` *.cpp
- 1571  g++ `pkg-config --cflags hpx_application` *.cpp
- 1572  g++ `pkg-config --cflags hpx_application` -v *.cpp
- 1573  g++ `pkg-config --cflags hpx_application` -c *.cpp
- 1574  pkg-config --cflags hpx_application
- 1575  cd
- 1576  cd build
- 1577  cd hpx/
- 1578  git checkout 5410f10f4094c3b51ff756b4dc1b5fc6c813dcd3
- 1579  ls
- 1580  cd
- 1581  cd builds
- 1582  cd hpx
- 1583  git checkout 5410f10f4094c3b51ff756b4dc1b5fc6c813dcd3e
- 1584  cd ..
- 1585  cd hpx_build/
- 1586  make -j3
- 1587  make install
- 1588  rm -r /home/dmarce1/lib/hpx
- 1589  rm -r /home/dmarce1/lib/hpx -f
- 1590  make install
- 1591  cd
- 1592  cd workspace
- 1593  cd xtree
- 1594  cd release
- 1595  g++ *.cpp `pkg-config --cflags --libs hpx_application` 
- 1596  cd ..
- 1597  cd src
- 1598  g++ *.cpp `pkg-config --cflags --libs hpx_application` 
- 1599  g++ *.cpp `pkg-config --cflags --libs hpx_application`  -lsilo
- 1600  cd
- 1601  cd /usr
- 1602  cd opt
- 1603  cd /opt/
- 1604  cd intel
- 1605  ls
- 1606  ls -l
- 1607  icpc
- 1608  cd bin
- 1609  icpc
- 1610  ./icpc -V
- 1611  ls -l
- 1612  cd ..
- 1613  ls
- 1614  cd composer_xe_2013_sp1
- 1615  cd bin
- 1616  ls
- 1617  ./icpc -V
- 1618  cd 
- 1619  cd /usr
- 1620  cd intel
- 1621  ls
- 1622  cd
- 1623  cd Downloads/
- 1624  ls
- 1625  ./l_psxe_online_p_2.1.2.017.sh 
- 1626  ls
- 1627  ls parallel_studio_xe_2013_update4_intel64.tgz.dlm 
- 1628  cd
- 1629  rm -r use_intel.sh 
- 1630  cd Downloads/
- 1631  l
- 1632  gunzip parallel_studio_xe_2013_update4_intel64.tgz 
- 1633  ls
- 1634  tar -xvf parallel_studio_xe_2013_update4_intel64.tar 
- 1635  cd parallel_studio_xe_2013_update4_intel64/
- 1636  ls
- 1637  sudo ./install.sh
- 1638  ls
- 1639  cd /opt
- 1640  cd intel
- 1641  ls
- 1642  cd bin
- 1643  ls
- 1644  source compilervars.sh
- 1645  source compilervars.sh intel64
- 1646  cd
- 1647  vi .bashrc
- 1648  bash
- 1649  cd
- 1650  ./eclipse/eclipse &
- 1651  ssh -X mike.hpc.lsu.edu
- 1652  cd /opt
- 1653  cd intel
- 1654  cd composer_xe_2013
- 1655  ls
- 1656  cd bin
- 1657  vi icpc.cfg
- 1658  cd
- 1659  which g++
- 1660  cd /usr/bin
- 1661  ls g++ -l
- 1662  cd g++-4.8
- 1663  ls
- 1664  cd g++-4.7
- 1665  cd "g++-4.7"
- 1666  g++-4.7
- 1667  cd
- 1668  vi out
- 1669  g++ -gcc-version
- 1670  man g++
- 1671  g++ -V
- 1672  g++ -v
- 1673  cd
- 1674  cd /usr/bin
- 1675  g++-4.7
- 1676  ./g++-4.7
- 1677  ./g++-4.7 -V
- 1678  ./g++-4.7 -v
- 1679  sudo rm g++
- 1680  sudo ln -S g++-4.7 g++
- 1681  sudo ln -s g++-4.7 g++
- 1682  g++
- 1683  g++ -V
- 1684  g++ -v
- 1685  cd
- 1686  icpc
- 1687  cd 
- 1688  cd builds
- 1689  cd hpx_build/
- 1690  ls /usr/include/
- 1691  ls /usr/include/c++
- 1692  ./config.sh
- 1693  ./config_hpx.sh.sh
- 1694  ./config_hpx.sh
- 1695  icpc
- 1696  ./config_hpx.sh
- 1697  make -j3
- 1698  cd
- 1699  find /usr -name "c++config.sh"
- 1700  find /usr -name "c++config.h"
- 1701  sudo vi ./composer_xe_2013_sp1.2.144/bin/intel64/icpc.cfg
- 1702  sudo vi /opt/intel/composer_xe_2013_sp1.2.144/bin/intel64/icpc.cfg
- 1703  cd /opt
- 1704  cd intel/
- 1705  cd composer_xe_2013.5.192
- 1706  ls
- 1707  cd bin
- 1708  sudo vi icpc.cfg
- 1709  cd
- 1710  cd builds
- 1711  cd hpx_build/
- 1712  make
- 1713  sudo vi /opt/intel/ composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1714  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1715  cd /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1716  cd /opt/intel/composer_xe_2013.5.192/bi
- 1717  cd /opt/intel/composer_xe_2013.5.192/bin
- 1718  cp icpc.cfg ./intel64
- 1719  sudo cp icpc.cfg ./intel64
- 1720  cd
- 1721  cd builds
- 1722  cd hpx_build/
- 1723  make
- 1724  make -j3
- 1725  vi /opt/intel/composer_xe_2013.5.192/bin/intel64
- 1726  vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1727  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1728  make
- 1729  make -j3
- 1730  ./config_hpx.sh 
- 1731  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1732  ./config_hpx.sh 
- 1733  make
- 1734  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1735  make
- 1736  gedit /home/dmarce1/builds/hpx/hpx/lcos/future.hpp &
- 1737  cd
- 1738  ./eclipse/eclipse &
- 1739  sudo vi /opt/intel/composer_xe_2013.5.192/bin/intel64/icpc.cfg
- 1740  top
- 1741  ssh -X mike.hpc.lsu.edu
- 1742  exit
- 1743  ssh -X mike.hpc.lsu.edu
- 1744  ssh -X mike.hpc.lsue.du
- 1745  ssh -X mike.hpc.lsu.edu
- 1746  cd
- 1747  cd builds
- 1748  cd hpx_build/
- 1749  make -j4
- 1750  make
- 1751  rm /hpx.dir/runtime/agas/addressing_service.cpp.o
- 1752  rm /hpx/runtime/agas/addressing_service.cpp.o
- 1753  rm /runtime/agas/addressing_service.cpp.o
- 1754  rm ./*/runtime/agas/addressing_service.cpp.o
- 1755  rm ./*/*/runtime/agas/addressing_service.cpp.o
- 1756  make
- 1757  cd
- 1758  cd /usr/include
- 1759  cd c++
- 1760  ls
- 1761  cd 4.8
- 1762  ls
- 1763  grep "resize" *
- 1764  grep -r "resize" *
- 1765  fin
- 1766  find . -name "stl_vector*" 
- 1767  gedit ./bits/stl_vector.h &
- 1768  ssh -X mike.hpc.lsu.edu
- 1769  cd
- 1770  gedit test.cpp &
- 1771  icpc test.cpp
- 1772  ./a.out
- 1773  icpc -std=c++11 test.cpp
- 1774  ./a.out
- 1775  icpc test.cpp -std=c++11
- 1776  ./a.out
- 1777  icpc test.cpp -std=c++0x
- 1778  ./a.out
- 1779  vi test.cpp
- 1780  ssh -X mike.hpc.lsu.edu
- 1781  mpicc
- 1782  exit
- 1783  gcc
- 1784  g++ -v
- 1785  ;s
- 1786  ls
- 1787  cd build
- 1788  ls
- 1789  cd
- 1790  cd builds
- 1791  ls
- 1792  wget http://www.open-mpi.org/software/ompi/v1.6/downloads/openmpi-1.6.5.tar.gz
- 1793  tar -xvf openmpi-1.6.5.tar.gz 
- 1794  cd openmpi-1.6.5/
- 1795  ./configure --help
- 1796  ./configure CC=icpc
- 1797  vi config.log
- 1798  ./configure
- 1799  icpc
- 1800  ./configure
- 1801  ./configure CC=icpc
- 1802  vi config.log
- 1803  ls /usr/include/c++
- 1804  ls /usr/include/c++/4.8
- 1805  ./configure CC=icpc CFLAGS=CFLAGS:/usr/include/c++/4.8
- 1806  ./configure CC=icpc CFLAGS=CFLAGS:-I/usr/include/c++/4.8
- 1807  ./configure CC=icpc CFLAGS="$CFLAGS -I/usr/include/c++/4.8"
- 1808  vi config.log
- 1809  ./configure CC=icpc CFLAGS="$CFLAGS -I/usr/include/c++/4.8 -std=c99"
- 1810  ./configure CC=icpc CFLAGS="$CFLAGS -ip -std=c99"
- 1811  ./configure CC=icpc CFLAGS="$CFLAGS -I/usr/include/c++/4.8 -std=c99"
- 1812  vi config.log
- 1813  ./configure CC=icc CXX=icpc
- 1814  ./configure CC=icc CXX=icpc FC=ifort
- 1815  ./configure CC=icc CXX=icpc FC=ifort AR=xiar
- 1816  make -j4
- 1817  make install
- 1818  sudo make install
- 1819  icpc
- 1820  mpicc
- 1821  bash
- 1822  cd /usr/bin
- 1823  ls
- 1824  cd /usr/local/bin
- 1825  ls
- 1826  cd
- 1827  cd builds
- 1828  cd openmpi-1.6.5/
- 1829  ls
- 1830  sudo make install
- 1831  ls /usr/local/bin
- 1832  ./configure CC=icc 
- 1833  exit
- 1834  rm ./lib/hpx/*
- 1835  rm ./lib/hpx/* -f
- 1836  rm ./include/hpx/* -f
- 1837  rm ./include/hpx/* -f r
- 1838  rm ./include/hpx/* -f -r
- 1839  top
- 1840  cd
- 1841  cd /usr/include
- 1842  cd bits
- 1843  cd c++
- 1844  cd bits
- 1845  ls
- 1846  cd 4.8
- 1847  grep "tuple" -r *
- 1848  cd bitd
- 1849  cd bits
- 1850  grep "tuple" -r *
- 1851  cd ..
- 1852  grep "tuple" -r *
- 1853  gedit tuple &
- 1854  top
- 1855  gedit /usr/include/c++/4.8/bits/stl_construct.h &
- 1856  top
- 1857  cd
- 1858  cd cd
- 1859  cd
- 1860  cd hpx
- 1861  cd buidls
- 1862  cd builds
- 1863  cd hpx
- 1864  ls
- 1865  grep "HPX_STD_GET" -r*
- 1866  grep "HPX_STD_GET" -r *
- 1867  cd hx
- 1868  cd hpx
- 1869  vi config.sh
- 1870  vi config.hpp
- 1871  grep -r "HPX_HAVE_CXX11_STD_TUPLE" *
- 1872  gedit config/tuple.hpp
- 1873  d
- 1874  cd
- 1875  cd include
- 1876  grep -r "HPX_HAVE_CXX11_STD_TUPLE" *
- 1877  cd hpx
- 1878  grep -r "HPX_HAVE_CXX11_STD_TUPLE" *
- 1879  cd
- 1880  cd lib
- 1881  cd pkgconfig/
- 1882  ls
- 1883  cat hpx_application.pc 
- 1884  cd
- 1885  cd builds
- 1886  cd hpx_build/
- 1887  ls
- 1888  vi config_latest.log 
- 1889  ls
- 1890  vi CMakeCache.txt 
- 1891  top
- 1892  vi config.sh
- 1893  vi config_hpx.sh.sh
- 1894  vi config_hpx.sh
- 1895  ./config_hpx.sh 
- 1896  cd
- 1897  cd builds
- 1898  cd hpx
- 1899  cd examples
- 1900  cd 1d_stencil/
- 1901  ls
- 1902  icpc `pkg-config --cflags --libs hpx_application` 1d_stencil_8.cpp
- 1903  icpc 1d_stencil_8.cpp `pkg-config --cflags --libs hpx_application`
- 1904  cd
- 1905  cd builds
- 1906  cd hpx_build/
- 1907  vi intel.cache 
- 1908  dif intel.cache CMakeCache.txt 
- 1909  diff intel.cache CMakeCache.txt 
- 1910  vi intel.cache 
- 1911  grep "WORKAROUND" -r *
- 1912  cd ..
- 1913  cd hpx
- 1914  grep "WORKAROUND" -r *
- 1915  grep "HPX_INTEL14_WORKAROUND" -r *
- 1916  cd
- 1917  cd include
- 1918  grep "HPX_INTEL14_WORKAROUND" -r *
- 1919  ./eclipse/eclipse &
- 1920  ssh -X mike.hpc.lsu.edu
- 1921  gedit /home/dmarce1/include/hpx/lcos/future.hpp &
- 1922  gedit /home/dmarce1/include/hpx/util/preprocessed/tuple_5.hpp &
- 1923  cd
- 1924  cd builds
- 1925  cd hpx_build/
- 1926  vi config.sh
- 1927  vi config_!
- 1928  vi config_hpx.sh 
- 1929  ./config.sh
- 1930  ./config_hpx.sh
- 1931  vi config_hpx.sh 
- 1932  ./config_hpx.sh
- 1933  vi config_hpx.sh 
- 1934  cd ..
- 1935  ls
- 1936  cd hpx
- 1937  ls
- 1938  cd ..
- 1939  cd hpx_build/
- 1940  ./config_hpx.sh 
- 1941  vi config_hpx.sh 
- 1942  ./config_hpx.sh 
- 1943  cp config_hpx.sh  ..
- 1944  rm -r *
- 1945  cp ../config_hpx.sh .
- 1946  cp config_hpx.sh  ..
- 1947  ./config_hpx.sh 
- 1948  vi config_hpx.sh 
- 1949  ./config_hpx.sh 
- 1950  vi config_hpx.sh 
- 1951  ./config_hpx.sh 
- 1952  vi config_hpx.sh 
- 1953  ./config_hpx.sh 
- 1954  grep -r "STD_TUPLE" *
- 1955  vi config_hpx.sh 
- 1956  grep -r "STD_TUPLE" *
- 1957  ./config_hpx.sh 
- 1958  make -j4 install
- 1959  vi config_hpx.sh 
- 1960  ./config_hpx.sh 
- 1961  make -j4 install
- 1962  vi config.sh
- 1963  vi config_hpx.sh 
- 1964  ./config_hpx.sh 
- 1965  make install
- 1966  ./config_hpx.sh 
- 1967  make
- 1968  make -j2
- 1969  vi config.sh
- 1970  ./config.sh
- 1971  ./config_hpx.sh.sh
- 1972  ./config_hpx.sh
- 1973  ls-ralt
- 1974  ls -ralt
- 1975  vi config_latest.log 
- 1976  vi config_hpx.sh 
- 1977  ./config_hpx.sh
- 1978  vi config_latest.log 
- 1979  make clean
- 1980  make -j4
- 1981  gedit /home/dmarce1/builds/hpx/hpx/lcos/wait_some.hpp &
- 1982  make -j4
- 1983  gedit /home/dmarce1/builds/hpx/hpx/lcos/wait_some.hpp &
- 1984  vi config_hpx.sh
- 1985  ./config_hpx.sh
- 1986  make -j4
- 1987  ./config_hpx.sh
- 1988  vi config_hpx.sh
- 1989  ls
- 1990  cp CMakeCache.txt intel.cache
- 1991  vi config_hpx.sh 
- 1992  ./config_hpx.sh
- 1993  g++ -v
- 1994  ./config_hpx.sh
- 1995  gfortan -v
- 1996  vi config_hpx.sh 
- 1997  ./config_hpx.sh
- 1998  vi CMakeCache.txt 
- 1999  q!
- 2000  exit
- 2001  ./eclipse/eclipse &
- 2002  cd workspace
- 2003  cd xtree
- 2004  cd debug
- 2005  ./xtree
- 2006  history
- 2007  history > out
+
+Usage: unknown HPX application [options]:
+
+HPX options (allowed on command line only):
+  --hpx:help [=arg(=minimal)] print out program usage (default: this message), 
+                              possible values: 'full' (additionally prints 
+                              options from components)
+  --hpx:version               print out HPX version and copyright information
+  --hpx:info                  print out HPX configuration information
+  --hpx:options-file arg      specify a file containing command line options 
+                              (alternatively: @filepath)
+
+HPX options (additionally allowed in an options file):
+  --hpx:run-agas-server           run AGAS server as part of this runtime 
+                                  instance
+  --hpx:run-hpx-main              run the hpx_main function, regardless of 
+                                  locality mode
+  --hpx:agas arg                  the IP address the AGAS root server is 
+                                  running on, expected format: `address:port' 
+                                  (default: 127.0.0.1:7910)
+  --hpx:run-agas-server-only      run only the AGAS server
+  --hpx:hpx arg                   the IP address the HPX parcelport is 
+                                  listening on, expected format: `address:port'
+                                  (default: 127.0.0.1:7910)
+  --hpx:nodefile arg              the file name of a node file to use (list of 
+                                  nodes, one node name per line and core)
+  --hpx:nodes arg                 the (space separated) list of the nodes to 
+                                  use (usually this is extracted from a node 
+                                  file)
+  --hpx:endnodes                  this can be used to end the list of nodes 
+                                  specified using the option --hpx:nodes
+  --hpx:ifsuffix arg              suffix to append to host names in order to 
+                                  resolve them to the proper network 
+                                  interconnect
+  --hpx:ifprefix arg              prefix to prepend to host names in order to 
+                                  resolve them to the proper network 
+                                  interconnect
+  --hpx:iftransform arg           sed-style search and replace 
+                                  (s/search/replace/) used to transform host 
+                                  names to the proper network interconnect
+  --hpx:localities arg            the number of localities to wait for at 
+                                  application startup (default: 1)
+  --hpx:node arg                  number of the node this locality is run on 
+                                  (must be unique, alternatively: -0, -1, ..., 
+                                  -9)
+  --hpx:threads arg               the number of operating system threads to 
+                                  spawn for this HPX locality (default: 1, 
+                                  using 'all' will spawn one thread for each 
+                                  processing unit
+  --hpx:cores arg (=all)          the number of cores to utilize for this HPX 
+                                  locality (default: 'all', i.e. the number of 
+                                  cores is based on the number of total cores 
+                                  in the system)
+  --hpx:queuing arg               the queue scheduling policy to use, options 
+                                  are 'local', 'priority_local', 
+                                  'priority_abp', 'hierarchy', 'static' and 
+                                  'periodic' (default: 'priority_local'; all 
+                                  option values can be abbreviated)
+  --hpx:hierarchy-arity arg       the arity of the of the thread queue tree, 
+                                  valid for --hpx:queuing=hierarchy only 
+                                  (default: 2)
+  --hpx:high-priority-threads arg the number of operating system threads 
+                                  maintaining a high priority queue (default: 
+                                  number of OS threads), valid for 
+                                  --hpx:queuing=priority_local and 
+                                  --hpx:queuing=priority_abp only)
+  --hpx:numa-sensitive            makes the priority_local scheduler NUMA 
+                                  sensitive
+
+HPX options related to performance counters:
+  --hpx:print-counter arg               print the specified performance counter
+                                        either repeatedly or before shutting 
+                                        down the system (see option 
+                                        --hpx:print-counter-interval)
+  --hpx:print-counter-interval arg      print the performance counter(s) 
+                                        specified with --hpx:print-counter 
+                                        repeatedly after the time interval 
+                                        (specified in milliseconds) (default: 
+                                        0, which means print once at shutdown)
+  --hpx:print-counter-destination arg   print the performance counter(s) 
+                                        specified with --hpx:print-counter to 
+                                        the given file (default: console)
+  --hpx:list-counters [=arg(=minimal)]  list the names of all registered 
+                                        performance counters, possible values:
+                                           'minimal' (prints counter name 
+                                        skeletons)
+                                           'full' (prints all available counter
+                                        names)
+  --hpx:list-counter-infos [=arg(=minimal)]
+                                        list the description of all registered 
+                                        performance counters, possible values:
+                                           'minimal' (prints infos for counter 
+                                        name skeletons)
+                                           'full' (prints all available counter
+                                        infos)
+
+HPX debugging options:
+  --hpx:list-symbolic-names          list all registered symbolic names after 
+                                     startup
+  --hpx:list-component-types         list all dynamic component types after 
+                                     startup
+  --hpx:dump-config-initial          print the initial runtime configuration
+  --hpx:dump-config                  print the final runtime configuration
+  --hpx:debug-hpx-log [=arg(=cout)]  enable all messages on the HPX log channel
+                                     and send all HPX logs to the target 
+                                     destination
+  --hpx:debug-agas-log [=arg(=cout)] enable all messages on the AGAS log 
+                                     channel and send all AGAS logs to the 
+                                     target destination
+  --hpx:debug-clp                    debug command line processing
+  --hpx:attach-debugger              wait for a debugger to be attached
+  --hpx:list-parcel-ports            list all available parcel-ports
+
+HPX configuration options:
+  --hpx:app-config arg  load the specified application configuration (ini) file
+  --hpx:config arg      load the specified hpx configuration (ini) file
+  --hpx:ini arg         add a configuration definition to the default runtime 
+                        configuration
+  --hpx:exit            exit after configuring the runtime
+

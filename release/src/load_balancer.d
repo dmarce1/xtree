@@ -25,6 +25,7 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/config/constexpr.hpp \
  /home/dmarce1/include/hpx/config/cxx11_macros.hpp \
  /home/dmarce1/include/hpx/config/preprocessor/round_up.hpp \
+ /home/dmarce1/include/boost/exception/detail/attribute_noreturn.hpp \
  /home/dmarce1/include/boost/preprocessor/stringize.hpp \
  /home/dmarce1/include/boost/preprocessor/arithmetic/add.hpp \
  /home/dmarce1/include/boost/preprocessor/arithmetic/dec.hpp \
@@ -427,6 +428,15 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/boost/archive/detail/register_archive.hpp \
  /home/dmarce1/include/boost/archive/detail/check.hpp \
  /home/dmarce1/include/hpx/util/detail/function_template.hpp \
+ /home/dmarce1/include/hpx/traits/is_callable.hpp \
+ /home/dmarce1/include/hpx/util/always_void.hpp \
+ /home/dmarce1/include/hpx/util/decay.hpp \
+ /home/dmarce1/include/boost/ref.hpp \
+ /home/dmarce1/include/hpx/traits/is_action.hpp \
+ /home/dmarce1/include/boost/preprocessor/facilities/intercept.hpp \
+ /home/dmarce1/include/hpx/util/detail/basic_function.hpp \
+ /home/dmarce1/include/hpx/util/detail/empty_function.hpp \
+ /home/dmarce1/include/hpx/util/serialize_empty_type.hpp \
  /home/dmarce1/include/hpx/util/portable_binary_iarchive.hpp \
  /home/dmarce1/include/boost/serialization/array.hpp \
  /home/dmarce1/include/boost/mpl/always.hpp \
@@ -542,18 +552,21 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/boost/archive/detail/basic_pointer_oserializer.hpp \
  /home/dmarce1/include/hpx/util/basic_binary_oprimitive.hpp \
  /home/dmarce1/include/hpx/util/ochunk_manager.hpp \
- /home/dmarce1/include/boost/ref.hpp \
- /home/dmarce1/include/hpx/util/detail/vtable_ptr_base_fwd.hpp \
- /home/dmarce1/include/hpx/util/detail/vtable_ptr_fwd.hpp \
- /home/dmarce1/include/hpx/util/detail/serialization_registration.hpp \
- /home/dmarce1/include/hpx/util/detail/pp_strip_parens.hpp \
- /home/dmarce1/include/boost/uuid/sha1.hpp \
- /home/dmarce1/include/hpx/util/safe_bool.hpp \
- /home/dmarce1/include/hpx/util/move.hpp \
- /home/dmarce1/include/hpx/util/decay.hpp \
- /home/dmarce1/include/boost/preprocessor/repetition/enum.hpp \
- /home/dmarce1/include/hpx/util/serialize_empty_type.hpp \
  /home/dmarce1/include/boost/type_traits/is_empty.hpp \
+ /home/dmarce1/include/boost/preprocessor/iteration/iterate.hpp \
+ /home/dmarce1/include/boost/preprocessor/slot/slot.hpp \
+ /home/dmarce1/include/boost/preprocessor/slot/detail/def.hpp \
+ /home/dmarce1/include/hpx/util/detail/preprocessed/empty_function.hpp \
+ /home/dmarce1/include/hpx/util/detail/preprocessed/empty_function_5.hpp \
+ /home/dmarce1/include/hpx/util/detail/get_table.hpp \
+ /home/dmarce1/include/hpx/util/detail/vtable/vtable.hpp \
+ /home/dmarce1/include/hpx/util/move.hpp \
+ /home/dmarce1/include/boost/preprocessor/repetition/enum.hpp \
+ /home/dmarce1/include/hpx/util/safe_bool.hpp \
+ /home/dmarce1/include/boost/preprocessor/repetition/enum_binary_params.hpp \
+ /home/dmarce1/include/hpx/util/detail/preprocessed/basic_function.hpp \
+ /home/dmarce1/include/hpx/util/detail/preprocessed/basic_function_5.hpp \
+ /home/dmarce1/include/hpx/util/detail/function_registration.hpp \
  /home/dmarce1/include/hpx/util/polymorphic_factory.hpp \
  /home/dmarce1/include/hpx/util/static.hpp \
  /home/dmarce1/include/boost/call_traits.hpp \
@@ -590,32 +603,10 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/boost/type_traits/is_signed.hpp \
  /home/dmarce1/include/hpx/config/warnings_prefix.hpp \
  /home/dmarce1/include/hpx/config/warnings_suffix.hpp \
- /home/dmarce1/include/boost/preprocessor/iteration/iterate.hpp \
- /home/dmarce1/include/boost/preprocessor/slot/slot.hpp \
- /home/dmarce1/include/boost/preprocessor/slot/detail/def.hpp \
- /home/dmarce1/include/boost/preprocessor/repetition/enum_binary_params.hpp \
- /home/dmarce1/include/boost/preprocessor/repetition/enum_trailing.hpp \
- /home/dmarce1/include/boost/serialization/utility.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/function_template.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/function_template_5.hpp \
- /home/dmarce1/include/hpx/util/detail/vtable_ptr_base.hpp \
  /home/dmarce1/include/hpx/util/demangle_helper.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr_base.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr_base_5.hpp \
- /home/dmarce1/include/hpx/util/detail/vtable_ptr.hpp \
- /home/dmarce1/include/hpx/util/void_cast.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr_5.hpp \
- /home/dmarce1/include/hpx/util/detail/get_table.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/get_table.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/get_table_5.hpp \
- /home/dmarce1/include/hpx/util/detail/vtable.hpp \
+ /home/dmarce1/include/hpx/util/detail/vtable/callable_vtable.hpp \
  /home/dmarce1/include/hpx/util/invoke.hpp \
  /home/dmarce1/include/hpx/util/result_of.hpp \
- /home/dmarce1/include/hpx/traits/is_callable.hpp \
- /home/dmarce1/include/hpx/util/always_void.hpp \
- /home/dmarce1/include/hpx/traits/is_action.hpp \
- /home/dmarce1/include/boost/preprocessor/facilities/intercept.hpp \
  /home/dmarce1/include/hpx/util/detail/qualify_as.hpp \
  /home/dmarce1/include/boost/type_traits/add_const.hpp \
  /home/dmarce1/include/boost/type_traits/add_cv.hpp \
@@ -631,25 +622,16 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/util/void_guard.hpp \
  /home/dmarce1/include/hpx/util/preprocessed/invoke.hpp \
  /home/dmarce1/include/hpx/util/preprocessed/invoke_5.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable1.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable1_5.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable2.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable2_5.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable3.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable3_5.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable4.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/vtable4_5.hpp \
- /home/dmarce1/include/hpx/util/detail/get_empty_table.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/get_empty_table.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/get_empty_table_5.hpp \
- /home/dmarce1/include/hpx/util/detail/empty_vtable.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/empty_vtable.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/empty_vtable_5.hpp \
+ /home/dmarce1/include/hpx/util/detail/vtable/preprocessed/callable_vtable.hpp \
+ /home/dmarce1/include/hpx/util/detail/vtable/preprocessed/callable_vtable_5.hpp \
+ /home/dmarce1/include/hpx/util/detail/vtable/copyable_vtable.hpp \
+ /home/dmarce1/include/hpx/util/detail/vtable/serializable_vtable.hpp \
+ /home/dmarce1/include/boost/serialization/utility.hpp \
+ /home/dmarce1/include/hpx/util/detail/pp_strip_parens.hpp \
  /home/dmarce1/include/hpx/lcos/local/once_fwd.hpp \
  /home/dmarce1/include/hpx/runtime/naming/id_type.hpp \
- /home/dmarce1/include/hpx/util/detail/unique_function.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/unique_function.hpp \
- /home/dmarce1/include/hpx/util/detail/preprocessed/unique_function_5.hpp \
+ /home/dmarce1/include/hpx/util/unique_function.hpp \
+ /home/dmarce1/include/hpx/util/detail/unique_function_template.hpp \
  /home/dmarce1/include/hpx/util/coroutine/detail/default_context_impl.hpp \
  /home/dmarce1/include/hpx/util/coroutine/detail/context_linux_x86.hpp \
  /home/dmarce1/include/hpx/util/coroutine/detail/config.hpp \
@@ -761,6 +743,7 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/boost/preprocessor/repetition/enum_params_with_defaults.hpp \
  /home/dmarce1/include/boost/preprocessor/repetition/enum_shifted.hpp \
  /home/dmarce1/include/boost/preprocessor/repetition/enum_shifted_binary_params.hpp \
+ /home/dmarce1/include/boost/preprocessor/repetition/enum_trailing.hpp \
  /home/dmarce1/include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
  /home/dmarce1/include/boost/tuple/tuple.hpp \
  /home/dmarce1/include/boost/tuple/detail/tuple_basic.hpp \
@@ -1356,7 +1339,9 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/external/boost/cache/local_cache.hpp \
  /home/dmarce1/include/hpx/external/boost/cache/policies/always.hpp \
  /home/dmarce1/include/hpx/external/boost/cache/statistics/no_statistics.hpp \
+ /home/dmarce1/include/hpx/external/boost/cache/statistics/local_full_statistics.hpp \
  /home/dmarce1/include/hpx/external/boost/cache/statistics/local_statistics.hpp \
+ /home/dmarce1/include/boost/chrono/process_cpu_clocks.hpp \
  /home/dmarce1/include/boost/dynamic_bitset.hpp \
  /home/dmarce1/include/boost/dynamic_bitset/dynamic_bitset.hpp \
  /home/dmarce1/include/boost/dynamic_bitset/config.hpp \
@@ -1590,8 +1575,9 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/boost/fusion/support/segmented_fold_until.hpp \
  /home/dmarce1/include/hpx/runtime/get_lva.hpp \
  /home/dmarce1/include/hpx/util/serialize_exception.hpp \
+ /home/dmarce1/include/hpx/util/detail/serialization_registration.hpp \
+ /home/dmarce1/include/boost/uuid/sha1.hpp \
  /home/dmarce1/include/hpx/lcos/future.hpp \
- /home/dmarce1/include/hpx/traits/future_unwrap_getter.hpp \
  /home/dmarce1/include/hpx/traits/is_launch_policy.hpp \
  /home/dmarce1/include/hpx/lcos/detail/future_data.hpp \
  /home/dmarce1/include/hpx/lcos/local/detail/condition_variable.hpp \
@@ -1786,6 +1772,7 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/util/one_size_heap_list_base.hpp \
  /home/dmarce1/include/hpx/runtime/actions/component_action.hpp \
  /home/dmarce1/include/hpx/runtime/components/console_error_sink.hpp \
+ /home/dmarce1/include/hpx/util/void_cast.hpp \
  /home/dmarce1/include/hpx/runtime/actions/component_const_action.hpp \
  /home/dmarce1/include/hpx/runtime/actions/component_non_const_action.hpp \
  /home/dmarce1/include/hpx/runtime/actions/component_action_implementations.hpp \
@@ -1849,6 +1836,22 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/plugins/parcel/message_buffer.hpp \
  /home/dmarce1/include/hpx/runtime/parcelset/parcelport.hpp \
  /home/dmarce1/include/hpx/runtime/parcelset/parcel.hpp \
+ /home/dmarce1/include/hpx/traits/serialize_as_future.hpp \
+ /home/dmarce1/include/hpx/traits/is_future_range.hpp \
+ /home/dmarce1/include/hpx/lcos/wait_all.hpp \
+ /home/dmarce1/include/hpx/lcos/wait_some.hpp \
+ /home/dmarce1/include/hpx/lcos/local/packaged_task.hpp \
+ /home/dmarce1/include/hpx/lcos/local/promise.hpp \
+ /home/dmarce1/include/hpx/util/deferred_call.hpp \
+ /home/dmarce1/include/hpx/util/preprocessed/deferred_call.hpp \
+ /home/dmarce1/include/hpx/util/preprocessed/deferred_call_5.hpp \
+ /home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task.hpp \
+ /home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task_5.hpp \
+ /home/dmarce1/include/hpx/runtime/threads/thread.hpp \
+ /home/dmarce1/include/hpx/lcos/preprocessed/wait_some.hpp \
+ /home/dmarce1/include/hpx/lcos/preprocessed/wait_some_5.hpp \
+ /home/dmarce1/include/hpx/lcos/preprocessed/wait_all.hpp \
+ /home/dmarce1/include/hpx/lcos/preprocessed/wait_all_5.hpp \
  /home/dmarce1/include/hpx/runtime/parcelset/server/parcelport_queue.hpp \
  /home/dmarce1/include/hpx/performance_counters/parcels/data_point.hpp \
  /home/dmarce1/include/hpx/performance_counters/parcels/gatherer.hpp \
@@ -1901,14 +1904,6 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/runtime/applier/apply_callback.hpp \
  /home/dmarce1/include/hpx/runtime/applier/apply.hpp \
  /home/dmarce1/include/hpx/lcos/local/detail/invoke_when_ready.hpp \
- /home/dmarce1/include/hpx/lcos/local/packaged_task.hpp \
- /home/dmarce1/include/hpx/lcos/local/promise.hpp \
- /home/dmarce1/include/hpx/util/deferred_call.hpp \
- /home/dmarce1/include/hpx/util/preprocessed/deferred_call.hpp \
- /home/dmarce1/include/hpx/util/preprocessed/deferred_call_5.hpp \
- /home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task.hpp \
- /home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task_5.hpp \
- /home/dmarce1/include/hpx/runtime/threads/thread.hpp \
  /home/dmarce1/include/hpx/lcos/local/detail/preprocessed/invoke_when_ready.hpp \
  /home/dmarce1/include/hpx/lcos/local/detail/preprocessed/invoke_when_ready_5.hpp \
  /home/dmarce1/include/hpx/runtime/parcelset/parcelhandler.hpp \
@@ -2014,7 +2009,6 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/boost/signals2/shared_connection_block.hpp \
  /home/dmarce1/include/hpx/util/high_resolution_timer.hpp \
  /home/dmarce1/include/hpx/util/high_resolution_clock.hpp \
- /home/dmarce1/include/boost/chrono/process_cpu_clocks.hpp \
  /home/dmarce1/include/hpx/runtime/applier/apply_helper.hpp \
  /home/dmarce1/include/hpx/util/remove_local_destinations.hpp \
  /home/dmarce1/include/hpx/runtime/applier/apply_implementations.hpp \
@@ -2324,7 +2318,6 @@ src/load_balancer.d: ../src/load_balancer.cpp \
  /home/dmarce1/include/hpx/include/client.hpp \
  /home/dmarce1/include/hpx/runtime/components/client_base.hpp \
  /home/dmarce1/include/hpx/util/unwrapped.hpp \
- /home/dmarce1/include/hpx/traits/is_future_range.hpp \
  /home/dmarce1/include/hpx/traits/is_future_tuple.hpp \
  /home/dmarce1/include/boost/fusion/include/fold.hpp \
  /home/dmarce1/include/hpx/util/preprocessed/unwrapped.hpp \
@@ -2407,6 +2400,8 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 /home/dmarce1/include/hpx/config/cxx11_macros.hpp:
 
 /home/dmarce1/include/hpx/config/preprocessor/round_up.hpp:
+
+/home/dmarce1/include/boost/exception/detail/attribute_noreturn.hpp:
 
 /home/dmarce1/include/boost/preprocessor/stringize.hpp:
 
@@ -3212,6 +3207,24 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/util/detail/function_template.hpp:
 
+/home/dmarce1/include/hpx/traits/is_callable.hpp:
+
+/home/dmarce1/include/hpx/util/always_void.hpp:
+
+/home/dmarce1/include/hpx/util/decay.hpp:
+
+/home/dmarce1/include/boost/ref.hpp:
+
+/home/dmarce1/include/hpx/traits/is_action.hpp:
+
+/home/dmarce1/include/boost/preprocessor/facilities/intercept.hpp:
+
+/home/dmarce1/include/hpx/util/detail/basic_function.hpp:
+
+/home/dmarce1/include/hpx/util/detail/empty_function.hpp:
+
+/home/dmarce1/include/hpx/util/serialize_empty_type.hpp:
+
 /home/dmarce1/include/hpx/util/portable_binary_iarchive.hpp:
 
 /home/dmarce1/include/boost/serialization/array.hpp:
@@ -3442,29 +3455,35 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/util/ochunk_manager.hpp:
 
-/home/dmarce1/include/boost/ref.hpp:
+/home/dmarce1/include/boost/type_traits/is_empty.hpp:
 
-/home/dmarce1/include/hpx/util/detail/vtable_ptr_base_fwd.hpp:
+/home/dmarce1/include/boost/preprocessor/iteration/iterate.hpp:
 
-/home/dmarce1/include/hpx/util/detail/vtable_ptr_fwd.hpp:
+/home/dmarce1/include/boost/preprocessor/slot/slot.hpp:
 
-/home/dmarce1/include/hpx/util/detail/serialization_registration.hpp:
+/home/dmarce1/include/boost/preprocessor/slot/detail/def.hpp:
 
-/home/dmarce1/include/hpx/util/detail/pp_strip_parens.hpp:
+/home/dmarce1/include/hpx/util/detail/preprocessed/empty_function.hpp:
 
-/home/dmarce1/include/boost/uuid/sha1.hpp:
+/home/dmarce1/include/hpx/util/detail/preprocessed/empty_function_5.hpp:
 
-/home/dmarce1/include/hpx/util/safe_bool.hpp:
+/home/dmarce1/include/hpx/util/detail/get_table.hpp:
+
+/home/dmarce1/include/hpx/util/detail/vtable/vtable.hpp:
 
 /home/dmarce1/include/hpx/util/move.hpp:
 
-/home/dmarce1/include/hpx/util/decay.hpp:
-
 /home/dmarce1/include/boost/preprocessor/repetition/enum.hpp:
 
-/home/dmarce1/include/hpx/util/serialize_empty_type.hpp:
+/home/dmarce1/include/hpx/util/safe_bool.hpp:
 
-/home/dmarce1/include/boost/type_traits/is_empty.hpp:
+/home/dmarce1/include/boost/preprocessor/repetition/enum_binary_params.hpp:
+
+/home/dmarce1/include/hpx/util/detail/preprocessed/basic_function.hpp:
+
+/home/dmarce1/include/hpx/util/detail/preprocessed/basic_function_5.hpp:
+
+/home/dmarce1/include/hpx/util/detail/function_registration.hpp:
 
 /home/dmarce1/include/hpx/util/polymorphic_factory.hpp:
 
@@ -3538,57 +3557,13 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/config/warnings_suffix.hpp:
 
-/home/dmarce1/include/boost/preprocessor/iteration/iterate.hpp:
-
-/home/dmarce1/include/boost/preprocessor/slot/slot.hpp:
-
-/home/dmarce1/include/boost/preprocessor/slot/detail/def.hpp:
-
-/home/dmarce1/include/boost/preprocessor/repetition/enum_binary_params.hpp:
-
-/home/dmarce1/include/boost/preprocessor/repetition/enum_trailing.hpp:
-
-/home/dmarce1/include/boost/serialization/utility.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/function_template.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/function_template_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/vtable_ptr_base.hpp:
-
 /home/dmarce1/include/hpx/util/demangle_helper.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr_base.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr_base_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/vtable_ptr.hpp:
-
-/home/dmarce1/include/hpx/util/void_cast.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable_ptr_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/get_table.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/get_table.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/get_table_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/vtable.hpp:
+/home/dmarce1/include/hpx/util/detail/vtable/callable_vtable.hpp:
 
 /home/dmarce1/include/hpx/util/invoke.hpp:
 
 /home/dmarce1/include/hpx/util/result_of.hpp:
-
-/home/dmarce1/include/hpx/traits/is_callable.hpp:
-
-/home/dmarce1/include/hpx/util/always_void.hpp:
-
-/home/dmarce1/include/hpx/traits/is_action.hpp:
-
-/home/dmarce1/include/boost/preprocessor/facilities/intercept.hpp:
 
 /home/dmarce1/include/hpx/util/detail/qualify_as.hpp:
 
@@ -3620,43 +3595,25 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/util/preprocessed/invoke_5.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable1.hpp:
+/home/dmarce1/include/hpx/util/detail/vtable/preprocessed/callable_vtable.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable1_5.hpp:
+/home/dmarce1/include/hpx/util/detail/vtable/preprocessed/callable_vtable_5.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable2.hpp:
+/home/dmarce1/include/hpx/util/detail/vtable/copyable_vtable.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable2_5.hpp:
+/home/dmarce1/include/hpx/util/detail/vtable/serializable_vtable.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable3.hpp:
+/home/dmarce1/include/boost/serialization/utility.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable3_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable4.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/vtable4_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/get_empty_table.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/get_empty_table.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/get_empty_table_5.hpp:
-
-/home/dmarce1/include/hpx/util/detail/empty_vtable.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/empty_vtable.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/empty_vtable_5.hpp:
+/home/dmarce1/include/hpx/util/detail/pp_strip_parens.hpp:
 
 /home/dmarce1/include/hpx/lcos/local/once_fwd.hpp:
 
 /home/dmarce1/include/hpx/runtime/naming/id_type.hpp:
 
-/home/dmarce1/include/hpx/util/detail/unique_function.hpp:
+/home/dmarce1/include/hpx/util/unique_function.hpp:
 
-/home/dmarce1/include/hpx/util/detail/preprocessed/unique_function.hpp:
-
-/home/dmarce1/include/hpx/util/detail/preprocessed/unique_function_5.hpp:
+/home/dmarce1/include/hpx/util/detail/unique_function_template.hpp:
 
 /home/dmarce1/include/hpx/util/coroutine/detail/default_context_impl.hpp:
 
@@ -3879,6 +3836,8 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 /home/dmarce1/include/boost/preprocessor/repetition/enum_shifted.hpp:
 
 /home/dmarce1/include/boost/preprocessor/repetition/enum_shifted_binary_params.hpp:
+
+/home/dmarce1/include/boost/preprocessor/repetition/enum_trailing.hpp:
 
 /home/dmarce1/include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp:
 
@@ -5070,7 +5029,11 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/external/boost/cache/statistics/no_statistics.hpp:
 
+/home/dmarce1/include/hpx/external/boost/cache/statistics/local_full_statistics.hpp:
+
 /home/dmarce1/include/hpx/external/boost/cache/statistics/local_statistics.hpp:
+
+/home/dmarce1/include/boost/chrono/process_cpu_clocks.hpp:
 
 /home/dmarce1/include/boost/dynamic_bitset.hpp:
 
@@ -5538,9 +5501,11 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/util/serialize_exception.hpp:
 
-/home/dmarce1/include/hpx/lcos/future.hpp:
+/home/dmarce1/include/hpx/util/detail/serialization_registration.hpp:
 
-/home/dmarce1/include/hpx/traits/future_unwrap_getter.hpp:
+/home/dmarce1/include/boost/uuid/sha1.hpp:
+
+/home/dmarce1/include/hpx/lcos/future.hpp:
 
 /home/dmarce1/include/hpx/traits/is_launch_policy.hpp:
 
@@ -5930,6 +5895,8 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/runtime/components/console_error_sink.hpp:
 
+/home/dmarce1/include/hpx/util/void_cast.hpp:
+
 /home/dmarce1/include/hpx/runtime/actions/component_const_action.hpp:
 
 /home/dmarce1/include/hpx/runtime/actions/component_non_const_action.hpp:
@@ -6056,6 +6023,38 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 
 /home/dmarce1/include/hpx/runtime/parcelset/parcel.hpp:
 
+/home/dmarce1/include/hpx/traits/serialize_as_future.hpp:
+
+/home/dmarce1/include/hpx/traits/is_future_range.hpp:
+
+/home/dmarce1/include/hpx/lcos/wait_all.hpp:
+
+/home/dmarce1/include/hpx/lcos/wait_some.hpp:
+
+/home/dmarce1/include/hpx/lcos/local/packaged_task.hpp:
+
+/home/dmarce1/include/hpx/lcos/local/promise.hpp:
+
+/home/dmarce1/include/hpx/util/deferred_call.hpp:
+
+/home/dmarce1/include/hpx/util/preprocessed/deferred_call.hpp:
+
+/home/dmarce1/include/hpx/util/preprocessed/deferred_call_5.hpp:
+
+/home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task.hpp:
+
+/home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task_5.hpp:
+
+/home/dmarce1/include/hpx/runtime/threads/thread.hpp:
+
+/home/dmarce1/include/hpx/lcos/preprocessed/wait_some.hpp:
+
+/home/dmarce1/include/hpx/lcos/preprocessed/wait_some_5.hpp:
+
+/home/dmarce1/include/hpx/lcos/preprocessed/wait_all.hpp:
+
+/home/dmarce1/include/hpx/lcos/preprocessed/wait_all_5.hpp:
+
 /home/dmarce1/include/hpx/runtime/parcelset/server/parcelport_queue.hpp:
 
 /home/dmarce1/include/hpx/performance_counters/parcels/data_point.hpp:
@@ -6159,22 +6158,6 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 /home/dmarce1/include/hpx/runtime/applier/apply.hpp:
 
 /home/dmarce1/include/hpx/lcos/local/detail/invoke_when_ready.hpp:
-
-/home/dmarce1/include/hpx/lcos/local/packaged_task.hpp:
-
-/home/dmarce1/include/hpx/lcos/local/promise.hpp:
-
-/home/dmarce1/include/hpx/util/deferred_call.hpp:
-
-/home/dmarce1/include/hpx/util/preprocessed/deferred_call.hpp:
-
-/home/dmarce1/include/hpx/util/preprocessed/deferred_call_5.hpp:
-
-/home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task.hpp:
-
-/home/dmarce1/include/hpx/lcos/local/preprocessed/packaged_task_5.hpp:
-
-/home/dmarce1/include/hpx/runtime/threads/thread.hpp:
 
 /home/dmarce1/include/hpx/lcos/local/detail/preprocessed/invoke_when_ready.hpp:
 
@@ -6385,8 +6368,6 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 /home/dmarce1/include/hpx/util/high_resolution_timer.hpp:
 
 /home/dmarce1/include/hpx/util/high_resolution_clock.hpp:
-
-/home/dmarce1/include/boost/chrono/process_cpu_clocks.hpp:
 
 /home/dmarce1/include/hpx/runtime/applier/apply_helper.hpp:
 
@@ -7005,8 +6986,6 @@ src/load_balancer.d: ../src/load_balancer.cpp \
 /home/dmarce1/include/hpx/runtime/components/client_base.hpp:
 
 /home/dmarce1/include/hpx/util/unwrapped.hpp:
-
-/home/dmarce1/include/hpx/traits/is_future_range.hpp:
 
 /home/dmarce1/include/hpx/traits/is_future_tuple.hpp:
 
