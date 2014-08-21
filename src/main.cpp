@@ -68,13 +68,13 @@ void execute() {
 //	printf( "Initializing grid...\n");
 //	root_node->execute_operations(init_ops);
 
-		std::vector<fmmx_node_type::operation_type> ops(2);
+		std::vector<fmmx_node_type::operation_type> ops(3);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
 	auto aop = fmmx_node_type::make_ascend_operation<afunc>();
 	ops[0] = dop;
 	ops[1] = eop;
-//	ops[1] = aop;
+	ops[2] = aop;
 	double tstart = MPI_Wtime();
 	printf( "Starting \n");
 	root_node->execute_operations(ops);
