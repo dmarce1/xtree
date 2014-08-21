@@ -8,6 +8,9 @@
 #ifndef XTREE_HPP_
 #define XTREE_HPP_
 
+#define KILL_SILO_DEP
+
+
 #include <hpx/hpx_init.hpp>
 #include "fwd.hpp"
 #include "container_math.hpp"
@@ -21,7 +24,6 @@ namespace xtree {																									\
 	typedef  hpx::components::managed_component<xtree::node_type> node_component_type; \
 	typedef DERIVED_CLASS derived_type;\
 }																													\
-HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::silo_output_type>, silo_output_type);	\
 HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::tree_type>, tree_type);	\
 HPX_DEFINE_GET_COMPONENT_TYPE(xtree::node_type);\
 HPX_REGISTER_DERIVED_COMPONENT_FACTORY(hpx::components::managed_component<DERIVED_CLASS>, DERIVED_CLASS, "node_type");	\
@@ -54,12 +56,14 @@ HPX_REGISTER_ACTION (action_get_new_node); \
 typedef xtree::tree_type::action_get_this action_get_this;  \
 HPX_REGISTER_ACTION (action_get_this); \
 typedef xtree::tree_type::action_place_root action_place_root;  \
-HPX_REGISTER_ACTION (action_place_root); \
-typedef xtree::tree_type::action_output action_output; \
-HPX_REGISTER_ACTION (action_output); \
-typedef xtree::silo_output_type::action_send_zones_to_silo action_send_zones_to_silo; \
-HPX_REGISTER_ACTION( action_send_zones_to_silo );
-
+HPX_REGISTER_ACTION (action_place_root); //\
+//#ifndef KILL_SILO_DEP \
+//HPX_REGISTER_MINIMAL_COMPONENT_FACTORY(hpx::components::managed_component<xtree::silo_output_type>, silo_output_type);	\
+//typedef xtree::tree_type::action_output action_output; \
+//HPX_REGISTER_ACTION (action_output); \
+//typedef xtree::silo_output_type::action_send_zones_to_silo action_send_zones_to_silo; \
+//HPX_REGISTER_ACTION( action_send_zones_to_silo ); \
+//#endif
 
 /**/
 

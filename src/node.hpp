@@ -372,7 +372,7 @@ public:
 		//	subcycle_lock.lock();
 		while (this_subcycle != subcycle) {
 			//	subcycle_lock.unlock();
-			hpx::this_thread::suspend();
+			hpx::this_thread::yield();
 			//		subcycle_lock.lock();
 		}
 		//	subcycle_lock.unlock();
@@ -731,7 +731,7 @@ public:
 				futures[dir] = last_operation_future;
 			}
 		}
-		printf("%i %i\n", nn, this->get_self().get_level());
+//		printf("%i %i\n", nn, this->get_self().get_level());
 		auto f = last_operation_future.then(hpx::util::unwrapped([this]() {
 			for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
 				if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {

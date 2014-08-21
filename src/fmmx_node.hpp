@@ -315,6 +315,7 @@ public:
 			return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)]);
 		});
 	}
+#ifndef KILL_SILO_DEP
 	std::vector<typename silo_output<Ndim>::zone> get_output_zones() {
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::vector<typename silo_output<Ndim>::zone> zones(Size);
@@ -338,6 +339,7 @@ public:
 		}
 		return zones;
 	}
+#endif
 	void init_grid() {
 		const double R0 = 0.5;
 		const std::valarray<double> x0(0.5, Ndim);

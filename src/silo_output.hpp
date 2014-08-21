@@ -7,6 +7,7 @@
 
 #ifndef SILO_OUTPUT_HPP_
 #define SILO_OUTPUT_HPP_
+#ifndef KILL_SILO_DEP
 
 namespace xtree {
 
@@ -238,5 +239,7 @@ public:
 ;
 
 } /* namespace xtree */
+
+#endif
 
 #endif /* SILO_OUTPUT_HPP_ */

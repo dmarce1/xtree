@@ -17,12 +17,16 @@ public:
 	static constexpr int Nbranch = 2;
 	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	const char* name = "tree";
+#ifndef KILL_SILO_DEP
 	const char* silo_name = "silo_output";
+#endif
 private:
 	using base_type = hpx::components::managed_component_base<tree<Derived,Ndim>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<tree<Derived,Ndim>>;
+#ifndef KILL_SILO_DEP
 	using silo_output_type = silo_output<Ndim>;
 	hpx::id_type silo_gid;
+#endif
 	hpx::id_type this_gid;
 	hpx::id_type root_node_gid;
 	std::set<Derived*> nodes;
@@ -37,7 +41,7 @@ public:
 		assert(false);
 	}
 	tree(component_type* back_ptr) :
-			base_type(back_ptr) {
+	base_type(back_ptr) {
 		static bool initialized = false;
 		assert(!initialized);
 		initialized = true;
@@ -65,6 +69,7 @@ public:
 		load_balancer_ptr = (hpx::async < load_balancer::action_get_ptr > (load_balancer_gid)).get();
 	//	printf("3.6\n");
 	//	printf("3.7\n");
+#ifndef KILL_SILO_DEP
 		if (my_id == 0) {
 			hpx::future < hpx::id_type > fut1;
 	//		printf("silonewin\n");
@@ -74,8 +79,11 @@ public:
 	//		printf("silonewout2\n");
 			hpx::register_id_with_basename(silo_name, silo_gid, 0).get();
 		} else {
+
 			silo_gid = (hpx::find_id_from_basename(silo_name, 0)).get();
+
 		}
+#endif
 		for (int i = 0; i < Nbranch; i++) {
 			child_gids[i] = futures[i].get();
 		}
@@ -149,6 +157,7 @@ public:
 		nodes.erase(iter);
 		dir_lock.unlock();
 	}
+#ifndef KILL_SILO_DEP
 	void output() const {
 		for (int i = 0; i < Nbranch; i++) {
 			if (child_gids[i] != hpx::invalid_id) {
@@ -182,11 +191,12 @@ public:
 		dir_lock.unlock();
 
 	}
+	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,output,action_output );
+#endif
 
 	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,get_new_node,action_get_new_node ); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,get_this,action_get_this ); //
 	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,place_root, action_place_root); //
-	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,output,action_output );
 //
 
 };

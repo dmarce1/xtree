@@ -16,7 +16,7 @@ using namespace fmmx;
 
 
 
-using fmmx_node_type = fmmx_node<3,8,5>;
+using fmmx_node_type = fmmx_node<3,8,3>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
@@ -61,7 +61,7 @@ void execute() {
 	root_node->execute_operations(refine_ops);
  	root_node->execute_operations(refine_ops);
 	root_node->execute_operations(refine_ops);
-	root_node->execute_operations(refine_ops);
+//	root_node->execute_operations(refine_ops);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
@@ -77,8 +77,10 @@ void execute() {
 	root_node->execute_operations(ops);
 //	root_node->execute_operations(ops);
 	printf( "Done in %e seconds\n", MPI_Wtime() - tstart );
+#ifndef KILL_SILO_DEP
 	printf("Output\n");
 	tree_ptr->output();
+#endif
 	//(root_node->debranch()).get();
 	printf( "Output done\n");
 	tree_ptr->delete_node(root_node);
