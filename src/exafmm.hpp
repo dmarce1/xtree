@@ -25,12 +25,13 @@
  THE SOFTWARE.
  */
 
+#include <complex>
+#include <cmath>
 #include <valarray>
 #ifndef kernel_h
 #define kernel_h
 #define ODDEVEN(n) ((((n) & 1) == 1) ? -1 : 1)
 
-#include <complex>
 
 #define EPS2 0.0
 
@@ -67,7 +68,7 @@ public:
 				int jks = j * (j + 1) / 2 + k;
 				complex M = 0;
 				for (int n = 0; n <= j; ++n) {
-					for (int m = -n; m <= std::min(k - 1, n); ++m) {
+					for (int m = -n; m <= (std::min)(k - 1, n); ++m) {
 						if (j - n >= k - m) {
 							int jnkm = (j - n) * (j - n) + j - n + k - m;
 							int jnkms = (j - n) * (j - n + 1) / 2 + k - m;

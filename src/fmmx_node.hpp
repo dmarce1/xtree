@@ -81,9 +81,9 @@ struct fmmx_node_static_data {
 						p1[d] = int(position_array[dir][i1][d]-0.5+EPS+BOUND_WIDTH);
 						p2[d] = int(position_array0[i0][d]-0.5+EPS+BOUND_WIDTH);
 					}
-					if( std::abs(p1 / int(2) - p2 / int(2)).max() < 2 ) {
+					if( (std::abs(p1 / int(2) - p2 / int(2)).max)() < 2 ) {
 						list_near.push_back(i0);
-						if( std::abs(p1-p2).max() > 1 ) {
+						if( (std::abs(p1-p2).max)() > 1 ) {
 							list_neighbor.push_back(i0);
 						}
 					}
@@ -102,7 +102,7 @@ struct fmmx_node_static_data {
 			std::list<std::size_t> list_root;
 			for( std::size_t i0 = 0; i0 < position_array0.size(); i0++) {
 				const auto dif = position_array0[i1]-position_array0[i0];
-				const auto dif1 = std::size_t((std::abs(dif)).max() + 0.001);
+				const auto dif1 = std::size_t(((std::abs(dif)).max)() + 0.001);
 				if( dif1 > 1 ) {
 					list_root.push_back(i0);
 				}
@@ -117,9 +117,9 @@ template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 class fmmx_node: public node<fmmx_node<Ndim, Nx, P>, Ndim>, public hpx::components::managed_component_base<
 		fmmx_node<Ndim, Nx, P>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr> {
 public:
-	static constexpr std::size_t Bw = BOUND_WIDTH;
-	static constexpr std::size_t Nchild = 1 << Ndim;
-	static constexpr std::size_t Size = pow_<Nx, Ndim>::value;
+	static const std::size_t Bw = BOUND_WIDTH;
+	static const std::size_t Nchild = 1 << Ndim;
+	static const std::size_t Size = pow_<Nx, Ndim>::value;
 	using base_type = hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<fmmx_node<Ndim, Nx, P>>;
 	using multipoles_type = std::valarray<expansion<P>>;

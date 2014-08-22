@@ -14,8 +14,8 @@ namespace xtree {
 template<int Ndim>
 class silo_output: public hpx::components::managed_component_base<silo_output<Ndim>> {
 public:
-	static constexpr double precision = 1.0e-10;
-	static constexpr int Nchild = 1 << Ndim;
+	static const double precision = 1.0e-10;
+	static const int Nchild = 1 << Ndim;
 	struct zone {
 		std::vector<double> fields;
 		std::array<double, Ndim> position;
@@ -113,7 +113,7 @@ public:
 
 	void do_output() {
 		mutex0.lock();
-		constexpr int nshapes = 1;
+		const int nshapes = 1;
 		const int nnodes = nodedir.size();
 		const int nzones = zonedir.size();
 		int shapesize[1] = { Nchild };
