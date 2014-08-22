@@ -6,6 +6,7 @@
  */
 
 #include <hpx/config.hpp>
+#include <boost/serialization/serialization.hpp>
 #include <boost/serialization/list.hpp>
 #include "load_balancer.hpp"
 

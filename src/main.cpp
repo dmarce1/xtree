@@ -88,9 +88,9 @@ void execute() {
 
 int hpx_main() {
 #ifndef NDEBUG
-	feenableexcept(FE_DIVBYZERO);
-	feenableexcept(FE_INVALID);
-	feenableexcept(FE_OVERFLOW);
+	//feenableexcept(FE_DIVBYZERO);
+	//feenableexcept(FE_INVALID);
+	//feenableexcept(FE_OVERFLOW);
 #endif
 	execute();
 	return hpx::finalize();

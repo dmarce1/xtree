@@ -40,9 +40,9 @@ public:
 	hpx::future<std::pair<int, hpx::id_type>> lock_servlet(std::pair<int, hpx::id_type> best_mins, std::list<hpx::id_type> remaining);
 	int get_load();
 	load_balancer* get_ptr();
-	using action_lock_servlet = typename hpx::actions::make_action<decltype(&load_balancer::lock_servlet),&load_balancer::lock_servlet>::type;
-	using action_unlock_servlet = typename hpx::actions::make_action<decltype(&load_balancer::unlock_servlet),&load_balancer::unlock_servlet>::type;
-	using action_get_ptr = typename hpx::actions::make_action<decltype(&load_balancer::get_ptr),&load_balancer::get_ptr>::type;
+	using action_lock_servlet = hpx::actions::make_action<decltype(&load_balancer::lock_servlet),&load_balancer::lock_servlet>::type;
+	using action_unlock_servlet = hpx::actions::make_action<decltype(&load_balancer::unlock_servlet),&load_balancer::unlock_servlet>::type;
+	using action_get_ptr = hpx::actions::make_action<decltype(&load_balancer::get_ptr),&load_balancer::get_ptr>::type;
 
 };
 
