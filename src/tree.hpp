@@ -134,9 +134,8 @@ public:
 									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), this);
 								}));
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
-			dir_lock.lock();
+			boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
 			auto test = nodes.insert(ptr);
-			dir_lock.unlock();
 			assert(test.second);
 			return id_future.get();
 		})).get();
@@ -151,11 +150,10 @@ public:
 
 	void delete_node(Derived* ptr) {
 		load_balancer_ptr->decrement_load();
-		dir_lock.lock();
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
 		auto iter = nodes.find(ptr);
 		assert(iter != nodes.end());
 		nodes.erase(iter);
-		dir_lock.unlock();
 	}
 #ifndef KILL_SILO_DEP
 	void output() const {
@@ -164,7 +162,7 @@ public:
 				hpx::apply < action_output > (child_gids[i]);
 			}
 		}
-		dir_lock.lock();
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
 
 		std::size_t leaf_cnt = 0;
 		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
@@ -188,7 +186,6 @@ public:
 		auto fut = hpx::async<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(),
 				zones);
 		fut.get();
-		dir_lock.unlock();
 
 	}
 	HPX_DEFINE_COMPONENT_ACTION_TPL( tree,output,action_output );

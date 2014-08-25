@@ -179,9 +179,8 @@ public:
 			cfuts[0] = hpx::make_ready_future();
 		}
 		hpx::shared_future<void> return_f;
-		branch_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 		if (!is_branching) {
-			branch_lock.unlock();
 			return_f = when_all(cfuts).share();
 		} else {
 			std::vector<hpx::future<void>> c2futs(Nchild);
@@ -192,7 +191,7 @@ public:
 				//		printf("Action Called\n");
 			}
 			auto f = when_all(c2futs).then(hpx::util::unwrapped([=](std::vector<hpx::future<void>>) {
-				branch_lock.lock();
+				boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 				std::vector<hpx::future<void>> futs(Nneighbor);
 				for (dir_type<Ndim> si; !si.is_end(); si++) {
 					if (neighbors[si] != hpx::invalid_id && !si.is_zero()) {
@@ -201,13 +200,11 @@ public:
 						futs[si] = hpx::make_ready_future();
 					}
 				}
-				branch_lock.unlock();
 				return when_all(futs);
 			}));
 			hpx::future<void> rfut = f.then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
 				is_branching = false;
 			}));
-			branch_lock.unlock();
 			//		printf("Done calling actions\n");
 			return_f = when_all(when_all(cfuts), rfut).share();
 		}
@@ -216,7 +213,7 @@ public:
 
 	void note_sibs(std::vector<hpx::id_type> xtet) {
 		//		printf("SIBLINGS %i\n", hpx::get_locality_id());
-		branch_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 		child_index_type<Ndim> myci = get_self().this_child_index();
 		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
 			if (ci != myci) {
@@ -227,11 +224,10 @@ public:
 				neighbors[dir] = xtet[ci];
 			}
 		}
-		branch_lock.unlock();
 	}
 
 	hpx::future<void> notify_branch(dir_type<Ndim> dir, const child_array_type& nephews) {
-		branch_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 		hpx::future<void> ret_fut;
 		dir.flip();
 		nieces[dir] = nephews;
@@ -272,12 +268,11 @@ public:
 		} else {
 			ret_fut = hpx::make_ready_future();
 		}
-		branch_lock.unlock();
 		return ret_fut;
 	}
 
 	hpx::future<void> debranch() {
-		branch_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 		is_leaf = true;
 		std::vector<hpx::future<void>> nfutures(Nneighbor);
 		std::vector<hpx::future<void>> cfutures(Nchild);
@@ -296,13 +291,11 @@ public:
 		 }
 		 }*/
 		auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
-			branch_lock.lock();
+			boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 			for (std::size_t ci = 0; ci != Nchild; ++ci) {
 				children[ci] = hpx::invalid_id;
 			}
-			branch_lock.unlock();
 		}));
-		branch_lock.unlock();
 		return fut1;
 	}
 	int get_level() const {
@@ -313,7 +306,7 @@ public:
 		return subcycle;
 	}
 	hpx::future<void> notify_debranch(dir_type<Ndim> dir) {
-		branch_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 		hpx::future<void> ret_fut;
 		dir.flip();
 		std::fill(nieces[dir].begin(), nieces[dir].end(), hpx::invalid_id);
@@ -330,14 +323,12 @@ public:
 		} else {
 			ret_fut = hpx::make_ready_future();
 		}
-		branch_lock.unlock();
 		return ret_fut;
 	}
 
 	void notify_of_neighbor(dir_type<Ndim> dir, hpx::id_type id) {
-		branch_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
 		neighbors[dir] = id;
-		branch_lock.unlock();
 
 	}
 
@@ -693,12 +684,11 @@ public:
 
 	template<typename Set>
 	void exchange_set(const dir_type<Ndim>& dir, typename Set::type data) {
-		set_lock.lock();
+		boost::unique_lock<hpx::lcos::local::mutex> this_lock(set_lock);
 		assert(neighbors[dir] != hpx::invalid_id);
 		exchange_semaphore.wait();
 		(static_cast<Derived*>(this)->*(Set::value))(dir, data);
 		exchange_promises[dir].set_value();
-		set_lock.unlock();
 	}
 
 	template<typename Get, typename Set>
