@@ -26,8 +26,8 @@ public:
 template<typename Derived, int Ndim>
 class node: public hpx::components::abstract_managed_component_base<node<Derived, Ndim>> {
 public:
-	static const int Nchild = pow_<2, Ndim>::value;
-	static const int Nneighbor = pow_<3, Ndim>::value;
+	static constexpr int Nchild = pow_<2, Ndim>::value;
+	static constexpr int Nneighbor = pow_<3, Ndim>::value;
 	using base_type = hpx::components::managed_component_base<Derived>;
 	using child_array_type = std::vector<hpx::id_type>;
 	using niece_array_type = std::vector<std::vector<hpx::id_type>>;
@@ -179,7 +179,7 @@ public:
 			cfuts[0] = hpx::make_ready_future();
 		}
 		hpx::shared_future<void> return_f;
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 		if (!is_branching) {
 			return_f = when_all(cfuts).share();
 		} else {
@@ -191,7 +191,7 @@ public:
 				//		printf("Action Called\n");
 			}
 			auto f = when_all(c2futs).then(hpx::util::unwrapped([=](std::vector<hpx::future<void>>) {
-				boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+				boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 				std::vector<hpx::future<void>> futs(Nneighbor);
 				for (dir_type<Ndim> si; !si.is_end(); si++) {
 					if (neighbors[si] != hpx::invalid_id && !si.is_zero()) {
@@ -213,7 +213,7 @@ public:
 
 	void note_sibs(std::vector<hpx::id_type> xtet) {
 		//		printf("SIBLINGS %i\n", hpx::get_locality_id());
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 		child_index_type<Ndim> myci = get_self().this_child_index();
 		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
 			if (ci != myci) {
@@ -227,7 +227,7 @@ public:
 	}
 
 	hpx::future<void> notify_branch(dir_type<Ndim> dir, const child_array_type& nephews) {
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 		hpx::future<void> ret_fut;
 		dir.flip();
 		nieces[dir] = nephews;
@@ -272,7 +272,7 @@ public:
 	}
 
 	hpx::future<void> debranch() {
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 		is_leaf = true;
 		std::vector<hpx::future<void>> nfutures(Nneighbor);
 		std::vector<hpx::future<void>> cfutures(Nchild);
@@ -291,7 +291,7 @@ public:
 		 }
 		 }*/
 		auto fut1 = when_all(cfutures).then(hpx::util::unwrapped([this](std::vector<hpx::future<void>>) {
-			boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+			boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 			for (std::size_t ci = 0; ci != Nchild; ++ci) {
 				children[ci] = hpx::invalid_id;
 			}
@@ -306,7 +306,7 @@ public:
 		return subcycle;
 	}
 	hpx::future<void> notify_debranch(dir_type<Ndim> dir) {
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 		hpx::future<void> ret_fut;
 		dir.flip();
 		std::fill(nieces[dir].begin(), nieces[dir].end(), hpx::invalid_id);
@@ -327,7 +327,7 @@ public:
 	}
 
 	void notify_of_neighbor(dir_type<Ndim> dir, hpx::id_type id) {
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(branch_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(branch_lock);
 		neighbors[dir] = id;
 
 	}
@@ -387,37 +387,37 @@ public:
 
 	template<local_type Function>
 	struct local_function {
-		static const local_type value;
+		static constexpr local_type value = Function;
 		using type = void;
 	};
 
 	template<regrid_type Function>
 	struct regrid_function {
-		static const regrid_type value;
+		static constexpr regrid_type value = Function;
 		using type = bool;
 	};
 
-    template<typename T, ascend_type<T> Function>
+	template<typename T, ascend_type<T> Function>
 	struct ascend_function {
-		static const ascend_type<T> value;
+		static constexpr ascend_type<T> value = Function;
 		using type = T;
 	};
 
-    template<typename T, descend_type<T> Function>
+	template<typename T, descend_type<T> Function>
 	struct descend_function {
-		static const descend_type<T> value;
+		static constexpr descend_type<T> value = Function;
 		using type = T;
 	};
 
-    template<typename T, exchange_get_type<T> Function>
+	template<typename T, exchange_get_type<T> Function>
 	struct exchange_get_function {
-		static const exchange_get_type<T> value;
+		static constexpr exchange_get_type<T> value = Function;
 		using type = T;
 	};
 
 	template<typename T, exchange_set_type<T> Function>
 	struct exchange_set_function {
-		static const exchange_set_type<T> value;
+		static constexpr exchange_set_type<T> value = Function;
 		using type = T;
 	};
 
@@ -684,7 +684,7 @@ public:
 
 	template<typename Set>
 	void exchange_set(const dir_type<Ndim>& dir, typename Set::type data) {
-		boost::unique_lock<hpx::lcos::local::mutex> this_lock(set_lock);
+		boost::lock_guard<hpx::lcos::local::mutex> this_lock(set_lock);
 		assert(neighbors[dir] != hpx::invalid_id);
 		exchange_semaphore.wait();
 		(static_cast<Derived*>(this)->*(Set::value))(dir, data);
@@ -739,34 +739,22 @@ public:
 	}
 
 	template<typename Function>
-    struct action_local 
-      : hpx::actions::make_action<void(node::*)(int), &node::template local<Function>, action_local<Function> > 
-    {};
+	using action_local = hpx::actions::make_action<void(node::*)(int), &node::local<Function>>;
 //
 	template<typename Function>
-    struct action_regrid 
-      : hpx::actions::make_action< hpx::shared_future<bool>(node::*)(int), &node::template regrid<Function>, action_regrid<Function> > 
-    {};
+	using action_regrid = hpx::actions::make_action< hpx::shared_future<bool>(node::*)(int), &node::regrid<Function>>;
 //
 	template<typename Function>
-    struct action_ascend 
-      : hpx::actions::make_action< void(node::*)(hpx::future<typename Function::type>, int), &node::template ascend<Function>, action_ascend<Function> > 
-    {};
+	using action_ascend = hpx::actions::make_action< void(node::*)(hpx::future<typename Function::type>, int), &node::ascend<Function>>;
 //
 	template<typename Function>
-    struct action_descend 
-      : hpx::actions::make_action<hpx::shared_future<typename Function::type>(node::*)(int), &node::template descend<Function>, action_descend<Function> > 
-    {};
+	using action_descend = hpx::actions::make_action<hpx::shared_future<typename Function::type>(node::*)(int), &node::descend<Function>>;
 //
 	template<typename Set>
-    struct action_exchange_set 
-      : hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, typename Set::type), &node::template exchange_set<Set>, action_exchange_set<Set> >
-    {};
+	using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, typename Set::type), &node::exchange_set<Set>>;
 //
 	template<typename Get, typename Set>
-    struct action_exchange_get 
-      : hpx::actions::make_action<void(node::*)(int), &node::template exchange_get<Get, Set>, action_exchange_get<Get, Set> >
-    {};
+	using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<Get,Set>>;
 
 	std::vector<hpx::id_type> neighbors_exchange_get(dir_type<Ndim>& dir) {
 		return children;
@@ -812,36 +800,6 @@ public:
 
 }
 ;
-
-template <typename Derived, int Ndim>
-template <void (Derived::*Function)()>
-const typename node<Derived, Ndim>::local_type 
-node<Derived, Ndim>::local_function<Function>::value = Function;
-
-template <typename Derived, int Ndim>
-template <bool (Derived::*Function)()>
-const typename node<Derived, Ndim>::regrid_type 
-node<Derived, Ndim>::regrid_function<Function>::value = Function;
-
-template <typename Derived, int Ndim>
-template <typename T, std::vector<T>(Derived::*Function)(T&)>
-const typename node<Derived, Ndim>::ascend_type<T> 
-node<Derived, Ndim>::ascend_function<T, Function>::value = Function;
-
-template <typename Derived, int Ndim>
-template <typename T, T (Derived::*Function)(std::vector<T>&)>
-const typename node<Derived, Ndim>::descend_type<T> 
-node<Derived, Ndim>::descend_function<T, Function>::value = Function;
-
-template <typename Derived, int Ndim>
-template <typename T, T (Derived::*Function)(dir_type<Ndim>)>
-const typename node<Derived, Ndim>::exchange_get_type<T> 
-node<Derived, Ndim>::exchange_get_function<T, Function>::value = Function;
-
-template <typename Derived, int Ndim>
-template <typename T, void (Derived::*Function)(dir_type<Ndim>, T&)>
-const typename node<Derived, Ndim>::exchange_set_type<T> 
-node<Derived, Ndim>::exchange_set_function<T, Function>::value = Function;
 
 }
 

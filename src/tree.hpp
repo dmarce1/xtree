@@ -133,13 +133,8 @@ public:
 								[=](hpx::id_type id) {
 									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), this);
 								}));
-<<<<<<< HEAD
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
 			boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
-=======
-		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) mutable {
-			dir_lock.lock();
->>>>>>> 7739a5faf3cf035614b1c75e6a7fd83f0b0c1003
 			auto test = nodes.insert(ptr);
 			assert(test.second);
 			return id_future.get();
