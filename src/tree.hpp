@@ -14,8 +14,8 @@ template<typename Derived, int Ndim>
 class tree: public hpx::components::managed_component_base<tree<Derived, Ndim>, hpx::components::detail::this_type,
 		hpx::traits::construct_with_back_ptr> {
 public:
-	static constexpr int Nbranch = 2;
-	static constexpr int Nneighbor = pow_<3, Ndim>::value;
+	static const int Nbranch = 2;
+	static const int Nneighbor = pow_<3, Ndim>::value;
 	const char* name = "tree";
 #ifndef KILL_SILO_DEP
 	const char* silo_name = "silo_output";
@@ -46,7 +46,7 @@ public:
 		assert(!initialized);
 		initialized = true;
 		int my_id, id_cnt;
-		auto localities = hpx::find_all_localities();
+		auto localities = hpx::find_remote_localities();
 		std::vector < hpx::future < hpx::id_type >> futures(Nbranch);
 //		printf("1\n");
 		my_id = hpx::get_locality_id();
@@ -56,7 +56,7 @@ public:
 		hpx::register_id_with_basename(name, this_gid, my_id).get();
 //		printf("2\n");
 		for (int i = 0; i < Nbranch; i++) {
-			int j = my_id * Nbranch + i + 1;
+			int j = my_id * Nbranch + i;
 			if (j < localities.size()) {
 				futures[i] = hpx::new_<tree<Derived, Ndim>>(localities[j]);
 			} else {
@@ -133,8 +133,13 @@ public:
 								[=](hpx::id_type id) {
 									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), this);
 								}));
+<<<<<<< HEAD
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
 			boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
+=======
+		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) mutable {
+			dir_lock.lock();
+>>>>>>> 7739a5faf3cf035614b1c75e6a7fd83f0b0c1003
 			auto test = nodes.insert(ptr);
 			assert(test.second);
 			return id_future.get();

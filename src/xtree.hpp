@@ -77,7 +77,7 @@ HPX_REGISTER_ACTION (action_place_root); //\
 #include <boost/serialization/vector.hpp>
 #include <boost/mpl/int.hpp>
 
-#include <silo.h>
+// #include <silo.h>
 
 #include <array>
 #include <atomic>
