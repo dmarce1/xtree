@@ -86,7 +86,7 @@ struct int_seq_over2 {
     return Sequence::get(i) / 2;
   }
   static const int size() {
-    return Sequence::size() / (1 << dim());
+    return Sequence::size() / (1 << dim);
   }
   static std::array<int, dim> to_vector() {
     std::array<int, dim> v;
