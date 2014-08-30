@@ -34,7 +34,7 @@ private:
 	std::array<hpx::id_type, Nbranch> child_gids;
 	load_balancer* load_balancer_ptr;
 	hpx::id_type load_balancer_gid;
-	mutable hpx::lcos::local::mutex dir_lock;
+	mutable hpx::lcos::local::spinlock dir_lock;
 public:
 
 	tree() {
@@ -134,7 +134,7 @@ public:
 									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, hpx::util::make_tuple(_parent_id, std::move(_neighbors)), this);
 								}));
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
-			boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
+			boost::lock_guard<hpx::lcos::local::spinlock> this_lock(dir_lock);
 			auto test = nodes.insert(ptr);
 			assert(test.second);
 			return id_future.get();
@@ -150,7 +150,7 @@ public:
 
 	void delete_node(Derived* ptr) {
 		load_balancer_ptr->decrement_load();
-		boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
+		boost::lock_guard<hpx::lcos::local::spinlock> this_lock(dir_lock);
 		auto iter = nodes.find(ptr);
 		assert(iter != nodes.end());
 		nodes.erase(iter);
@@ -162,7 +162,7 @@ public:
 				hpx::apply < action_output > (child_gids[i]);
 			}
 		}
-		boost::lock_guard<hpx::lcos::local::mutex> this_lock(dir_lock);
+		boost::lock_guard<hpx::lcos::local::spinlock> this_lock(dir_lock);
 
 		std::size_t leaf_cnt = 0;
 		for (auto i = nodes.begin(); i != nodes.end(); ++i) {

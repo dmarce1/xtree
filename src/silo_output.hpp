@@ -99,7 +99,7 @@ private:
 	vertex_dir_type nodedir;
 	silo_zone_dir_type zonedir;
 	std::vector<bool> received;
-	mutable hpx::lcos::local::mutex mutex0;
+	mutable hpx::lcos::local::spinlock mutex0;
 public:
 	silo_output() {
 	//	printf("Silo in\n");
