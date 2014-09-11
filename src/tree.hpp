@@ -30,7 +30,7 @@ private:
 	std::array<hpx::id_type, Nbranch> child_gids;
 	load_balancer* load_balancer_ptr;
 	hpx::id_type load_balancer_gid;
-	mutable hpx::lcos::local::mutex dir_lock;
+	mutable hpx::lcos::local::spinlock dir_lock;
 public:
 
 	tree() {
@@ -42,7 +42,7 @@ public:
 		assert(!initialized);
 		initialized = true;
 		int my_id, id_cnt;
-		auto localities = hpx::find_all_localities();
+		auto localities = hpx::find_remote_localities();
 		std::vector < hpx::future < hpx::id_type >> futures(Nbranch);
 //		printf("1\n");
 		my_id = hpx::get_locality_id();
@@ -52,7 +52,7 @@ public:
 		hpx::register_id_with_basename(name, this_gid, my_id).get();
 //		printf("2\n");
 		for (int i = 0; i < Nbranch; i++) {
-			int j = my_id * Nbranch + i + 1;
+			int j = my_id * Nbranch + i;
 			if (j < localities.size()) {
 				futures[i] = hpx::new_<tree<Derived, Ndim>>(localities[j]);
 			} else {
@@ -128,9 +128,8 @@ public:
 									return hpx::async<typename node<Derived,Ndim>::action_initialize>(id, _loc, _parent_id, this);
 								}));
 		return fut1.then(hpx::util::unwrapped([this,id_future](Derived* ptr) {
-			dir_lock.lock();
+			boost::lock_guard<decltype(dir_lock)> scope_lock(dir_lock);
 			auto test = nodes.insert(ptr);
-			dir_lock.unlock();
 			assert(test.second);
 			return id_future.get();
 		})).get();
@@ -146,11 +145,10 @@ public:
 
 	void delete_node(Derived* ptr) {
 		load_balancer_ptr->decrement_load();
-		dir_lock.lock();
+		boost::lock_guard<decltype(dir_lock)> scope_lock(dir_lock);
 		auto iter = nodes.find(ptr);
 		assert(iter != nodes.end());
 		nodes.erase(iter);
-		dir_lock.unlock();
 	}
 	void output() const {
 		for (int i = 0; i < Nbranch; i++) {
@@ -158,7 +156,7 @@ public:
 				hpx::apply < action_output > (child_gids[i]);
 			}
 		}
-		dir_lock.lock();
+		boost::lock_guard<decltype(dir_lock)> scope_lock(dir_lock);
 
 		std::size_t leaf_cnt = 0;
 		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
@@ -185,7 +183,6 @@ public:
 				typename silo_output_type::action_send_zones_to_silo>(silo_gid,
 				hpx::get_locality_id(), zones);
 		fut.get();
-		dir_lock.unlock();
 
 	}
 

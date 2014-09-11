@@ -133,7 +133,7 @@ public:
 private:
 	static fmmx_node_static_data<Ndim, Nx, P> static_data;
 	std::valarray<double> rho;
-	hpx::lcos::local::mutex lock;
+	hpx::lcos::local::spinlock lock;
 	std::valarray<expansion<P>> M;
 	std::valarray<expansion<P>> L;
 	std::valarray<std::valarray<double>> X;
@@ -181,9 +181,8 @@ public:
 				static_data.exafmm.L2L((std::valarray<complex>&)Lout, (std::valarray<complex>)Lin, dist);
 				return Lout;
 			});
-			lock.lock();
+			boost::lock_guard<decltype(lock)> scope(lock);
 			L[get_restrict_slice(dims, ci)] += Lthis;
-			lock.unlock();
 		}
 		std::vector<ascend_type> child_data;
 		if (!this->is_terminal()) {
@@ -269,7 +268,7 @@ public:
 		for (std::size_t d = 0; d < Ndim; d++) {
 			corner0[d] = this->get_self().get_position(d);
 		}
-		std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
+	    std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
 		std::valarray<std::valarray<std::size_t>> indexes =
 				(this->get_self().get_level() == 0) ?
 						static_data.root_indexes :
@@ -287,9 +286,8 @@ public:
 					static_data.exafmm.M2L(l[j], Mb[i], dist);
 				}
 			}
-			lock.lock();
+			boost::lock_guard<decltype(lock)> scope(lock);
 			L[indexes[i]] += l;
-			lock.unlock();
 		}
 	}
 

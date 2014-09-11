@@ -61,12 +61,12 @@ void execute() {
 	root_node->regrid<rg_func>(0);
 	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
-//	printf( "Refining...\n");
-//	root_node->regrid<rg_func>(0);
-//	printf( "Refining...\n");
-//.	root_node->regrid<rg_func>(0);
-//	printf( "Initializing grid...\n");
-//	root_node->execute_operations(init_ops);
+	printf( "Refining...\n");
+	root_node->regrid<rg_func>(0);
+	printf( "Refining...\n");
+	root_node->regrid<rg_func>(0);
+	printf( "Initializing grid...\n");
+	root_node->execute_operations(init_ops);
 
 		std::vector<fmmx_node_type::operation_type> ops(3);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
