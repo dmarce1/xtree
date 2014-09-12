@@ -8,6 +8,9 @@
 #ifndef LOCATION_HPP_
 #define LOCATION_HPP_
 
+#include "fwd.hpp"
+#include "indexer.hpp"
+
 namespace xtree {
 
 template<int Ndim>

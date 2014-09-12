@@ -137,14 +137,14 @@ public:
 
 	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc,
 			hpx::id_type _parent_id, int subcyc) {
-		auto proc_num = load_balancer_ptr->increment_load().get();
+		auto proc_num = load_balancer_ptr->increment_load(_loc.get_position()).get();
 		auto gid = hpx::find_id_from_basename(name, proc_num).get();
 		return hpx::async < action_get_new_node
 				> (gid, _loc, _parent_id, subcyc);
 	}
 
 	void delete_node(Derived* ptr) {
-		load_balancer_ptr->decrement_load();
+		load_balancer_ptr->decrement_load(ptr->get_self().get_position());
 		boost::lock_guard<decltype(dir_lock)> scope_lock(dir_lock);
 		auto iter = nodes.find(ptr);
 		assert(iter != nodes.end());
@@ -164,7 +164,7 @@ public:
 				leaf_cnt++;
 			}
 		}
-		printf("Leaf cnt = %li\n", leaf_cnt);
+		printf("%4i Leaf cnt = %10li Total COunt = %10li\n", hpx::get_locality_id(), leaf_cnt, nodes.size());
 		std::vector<typename silo_output_type::zone> zones(
 				leaf_cnt * Derived::Size);
 		auto j = zones.begin();

@@ -70,27 +70,6 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include <unordered_set>
 #include <utility>
 #include <vector>
-
-namespace boost {
-namespace serialization {
-
-template<class Archive, class T, size_t N>
-void serialize(Archive & ar, std::array<T, N> & a, const unsigned int version) {
-	ar & boost::serialization::make_array(a.data(), a.size());
-}
-
-/*template<class Archive, class T>
- void serialize(Archive & ar, std::vector<T> & a, const unsigned int version) {
- ar & boost::serialization::make_array(a.data(), a.size());
- }
-
- template<class Archive, class T>
- void serialize(Archive & ar, const std::vector<T> & a, const unsigned int version) {
- ar << boost::serialization::make_array(a.data(), a.size());
- }
- */
-} // namespace serialization
-} // namespace boost
 #include "load_balancer.hpp"
 #include "util.hpp"
 #include "indexer.hpp"
