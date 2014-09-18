@@ -88,7 +88,7 @@ public:
 	}
 	wrapped_type* initialize(const location<Ndim>& _loc, hpx::id_type parent_id,
 			tree<wrapped_type, Ndim>* ltree) {
-		subcycle_futures.resize(MAX_OPS);
+		subcycle_futures = std::move(std::vector<hpx::future<void>>(MAX_OPS));
 		subcycle_promises.resize(MAX_OPS);
 		if (parent_id != hpx::invalid_id) {
 			for (int i = 0; i < MAX_OPS; i++) {
@@ -194,7 +194,7 @@ public:
 		 }
 		 }*/
 		auto fut1 =
-				when_all(cfutures).then(
+				when_all(std::move(cfutures)).then(
 						hpx::util::unwrapped(
 								[this](std::vector<hpx::future<void>>) {
 									boost::lock_guard<decltype(branch_lock)> scope_lock(branch_lock);
@@ -325,7 +325,7 @@ public:
 				futs[i] = hpx::async < action_operations_end
 						> (children[i], this_subcycle);
 			}
-			future = when_all(futs);
+			future = when_all(std::move(futs));
 		} else {
 			future = hpx::make_ready_future();
 		}
@@ -334,7 +334,7 @@ public:
 						hpx::util::unwrapped(
 								[this](hpx::util::tuple<hpx::future<void>, hpx::shared_future<void>>) {
 									subcycle = 0;
-									subcycle_futures.resize(MAX_OPS);
+									subcycle_futures = std::move(std::vector<hpx::future<void>>(MAX_OPS));
 									subcycle_promises.resize(MAX_OPS);
 									subcycle_futures[0] = hpx::make_ready_future();
 									for (int i = 1; i < MAX_OPS; i++) {
@@ -447,7 +447,7 @@ public:
 		std::vector<hpx::future<void>> futures;
 		hpx::shared_future<void> rc;
 		if (!is_leaf) {
-			futures.resize(Nchild);
+			futures = std::move(std::vector<hpx::future<void>>(Nchild));
 			for (int i = 0; i < Nchild; ++i) {
 				futures[i] = hpx::async < action_local
 						< Function >> (children[i], this_subcycle);
@@ -458,7 +458,7 @@ public:
 		}).share();
 
 		if (futures.size()) {
-			rc = when_all(rc, when_all(futures)).share();
+			rc = when_all(rc, when_all(std::move(futures))).share();
 		}
 
 //		subcycle_lock.lock();
@@ -472,10 +472,9 @@ public:
 	bool regrid(int this_subcycle) {
 		//		printf("Regridding\n");
 		//		wait_my_turn(this_subcycle);
-		std::vector<hpx::future<bool>> futures;
+		std::vector<hpx::future<bool>> futures(Nchild);
 		bool rc;
 		if (!is_leaf) {
-			futures.resize(Nchild);
 			for (int i = 0; i < Nchild; ++i) {
 				auto c = children[i];
 				futures[i] = hpx::async < action_regrid
@@ -569,7 +568,7 @@ public:
 						< Function >> (children[i], this_subcycle);
 			}
 			auto f =
-					when_all(when_all(futures), last_operation_future).then(
+					when_all(when_all(std::move(futures)), last_operation_future).then(
 							hpx::util::unwrapped(
 									[this](HPX_STD_TUPLE<hpx::future<std::vector<hpx::future<T>>>, hpx::shared_future<void>> tuple_futs) {
 										std::vector<T> input_data;
