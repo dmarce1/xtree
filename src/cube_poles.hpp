@@ -12,10 +12,14 @@ template<std::int64_t P>
 class cube_poles {
 	static constexpr int N = 100;
 	std::valarray<complex> M;
-	std::valarray<complex> NN;
+	std::valarray<double> NN;
 public:
 	std::valarray<complex> get_M(double dx) {
-		return M * std::pow(complex(dx), NN);
+		std::valarray<complex> rc(M.size());
+		for( auto i = 0; i < M.size(); i++ ) {
+			rc[i] = complex(pow(dx,NN[i]))*M[i];
+		}
+		return rc;
 	}
 	cube_poles() {
 		exafmm_kernel<P> exafmm;

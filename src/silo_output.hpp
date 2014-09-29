@@ -112,6 +112,7 @@ public:
 
 	void do_output() {
 		mutex0.lock();
+#ifndef NO_OUTPUT
 		constexpr int nshapes = 1;
 		const int nnodes = nodedir.size();
 		const int nzones = zonedir.size();
@@ -176,6 +177,7 @@ public:
 		zonedir.clear();
 
 		DBClose(db);
+#endif
 		mutex0.unlock();
 		reset();
 	}

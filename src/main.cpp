@@ -5,10 +5,10 @@
  *      Author: dmarce1
  */
 
+#include <mpi.h>
 #include "xtree.hpp"
 #include "./fmmx_node.hpp"
 #include <fenv.h>
-#include <mpi.h>
 
 using namespace xtree;
 using namespace fmmx;
@@ -72,9 +72,9 @@ void execute() {
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
 	auto aop = fmmx_node_type::make_ascend_operation<afunc>();
-	ops[0] = dop;
-	ops[1] = eop;
-	ops[2] = aop;
+	ops[0] = std::move(dop);
+	ops[1] = std::move(eop);
+	ops[2] = std::move(aop);
 	double tstart = MPI_Wtime();
 	printf( "Starting \n");
 	root_node->execute_operations(ops);
