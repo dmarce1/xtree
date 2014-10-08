@@ -51,7 +51,7 @@ using dir_type = indexer<Ndim, 3, -1>;
 }
 
 
-
+/*
 namespace boost {
 namespace serialization {
 
@@ -60,6 +60,6 @@ void serialize(Archive & ar, std::array<T, N> & a, const unsigned int version) {
 	ar & boost::serialization::make_array(a.data(), a.size());
 }
 } // namespace serialization
-} // namespace boost
+} // namespace boost*/
 
 #endif /* TYPES_HPP_ */

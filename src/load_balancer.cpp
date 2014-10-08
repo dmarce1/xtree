@@ -55,7 +55,7 @@ load_balancer* load_balancer::get_ptr() {
 void load_balancer::print() {
 
 		printf( "\n----------Load Balance---------------\n");
-		for( std::size_t i = 0; i < procs.size(); i++) {
+		for( int i = 0; i < procs.size(); i++) {
 			printf( "%6i %6i %e %e %e\n",i, procs[i].load, procs[i].loc[0], procs[i].loc[1], procs[i].loc[2]);
 		}
 		printf( "\n");
