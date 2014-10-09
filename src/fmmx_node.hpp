@@ -14,7 +14,6 @@
 #include "xtree.hpp"
 #include "expansion.hpp"
 #include "valarray.hpp"
-#include "delayed_action.hpp"
 #include <hpx/util/function.hpp>
 #include <boost/serialization/valarray.hpp>
 #include <boost/serialization/complex.hpp>
@@ -124,9 +123,9 @@ public:
 	using component_type = hpx::components::managed_component<fmmx_node<Ndim, Nx, P>>;
 	using multipoles_type = std::valarray<expansion<P>>;
 	using expansions_type = std::valarray<expansion<P>>;
-	using exchange_type = delayed_action<multipoles_type>;
-	using descend_type = delayed_action<multipoles_type>;
-	using ascend_type = delayed_action<expansions_type>;
+	using exchange_type = future_wrapper<multipoles_type>;
+	using descend_type = future_wrapper<multipoles_type>;
+	using ascend_type = future_wrapper<expansions_type>;
 	using type_holder = fmmx_node;
 	using base_type_holder = node<fmmx_node, Ndim>;
 	using wrapped_type = fmmx_node;
@@ -139,7 +138,7 @@ private:
 	std::valarray<std::valarray<double>> X;
 public:
 	void initialize() {
-		std::valarray<std::size_t> dims(Nx, Ndim);
+		std::valarray < std::size_t > dims(Nx, Ndim);
 		X = create_position_array(dims);
 		auto corner = this->get_self().get_position();
 		for (auto i = std::begin(X); i != std::end(X); ++i) {
@@ -154,7 +153,7 @@ public:
 		printf("Ascend - %i %i %i - %i -%i\n", this->get_self().get_location(0), this->get_self().get_location(1),
 				this->get_self().get_location(2), this->get_self().get_level(), hpx::get_locality_id());
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::valarray<std::size_t> dims(Nx, Ndim);
+		std::valarray < std::size_t > dims(Nx, Ndim);
 		auto dir_center = dir_type<Ndim>().set_zero();
 		exchange_type center = exchange_get(dir_center);
 		exchange_set(dir_center, center);
@@ -188,9 +187,9 @@ public:
 		if (!this->is_terminal()) {
 			child_data.resize(Nchild);
 			for (std::size_t ci = 0; ci < Nchild; ci++) {
-				child_data[ci] = ascend_type(&L, [dims,ci](const expansions_type& Lc) {
+				child_data[ci] = hpx::async(hpx::launch::deferred, [dims,ci](const expansions_type& Lc) {
 					return expansions_type(Lc[get_xtant_slice(dims, ci)]);
-				});
+				}, L);
 			}
 		}
 		return child_data;
@@ -201,7 +200,7 @@ public:
 				this->get_self().get_location(2), this->get_self().get_level());
 
 		std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::valarray<std::size_t> dims(Nx, Ndim);
+		std::valarray < std::size_t > dims(Nx, Ndim);
 		std::fill(std::begin(L), std::end(L), 0.0);
 		if (children.size() > 0) {
 			for (std::size_t ci = 0; ci != Nchild; ++ci) {
@@ -213,7 +212,7 @@ public:
 				return std::valarray<complex>(cube * complex(rhoin, 0.0) );
 			});
 		}
-		return descend_type(&M, [dims,dx,this](const multipoles_type& Mfine) {
+		return hpx::async(hpx::launch::deferred, [dims,dx,this](const multipoles_type& Mfine) {
 			multipoles_type Mthis(Size/Nchild);
 			multipoles_type Mcoarse(Size/Nchild);
 			std::fill(std::begin(Mcoarse), std::end(Mcoarse), 0.0);
@@ -232,11 +231,11 @@ public:
 				}
 			}
 			return Mcoarse;
-		});
+		}, M);
 
 	}
 	void allocate() {
-		std::valarray<std::size_t> dims(Nx, Ndim);
+		std::valarray < std::size_t > dims(Nx, Ndim);
 		X.resize(Size);
 		M.resize(Size);
 		L.resize(Size);
@@ -268,8 +267,8 @@ public:
 		for (std::size_t d = 0; d < Ndim; d++) {
 			corner0[d] = this->get_self().get_position(d);
 		}
-	    std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
-		std::valarray<std::valarray<std::size_t>> indexes =
+		std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
+		std::valarray < std::valarray < std::size_t >> indexes =
 				(this->get_self().get_level() == 0) ?
 						static_data.root_indexes :
 						(this->is_terminal() ? static_data.near_indexes[dir] : static_data.neighbor_indexes[dir]);
@@ -292,7 +291,7 @@ public:
 	}
 
 	exchange_type exchange_get(dir_type<Ndim> dir) {
-		return exchange_type(&M, [dir](const multipoles_type& M) {
+		return hpx::async(hpx::launch::deferred, [dir](const multipoles_type& M) {
 			std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
 			for( std::size_t d = 0; d < Ndim; d++) {
 				switch(dir[d]) {
@@ -311,12 +310,12 @@ public:
 				}
 			}
 			return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)]);
-		});
+		}, M);
 	}
 	std::vector<typename silo_output<Ndim>::zone> get_output_zones() {
 		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 		std::vector<typename silo_output<Ndim>::zone> zones(Size);
-		std::valarray<std::size_t> dims(Nx, Ndim);
+		std::valarray < std::size_t > dims(Nx, Ndim);
 
 		for (std::size_t i = 0; i < Size; i++) {
 			std::vector<double> fields(6);
@@ -350,7 +349,6 @@ public:
 		}
 	}
 
-
 }
 ;
 
@@ -359,8 +357,6 @@ fmmx_node_static_data<Ndim, Nx, P> fmmx_node<Ndim, Nx, P>::static_data;
 
 }
 
-
 }
-
 
 #endif /* FMMX_NODE_HPP_ */

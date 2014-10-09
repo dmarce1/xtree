@@ -8,6 +8,10 @@
 #ifndef SILO_OUTPUT_HPP_
 #define SILO_OUTPUT_HPP_
 
+#ifndef NO_OUTPUT
+#include <silo.h>
+#endif
+
 namespace xtree {
 
 template<int Ndim>
@@ -101,10 +105,10 @@ private:
 	mutable hpx::lcos::local::mutex mutex0;
 public:
 	silo_output() {
-	//	printf("Silo in\n");
+		//	printf("Silo in\n");
 		received.resize((hpx::find_all_localities()).size());
 		reset();
-	//	printf("Silo out\n");
+		//	printf("Silo out\n");
 
 	}
 	virtual ~silo_output() {
@@ -119,8 +123,8 @@ public:
 		int shapesize[1] = { Nchild };
 		int shapetype[1] = { DB_ZONETYPE_HEX };
 		int shapecnt[1] = { nzones };
-		DBfile* db;
-		DBoptlist* olist;
+		DBfile * db;
+		DBoptlist * olist;
 		std::vector<double> coord_vectors[Ndim];
 		std::string coordname_strs[Ndim];
 		double* coords[Ndim];
@@ -154,12 +158,13 @@ public:
 			//		printf("\n");
 		}
 
-		olist = DBMakeOptlist(1);
-		db = DBCreate("X.silo", DB_CLOBBER, DB_LOCAL, "Euler Mesh", DB_PDB);
-		DBPutZonelist2(db, "zones", nzones, Ndim, zone_nodes.data(), Nchild * nzones, 0, 0, 0, shapetype, shapesize,
-				shapecnt, nshapes, olist);
-		DBPutUcdmesh(db, "mesh", Ndim, const_cast<char**>(coordnames), reinterpret_cast<float **>(coords), nnodes,
-				nzones, "zones", NULL, DB_DOUBLE, olist);
+		olist = exec_on_separate_thread(&DBMakeOptlist, 1);
+		db  = exec_on_separate_thread(&DBCreateReal, "X.silo", DB_CLOBBER, DB_LOCAL, "Euler Mesh", DB_PDB);
+		exec_on_separate_thread(&DBPutZonelist2, db, "zones", nzones, Ndim, zone_nodes.data(), Nchild * nzones, 0, 0, 0,
+				shapetype, shapesize, shapecnt, nshapes, olist);
+		exec_on_separate_thread(&DBPutUcdmesh, db, "mesh", Ndim, const_cast<char**>(coordnames),
+				reinterpret_cast<DB_DTPTR2>(coords), nnodes, nzones, "zones", static_cast<const char*>(nullptr),
+				(int) DB_DOUBLE, olist);
 
 		std::vector<double> data(nzones);
 		char fname[2];
@@ -171,12 +176,14 @@ public:
 				i++;
 			}
 			fname[0] = 'A' + char(fi);
-			DBPutUcdvar1(db, fname, "mesh", reinterpret_cast<float*>(data.data()), nzones, 0, 0, DB_DOUBLE, DB_ZONECENT, olist);
+			exec_on_separate_thread(&DBPutUcdvar1, db, const_cast<const char*>(fname), "mesh",
+					reinterpret_cast<DB_DTPTR1>(data.data()), nzones, static_cast<DB_DTPTR1>(nullptr), 0,
+					(int) DB_DOUBLE, (int) DB_ZONECENT, olist);
 		}
 
 		zonedir.clear();
 
-		DBClose(db);
+		exec_on_separate_thread(DBClose, db);
 #endif
 		mutex0.unlock();
 		reset();
@@ -225,9 +232,9 @@ public:
 		}
 		mutex0.lock();
 		received[proc_num_from] = true;
-		printf( "Receive output from %i\n", proc_num_from );
+		printf("Receive output from %i\n", proc_num_from);
 		if (std::all_of(received.begin(), received.end(), [](bool b) {return b;})) {
-			printf( "Doing output\n");
+			printf("Doing output\n");
 			mutex0.unlock();
 			/*hpx::apply([this]() {*/do_output();/*});*/
 			mutex0.lock();

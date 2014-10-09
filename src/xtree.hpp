@@ -61,10 +61,6 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include <boost/serialization/vector.hpp>
 #include <boost/mpl/int.hpp>
 
-#ifndef NO_OUTPUT
-#include <silo.h>
-#endif
-
 #include <array>
 #include <atomic>
 #include <cassert>

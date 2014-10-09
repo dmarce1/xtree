@@ -8,6 +8,8 @@
 #ifndef INT_SEQ_HPP_
 #define INT_SEQ_HPP_
 
+#include <thread>
+
 namespace xtree {
 
 struct nullclass {
@@ -135,7 +137,56 @@ template<>
 struct factorial_<0> {
 	static constexpr std::size_t value = 1;
 };
+}
+
+template<class R, class ...Args>
+R exec_on_separate_thread(R (*fptr)(Args...), Args ...args) {
+	R data;
+	std::thread([&](Args*...args) {
+		data = (*fptr)(*args...);
+	}, &args...).join();
+	return data;
 
 }
+
+template<typename T>
+class future_wrapper {
+	mutable std::shared_ptr<hpx::future<T>> ptr;
+public:
+	future_wrapper() :
+			ptr(std::make_shared<hpx::future<T>>()) {
+	}
+	~future_wrapper() = default;
+	future_wrapper(const future_wrapper&) = default;
+	future_wrapper& operator=(const future_wrapper&) = default;
+	future_wrapper(hpx::future<T>&& f) :
+			ptr(std::make_shared < hpx::future < T >> (std::move(f))) {
+	}
+	future_wrapper& operator=(hpx::future<T>&& f) {
+		*ptr = std::move(f);
+		return *this;
+	}
+	T get() {
+		return ptr->get();
+	}
+	hpx::shared_future<T> share() {
+		return ptr->share();
+	}
+
+	template<typename Arc>
+	void load(Arc& ar, const unsigned v) {
+		T data;
+		ar & data;
+		*ptr = hpx::make_ready_future < T > (std::move(data));
+	}
+
+	template<typename Arc>
+	void save(Arc& ar, const unsigned v) const {
+		T data = ptr->get();
+		ar & data;
+	}
+
+	BOOST_SERIALIZATION_SPLIT_MEMBER();
+};
 
 #endif /* INT_SEQ_HPP_ */
