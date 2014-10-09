@@ -28,14 +28,6 @@ class fmmx_node;
 
 template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 struct fmmx_node_static_data {
-
-	/*************************** ADD ROOT NEIGHBORS************************/
-	/**********************************************************************/
-	/*************************** ADD ROOT NEIGHBORS************************/
-	/**********************************************************************/
-	/*************************** ADD ROOT NEIGHBORS************************/
-	/**********************************************************************/
-
 	std::valarray<std::valarray<std::valarray<double>>>position_array;
 	std::valarray<std::valarray<std::valarray<std::size_t>>> neighbor_indexes;
 	std::valarray<std::valarray<std::valarray<std::size_t>>> near_indexes;
@@ -137,220 +129,255 @@ private:
 	std::valarray<expansion<P>> L;
 	std::valarray<std::valarray<double>> X;
 public:
-	void initialize() {
-		std::valarray < std::size_t > dims(Nx, Ndim);
-		X = create_position_array(dims);
-		auto corner = this->get_self().get_position();
-		for (auto i = std::begin(X); i != std::end(X); ++i) {
-			for (std::size_t d = 0; d != Ndim; ++d) {
-				(*i)[d] /= dims[d];
-				(*i)[d] *= this->get_self().get_dx();
-				(*i)[d] += corner[d];
-			}
-		}
-	}
-	std::vector<ascend_type> ascend(ascend_type& parent) {
-		printf("Ascend - %i %i %i - %i -%i\n", this->get_self().get_location(0), this->get_self().get_location(1),
-				this->get_self().get_location(2), this->get_self().get_level(), hpx::get_locality_id());
-		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::valarray < std::size_t > dims(Nx, Ndim);
-		auto dir_center = dir_type<Ndim>().set_zero();
-		exchange_type center = exchange_get(dir_center);
-		exchange_set(dir_center, center);
-		expansions_type Lcoarse, Lthis;
-		Lcoarse.resize(Size / Nchild);
-		Lthis.resize(Size / Nchild);
-		if (this->get_level() != 0) {
-			Lcoarse = parent.get();
-		} else {
-			Lcoarse = expansion<P>(0.0);
-		}
-		for (std::size_t ci = 0; ci != Nchild; ++ci) {
-			std::fill(std::begin(Lthis), std::end(Lthis), 0.0);
-			std::valarray<double> dist(Ndim);
-			for (std::size_t d = 0; d < Ndim; d++) {
-				if ((ci >> d) & 1) {
-					dist[d] = +0.5 * dx[d];
-				} else {
-					dist[d] = -0.5 * dx[d];
-				}
-			}
-			std::transform(std::begin(Lcoarse), std::end(Lcoarse), std::begin(Lthis), [dist](const expansion<P>& Lin) {
-				expansion<P> Lout;
-				static_data.exafmm.L2L((std::valarray<complex>&)Lout, (std::valarray<complex>)Lin, dist);
-				return Lout;
-			});
-			boost::lock_guard<decltype(lock)> scope(lock);
-			L[get_restrict_slice(dims, ci)] += Lthis;
-		}
-		std::vector<ascend_type> child_data;
-		if (!this->is_terminal()) {
-			child_data.resize(Nchild);
-			for (std::size_t ci = 0; ci < Nchild; ci++) {
-				child_data[ci] = hpx::async(hpx::launch::deferred, [dims,ci](const expansions_type& Lc) {
-					return expansions_type(Lc[get_xtant_slice(dims, ci)]);
-				}, L);
-			}
-		}
-		return child_data;
+	void initialize();
+	std::vector<ascend_type> ascend(ascend_type& parent);
+	descend_type descend(std::vector<descend_type>& children);
+	void allocate();
+	fmmx_node(component_type* back_ptr);
+	fmmx_node();
+	virtual ~fmmx_node();
+	bool regrid_test();
+	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary);
+	exchange_type exchange_get(dir_type<Ndim> dir);
+	std::vector<typename silo_output<Ndim>::zone> get_output_zones();
+	void init_grid();
+};
 
-	}
-	descend_type descend(std::vector<descend_type>& children) {
-		printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
-				this->get_self().get_location(2), this->get_self().get_level());
-
-		std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::valarray < std::size_t > dims(Nx, Ndim);
-		std::fill(std::begin(L), std::end(L), 0.0);
-		if (children.size() > 0) {
-			for (std::size_t ci = 0; ci != Nchild; ++ci) {
-				M[get_xtant_slice(dims, ci)] = children[ci].get();
-			}
-		} else {
-			auto cube = static_data.cubes.get_M(dx[0]);
-			std::transform(std::begin(rho), std::end(rho), std::begin(M), [&cube](double rhoin) {
-				return std::valarray<complex>(cube * complex(rhoin, 0.0) );
-			});
-		}
-		return hpx::async(hpx::launch::deferred, [dims,dx,this](const multipoles_type& Mfine) {
-			multipoles_type Mthis(Size/Nchild);
-			multipoles_type Mcoarse(Size/Nchild);
-			std::fill(std::begin(Mcoarse), std::end(Mcoarse), 0.0);
-			for( std::size_t ci = 0; ci != Nchild; ++ci) {
-				Mthis = Mfine[get_restrict_slice(dims, ci )];
-				std::valarray<double> dist(Ndim);
-				for( std::size_t d = 0; d < Ndim; d++ ) {
-					if( (ci >> d) & 1) {
-						dist[d] = -0.5*dx[d];
-					} else {
-						dist[d] = +0.5*dx[d];
-					}
-				}
-				for( std::size_t i = 0; i <Size/Nchild; i++ ) {
-					static_data.exafmm.M2M(Mcoarse[i], Mthis[i], dist);
-				}
-			}
-			return Mcoarse;
-		}, M);
-
-	}
-	void allocate() {
-		std::valarray < std::size_t > dims(Nx, Ndim);
-		X.resize(Size);
-		M.resize(Size);
-		L.resize(Size);
-		rho.resize(Size);
-		for (std::size_t i = 0; i < Size; i++) {
-			X[i].resize(Ndim);
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+void fmmx_node<Ndim, Nx, P>::initialize() {
+	std::valarray < std::size_t > dims(Nx, Ndim);
+	X = create_position_array(dims);
+	auto corner = this->get_self().get_position();
+	for (auto i = std::begin(X); i != std::end(X); ++i) {
+		for (std::size_t d = 0; d != Ndim; ++d) {
+			(*i)[d] /= dims[d];
+			(*i)[d] *= this->get_self().get_dx();
+			(*i)[d] += corner[d];
 		}
 	}
-	fmmx_node(component_type* back_ptr) :
-			base_type(back_ptr) {
-		allocate();
-	}
-	fmmx_node() :
-			node<fmmx_node, Ndim>() {
-		allocate();
-	}
-	virtual ~fmmx_node() {
-	}
-	bool regrid_test() {
-		return true;
-	}
-	void exchange_set(dir_type<Ndim> dir, exchange_type& boundary) {
+}
 
-		//	printf("Set %i %i %i - %i %i %i - %i \n", dir[0], dir[1], dir[2], this->get_self().get_location(0),
-		//		this->get_self().get_location(1), this->get_self().get_location(2), this->get_self().get_level());
-
-		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::valarray<double> corner0(Ndim);
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>::ascend(
+		typename fmmx_node<Ndim, Nx, P>::ascend_type& parent) {
+	printf("Ascend - %i %i %i - %i -%i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+			this->get_self().get_location(2), this->get_self().get_level(), hpx::get_locality_id());
+	const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
+	std::valarray < std::size_t > dims(Nx, Ndim);
+	auto dir_center = dir_type<Ndim>().set_zero();
+	typename fmmx_node<Ndim, Nx, P>::exchange_type dummy;
+	exchange_set(dir_center, dummy);
+	expansions_type Lcoarse, Lthis;
+	Lcoarse.resize(Size / Nchild);
+	Lthis.resize(Size / Nchild);
+	if (this->get_level() != 0) {
+		Lcoarse = parent.get();
+	} else {
+		Lcoarse = expansion<P>(0.0);
+	}
+	for (std::size_t ci = 0; ci != Nchild; ++ci) {
+		std::fill(std::begin(Lthis), std::end(Lthis), 0.0);
+		std::valarray<double> dist(Ndim);
 		for (std::size_t d = 0; d < Ndim; d++) {
-			corner0[d] = this->get_self().get_position(d);
-		}
-		std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
-		std::valarray < std::valarray < std::size_t >> indexes =
-				(this->get_self().get_level() == 0) ?
-						static_data.root_indexes :
-						(this->is_terminal() ? static_data.near_indexes[dir] : static_data.neighbor_indexes[dir]);
-		std::valarray<double> xdif;
-		std::valarray<expansion<P>> Mb;
-		Mb = boundary.get();
-		for (std::size_t i = 0; i != indexes.size(); ++i) {
-			std::valarray<expansion<P>> l;
-			l.resize(indexes[i].size());
-			std::valarray<std::valarray<double>> x = X[indexes[i]];
-			for (std::size_t j = 0; j != indexes[i].size(); ++j) {
-				std::valarray<double> dist = x[j] - Xb[i];
-				if ((dist * dist).sum() > EPS * EPS) {
-					static_data.exafmm.M2L(l[j], Mb[i], dist);
-				}
-			}
-			boost::lock_guard<decltype(lock)> scope(lock);
-			L[indexes[i]] += l;
-		}
-	}
-
-	exchange_type exchange_get(dir_type<Ndim> dir) {
-		return hpx::async(hpx::launch::deferred, [dir](const multipoles_type& M) {
-			std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
-			for( std::size_t d = 0; d < Ndim; d++) {
-				switch(dir[d]) {
-					case 0:
-					mins[d] = 0;
-					maxes[d] = Nx;
-					break;
-					case +1:
-					mins[d] = Nx - Bw;
-					maxes[d] = Nx;
-					break;
-					case -1:
-					mins[d] = 0;
-					maxes[d] = Bw;
-					break;
-				}
-			}
-			return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)]);
-		}, M);
-	}
-	std::vector<typename silo_output<Ndim>::zone> get_output_zones() {
-		const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
-		std::vector<typename silo_output<Ndim>::zone> zones(Size);
-		std::valarray < std::size_t > dims(Nx, Ndim);
-
-		for (std::size_t i = 0; i < Size; i++) {
-			std::vector<double> fields(6);
-			fields[0] = rho[i];
-			fields[1] = L[i][0].real();
-			fields[2] = M[i][0].real();
-			fields[3] = X[i][0];
-			fields[4] = X[i][1];
-			fields[5] = X[i][2];
-			//		fields[3] = M[i][1].real();
-			//		fields[4] = M[i][2].real();
-			//		fields[5] = M[i][2].imag();
-			std::copy(std::begin(dx), std::end(dx), std::begin(zones[i].span));
-			std::copy(std::begin(X[i]), std::end(X[i]), std::begin(zones[i].position));
-
-			zones[i].fields = fields;
-		}
-		return zones;
-	}
-	void init_grid() {
-		const double R0 = 0.5;
-		const std::valarray<double> x0(0.5, Ndim);
-		//	printf("Initializing...\n");
-		for (std::size_t i = 0; i < Size; i++) {
-			auto r = std::sqrt(((X[i] - x0) * (X[i] - x0)).sum());
-			if (r < R0) {
-				rho[i] = 1.0;
+			if ((ci >> d) & 1) {
+				dist[d] = +0.5 * dx[d];
 			} else {
-				rho[i] = 0.0;
+				dist[d] = -0.5 * dx[d];
 			}
 		}
+		std::transform(std::begin(Lcoarse), std::end(Lcoarse), std::begin(Lthis), [dist](const expansion<P>& Lin) {
+			expansion<P> Lout;
+			static_data.exafmm.L2L((std::valarray<complex>&)Lout, (std::valarray<complex>)Lin, dist);
+			return Lout;
+		});
+		boost::lock_guard<decltype(lock)> scope(lock);
+		L[get_restrict_slice(dims, ci)] += Lthis;
 	}
+	std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> child_data;
+	if (!this->is_terminal()) {
+		child_data.resize(Nchild);
+		for (std::size_t ci = 0; ci < Nchild; ci++) {
+			child_data[ci] = hpx::async(hpx::launch::deferred, [dims,ci](const expansions_type& Lc) {
+				return expansions_type(Lc[get_xtant_slice(dims, ci)]);
+			}, L);
+		}
+	}
+	return child_data;
 
 }
-;
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
+		std::vector<typename fmmx_node<Ndim, Nx, P>::descend_type>& children) {
+	printf("Descend - %i %i %i - %i\n", this->get_self().get_location(0), this->get_self().get_location(1),
+			this->get_self().get_location(2), this->get_self().get_level());
+
+	std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
+	std::valarray < std::size_t > dims(Nx, Ndim);
+	std::fill(std::begin(L), std::end(L), 0.0);
+	if (children.size() > 0) {
+		for (std::size_t ci = 0; ci != Nchild; ++ci) {
+			M[get_xtant_slice(dims, ci)] = children[ci].get();
+		}
+	} else {
+		auto cube = static_data.cubes.get_M(dx[0]);
+		std::transform(std::begin(rho), std::end(rho), std::begin(M), [&cube](double rhoin) {
+			return std::valarray<complex>(cube * complex(rhoin, 0.0) );
+		});
+	}
+	return hpx::async(hpx::launch::deferred, [dims,dx,this](const multipoles_type& Mfine) {
+		multipoles_type Mthis(Size/Nchild);
+		multipoles_type Mcoarse(Size/Nchild);
+		std::fill(std::begin(Mcoarse), std::end(Mcoarse), 0.0);
+		for( std::size_t ci = 0; ci != Nchild; ++ci) {
+			Mthis = Mfine[get_restrict_slice(dims, ci )];
+			std::valarray<double> dist(Ndim);
+			for( std::size_t d = 0; d < Ndim; d++ ) {
+				if( (ci >> d) & 1) {
+					dist[d] = -0.5*dx[d];
+				} else {
+					dist[d] = +0.5*dx[d];
+				}
+			}
+			for( std::size_t i = 0; i <Size/Nchild; i++ ) {
+				static_data.exafmm.M2M(Mcoarse[i], Mthis[i], dist);
+			}
+		}
+		return Mcoarse;
+	}, M);
+
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+void fmmx_node<Ndim, Nx, P>::allocate() {
+	std::valarray < std::size_t > dims(Nx, Ndim);
+	X.resize(Size);
+	M.resize(Size);
+	L.resize(Size);
+	rho.resize(Size);
+	for (std::size_t i = 0; i < Size; i++) {
+		X[i].resize(Ndim);
+	}
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+fmmx_node<Ndim, Nx, P>::fmmx_node(component_type* back_ptr) :
+		base_type(back_ptr) {
+	allocate();
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+fmmx_node<Ndim, Nx, P>::fmmx_node() :
+		node<fmmx_node, Ndim>() {
+	allocate();
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+fmmx_node<Ndim, Nx, P>::~fmmx_node() {
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+bool fmmx_node<Ndim, Nx, P>::regrid_test() {
+	return true;
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
+		typename fmmx_node<Ndim, Nx, P>::exchange_type& boundary) {
+	const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
+	std::valarray<double> corner0(Ndim);
+	for (std::size_t d = 0; d < Ndim; d++) {
+		corner0[d] = this->get_self().get_position(d);
+	}
+	std::valarray<std::valarray<double>> Xb = (static_data.position_array[dir] * dx) + corner0;
+	std::valarray < std::valarray < std::size_t >> indexes =
+			(this->get_self().get_level() == 0) ?
+					static_data.root_indexes :
+					(this->is_terminal() ? static_data.near_indexes[dir] : static_data.neighbor_indexes[dir]);
+	std::valarray<double> xdif;
+	std::valarray<expansion<P>> Mb;
+	const std::valarray<expansion<P>>* Mb_ptr;
+	if (!dir.is_zero()) {
+		Mb = boundary.get();
+		Mb_ptr = &Mb;
+	} else {
+		Mb_ptr = &M;
+	}
+	for (std::size_t i = 0; i != indexes.size(); ++i) {
+		std::valarray<expansion<P>> l;
+		l.resize(indexes[i].size());
+		std::valarray<std::valarray<double>> x = X[indexes[i]];
+		for (std::size_t j = 0; j != indexes[i].size(); ++j) {
+			std::valarray<double> dist = x[j] - Xb[i];
+			if ((dist * dist).sum() > EPS * EPS) {
+				static_data.exafmm.M2L(l[j], (*Mb_ptr)[i], dist);
+			}
+		}
+		boost::lock_guard<decltype(lock)> scope(lock);
+		L[indexes[i]] += l;
+	}
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+typename fmmx_node<Ndim, Nx, P>::exchange_type fmmx_node<Ndim, Nx, P>::exchange_get(dir_type<Ndim> dir) {
+	return hpx::async(hpx::launch::deferred, [dir](const multipoles_type& M) {
+		std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
+		for( std::size_t d = 0; d < Ndim; d++) {
+			switch(dir[d]) {
+				case 0:
+				mins[d] = 0;
+				maxes[d] = Nx;
+				break;
+				case +1:
+				mins[d] = Nx - Bw;
+				maxes[d] = Nx;
+				break;
+				case -1:
+				mins[d] = 0;
+				maxes[d] = Bw;
+				break;
+			}
+		}
+		return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)]);
+	}, M);
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+std::vector<typename silo_output<Ndim>::zone> fmmx_node<Ndim, Nx, P>::get_output_zones() {
+	const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
+	std::vector<typename silo_output<Ndim>::zone> zones(Size);
+	std::valarray < std::size_t > dims(Nx, Ndim);
+
+	for (std::size_t i = 0; i < Size; i++) {
+		std::vector<double> fields(6);
+		fields[0] = rho[i];
+		fields[1] = L[i][0].real();
+		fields[2] = M[i][0].real();
+		fields[3] = X[i][0];
+		fields[4] = X[i][1];
+		fields[5] = X[i][2];
+		std::copy(std::begin(dx), std::end(dx), std::begin(zones[i].span));
+		std::copy(std::begin(X[i]), std::end(X[i]), std::begin(zones[i].position));
+
+		zones[i].fields = fields;
+	}
+	return zones;
+}
+
+template<std::size_t Ndim, std::size_t Nx, std::size_t P>
+void fmmx_node<Ndim, Nx, P>::init_grid() {
+	const double R0 = 0.5;
+	const std::valarray<double> x0(0.5, Ndim);
+	//	printf("Initializing...\n");
+	for (std::size_t i = 0; i < Size; i++) {
+		auto r = std::sqrt(((X[i] - x0) * (X[i] - x0)).sum());
+		if (r < R0) {
+			rho[i] = 1.0;
+		} else {
+			rho[i] = 0.0;
+		}
+	}
+}
 
 template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 fmmx_node_static_data<Ndim, Nx, P> fmmx_node<Ndim, Nx, P>::static_data;
