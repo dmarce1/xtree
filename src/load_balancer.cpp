@@ -37,7 +37,7 @@ load_balancer::load_balancer(component_type* back_ptr) :
 }
 
 load_balancer::~load_balancer() {
-	// TODO Auto-generated destructor stub
+	hpx::unregister_id_with_basename(name, hpx::get_locality_id()).get();
 }
 
 void load_balancer::decrement_load(const std::array<double, Ndim>& loc) {

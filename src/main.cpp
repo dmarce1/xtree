@@ -57,10 +57,10 @@ void execute() {
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
+//	printf( "Refining...\n");
+//	root_node->regrid<rg_func>(0);
+//	printf( "Refining...\n");
+//	root_node->regrid<rg_func>(0);
 //	printf( "Refining...\n");
 //	root_node->regrid<rg_func>(0);
 //	printf( "Refining...\n");

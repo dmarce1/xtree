@@ -25,70 +25,14 @@ public:
 	using niece_array_type = std::vector<std::vector<hpx::id_type>>;
 	using neighbor_array_type = std::vector<hpx::id_type>;
 	using wrapped_type = Derived;
-
-private:
-	static bool child_is_niece_of(child_index_type<Ndim> ci, dir_type<Ndim> dir);
-private:
-	hpx::lcos::local::counting_semaphore exchange_semaphore;
-	bool is_leaf;
-	bool is_branching;
-	child_array_type children;
-	hpx::id_type parent;
-	location<Ndim> self;
-	niece_array_type nieces;
-	neighbor_array_type neighbors;
-	tree<wrapped_type, Ndim>* local_tree;
-	hpx::shared_future<void> last_operation_future;
-	std::vector<hpx::promise<void>> exchange_promises;
-	int subcycle;
-	hpx::lcos::local::spinlock subcycle_lock;
-	mutable hpx::lcos::local::spinlock branch_lock;
-	mutable hpx::lcos::local::spinlock sem_lock;
-	mutable hpx::lcos::local::spinlock set_lock;
-	mutable std::vector<hpx::promise<void>> subcycle_promises;
-	mutable std::vector<hpx::future<void>> subcycle_futures;
-private:
-	hpx::id_type get_sibling_of_child(child_index_type<Ndim> ci, dir_type<Ndim> dir);
-public:
-	node();
-
-	wrapped_type* initialize(const location<Ndim>& _loc, hpx::id_type parent_id, tree<wrapped_type, Ndim>* ltree);
-
-	virtual ~node();
-
-	template<typename Arc>
-	void serialize(Arc& ar, const int);
-
-	const location<Ndim>& get_self() const;
-
-	bool is_terminal() const;
-
-	void branch();
-
-	hpx::future<void> debranch();
-	int get_level() const;
-	int get_subcycle() const;
-	wrapped_type * get_this();
-
-	bound_type get_boundary_type(const dir_type<Ndim>& dir) const;
-
-	bool has_amr_boundary() const;
-
-	void wait_my_turn(int this_subcycle);
-
 	using local_type = void (wrapped_type::*)();
-
 	using regrid_type = bool (wrapped_type::*)();
-
 	template<typename T>
 	using ascend_type = std::vector<T> (wrapped_type::*)(T&);
-
 	template<typename T>
 	using descend_type = T (wrapped_type::*)(std::vector<T>&);
-
 	template<typename T>
 	using exchange_get_type = T (wrapped_type::*)(dir_type<Ndim>);
-
 	template<typename T>
 	using exchange_set_type = void (wrapped_type::*)(dir_type<Ndim>, T&);
 
@@ -133,13 +77,6 @@ public:
 		virtual void operator()(node&) const = 0;
 		virtual bool is_regrid() const;
 	};
-
-	using operation_type = std::shared_ptr<operation_base>;
-
-	hpx::shared_future<void> operations_end(int this_subcycle);
-
-	void execute_operations(std::vector<operation_type> operations);
-
 	template<typename Function>
 	struct local_operation: operation_base {
 		void operator()(node& root) const;
@@ -166,56 +103,79 @@ public:
 		void operator()(node& root) const;
 	};
 
-	template<typename Function>
-	static operation_type make_local_operation();
+	using operation_type = std::shared_ptr<operation_base>;
 
-	template<typename Function>
-	static operation_type make_regrid_operation();
-
-	template<typename Function>
-	static operation_type make_ascend_operation();
-
-	template<typename Function>
-	static operation_type make_descend_operation();
-
-	template<typename Get, typename Set>
-	static operation_type make_exchange_operation();
-
-	template<typename Function>
-	void local(int this_subcycle);
-
+private:
+	hpx::lcos::local::counting_semaphore exchange_semaphore;
+	bool is_leaf;
+	bool is_branching;
+	child_array_type children;
+	hpx::id_type parent;
+	location<Ndim> self;
+	niece_array_type nieces;
+	neighbor_array_type neighbors;
+	tree<wrapped_type, Ndim>* local_tree;
+	hpx::shared_future<void> last_operation_future;
+	std::vector<hpx::promise<void>> exchange_promises;
+	int subcycle;
+	mutable hpx::lcos::local::spinlock branch_lock;
+	mutable hpx::lcos::local::spinlock set_lock;
+	mutable std::vector<hpx::promise<void>> subcycle_promises;
+	mutable std::vector<hpx::future<void>> subcycle_futures;
+private:
+	hpx::id_type get_sibling_of_child(child_index_type<Ndim> ci, dir_type<Ndim> dir);
+public:
+	node();
+	virtual ~node();
+	wrapped_type* initialize(const location<Ndim>& _loc, hpx::id_type parent_id, tree<wrapped_type, Ndim>* ltree);
+	template<typename Arc>
+	void serialize(Arc& ar, const int);
+	bool has_amr_boundary() const;
+	bool is_terminal() const;
 	template<typename Function>
 	bool regrid(int this_subcycle);
-
+	bound_type get_boundary_type(const dir_type<Ndim>& dir) const;
+	const location<Ndim>& get_self() const;
+	hpx::future<void> debranch();
+	hpx::shared_future<void> operations_end(int this_subcycle);
+	int get_level() const;
+	int get_subcycle() const;
+	wrapped_type * get_this();
+	void branch();
+	void execute_operations(std::vector<operation_type> operations);
+	template<typename Function>
+	void local(int this_subcycle);
+	void wait_my_turn(int this_subcycle);
+	template<typename Function>
+	static operation_type make_local_operation();
+	template<typename Function>
+	static operation_type make_regrid_operation();
+	template<typename Function>
+	static operation_type make_ascend_operation();
+	template<typename Function>
+	static operation_type make_descend_operation();
+	template<typename Get, typename Set>
+	static operation_type make_exchange_operation();
 	template<typename Function>
 	void ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle);
-
 	template<typename Function>
 	hpx::shared_future<typename Function::type> descend(int this_subcycle);
 	template<typename Set>
 	void exchange_set(const dir_type<Ndim>& dir, typename Set::type data);
-
 	template<typename Get, typename Set>
 	void exchange_get(int this_subcycle);
-
 	template<typename Function>
 	using action_local = hpx::actions::make_action<void(node::*)(int), &node::local<Function>>;
-//
 	template<typename Function>
 	using action_regrid = hpx::actions::make_action< bool(node::*)(int), &node::regrid<Function>>;
-//
 	template<typename Function>
 	using action_ascend = hpx::actions::make_action< void(node::*)(hpx::future<typename Function::type>, int), &node::ascend<Function>>;
-//
 	template<typename Function>
 	using action_descend = hpx::actions::make_action<hpx::shared_future<typename Function::type>(node::*)(int), &node::descend<Function>>;
-//
 	template<typename Set>
 	using action_exchange_set = hpx::actions::make_action<void(node::*)(const dir_type<Ndim>&, typename Set::type), &node::exchange_set<Set>>;
-//
 	template<typename Get, typename Set>
 	using action_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::exchange_get<Get,Set>>;
-
 	void neighbors_exchange_set(dir_type<Ndim> dir, const std::vector<hpx::id_type>& nephews);
 	void neighbors_ascend(std::vector<hpx::id_type>);
 	void neighbors_exchange_get(int this_subcycle);
@@ -223,36 +183,16 @@ public:
 	using action_neighbors_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::neighbors_exchange_get>;
 	using action_neighbors_exchange_set = hpx::actions::make_action<void(node::*)(dir_type<Ndim>,
 			const std::vector<hpx::id_type>&), &node::neighbors_exchange_set>;
-//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end);		//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, debranch, action_debranch);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, get_this, action_get_this);
-//
-//
-//
 };
 
 template<class Derived, int Ndim>
-bool node<Derived, Ndim>::child_is_niece_of(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
-	for (int i = 0; i < Ndim; i++) {
-		if (dir[i] == +1) {
-			if (ci[i] == 0) {
-				return false;
-			}
-		} else if (dir[i] == -1) {
-			if (ci[i] == 1) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-template<class Derived, int Ndim>
-hpx::id_type node<Derived, Ndim>::get_sibling_of_child(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
-	child_index_type<Ndim> nci;
-	dir_type<Ndim> ndi;
+inline hpx::id_type node<Derived, Ndim>::get_sibling_of_child(child_index_type<Ndim> ci, dir_type<Ndim> dir) {
+	child_index_type < Ndim > nci;
+	dir_type < Ndim > ndi;
 	for (int i = 0; i < Ndim; i++) {
 		if (dir[i] == 0) {
 			nci[i] = ci[i];
@@ -269,12 +209,12 @@ hpx::id_type node<Derived, Ndim>::get_sibling_of_child(child_index_type<Ndim> ci
 }
 
 template<class Derived, int Ndim>
-node<Derived, Ndim>::node() :
+inline node<Derived, Ndim>::node() :
 		exchange_semaphore(0) {
 }
 
 template<class Derived, int Ndim>
-typename node<Derived, Ndim>::wrapped_type* node<Derived, Ndim>::initialize(const location<Ndim>& _loc,
+inline typename node<Derived, Ndim>::wrapped_type* node<Derived, Ndim>::initialize(const location<Ndim>& _loc,
 		hpx::id_type parent_id, tree<typename node<Derived, Ndim>::wrapped_type, Ndim>* ltree) {
 	subcycle_futures = std::move(std::vector<hpx::future<void>>(MAX_OPS));
 	subcycle_promises.resize(MAX_OPS);
@@ -313,7 +253,7 @@ typename node<Derived, Ndim>::wrapped_type* node<Derived, Ndim>::initialize(cons
 }
 
 template<class Derived, int Ndim>
-node<Derived, Ndim>::~node() {
+inline node<Derived, Ndim>::~node() {
 	if (!is_leaf) {
 		debranch().get();
 	}
@@ -325,27 +265,27 @@ node<Derived, Ndim>::~node() {
 
 template<class Derived, int Ndim>
 template<typename Arc>
-void node<Derived, Ndim>::serialize(Arc& ar, const int) {
+inline void node<Derived, Ndim>::serialize(Arc& ar, const int) {
 }
 
 template<class Derived, int Ndim>
-const location<Ndim>&node<Derived, Ndim>::get_self() const {
+inline const location<Ndim>&node<Derived, Ndim>::get_self() const {
 	return self;
 }
 
 template<class Derived, int Ndim>
-bool node<Derived, Ndim>::is_terminal() const {
+inline bool node<Derived, Ndim>::is_terminal() const {
 	return is_leaf;
 }
 
 template<class Derived, int Ndim>
-void node<Derived, Ndim>::branch() {
+inline void node<Derived, Ndim>::branch() {
 	if (!is_leaf) {
 		return;
 	}
 	is_branching = true;
 	std::vector < hpx::future < hpx::id_type >> futs(Nchild);
-	for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+	for (child_index_type < Ndim > ci; !ci.is_end(); ci++) {
 		//	neighbor_array_type pack(Nneighbor);
 		//	for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
 		//	pack[dir] = get_sibling_of_child(ci, dir);
@@ -354,9 +294,9 @@ void node<Derived, Ndim>::branch() {
 		//			printf("Making new child\n");
 		futs[ci] = local_tree->new_node(self.get_child(ci), tgid, 0);
 	}
-	wait_all(futs);
+	wait_all (futs);
 	is_leaf = false;
-	dir_type<Ndim> zero;
+	dir_type < Ndim > zero;
 	zero.set_zero();
 	for (int ci = 0; ci < Nchild; ci++) {
 		children[ci] = futs[ci].get();
@@ -366,14 +306,14 @@ void node<Derived, Ndim>::branch() {
 }
 
 template<class Derived, int Ndim>
-hpx::future<void> node<Derived, Ndim>::debranch() {
+inline hpx::future<void> node<Derived, Ndim>::debranch() {
 	boost::lock_guard<decltype(branch_lock)> scope_lock(branch_lock);
 	is_leaf = true;
 	std::vector<hpx::future<void>> nfutures(Nneighbor);
 	std::vector<hpx::future<void>> cfutures(Nchild);
-	for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+	for (child_index_type < Ndim > ci; !ci.is_end(); ci++) {
 		if (children[ci] != hpx::invalid_id) {
-			cfutures[ci] = hpx::async<action_debranch>(children[ci]);
+			cfutures[ci] = hpx::async < action_debranch > (children[ci]);
 		} else {
 			cfutures[ci] = hpx::make_ready_future();
 		}
@@ -388,22 +328,22 @@ hpx::future<void> node<Derived, Ndim>::debranch() {
 }
 
 template<class Derived, int Ndim>
-int node<Derived, Ndim>::get_level() const {
+inline int node<Derived, Ndim>::get_level() const {
 	return self.get_level();
 }
 
 template<class Derived, int Ndim>
-int node<Derived, Ndim>::get_subcycle() const {
+inline int node<Derived, Ndim>::get_subcycle() const {
 	return subcycle;
 }
 
 template<class Derived, int Ndim>
-typename node<Derived, Ndim>::wrapped_type * node<Derived, Ndim>::get_this() {
+inline typename node<Derived, Ndim>::wrapped_type * node<Derived, Ndim>::get_this() {
 	return static_cast<typename node<Derived, Ndim>::wrapped_type*>(this);
 }
 
 template<class Derived, int Ndim>
-bound_type node<Derived, Ndim>::get_boundary_type(const dir_type<Ndim>& dir) const {
+inline bound_type node<Derived, Ndim>::get_boundary_type(const dir_type<Ndim>& dir) const {
 	if (neighbors[dir] != hpx::invalid_id) {
 		return DECOMP;
 	} else {
@@ -418,8 +358,8 @@ bound_type node<Derived, Ndim>::get_boundary_type(const dir_type<Ndim>& dir) con
 }
 
 template<class Derived, int Ndim>
-bool node<Derived, Ndim>::has_amr_boundary() const {
-	for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+inline bool node<Derived, Ndim>::has_amr_boundary() const {
+	for (dir_type < Ndim > dir; !dir.is_end(); dir++) {
 		if (get_boundary_type(dir) == AMR) {
 			return true;
 		}
@@ -428,24 +368,24 @@ bool node<Derived, Ndim>::has_amr_boundary() const {
 }
 
 template<class Derived, int Ndim>
-void node<Derived, Ndim>::wait_my_turn(int this_subcycle) {
+inline void node<Derived, Ndim>::wait_my_turn(int this_subcycle) {
 	assert(subcycle_futures[this_subcycle].valid());
 	subcycle_futures[this_subcycle].get();
 }
 
 template<typename Derived, int Ndim>
-bool node<Derived, Ndim>::operation_base::is_regrid() const {
+inline bool node<Derived, Ndim>::operation_base::is_regrid() const {
 	return false;
 }
 
 template<typename Derived, int Ndim>
-hpx::shared_future<void> node<Derived, Ndim>::operations_end(int this_subcycle) {
+inline hpx::shared_future<void> node<Derived, Ndim>::operations_end(int this_subcycle) {
 	wait_my_turn(this_subcycle);
 	hpx::future<void> future;
 	if (!is_leaf) {
 		std::vector<hpx::future<void>> futs(Nchild);
 		for (std::size_t i = 0; i != Nchild; ++i) {
-			futs[i] = hpx::async<action_operations_end>(children[i], this_subcycle);
+			futs[i] = hpx::async < action_operations_end > (children[i], this_subcycle);
 		}
 		future = when_all(std::move(futs));
 	} else {
@@ -469,7 +409,7 @@ hpx::shared_future<void> node<Derived, Ndim>::operations_end(int this_subcycle) 
 }
 
 template<typename Derived, int Ndim>
-void node<Derived, Ndim>::execute_operations(std::vector<operation_type> operations) {
+inline void node<Derived, Ndim>::execute_operations(std::vector<operation_type> operations) {
 	hpx::shared_future<void> fut;
 	int i;
 	fut = hpx::make_ready_future().share();
@@ -490,86 +430,86 @@ void node<Derived, Ndim>::execute_operations(std::vector<operation_type> operati
 
 template<typename Derived, int Ndim>
 template<typename Function>
-void node<Derived, Ndim>::local_operation<Function>::operator()(node& root) const {
+inline void node<Derived, Ndim>::local_operation<Function>::operator()(node& root) const {
 	root.local<Function>(root.get_subcycle());
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-bool node<Derived, Ndim>::regrid_operation<Function>::is_regrid() const {
+inline bool node<Derived, Ndim>::regrid_operation<Function>::is_regrid() const {
 	return true;
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-void node<Derived, Ndim>::regrid_operation<Function>::operator()(node& root) const {
+inline void node<Derived, Ndim>::regrid_operation<Function>::operator()(node& root) const {
 	root.regrid<Function>(root.get_subcycle());
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-void node<Derived, Ndim>::ascend_operation<Function>::operator()(node& root) const {
+inline void node<Derived, Ndim>::ascend_operation<Function>::operator()(node& root) const {
 	root.ascend<Function>(hpx::make_ready_future<typename Function::type>(typename Function::type()),
 			root.get_subcycle());
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-void node<Derived, Ndim>::descend_operation<Function>::operator()(node& root) const {
+inline void node<Derived, Ndim>::descend_operation<Function>::operator()(node& root) const {
 	root.descend<Function>(root.get_subcycle());
 }
 
 template<typename Derived, int Ndim>
 template<typename Get, typename Set>
-void node<Derived, Ndim>::exchange_operation<Get,Set>::operator()(node& root) const {
+inline void node<Derived, Ndim>::exchange_operation<Get, Set>::operator()(node& root) const {
 	root.exchange_get<Get, Set>(root.get_subcycle());
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-typename node<Derived,Ndim>::operation_type node<Derived, Ndim>::make_local_operation() {
+inline typename node<Derived, Ndim>::operation_type node<Derived, Ndim>::make_local_operation() {
 	auto operation = std::make_shared<local_operation<Function>>();
 	return std::static_pointer_cast < operation_base > (operation);
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-typename node<Derived,Ndim>::operation_type node<Derived, Ndim>::make_regrid_operation() {
+inline typename node<Derived, Ndim>::operation_type node<Derived, Ndim>::make_regrid_operation() {
 	auto operation = std::make_shared<regrid_operation<Function>>();
 	return std::static_pointer_cast < operation_base > (operation);
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-typename node<Derived,Ndim>::operation_type node<Derived, Ndim>::make_ascend_operation() {
+inline typename node<Derived, Ndim>::operation_type node<Derived, Ndim>::make_ascend_operation() {
 	auto operation = std::make_shared<ascend_operation<Function>>();
 	return std::static_pointer_cast < operation_base > (operation);
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-typename node<Derived,Ndim>::operation_type node<Derived, Ndim>::make_descend_operation() {
+inline typename node<Derived, Ndim>::operation_type node<Derived, Ndim>::make_descend_operation() {
 	auto operation = std::make_shared<descend_operation<Function>>();
 	return std::static_pointer_cast < operation_base > (operation);
 }
 
 template<typename Derived, int Ndim>
 template<typename Get, typename Set>
-typename node<Derived,Ndim>::operation_type node<Derived, Ndim>::make_exchange_operation() {
+inline typename node<Derived, Ndim>::operation_type node<Derived, Ndim>::make_exchange_operation() {
 	auto operation = std::make_shared<exchange_operation<Get, Set>>();
 	return std::static_pointer_cast < operation_base > (operation);
 }
 
 template<typename Derived, int Ndim>
 template<typename Function>
-void node<Derived, Ndim>::local(int this_subcycle) {
+inline void node<Derived, Ndim>::local(int this_subcycle) {
 	wait_my_turn(this_subcycle);
 	std::vector<hpx::future<void>> futures;
 	hpx::shared_future<void> rc;
 	if (!is_leaf) {
 		futures = std::move(std::vector<hpx::future<void>>(Nchild));
 		for (int i = 0; i < Nchild; ++i) {
-			futures[i] = hpx::async<action_local<Function>>(children[i], this_subcycle);
+			futures[i] = hpx::async < action_local < Function >> (children[i], this_subcycle);
 		}
 	}
 	rc = hpx::async([this]() {
@@ -587,13 +527,13 @@ void node<Derived, Ndim>::local(int this_subcycle) {
 
 template<typename Derived, int Ndim>
 template<typename Function>
-bool node<Derived, Ndim>::regrid(int this_subcycle) {
+inline bool node<Derived, Ndim>::regrid(int this_subcycle) {
 	std::vector<hpx::future<bool>> futures(Nchild);
 	bool rc;
 	if (!is_leaf) {
 		for (int i = 0; i < Nchild; ++i) {
 			auto c = children[i];
-			futures[i] = hpx::async<action_regrid<Function>>(c, this_subcycle);
+			futures[i] = hpx::async < action_regrid < Function >> (c, this_subcycle);
 		}
 		wait_all(futures);
 		for (auto i = 0; i != Nchild; i++) {
@@ -622,28 +562,28 @@ bool node<Derived, Ndim>::regrid(int this_subcycle) {
 
 template<typename Derived, int Ndim>
 template<typename Function>
-void node<Derived, Ndim>::ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle) {
+inline void node<Derived, Ndim>::ascend(hpx::future<typename Function::type> input_data_future, int this_subcycle) {
 	using T = typename Function::type;
 	wait_my_turn(this_subcycle);
 	auto promises = std::make_shared<std::vector<hpx::promise<T>>>();
 	promises->resize(Nchild);
 	auto f = when_all(input_data_future, last_operation_future).then(
 			hpx::util::unwrapped([=](HPX_STD_TUPLE<hpx::future<T>,hpx::shared_future<void>> tupfut) {
-						std::vector<T> output_data;
-						auto& g = HPX_STD_GET(0, tupfut);
-						auto input_data = g.get();
-						if( !is_leaf ) {
-							output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
-							for( int i = 0; i < Nchild; i++) {
-								(*promises)[i].set_value(output_data[i]);
-							}
-						} else {
-							(static_cast<Derived*>(this)->*(Function::value))(input_data);
-						}
-					}));
+				std::vector<T> output_data;
+				auto& g = HPX_STD_GET(0, tupfut);
+				auto input_data = g.get();
+				if( !is_leaf ) {
+					output_data = (static_cast<Derived*>(this)->*(Function::value))(input_data);
+					for( int i = 0; i < Nchild; i++) {
+						(*promises)[i].set_value(output_data[i]);
+					}
+				} else {
+					(static_cast<Derived*>(this)->*(Function::value))(input_data);
+				}
+			}));
 	if (!is_leaf) {
 		for (int i = 0; i < Nchild; i++) {
-			hpx::apply<action_ascend<Function>>(children[i], (*promises)[i].get_future(), this_subcycle);
+			hpx::apply < action_ascend < Function >> (children[i], (*promises)[i].get_future(), this_subcycle);
 		}
 	}
 	last_operation_future = f.share();
@@ -653,16 +593,16 @@ void node<Derived, Ndim>::ascend(hpx::future<typename Function::type> input_data
 
 template<typename Derived, int Ndim>
 template<typename Function>
-hpx::shared_future<typename Function::type> node<Derived, Ndim>::descend(int this_subcycle) {
+inline hpx::shared_future<typename Function::type> node<Derived, Ndim>::descend(int this_subcycle) {
 	//test = 0;
 	using T = typename Function::type;
 	wait_my_turn(this_subcycle);
-	hpx::shared_future < T > return_future;
-	hpx::future < T > f;
+	hpx::shared_future<T> return_future;
+	hpx::future<T> f;
 	if (!is_leaf) {
 		std::vector < hpx::future < T >> futures(Nchild);
 		for (int i = 0; i < Nchild; i++) {
-			futures[i] = hpx::async<action_descend<Function>>(children[i], this_subcycle);
+			futures[i] = hpx::async < action_descend < Function >> (children[i], this_subcycle);
 		}
 		auto f =
 				when_all(when_all(std::move(futures)), last_operation_future).then(
@@ -695,7 +635,7 @@ hpx::shared_future<typename Function::type> node<Derived, Ndim>::descend(int thi
 
 template<typename Derived, int Ndim>
 template<typename Set>
-void node<Derived, Ndim>::exchange_set(const dir_type<Ndim>& dir, typename Set::type data) {
+inline void node<Derived, Ndim>::exchange_set(const dir_type<Ndim>& dir, typename Set::type data) {
 	assert(neighbors[dir] != hpx::invalid_id);
 	exchange_semaphore.wait();
 	boost::lock_guard<decltype(set_lock)> scope(set_lock);
@@ -706,7 +646,7 @@ void node<Derived, Ndim>::exchange_set(const dir_type<Ndim>& dir, typename Set::
 
 template<typename Derived, int Ndim>
 template<typename Get, typename Set>
-void node<Derived, Ndim>::exchange_get(int this_subcycle) {
+inline void node<Derived, Ndim>::exchange_get(int this_subcycle) {
 	using T = typename Get::type;
 	wait_my_turn(this_subcycle);
 	if (!is_leaf) {
@@ -721,7 +661,7 @@ void node<Derived, Ndim>::exchange_get(int this_subcycle) {
 		futures[i + Nneighbor] = exchange_promises[i].get_future().share();
 	}
 	int nn = 0;
-	for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+	for (dir_type < Ndim > dir; !dir.is_end(); dir++) {
 		if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {
 			auto f = last_operation_future.then(hpx::util::unwrapped([this,dir]() {
 				auto tmp = (static_cast<Derived*>(this)->*(Get::value))(dir);
@@ -752,7 +692,7 @@ void node<Derived, Ndim>::exchange_get(int this_subcycle) {
 }
 
 template<typename Derived, int Ndim>
-void node<Derived, Ndim>::neighbors_exchange_set(dir_type<Ndim> dir, const std::vector<hpx::id_type>& nephews) {
+inline void node<Derived, Ndim>::neighbors_exchange_set(dir_type<Ndim> dir, const std::vector<hpx::id_type>& nephews) {
 	assert(neighbors[dir] != hpx::invalid_id);
 	exchange_semaphore.wait();
 	boost::lock_guard<decltype(set_lock)> scope_lock(set_lock);
@@ -762,32 +702,31 @@ void node<Derived, Ndim>::neighbors_exchange_set(dir_type<Ndim> dir, const std::
 }
 
 template<typename Derived, int Ndim>
-void node<Derived, Ndim>::neighbors_ascend(std::vector<hpx::id_type> input_data) {
+inline void node<Derived, Ndim>::neighbors_ascend(std::vector<hpx::id_type> input_data) {
 	neighbors = std::move(input_data);
 	if (!is_leaf) {
 		std::vector < std::vector < hpx::id_type >> child_neighbors;
 		child_neighbors.resize(Nchild);
-		for (child_index_type<Ndim> ci; !ci.is_end(); ci++) {
+		for (child_index_type < Ndim > ci; !ci.is_end(); ci++) {
 			child_neighbors[ci].resize(Nneighbor);
-			for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+			for (dir_type < Ndim > dir; !dir.is_end(); dir++) {
 				child_neighbors[ci][dir] = get_sibling_of_child(ci, dir);
 			}
 		}
 		for (int i = 0; i < Nchild; i++) {
-			hpx::async<action_neighbors_ascend>(children[i], child_neighbors[i]).get();
+			hpx::async < action_neighbors_ascend > (children[i], child_neighbors[i]).get();
 		}
 	}
 }
 
 template<typename Derived, int Ndim>
-void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
+inline void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
 	wait_my_turn(this_subcycle);
 	if (!is_leaf) {
 		for (int i = 0; i < Nchild; i++) {
-			hpx::async<node<Derived, Ndim>::action_neighbors_exchange_get>(children[i], this_subcycle).get();
+			hpx::async < node<Derived, Ndim>::action_neighbors_exchange_get > (children[i], this_subcycle).get();
 		}
 	}
-//	subcycle_lock.lock();
 	exchange_promises.clear();
 	exchange_promises.resize(Nneighbor);
 	std::vector<hpx::shared_future<void>> futures(2 * Nneighbor + 1);
@@ -797,10 +736,10 @@ void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
 	}
 	int nn = 0;
 
-	dir_type<Ndim> dir;
+	dir_type < Ndim > dir;
 	dir.set_zero();
 	nieces[dir] = children;
-	for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
+	for (dir_type < Ndim > dir; !dir.is_end(); dir++) {
 		if (neighbors[dir] != hpx::invalid_id && !dir.is_zero()) {
 			auto f =
 					last_operation_future.then(
@@ -829,7 +768,6 @@ void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
 	last_operation_future = when_all(futures).share();
 	subcycle_promises[subcycle].set_value();
 	subcycle++;
-//	subcycle_lock.unlock();
 
 }
 
