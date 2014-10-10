@@ -57,6 +57,7 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include <hpx/runtime/actions/plain_action.hpp>
 #include <hpx/util/unwrapped.hpp>
 
+#include <boost/version.hpp>
 #include <boost/serialization/valarray.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/mpl/int.hpp>
@@ -76,9 +77,12 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include "node.hpp"
 #include "tree.hpp"
 
+#if (BOOST_VERSION < 105600 )
+
 template<class Archive, class T, size_t N>
 void serialize(Archive & ar, std::array<T, N> & a, const unsigned int version) {
  ar & boost::serialization::make_array(a.data(), a.size());
 }
+#endif
 
 #endif /* XTREE_HPP_ */
