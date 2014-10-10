@@ -76,4 +76,9 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include "node.hpp"
 #include "tree.hpp"
 
+template<class Archive, class T, size_t N>
+void serialize(Archive & ar, std::array<T, N> & a, const unsigned int version) {
+ ar & boost::serialization::make_array(a.data(), a.size());
+}
+
 #endif /* XTREE_HPP_ */
