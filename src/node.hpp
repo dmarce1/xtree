@@ -118,6 +118,7 @@ private:
 	hpx::shared_future<void> last_operation_future;
 	std::vector<hpx::promise<void>> exchange_promises;
 	int subcycle;
+	double myload;
 	mutable hpx::lcos::local::spinlock branch_lock;
 	mutable hpx::lcos::local::spinlock set_lock;
 	mutable std::vector<hpx::promise<void>> subcycle_promises;
@@ -286,12 +287,7 @@ inline void node<Derived, Ndim>::branch() {
 	is_branching = true;
 	std::vector < hpx::future < hpx::id_type >> futs(Nchild);
 	for (child_index_type < Ndim > ci; !ci.is_end(); ci++) {
-		//	neighbor_array_type pack(Nneighbor);
-		//	for (dir_type<Ndim> dir; !dir.is_end(); dir++) {
-		//	pack[dir] = get_sibling_of_child(ci, dir);
-		//	}
 		auto tgid = static_cast<Derived*>(this)->get_gid();
-		//			printf("Making new child\n");
 		futs[ci] = local_tree->new_node(self.get_child(ci), tgid, 0);
 	}
 	wait_all (futs);

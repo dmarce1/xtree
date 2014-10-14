@@ -75,7 +75,7 @@ public:
 
 	void place_root() {
 		hpx::future < hpx::id_type > fut2;
-		fut2 = new_node(location<Ndim>(), hpx::invalid_id, 0);
+		fut2 = new_node(location<Ndim>(), hpx::invalid_id, 0, 10.0);
 		root_node_gid = fut2.get();
 	}
 
@@ -118,7 +118,7 @@ public:
 		})).get();
 	}
 
-	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, int subcyc) {
+	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, int subcyc, double load = 1.0) {
 		auto proc_num = load_balancer_ptr->increment_load(_loc.get_position()).get();
 		auto gid = hpx::find_id_from_basename(name, proc_num).get();
 		return hpx::async < action_get_new_node > (gid, _loc, _parent_id, subcyc);

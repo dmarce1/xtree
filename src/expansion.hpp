@@ -17,12 +17,6 @@ struct expansion: public std::valarray<complex> {
 private:
 	std::valarray<complex>& base_ref;
 public:
-	operator std::valarray<complex>() {
-		return base_ref;
-	}
-	operator std::valarray<complex>&() {
-		return base_ref;
-	}
 	expansion() :
 			std::valarray<complex>(P * (P + 1) / 2), base_ref(
 					*static_cast<std::valarray<complex>*>(this)) {

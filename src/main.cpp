@@ -48,7 +48,7 @@ void test() {
 void execute() {
 	printf( "Initializing program...\n");
 	hpx::id_type tree_gid = (hpx::new_<tree_type>(hpx::find_here())).get();
-	auto fut0 = hpx::async<tree_type::action_get_this>(tree_gid);
+		auto fut0 = hpx::async<tree_type::action_get_this>(tree_gid);
 	tree_type* tree_ptr = fut0.get();
 	tree_ptr->place_root();
 	auto fut1 = tree_ptr->get_root();
@@ -58,13 +58,13 @@ void execute() {
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
 	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
+//	root_node->regrid<rg_func>(0);
+//	printf( "Refining...\n");
+//	root_node->regrid<rg_func>(0);
+//	printf( "Refining...\n");
+//	root_node->regrid<rg_func>(0);
+//	printf( "Refining...\n");
+//	root_node->regrid<rg_func>(0);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
@@ -78,13 +78,11 @@ void execute() {
 	double tstart = MPI_Wtime();
 	printf( "Starting \n");
 	root_node->execute_operations(ops);
-//	root_node->execute_operations(ops);
 
 	printf( "Done in %e seconds\n", MPI_Wtime() - tstart );
 	printf("Output\n");
 	tree_ptr->output();
-	//(root_node->debranch()).get();
-	printf( "Output done\n");
+		printf( "Output done\n");
 	tree_ptr->delete_node(root_node);
 }
 

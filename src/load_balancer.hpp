@@ -27,7 +27,7 @@ private:
 	hpx::id_type home;
 	mutable hpx::lcos::local::spinlock lock;
 	struct entry_type {
-		int load;
+		double load;
 		std::vector<double> loc;
 	};
 	std::vector<entry_type> procs;
@@ -41,10 +41,10 @@ public:
 		assert(false);
 	}
 
-	hpx::future<int> increment_load(const std::array<double, Ndim>&);
-	void decrement_load(const std::array<double, Ndim>&);
-	int increment_server(const std::array<double, Ndim>&);
-	void decrement_server(int,const std::array<double, Ndim>&);
+	hpx::future<int> increment_load(const std::array<double, Ndim>&, double amt=1.0);
+	void decrement_load(const std::array<double, Ndim>&, double amt=1.0);
+	int increment_server(const std::array<double, Ndim>&, double amt);
+	void decrement_server(int,const std::array<double, Ndim>&, double amt);
 	int get_load();
 	load_balancer* get_ptr();
 	using action_increment_server = typename hpx::actions::make_action<decltype(&load_balancer::increment_server),&load_balancer::increment_server>::type;

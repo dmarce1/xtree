@@ -349,13 +349,14 @@ std::vector<typename silo_output<Ndim>::zone> fmmx_node<Ndim, Nx, P>::get_output
 	std::valarray < std::size_t > dims(Nx, Ndim);
 
 	for (std::size_t i = 0; i < Size; i++) {
-		std::vector<double> fields(6);
+		std::vector<double> fields(7);
 		fields[0] = rho[i];
 		fields[1] = L[i][0].real();
 		fields[2] = M[i][0].real();
 		fields[3] = X[i][0];
 		fields[4] = X[i][1];
 		fields[5] = X[i][2];
+		fields[6] = hpx::get_locality_id();
 		std::copy(std::begin(dx), std::end(dx), std::begin(zones[i].span));
 		std::copy(std::begin(X[i]), std::end(X[i]), std::begin(zones[i].position));
 
