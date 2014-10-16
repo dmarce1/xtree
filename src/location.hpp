@@ -19,6 +19,35 @@ private:
 	int level;
 	std::array<int, Ndim> loc;
 public:
+	std::size_t hash_value() const {
+		std::size_t hash = std::hash<int>()(level);
+		for (int i = 0; i < Ndim; i++) {
+			hash ^= std::hash<int>()(loc[i]);
+		}
+		return hash;
+	}
+	bool operator==(const location<Ndim>& other) const {
+		if (level != other.level) {
+			return false;
+		}
+		return other.loc == loc;
+
+	}
+	bool operator<(const location<Ndim>& other) const {
+		if (level < other.level) {
+			return true;
+		} else if (level > other.level) {
+			return false;
+		}
+		for (int i = 0; i < Ndim; i++) {
+			if (loc[i] < other.loc[i]) {
+				return true;
+			} else if (loc[i] > other.loc[i]) {
+				return false;
+			}
+		}
+		return false;
+	}
 	location() {
 		level = 0;
 		std::fill(loc.begin(), loc.end(), 0);
@@ -54,7 +83,7 @@ public:
 		}
 		return dir;
 	}
-	location get_neighbor(const indexer<Ndim, 3, -1>& dir) {
+	location get_neighbor(const indexer<Ndim, 3, -1>& dir) const {
 		location rloc;
 		for (int i = 0; i < Ndim; i++) {
 			rloc.loc[i] = loc[i] + dir[i];
@@ -104,7 +133,9 @@ public:
 	location get_parent() const {
 		location p = *this;
 		p.level--;
-		p.loc = p.loc / 2;
+		for (int i = 0; i < Ndim; i++) {
+			p.loc[i] >>= 1;
+		}
 		return p;
 	}
 	indexer<Ndim, 2> this_child_index() const {
@@ -117,12 +148,24 @@ public:
 	location get_child(const indexer<Ndim, 2>& ci) const {
 		location c = *this;
 		c.level++;
-		c.loc = c.loc * 2;
+		for( int i = 0; i < Ndim; i++) {
+		c.loc[i] = c.loc[i] * 2;
+		}
 		for (int i = 0; i < Ndim; i++) {
 			c.loc[i] += ci[i];
 		}
 		return c;
 	}
 };
+}
+
+namespace std {
+template<int Ndim>
+struct hash<xtree::location<Ndim>> {
+	std::size_t operator()(const xtree::location<Ndim>& l) const {
+		return l.hash_value();
+	}
+};
+
 }
 #endif /* LOCATION_HPP_ */

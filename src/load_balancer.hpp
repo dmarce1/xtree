@@ -8,17 +8,17 @@
 #ifndef LOAD_BALANCER_H_
 #define LOAD_BALANCER_H_
 
-
-
 #include <hpx/include/components.hpp>
 #include <hpx/lcos/local/counting_semaphore.hpp>
 #include <hpx/lcos/local/mutex.hpp>
 #include "location.hpp"
+#include <unordered_set>
 
 namespace xtree {
 
-class load_balancer: public hpx::components::managed_component_base<load_balancer, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr> {
-	static constexpr int Ndim  = 3;
+class load_balancer: public hpx::components::managed_component_base<load_balancer, hpx::components::detail::this_type,
+		hpx::traits::construct_with_back_ptr> {
+	static constexpr int Ndim = 3;
 public:
 	const char* name = "load_balancer";
 	using base_type = hpx::components::managed_component_base<load_balancer, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
@@ -26,10 +26,7 @@ public:
 private:
 	hpx::id_type home;
 	mutable hpx::lcos::local::spinlock lock;
-	struct entry_type {
-		double load;
-		std::vector<double> loc;
-	};
+	typedef  std::unordered_set<location<Ndim>> entry_type;
 	std::vector<entry_type> procs;
 public:
 	void print();
@@ -41,10 +38,10 @@ public:
 		assert(false);
 	}
 
-	hpx::future<int> increment_load(const std::array<double, Ndim>&, double amt=1.0);
-	void decrement_load(const std::array<double, Ndim>&, double amt=1.0);
-	int increment_server(const std::array<double, Ndim>&, double amt);
-	void decrement_server(int,const std::array<double, Ndim>&, double amt);
+	hpx::future<int> increment_load(const location<Ndim>&);
+	void decrement_load(const location<Ndim>&);
+	int increment_server(const location<Ndim>&);
+	void decrement_server(int, const location<Ndim> &);
 	int get_load();
 	load_balancer* get_ptr();
 	using action_increment_server = typename hpx::actions::make_action<decltype(&load_balancer::increment_server),&load_balancer::increment_server>::type;
@@ -59,11 +56,9 @@ typedef xtree::load_balancer::action_increment_server increment_server_action;
 typedef xtree::load_balancer::action_decrement_server decrement_server_action;
 typedef xtree::load_balancer::action_get_ptr get_ptr_action;
 
-
-
-HPX_REGISTER_ACTION_DECLARATION(increment_server_action);
-HPX_REGISTER_ACTION_DECLARATION(decrement_server_action);
+HPX_REGISTER_ACTION_DECLARATION (increment_server_action);
+HPX_REGISTER_ACTION_DECLARATION (decrement_server_action);
 //HPX_REGISTER_ACTION_DECLARATION(unlock_servlet_action);
-HPX_REGISTER_ACTION_DECLARATION(get_ptr_action);
+HPX_REGISTER_ACTION_DECLARATION (get_ptr_action);
 
 #endif /* LOAD_BALANCER_H_ */
