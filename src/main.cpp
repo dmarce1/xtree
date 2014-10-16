@@ -8,7 +8,7 @@
 #include <mpi.h>
 #include "xtree.hpp"
 #include "./fmmx_node.hpp"
-#include <fenv.h>
+//#include <fenv.h>
 
 using namespace xtree;
 using namespace fmmx;
