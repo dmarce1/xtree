@@ -709,18 +709,21 @@ inline void node<Derived, Ndim>::neighbors_ascend(std::vector<hpx::id_type> inpu
 				child_neighbors[ci][dir] = get_sibling_of_child(ci, dir);
 			}
 		}
+		std::vector<hpx::future<void>> cfuts(Nchild);
 		for (int i = 0; i < Nchild; i++) {
-			hpx::async < action_neighbors_ascend > (children[i], child_neighbors[i]).get();
+			cfuts[i] = hpx::async < action_neighbors_ascend > (children[i], child_neighbors[i]);
 		}
+		wait_all(std::move(cfuts));
 	}
 }
 
 template<typename Derived, int Ndim>
 inline void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
 	wait_my_turn(this_subcycle);
+	std::vector<hpx::future<void>> cfuts(Nchild);
 	if (!is_leaf) {
 		for (int i = 0; i < Nchild; i++) {
-			hpx::async < node<Derived, Ndim>::action_neighbors_exchange_get > (children[i], this_subcycle).get();
+			cfuts[i] = hpx::async < node<Derived, Ndim>::action_neighbors_exchange_get > (children[i], this_subcycle);
 		}
 	}
 	exchange_promises.clear();
@@ -764,6 +767,9 @@ inline void node<Derived, Ndim>::neighbors_exchange_get(int this_subcycle) {
 	last_operation_future = when_all(futures).share();
 	subcycle_promises[subcycle].set_value();
 	subcycle++;
+	if (!is_leaf) {
+		wait_all(std::move(cfuts));
+	}
 
 }
 

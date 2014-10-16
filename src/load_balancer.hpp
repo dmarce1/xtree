@@ -26,7 +26,10 @@ public:
 private:
 	hpx::id_type home;
 	mutable hpx::lcos::local::spinlock lock;
-	typedef  std::unordered_set<location<Ndim>> entry_type;
+	struct  entry_type{
+		std::unordered_set<location<Ndim>> list;
+		std::array<double,Ndim> avg_loc;
+	} ;
 	std::vector<entry_type> procs;
 public:
 	void print();

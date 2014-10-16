@@ -83,6 +83,15 @@ public:
 		}
 		return dir;
 	}
+	bool is_phys_bnd(const indexer<Ndim, 3, -1>& dir) const {
+		for (int i = 0; i < Ndim; i++) {
+			int test =  loc[i] + dir[i];
+			if ((test < 0) || test >= (1 << level)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	location get_neighbor(const indexer<Ndim, 3, -1>& dir) const {
 		location rloc;
 		for (int i = 0; i < Ndim; i++) {
@@ -148,8 +157,8 @@ public:
 	location get_child(const indexer<Ndim, 2>& ci) const {
 		location c = *this;
 		c.level++;
-		for( int i = 0; i < Ndim; i++) {
-		c.loc[i] = c.loc[i] * 2;
+		for (int i = 0; i < Ndim; i++) {
+			c.loc[i] = c.loc[i] * 2;
 		}
 		for (int i = 0; i < Ndim; i++) {
 			c.loc[i] += ci[i];

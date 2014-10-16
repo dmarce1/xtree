@@ -63,8 +63,8 @@ void execute() {
 	root_node->regrid<rg_func>(0);
 	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
-//	printf( "Refining...\n");
-//	root_node->regrid<rg_func>(0);
+	printf( "Refining...\n");
+	root_node->regrid<rg_func>(0);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
@@ -89,9 +89,9 @@ void execute() {
 int hpx_main() {
 	printf( "HPX MAIN\n");
 #ifndef NDEBUG
-	feenableexcept(FE_DIVBYZERO);
-	feenableexcept(FE_INVALID);
-	feenableexcept(FE_OVERFLOW);
+//	feenableexcept(FE_DIVBYZERO);
+//	feenableexcept(FE_INVALID);
+//	feenableexcept(FE_OVERFLOW);
 #endif
 	execute();
 	return hpx::finalize();

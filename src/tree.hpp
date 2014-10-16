@@ -118,7 +118,8 @@ public:
 		})).get();
 	}
 
-	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, int subcyc, double load = 1.0) {
+	hpx::future<hpx::id_type> new_node(const location<Ndim>& _loc, hpx::id_type _parent_id, int subcyc, double load =
+			1.0) {
 		auto proc_num = load_balancer_ptr->increment_load(_loc).get();
 		auto gid = hpx::find_id_from_basename(name, proc_num).get();
 		return hpx::async < action_get_new_node > (gid, _loc, _parent_id, subcyc);
@@ -132,35 +133,41 @@ public:
 		nodes.erase(iter);
 	}
 	void output() const {
+		std::vector<hpx::future<void>> cfuts(Nbranch);
 		for (int i = 0; i < Nbranch; i++) {
 			if (child_gids[i] != hpx::invalid_id) {
-				hpx::apply < action_output > (child_gids[i]);
+				cfuts[i] = hpx::async < action_output > (child_gids[i]);
+			} else {
+				cfuts[i] = hpx::make_ready_future();
 			}
 		}
-		boost::lock_guard<decltype(dir_lock)> scope_lock(dir_lock);
+		hpx::future<void> fut;
+		{
+			boost::lock_guard<decltype(dir_lock)> scope_lock(dir_lock);
 
-		std::size_t leaf_cnt = 0;
-		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
-			if ((*i)->is_terminal()) {
-				leaf_cnt++;
-			}
-		}
-		printf("%4i Leaf cnt = %10li Total COunt = %10li\n", hpx::get_locality_id(), leaf_cnt, nodes.size());
-		std::vector<typename silo_output_type::zone> zones(leaf_cnt * Derived::Size);
-		auto j = zones.begin();
-		for (auto i = nodes.begin(); i != nodes.end(); ++i) {
-			if ((*i)->is_terminal()) {
-				const auto these_zones = (*i)->get_output_zones();
-				for (auto k = these_zones.begin(); k != these_zones.end(); ++k) {
-					*j = *k;
-					++j;
+			std::size_t leaf_cnt = 0;
+			for (auto i = nodes.begin(); i != nodes.end(); ++i) {
+				if ((*i)->is_terminal()) {
+					leaf_cnt++;
 				}
 			}
+			printf("%4i Leaf cnt = %10li Total COunt = %10li\n", hpx::get_locality_id(), leaf_cnt, nodes.size());
+			std::vector<typename silo_output_type::zone> zones(leaf_cnt * Derived::Size);
+			auto j = zones.begin();
+			for (auto i = nodes.begin(); i != nodes.end(); ++i) {
+				if ((*i)->is_terminal()) {
+					const auto these_zones = (*i)->get_output_zones();
+					for (auto k = these_zones.begin(); k != these_zones.end(); ++k) {
+						*j = *k;
+						++j;
+					}
+				}
+			}
+			fut = hpx::async<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(),
+					zones);
 		}
-
-		auto fut = hpx::async<typename silo_output_type::action_send_zones_to_silo>(silo_gid, hpx::get_locality_id(),
-				zones);
 		fut.get();
+		wait_all(cfuts);
 
 	}
 
