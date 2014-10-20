@@ -8,7 +8,7 @@
 #ifndef VALAR24RAY_HPP_
 #define VALAR24RAY_HPP_
 
-#include <valarray>
+#include "valarray/valarray.hpp"
 
 std::gslice gslice_row_major(std::size_t start, std::valarray<std::size_t> dims,
 		std::valarray<std::size_t> strides) {

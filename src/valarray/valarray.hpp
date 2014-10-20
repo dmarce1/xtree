@@ -27,8 +27,8 @@
  */
 
 // Written by Gabriel Dos Reis <Gabriel.Dos-Reis@DPTMaths.ENS-Cachan.Fr>
-#ifndef _GLIBCXX_VALARRAY
-#define _GLIBCXX_VALARRAY 1
+#ifndef _GLIBCXX0_VALARRAY
+#define _GLIBCXX0_VALARRAY 1
 
 #pragma GCC system_header
 

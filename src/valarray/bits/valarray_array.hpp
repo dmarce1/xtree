@@ -45,18 +45,24 @@ _GLIBCXX_VISIBILITY(default) {
 	//
 	// Helper functions on raw pointers
 	//
-
 	// We get memory by the old fashion way
 	inline void*
 	__valarray_get_memory(size_t __n) {
-		return operator new(__n);
+		/***********************ORIGINAL**********************************/
+		 //	return operator new(__n);
+		 /***********************MODIFICATION*****************************/
+		void* ptr;
+		const std::size_t alignment = 64;
+		posix_memalign(&ptr,alignment, __n);
+		return ptr;
+		/*****************************************************************/
 	}
 
 	template<typename _Tp>
 	inline _Tp*__restrict__
 	__valarray_get_storage(size_t __n) {
 		return static_cast<_Tp*__restrict__>(std::__valarray_get_memory(
-				__n * sizeof(_Tp)));
+						__n * sizeof(_Tp)));
 	}
 
 	// Return memory to the system
@@ -72,7 +78,7 @@ _GLIBCXX_VISIBILITY(default) {
 		// valarrays aren't required to be exception safe.
 		inline static void _S_do_it(_Tp* __b, _Tp* __e) {
 			while (__b != __e)
-				new (__b++) _Tp();
+			new (__b++) _Tp();
 		}
 	};
 
@@ -98,7 +104,7 @@ _GLIBCXX_VISIBILITY(default) {
 		// valarrays aren't required to be exception safe.
 		inline static void _S_do_it(_Tp* __b, _Tp* __e, const _Tp __t) {
 			while (__b != __e)
-				new (__b++) _Tp(__t);
+			new (__b++) _Tp(__t);
 		}
 	};
 
@@ -106,7 +112,7 @@ _GLIBCXX_VISIBILITY(default) {
 	struct _Array_init_ctor<_Tp, true> {
 		inline static void _S_do_it(_Tp* __b, _Tp* __e, const _Tp __t) {
 			while (__b != __e)
-				*__b++ = __t;
+			*__b++ = __t;
 		}
 	};
 
@@ -126,7 +132,7 @@ _GLIBCXX_VISIBILITY(default) {
 		inline static void _S_do_it(const _Tp* __b, const _Tp* __e,
 				_Tp* __restrict__ __o) {
 			while (__b != __e)
-				new (__o++) _Tp(*__b++);
+			new (__o++) _Tp(*__b++);
 		}
 	};
 
@@ -149,15 +155,15 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy_construct(const _Tp* __restrict__ __a,
 			size_t __n, size_t __s, _Tp* __restrict__ __o) {
 		if (__is_trivial(_Tp))
-			while (__n--) {
-				*__o++ = *__a;
-				__a += __s;
-			}
+		while (__n--) {
+			*__o++ = *__a;
+			__a += __s;
+		}
 		else
-			while (__n--) {
-				new (__o++) _Tp(*__a);
-				__a += __s;
-			}
+		while (__n--) {
+			new (__o++) _Tp(*__a);
+			__a += __s;
+		}
 	}
 
 	// copy-construct raw array [__o, *) from indexed array __a[__i[<__n>]]
@@ -165,21 +171,21 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy_construct(const _Tp* __restrict__ __a,
 			const size_t* __restrict__ __i, _Tp* __restrict__ __o, size_t __n) {
 		if (__is_trivial(_Tp))
-			while (__n--)
-				*__o++ = __a[*__i++];
+		while (__n--)
+		*__o++ = __a[*__i++];
 		else
-			while (__n--)
-				new (__o++) _Tp(__a[*__i++]);
+		while (__n--)
+		new (__o++) _Tp(__a[*__i++]);
 	}
 
 	// Do the necessary cleanup when we're done with arrays.
 	template<typename _Tp>
 	inline void __valarray_destroy_elements(_Tp* __b, _Tp* __e) {
 		if (!__is_trivial(_Tp))
-			while (__b != __e) {
-				__b->~_Tp();
-				++__b;
-			}
+		while (__b != __e) {
+			__b->~_Tp();
+			++__b;
+		}
 	}
 
 	// Fill a plain array __a[<__n>] with __t
@@ -187,7 +193,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_fill(_Tp* __restrict__ __a, size_t __n,
 			const _Tp& __t) {
 		while (__n--)
-			*__a++ = __t;
+		*__a++ = __t;
 	}
 
 	// fill strided array __a[<__n-1 : __s>] with __t
@@ -195,7 +201,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_fill(_Tp* __restrict__ __a, size_t __n, size_t __s,
 			const _Tp& __t) {
 		for (size_t __i = 0; __i < __n; ++__i, __a += __s)
-			*__a = __t;
+		*__a = __t;
 	}
 
 	// fill indirect array __a[__i[<__n>]] with __i
@@ -203,7 +209,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_fill(_Tp* __restrict__ __a,
 			const size_t* __restrict__ __i, size_t __n, const _Tp& __t) {
 		for (size_t __j = 0; __j < __n; ++__j, ++__i)
-			__a[*__i] = __t;
+		__a[*__i] = __t;
 	}
 
 	// copy plain array __a[<__n>] in __b[<__n>]
@@ -213,7 +219,7 @@ _GLIBCXX_VISIBILITY(default) {
 		inline static void _S_do_it(const _Tp* __restrict__ __a, size_t __n,
 				_Tp* __restrict__ __b) {
 			while (__n--)
-				*__b++ = *__a++;
+			*__b++ = *__a++;
 		}
 	};
 
@@ -237,7 +243,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy(const _Tp* __restrict__ __a, size_t __n,
 			size_t __s, _Tp* __restrict__ __b) {
 		for (size_t __i = 0; __i < __n; ++__i, ++__b, __a += __s)
-			*__b = *__a;
+		*__b = *__a;
 	}
 
 	// Copy a plain array  __a[<__n>] into a strided array __b[<__n : __s>]
@@ -245,7 +251,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy(const _Tp* __restrict__ __a,
 			_Tp* __restrict__ __b, size_t __n, size_t __s) {
 		for (size_t __i = 0; __i < __n; ++__i, ++__a, __b += __s)
-			*__b = *__a;
+		*__b = *__a;
 	}
 
 	// Copy strided array __src[<__n : __s1>] into another
@@ -254,7 +260,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy(const _Tp* __restrict__ __src, size_t __n,
 			size_t __s1, _Tp* __restrict__ __dst, size_t __s2) {
 		for (size_t __i = 0; __i < __n; ++__i)
-			__dst[__i * __s2] = __src[__i * __s1];
+		__dst[__i * __s2] = __src[__i * __s1];
 	}
 
 	// Copy an indexed array __a[__i[<__n>]] in plain array __b[<__n>]
@@ -262,7 +268,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy(const _Tp* __restrict__ __a,
 			const size_t* __restrict__ __i, _Tp* __restrict__ __b, size_t __n) {
 		for (size_t __j = 0; __j < __n; ++__j, ++__b, ++__i)
-			*__b = __a[*__i];
+		*__b = __a[*__i];
 	}
 
 	// Copy a plain array __a[<__n>] in an indexed array __b[__i[<__n>]]
@@ -270,7 +276,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline void __valarray_copy(const _Tp* __restrict__ __a, size_t __n,
 			_Tp* __restrict__ __b, const size_t* __restrict__ __i) {
 		for (size_t __j = 0; __j < __n; ++__j, ++__a, ++__i)
-			__b[*__i] = *__a;
+		__b[*__i] = *__a;
 	}
 
 	// Copy the __n first elements of an indexed array __src[<__i>] into
@@ -280,7 +286,7 @@ _GLIBCXX_VISIBILITY(default) {
 			const size_t* __restrict__ __i, _Tp* __restrict__ __dst,
 			const size_t* __restrict__ __j) {
 		for (size_t __k = 0; __k < __n; ++__k)
-			__dst[*__j++] = __src[*__i++];
+		__dst[*__j++] = __src[*__i++];
 	}
 
 	//
@@ -294,7 +300,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline _Tp __valarray_sum(const _Tp* __f, const _Tp* __l) {
 		_Tp __r = _Tp();
 		while (__f != __l)
-			__r += *__f++;
+		__r += *__f++;
 		return __r;
 	}
 
@@ -303,7 +309,7 @@ _GLIBCXX_VISIBILITY(default) {
 	inline _Tp __valarray_product(const _Tp* __f, const _Tp* __l) {
 		_Tp __r = _Tp(1);
 		while (__f != __l)
-			__r = __r * *__f++;
+		__r = __r * *__f++;
 		return __r;
 	}
 
@@ -316,7 +322,7 @@ _GLIBCXX_VISIBILITY(default) {
 		for (size_t __i = 1; __i < __s; ++__i) {
 			_Value_type __t = __a[__i];
 			if (__t < __r)
-				__r = __t;
+			__r = __t;
 		}
 		return __r;
 	}
@@ -329,7 +335,7 @@ _GLIBCXX_VISIBILITY(default) {
 		for (size_t __i = 1; __i < __s; ++__i) {
 			_Value_type __t = __a[__i];
 			if (__t > __r)
-				__r = __t;
+			__r = __t;
 		}
 		return __r;
 	}
@@ -437,23 +443,23 @@ _GLIBCXX_VISIBILITY(default) {
 
 	template<typename _Tp>
 	inline _Array<_Tp>::_Array(size_t __n) :
-			_M_data(__valarray_get_storage<_Tp>(__n)) {
+	_M_data(__valarray_get_storage<_Tp>(__n)) {
 		std::__valarray_default_construct(_M_data, _M_data + __n);
 	}
 
 	template<typename _Tp>
 	inline _Array<_Tp>::_Array(_Tp* const __restrict__ __p) :
-			_M_data(__p) {
+	_M_data(__p) {
 	}
 
 	template<typename _Tp>
 	inline _Array<_Tp>::_Array(const valarray<_Tp>& __v) :
-			_M_data(__v._M_data) {
+	_M_data(__v._M_data) {
 	}
 
 	template<typename _Tp>
 	inline _Array<_Tp>::_Array(const _Tp* __restrict__ __b, size_t __s) :
-			_M_data(__valarray_get_storage<_Tp>(__s)) {
+	_M_data(__valarray_get_storage<_Tp>(__s)) {
 		std::__valarray_copy_construct(__b, __s, _M_data);
 	}
 
