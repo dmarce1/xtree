@@ -25,7 +25,8 @@
  THE SOFTWARE.
  */
 
-#include <valarray>
+#include "valarray.hpp"
+#include <array>
 #ifndef kernel_h
 #define kernel_h
 #define ODDEVEN(n) ((((n) & 1) == 1) ? -1 : 1)

@@ -8,14 +8,14 @@
 #ifndef FMMX_NODE_HPP_
 #define FMMX_NODE_HPP_
 
+#include "valarray.hpp"
 #include "exafmm.hpp"
 #include "fwd.hpp"
 #include "cube_poles.hpp"
 #include "xtree.hpp"
 #include "expansion.hpp"
-#include "valarray.hpp"
 #include <hpx/util/function.hpp>
-#include <boost/serialization/valarray.hpp>
+//#include <boost/serialization/valarray.hpp>
 #include <boost/serialization/complex.hpp>
 
 namespace xtree {

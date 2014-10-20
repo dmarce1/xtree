@@ -8,7 +8,7 @@
 #ifndef EXPANSION_HPP_
 #define EXPANSION_HPP_
 
-#include <valarray>
+#include "valarray.hpp"
 
 namespace xtree {
 

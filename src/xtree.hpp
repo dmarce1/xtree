@@ -58,8 +58,8 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include <hpx/util/unwrapped.hpp>
 
 #include <boost/version.hpp>
-#include <boost/serialization/valarray.hpp>
-#include <boost/serialization/vector.hpp>
+//#include <boost/serialization/valarray.hpp>
+//#include <boost/serialization/vector.hpp>
 #include <boost/mpl/int.hpp>
 
 #include <array>
@@ -77,4 +77,57 @@ HPX_REGISTER_ACTION( action_send_zones_to_silo );
 #include "node.hpp"
 #include "tree.hpp"
 
+namespace boost {
+namespace serialization {
+
+template<class T, class Archive>
+void save(Archive & ar, const std::valarray<T>& data, const unsigned int version) {
+	std::size_t sz = data.size();
+	ar << sz;
+	for (auto i = std::begin(data); i != std::end(data); ++i) {
+		ar << *i;
+	}
+}
+
+template<class T, class Archive>
+void load(Archive & ar, std::valarray<T>& data, const unsigned int version) {
+	std::size_t sz;
+	ar >> sz;
+	data.resize(sz);
+	for (auto i = std::begin(data); i != std::end(data); ++i) {
+		ar >> *i;
+	}
+}
+
+template<class T, class Archive>
+void save(Archive & ar, const std::vector<T>& data, const unsigned int version) {
+	std::size_t sz = data.size();
+	ar << sz;
+	for (auto i = std::begin(data); i != std::end(data); ++i) {
+		ar << *i;
+	}
+}
+
+template<class T, class Archive>
+void load(Archive & ar, std::vector<T>& data, const unsigned int version) {
+	std::size_t sz;
+	ar >> sz;
+	data.resize(sz);
+	for (auto i = std::begin(data); i != std::end(data); ++i) {
+		ar >> *i;
+	}
+}
+
+template<class T, class Archive>
+inline void serialize(Archive & ar, std::vector<T> & t, const unsigned int file_version) {
+	split_free(ar, t, file_version);
+}
+
+template<class T, class Archive>
+inline void serialize(Archive & ar, std::valarray<T> & t, const unsigned int file_version) {
+	split_free(ar, t, file_version);
+}
+
+}
+}
 #endif /* XTREE_HPP_ */

@@ -5,18 +5,16 @@
  *      Author: dmarce1
  */
 
+#include "./fmmx_node.hpp"
 #include <mpi.h>
 #include "xtree.hpp"
-#include "./fmmx_node.hpp"
 //#include <fenv.h>
 
 using namespace xtree;
 using namespace fmmx;
 
 
-
-
-using fmmx_node_type = fmmx_node<3,8,5>;
+using fmmx_node_type = fmmx_node<3,16,5>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;
@@ -57,7 +55,7 @@ void execute() {
 	std::vector<fmmx_node_type::operation_type> init_ops(1);
 	refine_ops[0] = fmmx_node_type::make_regrid_operation<rg_func>();
 	init_ops[0] = fmmx_node_type::make_local_operation<init_func>();
-	printf( "Refining...\n");
+/*	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
 	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
@@ -67,7 +65,7 @@ void execute() {
 	root_node->regrid<rg_func>(0);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
-
+*/
 		std::vector<fmmx_node_type::operation_type> ops(3);
 	auto dop = fmmx_node_type::make_descend_operation<dfunc>();
 	auto eop = fmmx_node_type::make_exchange_operation<eg_func, es_func>();
