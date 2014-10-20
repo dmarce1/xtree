@@ -1,0 +1,2240 @@
+
+Begin optimization report for: std::vector<xtree::node<fmmx_node_type, 3>::operation_type, std::allocator<xtree::node<fmmx_node_type, 3>::operation_type>>::vector(std::vector<xtree::node<fmmx_node_type, 3>::operation_type, std::allocator<xtree::node<fmmx_node_type, 3>::operation_type>> *, std::vector<xtree::node<fmmx_node_type, 3>::operation_type, std::allocator<xtree::node<fmmx_node_type, 3>::operation_type>>::size_type, const std::vector<xtree::node<fmmx_node_type, 3>::operation_type, std::allocator<xtree::node<fmmx_node_type, 3>::operation_type>>::allocator_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: boost::basic_format<char, std::char_traits<char>, std::allocator<char>>::parse(boost::basic_format<char, std::char_traits<char>, std::allocator<char>> *, const boost::basic_format<char, std::char_traits<char>, std::allocator<char>>::string_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/parsing.hpp(479,13)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/parsing.hpp(479,13)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<bool, std::allocator<bool>>::_M_fill_insert(std::vector<bool, std::allocator<bool>> *, std::vector<bool, std::allocator<bool>>::iterator, std::vector<bool, std::allocator<bool>>::size_type, bool)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(334,4) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(727,7)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(334,4) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(730,34)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::tree<fmmx_node_type, 3>::place_root(xtree::tree<fmmx_node_type, 3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./tree.hpp(78,10)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./tree.hpp(78,10)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./tree.hpp(78,10)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./tree.hpp(78,10)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<double, std::allocator<double>>::operator=(std::vector<double, std::allocator<double>> *, const std::vector<double, std::allocator<double>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,23) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(191,24)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,23) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(191,24)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(210,8)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(210,8)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::get_output_zones(std::vector<xtree::silo_output<3>::zone, std::allocator<xtree::silo_output<3>::zone>> *, xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(347,95)
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into ../src/./fmmx_node.hpp(348,54)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(349,41)
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(351,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/./fmmx_node.hpp(352,30)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::multipoles_type *, const struct lambda [] *, const xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::multipoles_type &)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(229,25)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(229,25)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(230,27)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(230,27)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(231,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(231,3)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(231,3)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(232,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(185,3) inlined into ../src/./fmmx_node.hpp(233,10)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(233,10)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./fmmx_node.hpp(233,10)
+         remark #25460: No loop optimizations reported
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./fmmx_node.hpp(233,10)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into ../src/./fmmx_node.hpp(233,10)
+         remark #25460: No loop optimizations reported
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(233,10)
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/./fmmx_node.hpp(235,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./fmmx_node.hpp(242,4)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_copy<xtree::expansion<5UL>, std::_GClos<std::_ValArray, xtree::expansion<5UL>>>(const std::_Expr<std::_GClos<std::_ValArray, xtree::expansion<5UL>>, xtree::expansion<5UL>> &, std::size_t, std::_Array<xtree::expansion<5UL>>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(145,7)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,12)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,12)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,12)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,12)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: get_restrict_slice(std::gslice *, const std::valarray<std::size_t> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(55,49)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(55,49)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(61,35)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(61,35)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(622,2) inlined into ../src/./valarray.hpp(64,10)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(622,2) inlined into ../src/./valarray.hpp(64,10)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(622,2) inlined into ../src/./valarray.hpp(64,10)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::M2M(std::valarray<complex> &, const std::valarray<complex> &, const std::valarray<double> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./exafmm.hpp(60,30)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./exafmm.hpp(60,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(63,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(63,3)
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(63,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./exafmm.hpp(65,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./exafmm.hpp(66,4)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./exafmm.hpp(70,5)
+         remark #25460: No loop optimizations reported
+
+         LOOP BEGIN at ../src/./exafmm.hpp(71,28)
+            remark #25460: No loop optimizations reported
+         LOOP END
+
+         LOOP BEGIN at ../src/./exafmm.hpp(81,6)
+            remark #25460: No loop optimizations reported
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(std::valarray<xtree::expansion<5UL>> *, const struct lambda [] *, const xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::multipoles_type &)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(325,3)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(341,80)
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(341,40)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./fmmx_node.hpp(341,40)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./fmmx_node.hpp(341,40)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into ../src/./fmmx_node.hpp(341,40)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(341,40)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: get_slice(std::gslice *, std::valarray<std::size_t> *, std::valarray<std::size_t> *, std::valarray<std::size_t> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(25,48)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(25,48)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(28,2)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(28,2)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::silo_output<3>::silo_output(xtree::silo_output<3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./silo_output.hpp(110,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./silo_output.hpp(110,3)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./silo_output.hpp(110,3)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::silo_output<3>::send_zones_to_silo(xtree::silo_output<3> *, int, std::vector<xtree::silo_output<3>::zone, std::allocator<xtree::silo_output<3>::zone>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/./silo_output.hpp(204,14)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(209,4)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./silo_output.hpp(217,30)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./silo_output.hpp(87,4) inlined into ../src/./silo_output.hpp(217,30)
+         remark #25460: No loop optimizations reported
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/./silo_output.hpp(87,4) inlined into ../src/./silo_output.hpp(217,30)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./silo_output.hpp(87,4) inlined into ../src/./silo_output.hpp(222,21)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/./silo_output.hpp(210,12)
+   LOOP END
+
+   LOOP BEGIN at ../src/./silo_output.hpp(212,5)
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/./silo_output.hpp(222,21)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::list<xtree::silo_output<3>::silo_zone, std::allocator<xtree::silo_output<3>::silo_zone>>::_M_create_node<std::remove_reference<xtree::silo_output<3>::silo_zone &>::type>(std::list<xtree::silo_output<3>::silo_zone, std::allocator<xtree::silo_output<3>::silo_zone>> *, std::remove_reference<xtree::silo_output<3>::silo_zone &>::type &&)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_list.h(514,32)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::silo_output<3>::do_output(xtree::silo_output<3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./silo_output.hpp(128,23)
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(129,15)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(129,15)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(134,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(141,38)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./silo_output.hpp(142,4)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(152,38)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./silo_output.hpp(153,4)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./silo_output.hpp(189,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./silo_output.hpp(189,3)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./silo_output.hpp(189,3)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(189,3)
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(189,3)
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(129,15)
+LOOP END
+
+LOOP BEGIN at ../src/./silo_output.hpp(128,23)
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<int, std::allocator<int>>::vector(std::vector<int, std::allocator<int>> *, std::vector<int, std::allocator<int>>::size_type, const std::vector<int, std::allocator<int>>::allocator_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<double, std::allocator<double>>::vector(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type, const std::vector<double, std::allocator<double>>::allocator_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::array<hpx::naming::id_type, 2UL>::array(std::array<hpx::naming::id_type, 2UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<hpx::lcos::future<hpx::naming::id_type>, std::allocator<hpx::lcos::future<hpx::naming::id_type>>>::vector(std::vector<hpx::lcos::future<hpx::naming::id_type>, std::allocator<hpx::lcos::future<hpx::naming::id_type>>> *, std::vector<hpx::lcos::future<hpx::naming::id_type>, std::allocator<hpx::lcos::future<hpx::naming::id_type>>>::size_type, const std::vector<hpx::lcos::future<hpx::naming::id_type>, std::allocator<hpx::lcos::future<hpx::naming::id_type>>>::allocator_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::neighbors_exchange_set(xtree::node<fmmx_node_type, 3> *, xtree::dir_type<3>, const std::vector<hpx::naming::id_type, std::allocator<hpx::naming::id_type>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(695,9)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(696,20)
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::exchange_set<es_func>(xtree::node<fmmx_node_type, 3> *, const xtree::dir_type<3> &, xtree::node<fmmx_node_type, 3>::exchange_set_function<xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::exchange_type, {(void (*)())xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::exchange_set, 0L}>::type *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(639,20)
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::regrid<rg_func>(xtree::node<fmmx_node_type, 3> *, int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(511,29) inlined into ../src/./node.hpp(527,41)
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(511,29) inlined into ../src/./node.hpp(553,50)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(511,29) inlined into ../src/./node.hpp(553,50)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::debranch(hpx::lcos::future<void> *, xtree::node<fmmx_node_type, 3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(310,33)
+LOOP END
+
+LOOP BEGIN at ../src/./node.hpp(311,7)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./indexer.hpp(59,3) inlined into ../src/./node.hpp(310,53)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(311,16)
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(312,13)
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(312,60)
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(314,13)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<hpx::lcos::future<void>, std::allocator<hpx::lcos::future<void>>>::vector(std::vector<hpx::lcos::future<void>, std::allocator<hpx::lcos::future<void>>> *, std::vector<hpx::lcos::future<void>, std::allocator<hpx::lcos::future<void>>>::size_type, const std::vector<hpx::lcos::future<void>, std::allocator<hpx::lcos::future<void>>>::allocator_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::branch(xtree::node<fmmx_node_type, 3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(289,33)
+LOOP END
+
+LOOP BEGIN at ../src/./node.hpp(289,41)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./indexer.hpp(59,3) inlined into ../src/./node.hpp(289,53)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(291,8)
+   LOOP END
+
+   LOOP BEGIN at ../src/./location.hpp(160,3) inlined into ../src/./node.hpp(291,40)
+   LOOP END
+
+   LOOP BEGIN at ../src/./location.hpp(163,3) inlined into ../src/./node.hpp(291,40)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(295,20)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(96,3) inlined into ../src/./node.hpp(296,7)
+LOOP END
+
+LOOP BEGIN at ../src/./node.hpp(297,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(299,10)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::neighbors_exchange_get(xtree::node<fmmx_node_type, 3> *, int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(738,20)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(96,3) inlined into ../src/./node.hpp(739,6)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(741,25)
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::indexer<3, 3, -1>::operator++(xtree::indexer<3, 3, -1> *, int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(59,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<hpx::lcos::shared_future<void>, std::allocator<hpx::lcos::shared_future<void>>>::vector(std::vector<hpx::lcos::shared_future<void>, std::allocator<hpx::lcos::shared_future<void>>> *, std::vector<hpx::lcos::shared_future<void>, std::allocator<hpx::lcos::shared_future<void>>>::size_type, const std::vector<hpx::lcos::shared_future<void>, std::allocator<hpx::lcos::shared_future<void>>>::allocator_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::neighbors_ascend(xtree::node<fmmx_node_type, 3> *, std::vector<hpx::naming::id_type, std::allocator<hpx::naming::id_type>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(706,34)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(707,20)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(708,27)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(73,3) inlined into ../src/./node.hpp(708,27)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(709,21)
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(709,25)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::indexer<3, 2, 0>::operator++(xtree::indexer<3, 2, 0> *, int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(59,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::get_sibling_of_child(hpx::naming::id_type *, xtree::node<fmmx_node_type, 3> *, xtree::child_index_type<3>, xtree::dir_type<3>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(195,28)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(196,20)
+LOOP END
+
+LOOP BEGIN at ../src/./node.hpp(197,2)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(209,16)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(209,21)
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::descend<dfunc>(hpx::lcos::shared_future<xtree::node<fmmx_node_type, 3>::descend_function<xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::descend_type, {(void (*)())xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::descend, 0L}>::type> *, xtree::node<fmmx_node_type, 3> *, int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(511,29) inlined into ../src/./node.hpp(599,44)
+LOOP END
+
+LOOP BEGIN at ../src/./node.hpp(600,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::exchange_get<eg_func, es_func>(xtree::node<fmmx_node_type, 3> *, int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(660,25)
+LOOP END
+
+LOOP BEGIN at ../src/./node.hpp(661,7)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./indexer.hpp(103,3) inlined into ../src/./node.hpp(661,49)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(671,12)
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(661,17)
+   LOOP END
+
+   LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(668,12)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::ascend(std::vector<xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::ascend_type, std::allocator<xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::ascend_type>> *, xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *, xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::ascend_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./fmmx_node.hpp(167,37)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(96,3) inlined into ../src/./fmmx_node.hpp(167,37)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(171,17)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(172,15)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(176,26)
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(176,26)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(176,26)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(178,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(179,3)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./fmmx_node.hpp(181,3)
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(4162,7) inlined into ../src/./fmmx_node.hpp(188,3)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::expansion<5UL>::operator=(xtree::expansion<5UL> *, real)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./expansion.hpp(53,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./expansion.hpp(53,3)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Array_augmented___plus<xtree::expansion<5UL>>(std::_Array<xtree::expansion<5UL>>, std::_Array<std::size_t>, std::_Array<xtree::expansion<5UL>>, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray/bits/valarray_array.hpp(620,2)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(xtree::expansion<5UL> *, const struct lambda [] *, const xtree::expansion<5UL> &)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(189,17)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(191,11)
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::L2L(std::valarray<complex> &, const std::valarray<complex> &, const std::valarray<double> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./exafmm.hpp(133,30)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./exafmm.hpp(133,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(135,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(135,3)
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(135,3)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::async<struct lambda [], std::valarray<xtree::expansion<5UL>> &>..0(boost::lazy_enable_if_c<true, hpx::detail::create_future<void (struct lambda [] *, std::valarray<xtree::expansion<5UL>> &), hpx::util::deferred_call_result_of<void (struct lambda [] *, std::valarray<xtree::expansion<5UL>> &)>>>::type *, hpx::launch::enum_type, struct lambda [] &&, std::valarray<xtree::expansion<5UL>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<complex>::operator=(std::valarray<complex> *, const std::valarray<complex> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(700,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(700,3)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<double>::valarray(std::valarray<double> *, const double &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(617,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(617,2)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(617,2)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::size_t>::valarray(std::valarray<std::size_t> *, const std::size_t &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(617,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(617,2)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(617,2)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::exchange_set(xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *, xtree::dir_type<3>, xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::exchange_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(287,95)
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(289,2)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(289,2)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(308,23)
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_copy_construct<double, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, double, double>>(const std::_Expr<std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, double, double>, double> &, std::size_t, std::_Array<double>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_BinBase2<std::__plus, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>>::operator[](std::_BinBase2<std::__plus, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>>::value_type *, const std::_BinBase2<std::__plus, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>> *, std::size_t) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray/bits/valarray_before.hpp(545,32)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray/bits/valarray_before.hpp(545,32)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray/bits/valarray_before.hpp(545,23)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray/bits/valarray_before.hpp(545,23)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::M2L(std::valarray<complex> &, const std::valarray<complex> *, const std::valarray<double> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./exafmm.hpp(98,30)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./exafmm.hpp(98,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(100,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(100,3)
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./exafmm.hpp(100,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./exafmm.hpp(102,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./exafmm.hpp(103,4)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./exafmm.hpp(107,5)
+         remark #25460: No loop optimizations reported
+
+         LOOP BEGIN at ../src/./exafmm.hpp(108,6)
+            remark #25460: No loop optimizations reported
+         LOOP END
+
+         LOOP BEGIN at ../src/./exafmm.hpp(115,6)
+            remark #25460: No loop optimizations reported
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::evalLocal(real, real, real, std::valarray<complex> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./exafmm.hpp(210,3)
+
+   LOOP BEGIN at ../src/./exafmm.hpp(221,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./exafmm.hpp(221,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./exafmm.hpp(221,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./exafmm.hpp(221,4)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Expr<std::_BinClos<std::__multiplies, std::_ValArray, std::_ValArray, double, double>, double>::sum(const std::_Expr<std::_BinClos<std::__multiplies, std::_ValArray, std::_ValArray, double, double>, double> *) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4)
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<xtree::expansion<5UL>>::resize(std::valarray<xtree::expansion<5UL>> *, std::size_t, xtree::expansion<5UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./valarray/valarray.hpp(983,57)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(983,57)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(983,57)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::descend(xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::descend_type *, xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *, std::vector<xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::ascend_type, std::allocator<xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::ascend_type>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(215,89)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(216,41)
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(217,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(217,2)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(217,2)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(219,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(278,3) inlined into ../src/./fmmx_node.hpp(220,33)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./fmmx_node.hpp(220,33)
+         remark #25460: No loop optimizations reported
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into ../src/./fmmx_node.hpp(220,33)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into ../src/./fmmx_node.hpp(220,33)
+         remark #25460: No loop optimizations reported
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(185,3) inlined into ../src/./fmmx_node.hpp(220,33)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(223,33)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(223,33)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::async<struct lambda [], std::valarray<xtree::expansion<5UL>> &>..0(boost::lazy_enable_if_c<true, hpx::detail::create_future<void (struct lambda [] *, std::valarray<xtree::expansion<5UL>> &), hpx::util::deferred_call_result_of<void (struct lambda [] *, std::valarray<xtree::expansion<5UL>> &)>>>::type *, hpx::launch::enum_type, struct lambda [] &&, std::valarray<xtree::expansion<5UL>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::transform<double *, xtree::expansion<5UL> *, struct lambda []>(double *, double *, xtree::expansion<5UL> *, struct lambda [])
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(4162,7)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /usr/include/c++/4.9.0/bits/stl_algo.h(4163,24)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /usr/include/c++/4.9.0/bits/stl_algo.h(4163,14)
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /usr/include/c++/4.9.0/bits/stl_algo.h(4163,24)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(334,4) inlined into /usr/include/c++/4.9.0/bits/stl_algo.h(4163,14)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(334,4) inlined into /usr/include/c++/4.9.0/bits/stl_algo.h(4163,14)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::async<struct lambda [], std::valarray<xtree::expansion<5UL>> &>..0(boost::lazy_enable_if_c<true, hpx::detail::create_future<struct lambda [] (std::valarray<xtree::expansion<5UL>> &), hpx::util::deferred_call_result_of<struct lambda [] (std::valarray<xtree::expansion<5UL>> &)>>>::type *, hpx::launch::enum_type, struct lambda [] &&, std::valarray<xtree::expansion<5UL>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /home/dmarce1/packages/intel64/include/hpx/preprocessed/async_5.hpp(116,13)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::allocate(xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(253,41)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(255,11)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./fmmx_node.hpp(256,11)
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(257,6)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(258,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(259,8)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::node<fmmx_node_type, 3>::node(xtree::node<fmmx_node_type, 3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./node.hpp(213,29)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./node.hpp(213,29)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./node.hpp(213,29)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./node.hpp(213,29)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: boost::archive::detail::pointer_iserializer<hpx::util::portable_binary_iarchive, xtree::tree<fmmx_node_type, 3>>::load_object_ptr(const boost::archive::detail::pointer_iserializer<hpx::util::portable_binary_iarchive, xtree::tree<fmmx_node_type, 3>> *, boost::archive::detail::basic_iarchive &, void *, unsigned int) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into /home/dmarce1/packages/intel64/include/boost/archive/detail/iserializer.hpp(341,9)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: boost::serialization::load<xtree::expansion<5UL>, hpx::util::portable_binary_iarchive>(hpx::util::portable_binary_iarchive &, std::valarray<xtree::expansion<5UL>> &, unsigned int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./xtree.hpp(96,14)
+LOOP END
+===========================================================================
+
+Begin optimization report for: boost::serialization::load<complex, hpx::util::portable_binary_iarchive>(hpx::util::portable_binary_iarchive &, std::valarray<complex> &, unsigned int)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./xtree.hpp(96,7)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./xtree.hpp(96,7)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: boost::basic_format<char, std::char_traits<char>, std::allocator<char>>::basic_format(boost::basic_format<char, std::char_traits<char>, std::allocator<char>> *, const char *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(28,35)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<action_get_new_node>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<action_set_func>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<hpx::actions::extract_action<hpx::actions::extract_action<xtree::node<fmmx_node_type, 3>::action_neighbors_exchange_set, void>::type, void>::type>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<hpx::actions::extract_action<hpx::actions::extract_action<xtree::node<fmmx_node_type, 3>::action_exchange_set<es_func>, void>::type, void>::type>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::util::invoke_r<boost::detail::cpp0x_result_of_impl<struct lambda [] (), void>::type, struct lambda [] &>(boost::disable_if_c<false, hpx::lcos::future<void>>::type *, struct lambda [] &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(83,14) inlined into /home/dmarce1/packages/intel64/include/hpx/util/invoke.hpp(165,57)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into /home/dmarce1/packages/intel64/include/hpx/util/invoke.hpp(165,57)
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(const struct lambda [] *)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(758,23)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(759,18)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(762,23)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(59,3) inlined into ../src/./node.hpp(758,46)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(const struct lambda [] *, hpx::util::tuple<hpx::lcos::future<void>, hpx::lcos::shared_future<void>, void, void, void, void, void, void> *)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(511,29) inlined into ../src/./node.hpp(393,65)
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(hpx::lcos::future<void> *, const struct lambda [] *)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(83,3) inlined into ../src/./node.hpp(665,13)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(666,58)
+LOOP END
+===========================================================================
+
+Begin optimization report for: lambda []::operator()(const struct lambda [] *)->void
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3) inlined into ../src/./node.hpp(676,23)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(677,18)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3) inlined into ../src/./node.hpp(680,23)
+LOOP END
+
+LOOP BEGIN at ../src/./indexer.hpp(59,3) inlined into ../src/./node.hpp(676,46)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_copy_construct<xtree::expansion<5UL>, std::_GClos<std::_ValArray, xtree::expansion<5UL>>>(const std::_Expr<std::_GClos<std::_ValArray, xtree::expansion<5UL>>, xtree::expansion<5UL>> &, std::size_t, std::_Array<xtree::expansion<5UL>>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: __sti___ZN3hpx4lcos5local13spinlock_poolINS_6naming8gid_type3tagEE5pool_E()
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::array<complex, 625UL>::array(std::array<complex, 625UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node_static_data<3UL, 16UL, 5UL>::fmmx_node_static_data(xtree::fmmx::fmmx_node_static_data<3UL, 16UL, 5UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(47,4)
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(4162,7) inlined into ../src/./fmmx_node.hpp(61,4)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(61,4)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(61,4)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, double, double>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, double, double>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Remainder>
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, int, int>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, int, int>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_Expr, std::_Expr, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, int, int>, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, int, int>>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_Expr, std::_Expr, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, int, int>, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, int, int>>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(335,3)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::indexer<3, 3, -1>::operator int(const xtree::indexer<3, 3, -1> *) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(51,3)
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::size_t>::resize(std::valarray<std::size_t> *, std::size_t, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray/valarray.hpp(983,2)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: product<std::size_t>(std::valarray<std::size_t> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray.hpp(83,35)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(83,35)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(83,35)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: create_position_array(std::valarray<std::valarray<double>> *, std::valarray<std::size_t> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(93,11)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(93,11)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(93,11)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./valarray.hpp(94,49)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./valarray.hpp(94,49)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(95,35)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray.hpp(96,11)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray.hpp(96,11)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray.hpp(96,11)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(99,45)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(99,30)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(99,30)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(99,30)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray.hpp(100,8)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray.hpp(100,8)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./valarray.hpp(100,8)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./valarray.hpp(109,35)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(113,41)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(113,41)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./valarray.hpp(115,6)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      <Peeled, Multiversioned v1>
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      <Multiversioned v1>
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      <Multiversioned v1>
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      <Remainder, Multiversioned v1>
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      <Multiversioned v2>
+      LOOP END
+
+      LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./valarray.hpp(114,13)
+      <Remainder, Multiversioned v2>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(185,3) inlined into ../src/./valarray.hpp(114,13)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::exafmm_kernel(exafmm_kernel<5L> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./exafmm.hpp(248,3)
+LOOP END
+
+LOOP BEGIN at ../src/./exafmm.hpp(252,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./exafmm.hpp(253,4)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./exafmm.hpp(257,5)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(257,5)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(260,5)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(260,5)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(263,5)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(263,5)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(266,5)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/./exafmm.hpp(266,5)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./exafmm.hpp(273,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./exafmm.hpp(274,4)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./exafmm.hpp(275,5)
+         remark #25460: No loop optimizations reported
+
+         LOOP BEGIN at ../src/./exafmm.hpp(276,6)
+            remark #25460: No loop optimizations reported
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: cube_poles<5L>::cube_poles(cube_poles<5L> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into ../src/./cube_poles.hpp(27,30)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into ../src/./cube_poles.hpp(27,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./cube_poles.hpp(28,5)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./cube_poles.hpp(28,5)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./cube_poles.hpp(29,5)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(106,4) inlined into ../src/./cube_poles.hpp(29,5)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./cube_poles.hpp(34,3)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./cube_poles.hpp(43,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./cube_poles.hpp(44,4)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/./cube_poles.hpp(45,5)
+         remark #25460: No loop optimizations reported
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./cube_poles.hpp(50,33)
+            remark #25460: No loop optimizations reported
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./cube_poles.hpp(50,33)
+         <Remainder>
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./cube_poles.hpp(51,39)
+            remark #25460: No loop optimizations reported
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into ../src/./cube_poles.hpp(51,39)
+         <Remainder>
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./cube_poles.hpp(52,13)
+         <Peeled>
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./cube_poles.hpp(52,13)
+            remark #15301: REVERSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./cube_poles.hpp(52,13)
+         <Remainder>
+         LOOP END
+
+         LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(620,2) inlined into ../src/./cube_poles.hpp(55,9)
+            remark #25460: No loop optimizations reported
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(622,2) inlined into ../src/./cube_poles.hpp(60,5)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(622,2) inlined into ../src/./cube_poles.hpp(60,5)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./cube_poles.hpp(62,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./cube_poles.hpp(63,4)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./cube_poles.hpp(67,6)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./cube_poles.hpp(67,6)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./cube_poles.hpp(67,6)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/./cube_poles.hpp(68,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./cube_poles.hpp(69,4)
+      remark #25460: No loop optimizations reported
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::evalMultipole(real, real, real, std::valarray<complex> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./exafmm.hpp(175,3)
+
+   LOOP BEGIN at ../src/./exafmm.hpp(186,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./exafmm.hpp(186,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./exafmm.hpp(186,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/./exafmm.hpp(186,4)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::indexer<3, 3, -1>::begin(xtree::indexer<3, 3, -1> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./indexer.hpp(70,3)
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<std::valarray<xtree::expansion<5UL>> &, hpx::util::decay<std::valarray<xtree::expansion<5UL>> &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<xtree::expansion<5UL>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<std::valarray<xtree::expansion<5UL>> &, hpx::util::decay<std::valarray<xtree::expansion<5UL>> &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<xtree::expansion<5UL>>, void, void, void, void, void, void, void>>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,40)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,40)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(221,4) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,40)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(134,4) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,40)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(80,4) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,40)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<action0_initialize>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::util::logging::gather_holder<hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::self_type, hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::gather_type>::gather_holder(hpx::util::logging::gather_holder<hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::self_type, hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::gather_type> *, const hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::self_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::init_grid(xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(371,38)
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(373,2)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./fmmx_node.hpp(374,50)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./fmmx_node.hpp(374,50)
+      remark #15301: REVERSED LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./fmmx_node.hpp(374,50)
+      remark #25460: No loop optimizations reported
+   LOOP END
+
+   LOOP BEGIN at ../src/./valarray/bits/valarray_after.hpp(298,4) inlined into ../src/./fmmx_node.hpp(374,50)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 16UL, 5UL>::initialize(xtree::fmmx::fmmx_node<3UL, 16UL, 5UL> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/./valarray/bits/valarray_array.hpp(114,4) inlined into ../src/./fmmx_node.hpp(148,41)
+LOOP END
+
+LOOP BEGIN at ../src/./location.hpp(128,3) inlined into ../src/./fmmx_node.hpp(150,22)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at ../src/./location.hpp(128,3) inlined into ../src/./fmmx_node.hpp(150,22)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/./fmmx_node.hpp(151,36)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/./fmmx_node.hpp(152,3)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<hpx::naming::id_type, std::allocator<hpx::naming::id_type>>::_M_default_append(std::vector<hpx::naming::id_type, std::allocator<hpx::naming::id_type>> *, std::vector<hpx::naming::id_type, std::allocator<hpx::naming::id_type>>::size_type)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(545,8)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(545,8)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(562,5)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(514,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(562,5)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<double, std::allocator<double>>::_M_default_append(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(545,8)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(545,8)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(545,8)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(562,5)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(562,5)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(562,5)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================

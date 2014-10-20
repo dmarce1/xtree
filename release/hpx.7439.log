@@ -1,0 +1,1500 @@
+(T00000000/00007f3aaddfdf80.----/----------------) P--------/----------------.---- 11:48.22.174 [0000000000000001]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7f6ded33e613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7f6ded33f43d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=3
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=3
+  OMPI_COMM_WORLD_RANK=3
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=3
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=3
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=34
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 3
+{hostname}: 127.0.0.1:7913:3
+{process-id}: 7442
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007f6de9f4a200
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state): 
+
+(T00000000/00007f3aade28b80.----/----------------) P--------/----------------.---- 11:48.22.177 [0000000000000002]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7f6ded33e613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7f6ded33f43d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=3
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=3
+  OMPI_COMM_WORLD_RANK=3
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=3
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=3
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=34
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 3
+{hostname}: 127.0.0.1:7913:3
+{process-id}: 7442
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007f6dd93f71a0
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state): 
+
+(T00000000/00007f3aaddfae80.----/----------------) P--------/----------------.---- 11:48.22.183 [0000000000000003]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7fd501ea0613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7fd501ea143d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=2
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=2
+  OMPI_COMM_WORLD_RANK=2
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=2
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=2
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=31
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 2
+{hostname}: 127.0.0.1:7912:2
+{process-id}: 7441
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007fd4ee84a2a0
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state): 
+
+(T00000000/00007f3aaddf9ee0.----/----------------) P--------/----------------.---- 11:48.22.183 [0000000000000004]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7fd501ea0613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7fd501ea143d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=2
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=2
+  OMPI_COMM_WORLD_RANK=2
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=2
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=2
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=31
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 2
+{hostname}: 127.0.0.1:7912:2
+{process-id}: 7441
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007fd4fea43560
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state): 
+
+(T00000000/00007f3abe35d580.----/----------------) P--------/----------------.---- 11:48.22.196 [0000000000000005]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7fd501ea0613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7fd501ea143d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=2
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=2
+  OMPI_COMM_WORLD_RANK=2
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=2
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=2
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=31
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 2
+{hostname}: 127.0.0.1:7912:2
+{process-id}: 7441
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007fd4feaa3f60
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state): 
+
+(T00000003/00007f6de9f4a200.----/----------------) P--------/----------------.---- 11:48.22.163 [0000000000000001]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7f6ded33e613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7f6ded33f43d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=3
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=3
+  OMPI_COMM_WORLD_RANK=3
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=3
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=3
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=34
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 3
+{hostname}: 127.0.0.1:7913:3
+{process-id}: 7442
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007f6de9f4a200
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state)
+
+(T00000003/00007f6dd93f71a0.----/----------------) P--------/----------------.---- 11:48.22.163 [0000000000000002]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7f6ded33e613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7f6ded33f43d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=3
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=3
+  OMPI_COMM_WORLD_RANK=3
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=3
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=3
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=34
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 3
+{hostname}: 127.0.0.1:7913:3
+{process-id}: 7442
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007f6dd93f71a0
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state)
+
+(T00000002/00007fd4feaa3f60.----/----------------) P--------/----------------.---- 11:48.22.162 [0000000000000001]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7fd501ea0613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7fd501ea143d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=2
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=2
+  OMPI_COMM_WORLD_RANK=2
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=2
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=2
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=31
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 2
+{hostname}: 127.0.0.1:7912:2
+{process-id}: 7441
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007fd4feaa3f60
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state)
+
+(T00000002/00007fd4ee84a2a0.----/----------------) P--------/----------------.---- 11:48.22.163 [0000000000000002]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7fd501ea0613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7fd501ea143d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=2
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=2
+  OMPI_COMM_WORLD_RANK=2
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=2
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=2
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=31
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 2
+{hostname}: 127.0.0.1:7912:2
+{process-id}: 7441
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007fd4ee84a2a0
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state)
+
+(T00000002/00007fd4fea43560.----/----------------) P--------/----------------.---- 11:48.22.164 [0000000000000003]  <always> [ERR] default_errorsink: unhandled exception: 
+{stack-trace}: 4 frames:
+0x7fd501ea0613  : hpx::detail::backtrace(unsigned long) + 0x83 in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x7fd501ea143d  : void hpx::detail::throw_exception<hpx::exception>(hpx::exception const&, std::string const&, std::string const&, long) + 0x29d in /home/dmarce1/packages/intel64/lib/libhpx.so.0
+0x507d54        : ??? + 0x507d54 in ./xtree
+0x5135d9        : ??? + 0x5135d9 in ./xtree
+{env}: 98 entries:
+  CLUTTER_IM_MODULE=xim
+  COLORTERM=gnome-terminal
+  CPATH=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include:/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/tbb/include
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-9NgC76ILIU
+  DEFAULTS_PATH=/usr/share/gconf/gnome-classic.default.path
+  DESKTOP_SESSION=gnome-classic
+  DISPLAY=:0
+  GDBSERVER_MIC=/opt/intel/composer_xe_2015.0.090/debugger/gdb/target/mic/bin/gdbserver
+  GDB_CROSS=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin/gdb-mic
+  GDMSESSION=gnome-classic
+  GDM_LANG=en_US
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  GNOME_KEYRING_CONTROL=/run/user/1000/keyring-PJjfi9
+  GPG_AGENT_INFO=/run/user/1000/keyring-PJjfi9/gpg:0:1
+  GTK_IM_MODULE=ibus
+  GTK_MODULES=overlay-scrollbar:unity-gtk-module
+  HOME=/home/dmarce1
+  IM_CONFIG_PHASE=1
+  INCLUDE=/opt/intel/composer_xe_2015.0.090/mkl/include:/opt/intel/composer_xe_2015.0.090/mkl/include
+  INFOPATH=/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/info/
+  INSTANCE=GNOME
+  INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses:/opt/intel/composer_xe_2015.0.090/licenses:/opt/intel/licenses:/home/dmarce1/intel/licenses
+  INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.0.090/debugger/python/intel64/
+  JOB=gnome-session
+  LANG=en_US.UTF-8
+  LANGUAGE=en_US
+  LD_LIBRARY_PATH=/usr/lib:/usr/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/home/dmarce1/packages/intel64/lib:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64:/opt/intel/composer_xe_2015.0.090/tbb/lib/intel64/gcc4.4
+  LOGNAME=dmarce1
+  MANDATORY_PATH=/usr/share/gconf/gnome-classic.mandatory.path
+  MANPATH=/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/man/en_US:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/man/::
+  MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mkl/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic:/opt/intel/composer_xe_2015.0.090/compiler/lib/mic:/opt/intel/composer_xe_2015.0.090/mpirt/lib/mic:/opt/intel/composer_xe_2015.0.090/tbb/lib/mic
+  MKLROOT=/opt/intel/composer_xe_2015.0.090/mkl
+  MPM_LAUNCHER=/opt/intel/composer_xe_2015.0.090/debugger/mpm/bin/start_mpm.sh
+  NLSPATH=/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64/share/locale/%l_%t/%N
+  OLDPWD=/home/dmarce1/workspace/xtree
+  OMPI_COMM_WORLD_LOCAL_RANK=2
+  OMPI_COMM_WORLD_LOCAL_SIZE=4
+  OMPI_COMM_WORLD_NODE_RANK=2
+  OMPI_COMM_WORLD_RANK=2
+  OMPI_COMM_WORLD_SIZE=4
+  OMPI_MCA_ess=env
+  OMPI_MCA_mpi_yield_when_idle=0
+  OMPI_MCA_opal_cr_is_tool=0
+  OMPI_MCA_orte_app_num=0
+  OMPI_MCA_orte_cpu_model=Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz
+  OMPI_MCA_orte_cpu_type=GenuineIntel
+  OMPI_MCA_orte_ess_jobid=863830017
+  OMPI_MCA_orte_ess_node_rank=2
+  OMPI_MCA_orte_ess_num_procs=4
+  OMPI_MCA_orte_ess_vpid=2
+  OMPI_MCA_orte_hnp_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_local_daemon_uri=863830016.0;tcp://192.168.1.102:59343
+  OMPI_MCA_orte_num_nodes=1
+  OMPI_MCA_orte_num_restarts=0
+  OMPI_MCA_orte_precondition_transports=b2a352e1f4bf090e-fc066235f6db6ea7
+  OMPI_MCA_shmem_RUNTIME_QUERY_hint=mmap
+  OMPI_UNIVERSE_SIZE=1
+  OPAL_OUTPUT_STDERR_FD=31
+  PATH=/usr/bin:/usr/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  PKG_CONFIG_PATH=/home/dmarce1/packages/intel64/lib/pkgconfig
+  PWD=/home/dmarce1/workspace/xtree/release
+  QT4_IM_MODULE=xim
+  QT_IM_MODULE=ibus
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  SELINUX_INIT=YES
+  SESSIONTYPE=gnome-session
+  SHELL=/bin/bash
+  SHLVL=2
+  SSH_AGENT_LAUNCHER=upstart
+  SSH_AGENT_PID=1349
+  SSH_AUTH_SOCK=/run/user/1000/keyring-PJjfi9/ssh
+  TBBROOT=/opt/intel/composer_xe_2015.0.090/tbb
+  TERM=xterm
+  TEXTDOMAIN=im-config
+  TEXTDOMAINDIR=/usr/share/locale/
+  UBUNTU_MENUPROXY=1
+  UPSTART_EVENTS=started starting
+  UPSTART_INSTANCE=
+  UPSTART_JOB=gnome-settings-daemon
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1281
+  USER=dmarce1
+  VTE_VERSION=3409
+  WINDOWID=10485772
+  XAUTHORITY=/home/dmarce1/.Xauthority
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome-classic:/usr/share/upstart/xdg:/etc/xdg
+  XDG_CURRENT_DESKTOP=GNOME
+  XDG_DATA_DIRS=/usr/share/gnome-classic:/usr/share/gnome:/usr/local/share/:/usr/share/
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/dmarce1
+  XDG_RUNTIME_DIR=/run/user/1000
+  XDG_SEAT=seat0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  XDG_SESSION_ID=c1
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_VTNR=7
+  XMODIFIERS=@im=ibus
+  _=/usr/bin/mpirun
+{locality-id}: 2
+{hostname}: 127.0.0.1:7912:2
+{process-id}: 7441
+{function}: future<R>::get
+{file}: /home/dmarce1/packages/intel64/include/hpx/lcos/future.hpp
+{line}: 882
+{os-thread}: 0, worker-thread#0
+{thread-id}: 00007fd4fea43560
+{thread-description}: <unknown>
+{state}: running
+{auxinfo}: 
+{config}:
+  HPX_HAVE_NATIVE_TLS=ON
+  HPX_HAVE_STACKTRACES=ON
+  HPX_HAVE_COMPRESSION_BZIP2=OFF
+  HPX_HAVE_COMPRESSION_SNAPPY=OFF
+  HPX_HAVE_COMPRESSION_ZLIB=OFF
+  HPX_HAVE_PARCEL_COALESCING=ON
+  HPX_PARCELPORT_IPC=OFF
+  HPX_PARCELPORT_IBVERBS=OFF
+  HPX_HAVE_VERIFY_LOCKS=OFF
+  HPX_HAVE_HWLOC=ON
+  HPX_HAVE_ITTNOTIFY=OFF
+  HPX_LIMIT=5
+  HPX_ACTION_ARGUMENT_LIMIT=5
+  HPX_COMPONENT_CREATE_ARGUMENT_LIMIT=5
+  HPX_FUNCTION_ARGUMENT_LIMIT=8
+  HPX_LOCK_LIMIT=5
+  HPX_TUPLE_LIMIT=8
+  HPX_WAIT_ARGUMENT_LIMIT=5
+  HPX_PARCEL_MAX_CONNECTIONS=512
+  HPX_PARCEL_MAX_CONNECTIONS_PER_LOCALITY=4
+  HPX_INITIAL_AGAS_LOCAL_CACHE_SIZE=256
+  HPX_AGAS_LOCAL_CACHE_SIZE_PER_THREAD=32
+  HPX_PREFIX (configured)=/home/dmarce1/builds/hpx_build
+  HPX_PREFIX=/home/dmarce1/packages/intel64
+{version}: V0.9.10-trunk (AGAS: V3.0), Git: f57d6091f86be3c88b8fd8cf1ea300ae0aad869a
+{boost}: V1.56.0
+{build-type}: release
+{date}: Oct 15 2014 22:57:18
+{platform}: linux
+{compiler}: Intel C++ C++0x mode version 1500
+{stdlib}: GNU libstdc++ version 20140728
+{what}: this future has no valid shared state: HPX(no_state)
+

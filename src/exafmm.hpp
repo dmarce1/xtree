@@ -25,7 +25,7 @@
  THE SOFTWARE.
  */
 
-#include "valarray.hpp"
+#include <valarray>
 #include <array>
 #ifndef kernel_h
 #define kernel_h

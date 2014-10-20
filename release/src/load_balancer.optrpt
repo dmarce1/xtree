@@ -1,0 +1,303 @@
+
+Begin optimization report for: boost::basic_format<char, std::char_traits<char>, std::allocator<char>>::basic_format(boost::basic_format<char, std::char_traits<char>, std::allocator<char>> *, const char *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(28,35)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: boost::basic_format<char, std::char_traits<char>, std::allocator<char>>::parse(boost::basic_format<char, std::char_traits<char>, std::allocator<char>> *, const boost::basic_format<char, std::char_traits<char>, std::allocator<char>>::string_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/parsing.hpp(479,13)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/parsing.hpp(479,13)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::vector<bool, std::allocator<bool>>::_M_fill_insert(std::vector<bool, std::allocator<bool>> *, std::vector<bool, std::allocator<bool>>::iterator, std::vector<bool, std::allocator<bool>>::size_type, bool)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(334,4) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(727,7)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(334,4) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(730,34)
+   remark #25460: No loop optimizations reported
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<increment_server_action>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::actions::detail::action_registration<hpx::actions::transfer_action<decrement_server_action>>::create(boost::shared_ptr<hpx::actions::base_action> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::load_balancer::increment_server(xtree::load_balancer *, const xtree::location<3> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/load_balancer.cpp(68,28)
+   remark #25460: No loop optimizations reported
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(68,28)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(81,42)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at ../src/load_balancer.cpp(83,14)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/location.hpp(87,3) inlined into ../src/load_balancer.cpp(87,18)
+         remark #25460: No loop optimizations reported
+      LOOP END
+
+      LOOP BEGIN at ../src/location.hpp(87,3) inlined into ../src/load_balancer.cpp(94,18)
+         remark #25460: No loop optimizations reported
+      LOOP END
+
+      LOOP BEGIN at ../src/indexer.hpp(70,3) inlined into ../src/load_balancer.cpp(84,19)
+      LOOP END
+
+      LOOP BEGIN at ../src/indexer.hpp(96,3) inlined into ../src/load_balancer.cpp(85,8)
+      LOOP END
+
+      LOOP BEGIN at ../src/location.hpp(97,3) inlined into ../src/load_balancer.cpp(88,27)
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(110,14)
+   LOOP END
+
+   LOOP BEGIN at ../src/load_balancer.cpp(111,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/location.hpp(145,3) inlined into ../src/load_balancer.cpp(102,26)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(130,3)
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(134,3)
+LOOP END
+
+LOOP BEGIN at ../src/location.hpp(129,13) inlined into ../src/load_balancer.cpp(139,19)
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(139,19)
+   LOOP END
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(139,19)
+   LOOP END
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(139,19)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(142,2)
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::location<3>::location(xtree::location<3> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(53,3)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(53,3)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(53,3)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(53,3)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::location<3>::get_neighbor(xtree::location<3> *, const xtree::location<3> *, const xtree::indexer<3, 3, -1> &) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(96,12)
+   remark #25460: No loop optimizations reported
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(96,12)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(96,12)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(96,12)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/location.hpp(97,3)
+LOOP END
+===========================================================================
+
+Begin optimization report for: xtree::load_balancer::decrement_server(xtree::load_balancer *, int, const xtree::location<3> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/location.hpp(24,3) inlined into ../src/load_balancer.cpp(150,33)
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(153,2)
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(156,13)
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(157,19)
+   LOOP END
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(157,19)
+   LOOP END
+
+   LOOP BEGIN at ../src/location.hpp(128,3) inlined into ../src/load_balancer.cpp(157,19)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/load_balancer.cpp(160,2)
+LOOP END
+===========================================================================
+
+Begin optimization report for: __sti__$E()
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47) inlined into /home/dmarce1/packages/intel64/include/boost/system/error_code.hpp(221,53)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47) inlined into /home/dmarce1/packages/intel64/include/boost/system/error_code.hpp(221,53)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47) inlined into /home/dmarce1/packages/intel64/include/boost/system/error_code.hpp(221,53)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::util::logging::gather_holder<hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::self_type, hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::gather_type>::gather_holder(hpx::util::logging::gather_holder<hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::self_type, hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::gather_type> *, const hpx::util::logging::logger<hpx::util::logging::logger_holder<hpx::util::logger_type>::gather_type, hpx::util::logging::default_>::self_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
+   remark #15301: BLOCK WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Hashtable<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::_M_insert<const std::__detail::_Insert_base<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::value_type &, std::__detail::_Insert_base<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::__node_gen_type>(std::_Hashtable<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>> *, const std::__detail::_Insert_base<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::value_type &, const std::__detail::_Insert_base<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::__node_gen_type &, std::true_type)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/location.hpp(24,3) inlined into /usr/include/c++/4.9.0/bits/hashtable.h(1662,29)
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Hashtable<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::find(std::_Hashtable<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>> *, const std::_Hashtable<xtree::location<3>, xtree::location<3>, std::allocator<xtree::location<3>>, std::__detail::_Identity, std::equal_to<xtree::location<3>>, std::hash<xtree::location<3>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__uset_traits<true>>::key_type &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/location.hpp(24,3) inlined into /usr/include/c++/4.9.0/bits/hashtable.h(1236,34)
+LOOP END
+===========================================================================

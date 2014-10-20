@@ -15,7 +15,7 @@
 #include "xtree.hpp"
 #include "expansion.hpp"
 #include <hpx/util/function.hpp>
-//#include <boost/serialization/valarray.hpp>
+#include <boost/serialization/valarray.hpp>
 #include <boost/serialization/complex.hpp>
 
 namespace xtree {

@@ -44,7 +44,7 @@ all: xtree
 xtree: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	mpic++  $(OBJS) $(USER_OBJS) $(LIBS) -pthread -o  "xtree"
+	icpc  $(OBJS) $(USER_OBJS) $(LIBS) `pkg-config --libs hpx_application` -o  "xtree"
 	@echo 'Finished building target: $@'
 	@echo ' '
 
