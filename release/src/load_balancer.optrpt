@@ -53,8 +53,8 @@ Begin optimization report for: boost::archive::detail::load_array_type<hpx::util
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_iarchive.hpp(302,44) inlined into /home/dmarce1/packages/intel64/include/boost/archive/detail/iserializer.hpp(591,12)
    remark #15382: vectorization support: call to function _ZN3hpx4util24portable_binary_iarchive9load_implERlc cannot be vectorized   [ /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_iarchive.hpp(136,9) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between l.459356 line 135 and l.459356 line 136
-   remark #15346: vector dependence: assumed OUTPUT dependence between l.459356 line 136 and l.459356 line 135
+   remark #15346: vector dependence: assumed OUTPUT dependence between l line 135 and l line 136
+   remark #15346: vector dependence: assumed OUTPUT dependence between l line 136 and l line 135
 LOOP END
 ===========================================================================
 
@@ -127,7 +127,7 @@ Begin optimization report for: boost::basic_format<char, std::char_traits<char>,
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(28,35)
-   remark #15389: vectorization support: reference this_385700 has unaligned access
+   remark #15389: vectorization support: reference this has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 3
@@ -155,8 +155,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 ===========================================================================
 
@@ -194,8 +194,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 ===========================================================================
 
@@ -251,8 +251,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(123,13)
@@ -279,7 +279,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /us
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
-   remark #15389: vectorization support: reference __first_255384 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+   remark #15389: vectorization support: reference __first has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -321,7 +321,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /us
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
-   remark #15389: vectorization support: reference __first_255384 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+   remark #15389: vectorization support: reference __first has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -391,8 +391,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 ===========================================================================
 
@@ -425,8 +425,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(692,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(232,4)
@@ -436,8 +436,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(692,7) inlined into /us
    remark #15382: vectorization support: call to function _ZNSt6localeD1Ev cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(722,66) ]
    remark #15382: vectorization support: call to function _ZNSt6localeC1ERKS_ cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(465,50) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between this_387526 line 64 and this_387526 line 466
-   remark #15346: vector dependence: assumed OUTPUT dependence between __first_387517 line 466 and __first_387517 line 64
+   remark #15346: vector dependence: assumed OUTPUT dependence between __first line 64 and this line 466
+   remark #15346: vector dependence: assumed OUTPUT dependence between this line 466 and __first line 64
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(200,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(233,4)
@@ -451,8 +451,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(748,7) inlined into /us
    remark #15382: vectorization support: call to function _ZNSt6localeD1Ev cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(722,66) ]
    remark #15382: vectorization support: call to function _ZNSt6localeC1ERKS_ cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(465,50) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between this_387526 line 64 and this_387526 line 466
-   remark #15346: vector dependence: assumed OUTPUT dependence between __first_387620 line 466 and __first_387620 line 64
+   remark #15346: vector dependence: assumed OUTPUT dependence between __first line 64 and this line 466
+   remark #15346: vector dependence: assumed OUTPUT dependence between this line 466 and __first line 64
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(239,9)
@@ -462,8 +462,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 ===========================================================================
 
@@ -489,8 +489,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 327 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_383654 line 249 and __first_383654 line 327
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 327 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 327
 LOOP END
 ===========================================================================
 
@@ -501,8 +501,8 @@ Begin optimization report for: boost::basic_format<char, std::char_traits<char>,
 
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(257,29) inlined into /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(228,21)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed FLOW dependence between sz.395469 line 263 and sz.395469 line 259
-   remark #15346: vector dependence: assumed ANTI dependence between sz.395469 line 259 and sz.395469 line 263
+   remark #15346: vector dependence: assumed FLOW dependence between sz line 263 and sz line 259
+   remark #15346: vector dependence: assumed ANTI dependence between sz line 259 and sz line 263
 LOOP END
 
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(230,29)
@@ -825,7 +825,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /ho
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-      remark #15389: vectorization support: reference __first_422981 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -857,7 +857,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /ho
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-      remark #15389: vectorization support: reference __first_422981 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -1085,8 +1085,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __first_301127 line 547 and  line 249
-   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_301127 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 547 and  line 249
+   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first line 547
 LOOP END
 ===========================================================================
 
@@ -1103,8 +1103,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __first_301127 line 547 and  line 249
-   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_301127 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 547 and  line 249
+   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first line 547
 LOOP END
 ===========================================================================
 
@@ -1121,8 +1121,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between U45 line 547 and U45 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_301127 line 249 and __first_301127 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 547 and U45 line 249
+   remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 547
 LOOP END
 ===========================================================================
 
@@ -1135,8 +1135,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __mem_4283 line 547 and __mem_4283 line 68
-   remark #15346: vector dependence: assumed FLOW dependence between __first_301127 line 68 and __first_301127 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 547 and __mem line 68
+   remark #15346: vector dependence: assumed FLOW dependence between __mem line 68 and __first line 547
 LOOP END
 ===========================================================================
 
@@ -1149,8 +1149,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __first_301127 line 547 and  line 249
-   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_301127 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first line 547 and  line 249
+   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first line 547
 LOOP END
 ===========================================================================
 
@@ -1212,8 +1212,8 @@ LOOP END
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1844,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
    remark #15382: vectorization support: call to function __builtin_memmove cannot be vectorized   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(578,6) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __last_550675 line 1846 and __last_550675 line 1833
-   remark #15346: vector dependence: assumed FLOW dependence between __i.550609 line 1833 and __i.550609 line 1846
+   remark #15346: vector dependence: assumed ANTI dependence between __i line 1846 and __last line 1833
+   remark #15346: vector dependence: assumed FLOW dependence between __last line 1833 and __i line 1846
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1827,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -1222,8 +1222,8 @@ LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1865,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __last_550675 line 1824 and __last_550675 line 1833
-   remark #15346: vector dependence: assumed FLOW dependence between __i.550697 line 1833 and __i.550697 line 1824
+   remark #15346: vector dependence: assumed ANTI dependence between __i line 1824 and __last line 1833
+   remark #15346: vector dependence: assumed FLOW dependence between __last line 1833 and __i line 1824
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1827,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -1233,8 +1233,8 @@ LOOP END
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1844,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
    remark #15382: vectorization support: call to function __builtin_memmove cannot be vectorized   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(578,6) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __last_550675 line 1846 and __last_550675 line 1833
-   remark #15346: vector dependence: assumed FLOW dependence between __i.550609 line 1833 and __i.550609 line 1846
+   remark #15346: vector dependence: assumed ANTI dependence between __i line 1846 and __last line 1833
+   remark #15346: vector dependence: assumed FLOW dependence between __last line 1833 and __i line 1846
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1827,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -1934,7 +1934,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(53,3)
-      remark #15389: vectorization support: reference __first_422981 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -1966,7 +1966,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/location.hpp(96,12)
-      remark #15389: vectorization support: reference __first_422981 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -2399,7 +2399,7 @@ Begin optimization report for: hpx::util::logging::gather_holder<hpx::util::logg
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
-   remark #15389: vectorization support: reference this_257731 has unaligned access
+   remark #15389: vectorization support: reference this has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 2
@@ -2415,7 +2415,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
-   remark #15389: vectorization support: reference this_257731 has unaligned access
+   remark #15389: vectorization support: reference this has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 2
@@ -2431,7 +2431,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
-   remark #15389: vectorization support: reference this_257750 has unaligned access
+   remark #15389: vectorization support: reference this has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 3
@@ -2653,8 +2653,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_string.h(215,53) inlined into /u
       remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
       remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between U45 line 547 and U45 line 249
-      remark #15346: vector dependence: assumed FLOW dependence between __first_301127 line 249 and __first_301127 line 547
+      remark #15346: vector dependence: assumed ANTI dependence between __first line 547 and U45 line 249
+      remark #15346: vector dependence: assumed FLOW dependence between U45 line 249 and __first line 547
    LOOP END
 LOOP END
 ===========================================================================

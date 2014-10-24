@@ -20,7 +20,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Intel C++ Compiler'
-	icpc -O3 -DNDEBUG -vec-report6 -xHost `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	icpc -g -O3 -ipp=common -DNDEBUG -std=c++0x -vec-report6 -xHost `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

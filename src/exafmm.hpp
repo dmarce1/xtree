@@ -87,93 +87,6 @@ public:
 		}
 	}
 
-	static void M2L_V(std::valarray<std::valarray<complex>>& CiL, const std::valarray<complex> CjM,
-			const std::valarray<real>& xin, const std::valarray<real>& yin, const std::valarray<real>& zin,
-			std::size_t vlen) {
-		const complex I(0., 1.);
-		std::valarray<std::valarray<real>> Ynm_even(std::valarray<real>(vlen), P * P);
-		std::valarray<std::valarray<real>> Ynm_odd(std::valarray<real>(vlen), P * P);
-		std::valarray<std::valarray<real>> L_real(std::valarray<real>(vlen), P * (P + 1) / 2);
-		std::valarray<std::valarray<real>> L_imag(std::valarray<real>(vlen), P * (P + 1) / 2);
-#pragma simd
-		for (std::size_t i = 0; i != vlen; ++i) {
-			real x = xin[i];
-			real y = yin[i];
-			real phi = atan2(y, x);
-			real rho = sqrt(x * x + y * y + zin[i] * zin[i]);
-			real fact = 1.0;
-			real pn = 1.0;
-			real rhom = 1.0 / rho;
-#pragma novector
-			for (int m = 0; m != P; ++m) {
-				real eim_real = std::cos(m * phi);
-				real eim_imag = std::sin(m * phi);
-				real p = pn;
-				int npn = m * m + 2 * m;
-				int nmn = m * m;
-				real tmp = rhom * p * prefactor[npn];
-				Ynm_even[npn][i] = tmp * eim_real;
-				Ynm_odd[npn][i] = tmp * eim_imag;
-				real p1 = p;
-				p = x * (2 * m + 1) * p1;
-				rhom /= rho;
-				real rhon = rhom;
-#pragma novector
-				for (int n = m + 1; n != P; ++n) {
-					int npm = n * n + n + m;
-					int nmm = n * n + n - m;
-					real tmp = rhon * p * prefactor[npn];
-					Ynm_even[npm][i] = tmp * eim_real;
-					Ynm_odd[npm][i] = tmp * eim_imag;
-					real p2 = p1;
-					p1 = p;
-					p = (x * (2 * n + 1) * p1 - (n + m) * p2) / (n - m + 1);
-					rhon /= rho;
-				}
-				pn = -pn * fact * y;
-				fact += 2;
-			}
-		}
-#pragma novector
-		for (int j = 0; j != P; ++j) {
-			for (int k = 0; k <= j; ++k) {
-				int jk = j * j + j + k;
-				int jks = j * (j + 1) / 2 + k;
-#pragma simd
-				for (std::size_t i = 0; i != vlen; ++i) {
-					L_real[jks][i] = 0.0;
-					L_imag[jks][i] = 0.0;
-				}
-#pragma novector
-				for (int n = 0; n != P - j; ++n) {
-#pragma novector
-					for (int m = -n; m <= n; ++m) {
-						int nm = n * n + n + m;
-						int nms = n * (n + 1) / 2 + std::abs(m);
-						int jknm = jk * P * P + nm;
-						int jnkm = (j + n) * (j + n) + j + n + m - k;
-#pragma simd
-						for (std::size_t i = 0; i != vlen; ++i) {
-							real tmp_real = Cnm_real[jknm] * Ynm_even[jnkm][i];
-							real tmp_imag = Cnm_imag[jknm] * Ynm_even[jnkm][i];
-							tmp_real -= Cnm_imag[jknm] * std::copysign(Ynm_odd[jnkm][i], m);
-							tmp_imag += Cnm_real[jknm] * std::copysign(Ynm_odd[jnkm][i], m);
-							L_real[jks][i] += tmp_real * CjM[nms].real() - tmp_imag * std::copysign(CjM[nms].imag(), m);
-							L_imag[jks][i] += tmp_imag * CjM[nms].real() + tmp_real * std::copysign(CjM[nms].imag(), m);
-						}
-					}
-				}
-				//	printf( "%i %e %e\n", jks, L.real(), L.imag());
-			}
-		}
-		for (int i = 0; i != vlen; ++i) {
-			for (int j = 0; j != P * (P + 1) / 2; ++j) {
-				CiL[i][j].real(L_real[j][i]);
-				CiL[i][j].imag(L_imag[j][i]);
-			}
-		}
-	}
-
 	static void M2L(std::valarray<complex>& CiL, const std::valarray<complex> CjM, const std::valarray<real>& dist) {
 		std::valarray<complex> Ynm(P * P);
 		real rho, theta, phi;
@@ -202,6 +115,97 @@ public:
 				}
 				CiL[jks] = L;
 				//	printf( "%i %e %e\n", jks, L.real(), L.imag());
+			}
+		}
+	}
+
+	static void M2L_vec(std::valarray<std::valarray<complex>>& CiL, const std::valarray<complex> CjM,
+			const std::valarray<real>& x0, const std::valarray<real>& y0, const std::valarray<real>& z0,
+			std::size_t vlen) {
+		std::valarray<real> rho(vlen), theta(vlen), phi(vlen);
+		std::valarray<std::valarray<real>> Ynm_real(std::valarray<real>(vlen), P * P);
+		std::valarray<std::valarray<real>> Ynm_imag(std::valarray<real>(vlen), P * P);
+#pragma simd
+		for (std::size_t i = 0; i != vlen; ++i) {
+			rho[i] = sqrt(x0[i] * x0[i] + y0[i] * y0[i] + z0[i] * z0[i]);
+			theta[i] = acos(z0[i] / rho[i]);
+			phi[i] = atan2(y0[i], x0[i]);
+		}
+#pragma simd
+		for (std::size_t i = 0; i != vlen; ++i) {
+			const complex I(0., 1.);                               // Imaginary unit
+			real x = std::cos(theta[i]);                              // x = cos(theta)
+			real y = std::sin(theta[i]);                              // y = sin(theta)
+			real fact = 1;                                   // Initialize 2 * m + 1
+			real pn = 1;                        // Initialize Legendre polynomial Pn
+			real rhom = 1.0 / rho[i];                          // Initialize rho^(-m-1)
+#pragma novector                                  //  rho^(-n-1)
+			for (int m = 0; m != P; ++m) {                     // Loop over m in Ynm
+				real eim_real = cos(m * phi[i]);      //  exp(i * m * phi)
+				real eim_imag = sin(m * phi[i]);      //  exp(i * m * phi)
+				real p = pn;                  //  Associated Legendre polynomial Pnm
+				int npn = m * m + 2 * m;                  //  Index of Ynm for m > 0
+				int nmn = m * m;                          //  Index of Ynm for m < 0
+				Ynm_real[npn][i] = rhom * p * prefactor[npn] * eim_real; //  rho^(-m-1) * Ynm for m > 0
+				Ynm_imag[npn][i] = rhom * p * prefactor[npn] * eim_imag; //  rho^(-m-1) * Ynm for m > 0
+				Ynm_real[nmn][i] = Ynm_real[npn][i];
+				Ynm_imag[nmn][i] = -Ynm_imag[npn][i];
+				real p1 = p;                                              //  Pnm-1
+				p = x * (2 * m + 1) * p1;          //  Pnm using recurrence relation
+				rhom /= rho[i];                                          //  rho^(-m-1)
+				real rhon = rhom;
+#pragma novector                                  //  rho^(-n-1)
+				for (int n = m + 1; n != P; ++n) {            //  Loop over n in Ynm
+					int npm = n * n + n + m;             //   Index of Ynm for m > 0
+					int nmm = n * n + n - m;             //   Index of Ynm for m < 0
+					Ynm_real[npm][i] = rhon * p * prefactor[npm] * eim_real; //   rho^n * Ynm for m > 0
+					Ynm_imag[npm][i] = rhon * p * prefactor[npm] * eim_imag; //   rho^n * Ynm for m > 0
+					Ynm_real[nmm][i] = Ynm_real[npm][i];
+					Ynm_imag[nmm][i] = -Ynm_imag[npm][i];
+					real p2 = p1;                                         //   Pnm-2
+					p1 = p;                                               //   Pnm-1
+					p = (x * (2 * n + 1) * p1 - (n + m) * p2) / (n - m + 1); //   Pnm using recurrence relation
+					rhon /= rho[i];                                     //   rho^(-n-1)
+				}                                         //  End loop over n in Ynm
+				pn = -pn * fact * y;                                      //  Pn
+				fact += 2.0;                                             //  2 * m + 1
+			}                                              // End loop over m in Ynm
+		}
+		std::valarray<real> L_real(vlen);
+		std::valarray<real> L_imag(vlen);
+		for (int j = 0; j != P; ++j) {
+			for (int k = 0; k <= j; ++k) {
+				int jk = j * j + j + k;
+				int jks = j * (j + 1) / 2 + k;
+#pragma simd
+				for (std::size_t i = 0; i != vlen; ++i) {
+					L_real[i] = 0.0;
+					L_imag[i] = 0.0;
+				}
+				for (int n = 0; n != P - j; ++n) {
+					for (int m = -n; m <= n; ++m) {
+						int nm = n * n + n + m;
+						int nms = n * (n + 1) / 2 + std::abs(m);
+						int jknm = jk * P * P + nm;
+						int jnkm = (j + n) * (j + n) + j + n + m - k;
+#pragma simd
+						for (std::size_t i = 0; i != vlen; ++i) {
+							real tmp_real = Cnm_real[jknm] * Ynm_real[jnkm][i];
+							real tmp_imag = Cnm_real[jknm] * Ynm_imag[jnkm][i];
+							tmp_real -= Cnm_imag[jknm] * Ynm_imag[jnkm][i];
+							tmp_imag += Cnm_imag[jknm] * Ynm_real[jnkm][i];
+							L_real[i] += tmp_real * CjM[nms].real();
+							L_real[i] -= tmp_imag * std::copysign(CjM[nms].imag(), m);
+							L_imag[i] += tmp_imag * CjM[nms].real();
+							L_imag[i] += tmp_real * std::copysign(CjM[nms].imag(), m);
+
+						}
+					}
+				}
+				for (std::size_t i = 0; i != vlen; ++i) {
+					CiL[jks][i].real(L_real[i]);
+					CiL[jks][i].imag(L_imag[i]);
+				}
 			}
 		}
 	}

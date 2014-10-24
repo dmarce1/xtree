@@ -72,12 +72,13 @@ struct fmmx_node_static_data {
 						p1[d] = int(position_array[dir][i1][d]-0.5+EPS+BOUND_WIDTH);
 						p2[d] = int(position_array0[i0][d]-0.5+EPS+BOUND_WIDTH);
 					}
-					if( std::abs(p1 / int(2) - p2 / int(2)).max() < 2 ) {
-						list_near.push_back(i0);
-						if( std::abs(p1-p2).max() > 1 ) {
-							list_neighbor.push_back(i0);
-						}
-					}
+					if( std::abs(p1 - p2 ).max() > 0 ) {
+						if( std::abs(p1 / int(2) - p2 / int(2)).max() < 2 ) {
+							list_near.push_back(i0);
+							if( std::abs(p1-p2).max() > 1 ) {
+								list_neighbor.push_back(i0);
+							}
+						}}
 				}
 				if( list_near.size() != 0 ) {
 					near_indexes[dir][i1].resize(list_near.size());
@@ -308,30 +309,21 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 		Mb_ptr = &M;
 	}
 	for (std::size_t i = 0; i != indexes.size(); ++i) {
-		/*	std::valarray<expansion<P>> l;
-		 l.resize(indexes[i].size());
-		 std::valarray<std::valarray<double>> x = X[indexes[i]];
-		 for (std::size_t j = 0; j != indexes[i].size(); ++j) {
-		 std::valarray<double> dist = x[j] - Xb[i];
-		 if ((dist * dist).sum() > EPS * EPS) {
-		 static_data.exafmm.M2L(l[j], (*Mb_ptr)[i], dist);
-		 }
-		 }*/
 		const std::size_t sz = indexes[i].size();
-		std::valarray<std::valarray<complex>> l(std::valarray<complex>(P * (P + 1) / 2), sz);
-		std::valarray<real> x0(sz);
-		std::valarray<real> y0(sz);
-		std::valarray<real> z0(sz);
-		std::valarray<std::valarray<real>> x = X[indexes[i]];
+		std::valarray<std::valarray<complex>> l(std::valarray<complex>(sz), P * (P + 1) / 2);
+		std::valarray<std::valarray<double>> x = X[indexes[i]];
+		std::valarray<double> x0(sz), y0(sz), z0(sz);
 		for (std::size_t j = 0; j != sz; ++j) {
 			x0[j] = x[j][0] - Xb[i][0];
 			y0[j] = x[j][1] - Xb[i][1];
 			z0[j] = x[j][2] - Xb[i][2];
 		}
-		static_data.exafmm.M2L_V(l, (*Mb_ptr)[i], x0, y0, z0, sz);
+		static_data.exafmm.M2L_vec(l, (*Mb_ptr)[i], x0, y0, z0, sz);
 		boost::lock_guard<decltype(lock)> scope(lock);
-		for (std::size_t j = 0; j != sz; ++j) {
-			L[indexes[i][j]] += l[j];
+		for (std::size_t k = 0; k < P * (P + 1) / 2; k++) {
+			for (std::size_t j = 0; j < sz; ++j) {
+				L[indexes[i][j]][k] += l[k][j];
+			}
 		}
 	}
 }
