@@ -42,8 +42,7 @@ using complex = std::complex<real>;
 template<std::int64_t P>
 class exafmm_kernel {
 public:
-	static void cart2sph(real& r, real& theta, real& phi,
-			std::valarray<real> dist) {
+	static void cart2sph(real& r, real& theta, real& phi, std::valarray<real> dist) {
 		r = sqrt((dist * dist).sum()) * (1.0);      // r = sqrt(x^2 + y^2 + z^2)
 		if (r < EPS) {                                             // If r == 0
 			theta = 0;               //  theta can be anything so we set it to 0
@@ -52,9 +51,7 @@ public:
 		}                                                   // End if for r == 0
 		phi = atan2(dist[1], dist[0]);
 	}
-	static void M2M(std::valarray<complex>& CiM,
-			const std::valarray<complex>& CjM,
-			const std::valarray<real>& dist) {
+	static void M2M(std::valarray<complex>& CiM, const std::valarray<complex>& CjM, const std::valarray<real>& dist) {
 		const complex I(0., 1.);
 		std::valarray<complex> Ynm(P * P);
 
@@ -72,9 +69,8 @@ public:
 							int jnkm = (j - n) * (j - n) + j - n + k - m;
 							int jnkms = (j - n) * (j - n + 1) / 2 + k - m;
 							int nm = n * n + n + m;
-							M += CjM[jnkms] * std::pow(I, real(m - abs(m)))
-									* Ynm[nm] * real(
-									ODDEVEN(n) * Anm[nm] * Anm[jnkm] / Anm[jk]);
+							M += CjM[jnkms] * std::pow(I, real(m - abs(m))) * Ynm[nm]
+									* real(ODDEVEN(n) * Anm[nm] * Anm[jnkm] / Anm[jk]);
 						}
 					}
 					for (int m = k; m <= n; ++m) {
@@ -82,8 +78,7 @@ public:
 							int jnkm = (j - n) * (j - n) + j - n + k - m;
 							int jnkms = (j - n) * (j - n + 1) / 2 - k + m;
 							int nm = n * n + n + m;
-							M += std::conj(CjM[jnkms]) * Ynm[nm] * real(
-							ODDEVEN(k+n+m) * Anm[nm] * Anm[jnkm] / Anm[jk]);
+							M += std::conj(CjM[jnkms]) * Ynm[nm] * real(ODDEVEN(k+n+m) * Anm[nm] * Anm[jnkm] / Anm[jk]);
 						}
 					}
 				}
@@ -92,8 +87,94 @@ public:
 		}
 	}
 
-	static void M2L(std::valarray<complex>& CiL,
-			const std::valarray<complex> CjM, const std::valarray<real>& dist) {
+	static void M2L_V(std::valarray<std::valarray<complex>>& CiL, const std::valarray<complex> CjM,
+			const std::valarray<real>& xin, const std::valarray<real>& yin, const std::valarray<real>& zin,
+			std::size_t vlen) {
+		const complex I(0., 1.);
+		std::valarray<std::valarray<real>> Ynm_even(std::valarray<real>(vlen), P * P);
+		std::valarray<std::valarray<real>> Ynm_odd(std::valarray<real>(vlen), P * P);
+		std::valarray<std::valarray<real>> L_real(std::valarray<real>(vlen), P * (P + 1) / 2);
+		std::valarray<std::valarray<real>> L_imag(std::valarray<real>(vlen), P * (P + 1) / 2);
+#pragma simd
+		for (std::size_t i = 0; i != vlen; ++i) {
+			real x = xin[i];
+			real y = yin[i];
+			real phi = atan2(y, x);
+			real rho = sqrt(x * x + y * y + zin[i] * zin[i]);
+			real fact = 1.0;
+			real pn = 1.0;
+			real rhom = 1.0 / rho;
+#pragma novector
+			for (int m = 0; m != P; ++m) {
+				real eim_real = std::cos(m * phi);
+				real eim_imag = std::sin(m * phi);
+				real p = pn;
+				int npn = m * m + 2 * m;
+				int nmn = m * m;
+				real tmp = rhom * p * prefactor[npn];
+				Ynm_even[npn][i] = tmp * eim_real;
+				Ynm_odd[npn][i] = tmp * eim_imag;
+				real p1 = p;
+				p = x * (2 * m + 1) * p1;
+				rhom /= rho;
+				real rhon = rhom;
+#pragma novector
+				for (int n = m + 1; n != P; ++n) {
+					int npm = n * n + n + m;
+					int nmm = n * n + n - m;
+					real tmp = rhon * p * prefactor[npn];
+					Ynm_even[npm][i] = tmp * eim_real;
+					Ynm_odd[npm][i] = tmp * eim_imag;
+					real p2 = p1;
+					p1 = p;
+					p = (x * (2 * n + 1) * p1 - (n + m) * p2) / (n - m + 1);
+					rhon /= rho;
+				}
+				pn = -pn * fact * y;
+				fact += 2;
+			}
+		}
+#pragma novector
+		for (int j = 0; j != P; ++j) {
+			for (int k = 0; k <= j; ++k) {
+				int jk = j * j + j + k;
+				int jks = j * (j + 1) / 2 + k;
+#pragma simd
+				for (std::size_t i = 0; i != vlen; ++i) {
+					L_real[jks][i] = 0.0;
+					L_imag[jks][i] = 0.0;
+				}
+#pragma novector
+				for (int n = 0; n != P - j; ++n) {
+#pragma novector
+					for (int m = -n; m <= n; ++m) {
+						int nm = n * n + n + m;
+						int nms = n * (n + 1) / 2 + std::abs(m);
+						int jknm = jk * P * P + nm;
+						int jnkm = (j + n) * (j + n) + j + n + m - k;
+#pragma simd
+						for (std::size_t i = 0; i != vlen; ++i) {
+							real tmp_real = Cnm_real[jknm] * Ynm_even[jnkm][i];
+							real tmp_imag = Cnm_imag[jknm] * Ynm_even[jnkm][i];
+							tmp_real -= Cnm_imag[jknm] * std::copysign(Ynm_odd[jnkm][i], m);
+							tmp_imag += Cnm_real[jknm] * std::copysign(Ynm_odd[jnkm][i], m);
+							L_real[jks][i] += tmp_real * CjM[nms].real() - tmp_imag * std::copysign(CjM[nms].imag(), m);
+							L_imag[jks][i] += tmp_imag * CjM[nms].real() + tmp_real * std::copysign(CjM[nms].imag(), m);
+						}
+					}
+				}
+				//	printf( "%i %e %e\n", jks, L.real(), L.imag());
+			}
+		}
+		for (int i = 0; i != vlen; ++i) {
+			for (int j = 0; j != P * (P + 1) / 2; ++j) {
+				CiL[i][j].real(L_real[j][i]);
+				CiL[i][j].imag(L_imag[j][i]);
+			}
+		}
+	}
+
+	static void M2L(std::valarray<complex>& CiL, const std::valarray<complex> CjM, const std::valarray<real>& dist) {
 		std::valarray<complex> Ynm(P * P);
 		real rho, theta, phi;
 		cart2sph(rho, theta, phi, dist);
@@ -125,9 +206,7 @@ public:
 		}
 	}
 
-	static void L2L(std::valarray<complex>& CiL,
-			const std::valarray<complex>& CjL,
-			const std::valarray<real>& dist) {
+	static void L2L(std::valarray<complex>& CiL, const std::valarray<complex>& CjL, const std::valarray<real>& dist) {
 		const complex I(0., 1.);
 		std::valarray<complex> Ynm(P * P);
 		real rho, theta, phi;
@@ -144,17 +223,15 @@ public:
 						int jnkm = (n - j) * (n - j) + n - j + m - k;
 						int nm = n * n + n - m;
 						int nms = n * (n + 1) / 2 - m;
-						L += std::conj(CjL[nms]) * Ynm[jnkm] * real(
-						ODDEVEN(k) * Anm[jnkm] * Anm[jk] / Anm[nm]);
+						L += std::conj(CjL[nms]) * Ynm[jnkm] * real(ODDEVEN(k) * Anm[jnkm] * Anm[jk] / Anm[nm]);
 					}
 					for (int m = 0; m <= n; ++m) {
 						if (n - j >= abs(m - k)) {
 							int jnkm = (n - j) * (n - j) + n - j + m - k;
 							int nm = n * n + n + m;
 							int nms = n * (n + 1) / 2 + m;
-							L += CjL[nms]
-									* std::pow(I, real(m - k - abs(m - k)))
-									* Ynm[jnkm] * Anm[jnkm] * Anm[jk] / Anm[nm];
+							L += CjL[nms] * std::pow(I, real(m - k - abs(m - k))) * Ynm[jnkm] * Anm[jnkm] * Anm[jk]
+									/ Anm[nm];
 						}
 					}
 				}
@@ -163,8 +240,7 @@ public:
 		}
 	}
 
-	static void evalMultipole(real rho, real theta, real phi,
-			std::valarray<complex>& Ynm) {
+	static void evalMultipole(real rho, real theta, real phi, std::valarray<complex>& Ynm) {
 		const complex I(0., 1.);                               // Imaginary unit
 		real x = std::cos(theta);                              // x = cos(theta)
 		real y = std::sin(theta);                              // y = sin(theta)
@@ -198,8 +274,7 @@ public:
 	}
 
 //! Evaluate singular harmonics \f$ r^{-n-1} Y_n^m \f$
-	static void evalLocal(real rho, real theta, real phi,
-			std::valarray<complex>& Ynm) {
+	static void evalLocal(real rho, real theta, real phi, std::valarray<complex>& Ynm) {
 		const complex I(0., 1.);                               // Imaginary unit
 		real x = std::cos(theta);                              // x = cos(theta)
 		real y = std::sin(theta);                              // y = sin(theta)
@@ -238,6 +313,8 @@ private:
 	static std::array<real, P * P> prefactor;
 	static std::array<real, P * P> Anm;
 	static std::array<complex, P * P * P * P> Cnm;
+	static std::array<real, P * P * P * P> Cnm_real;
+	static std::array<real, P * P * P * P> Cnm_imag;
 
 public:
 	exafmm_kernel() {
@@ -275,9 +352,10 @@ public:
 					for (int m = -n; m <= n; ++m, ++nm, ++jknm) { //    Loop over m in Cjknm
 						if (j + n < P) {
 							const int jnkm = (j + n) * (j + n) + j + n + m - k; //     Index C_{j+n}^{m-k}
-							Cnm[jknm] = std::pow(I,
-									real(abs(k - m) - abs(k) - abs(m))) //     Cjknm
+							Cnm[jknm] = std::pow(I, real(abs(k - m) - abs(k) - abs(m))) //     Cjknm
 							* real(ODDEVEN(j) * Anm[nm] * Anm[jk] / Anm[jnkm]);
+							Cnm_real[jknm] = Cnm[jknm].real();
+							Cnm_imag[jknm] = Cnm[jknm].imag();
 						}                         //    End loop over m in Cjknm
 					}
 				}             //   End loop over n in Cjknm
@@ -297,5 +375,11 @@ std::array<real, P * P> exafmm_kernel<P>::Anm;
 
 template<std::int64_t P>
 std::array<complex, P * P * P * P> exafmm_kernel<P>::Cnm;
+
+template<std::int64_t P>
+std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_real;
+
+template<std::int64_t P>
+std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_imag;
 
 #endif

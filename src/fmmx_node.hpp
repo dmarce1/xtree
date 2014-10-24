@@ -308,17 +308,31 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 		Mb_ptr = &M;
 	}
 	for (std::size_t i = 0; i != indexes.size(); ++i) {
-		std::valarray<expansion<P>> l;
-		l.resize(indexes[i].size());
-		std::valarray<std::valarray<double>> x = X[indexes[i]];
-		for (std::size_t j = 0; j != indexes[i].size(); ++j) {
-			std::valarray<double> dist = x[j] - Xb[i];
-			if ((dist * dist).sum() > EPS * EPS) {
-				static_data.exafmm.M2L(l[j], (*Mb_ptr)[i], dist);
-			}
+		/*	std::valarray<expansion<P>> l;
+		 l.resize(indexes[i].size());
+		 std::valarray<std::valarray<double>> x = X[indexes[i]];
+		 for (std::size_t j = 0; j != indexes[i].size(); ++j) {
+		 std::valarray<double> dist = x[j] - Xb[i];
+		 if ((dist * dist).sum() > EPS * EPS) {
+		 static_data.exafmm.M2L(l[j], (*Mb_ptr)[i], dist);
+		 }
+		 }*/
+		const std::size_t sz = indexes[i].size();
+		std::valarray<std::valarray<complex>> l(std::valarray<complex>(P * (P + 1) / 2), sz);
+		std::valarray<real> x0(sz);
+		std::valarray<real> y0(sz);
+		std::valarray<real> z0(sz);
+		std::valarray<std::valarray<real>> x = X[indexes[i]];
+		for (std::size_t j = 0; j != sz; ++j) {
+			x0[j] = x[j][0] - Xb[i][0];
+			y0[j] = x[j][1] - Xb[i][1];
+			z0[j] = x[j][2] - Xb[i][2];
 		}
+		static_data.exafmm.M2L_V(l, (*Mb_ptr)[i], x0, y0, z0, sz);
 		boost::lock_guard<decltype(lock)> scope(lock);
-		L[indexes[i]] += l;
+		for (std::size_t j = 0; j != sz; ++j) {
+			L[indexes[i][j]] += l[j];
+		}
 	}
 }
 

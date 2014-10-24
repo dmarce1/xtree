@@ -63,8 +63,7 @@ void execute() {
 	root_node->regrid<rg_func>(0);
 	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
-	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
+//	root_node->regrid<rg_func>(0);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 

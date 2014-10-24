@@ -19,8 +19,8 @@ CPP_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C++ Compiler'
-	icpc -O0 -g3 -c  -std=c++11 `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	@echo 'Invoking: Intel C++ Compiler'
+	icpc -g -O0 `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
