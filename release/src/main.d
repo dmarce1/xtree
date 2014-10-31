@@ -5413,9 +5413,9 @@ src/main.d: ../src/main.cpp /usr/lib/openmpi/include/mpi.h \
  /usr/include/c++/4.9.0/chrono /usr/include/c++/4.9.0/ratio \
  /usr/include/c++/4.9.0/ctime /usr/include/c++/4.9.0/bits/parse_numbers.h \
  ../src/silo_output.hpp ../src/node.hpp ../src/tree.hpp ../src/./fmmx_node.hpp \
- ../src/./exafmm.hpp ../src/./cube_poles.hpp ../src/./expansion.hpp \
- ../src/./valarray.hpp \
- /home/dmarce1/packages/intel64/include/boost/serialization/complex.hpp
+ ../src/./exafmm.hpp \
+ /home/dmarce1/packages/intel64/include/boost/serialization/complex.hpp \
+ ../src/./cube_poles.hpp ../src/./valarray.hpp
 
 /usr/lib/openmpi/include/mpi.h:
 
@@ -11103,10 +11103,8 @@ src/main.d: ../src/main.cpp /usr/lib/openmpi/include/mpi.h \
 
 ../src/./exafmm.hpp:
 
+/home/dmarce1/packages/intel64/include/boost/serialization/complex.hpp:
+
 ../src/./cube_poles.hpp:
 
-../src/./expansion.hpp:
-
 ../src/./valarray.hpp:
-
-/home/dmarce1/packages/intel64/include/boost/serialization/complex.hpp:

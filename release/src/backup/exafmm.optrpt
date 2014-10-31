@@ -1,0 +1,1111 @@
+
+Begin optimization report for: exafmm_kernel<5L>::M2L_interior(std::valarray<std::valarray<complex>> *, exafmm_kernel<5L> *, std::valarray<std::valarray<complex>> *, real, int64_t, bool, bool)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/backup/exafmm.hpp(55,71)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/backup/exafmm.hpp(55,71)
+   remark #15388: vectorization support: reference U59 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(111,19) ]
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15455: masked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 23 
+   remark #15477: vector loop cost: 6.000 
+   remark #15478: estimated potential speedup: 3.660 
+   remark #15479: lightweight vector operations: 8 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/backup/exafmm.hpp(55,71)
+<Remainder>
+   remark #15387: vectorization support: scalar type occupies entire vector
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into ../src/backup/exafmm.hpp(55,99)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into ../src/backup/exafmm.hpp(55,99)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/backup/exafmm.hpp(55,99)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into ../src/backup/exafmm.hpp(55,99)
+      remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(63,5)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(68,6)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 74 and _M_data line 74
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 74 and _M_data line 74
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(69,7)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 74 and _M_data line 74
+         remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 74 and _M_data line 74
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(70,8)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 75 and _M_data line 77
+            remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 77 and _M_data line 75
+         LOOP END
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(70,8)
+         <Remainder>
+         LOOP END
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into ../src/backup/exafmm.hpp(84,29)
+      remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(86,6)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed ANTI dependence between this_32091 line 88 and this_32091 line 1298
+      remark #15346: vector dependence: assumed FLOW dependence between __p1_31921 line 1298 and __p1_31921 line 88
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(87,7)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed ANTI dependence between this_32091 line 88 and this_32091 line 1298
+         remark #15346: vector dependence: assumed FLOW dependence between __p1_31921 line 1298 and __p1_31921 line 88
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/backup/exafmm.hpp(91,5)
+      remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   LOOP END
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(57,3)
+   remark #15536: loop was not vectorized: inner loop throttling prevents vectorization of this outer loop. Refer to inner loop message for more details.
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(60,4)
+      remark #15341: loop was not vectorized: nonstandard loop is not a vectorization candidate
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::M2L_vec(std::valarray<std::valarray<complex>> *, exafmm_kernel<5L> *, const std::valarray<complex> *, const std::valarray<real> &, const std::valarray<real> &, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.cpp(15,67)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.cpp(15,67)
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15455: masked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 23 
+   remark #15477: vector loop cost: 6.000 
+   remark #15478: estimated potential speedup: 3.660 
+   remark #15479: lightweight vector operations: 8 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.cpp(15,67)
+<Remainder>
+   remark #15387: vectorization support: scalar type occupies entire vector
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.cpp(20,2)
+   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+
+   LOOP BEGIN at ../src/backup/exafmm.cpp(33,3)
+
+      LOOP BEGIN at ../src/backup/exafmm.cpp(47,4)
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.cpp(47,4)
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.cpp(47,4)
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.cpp(47,4)
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.cpp(65,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(68,33)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(68,33)
+      <Peeled>
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(68,33)
+         remark #15388: vectorization support: reference __b_31415 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 3 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 1.280 
+         remark #15479: lightweight vector operations: 3 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(68,33)
+      <Remainder>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(69,33)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(69,33)
+      <Peeled>
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(69,33)
+         remark #15388: vectorization support: reference __b_31415 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 3 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 1.280 
+         remark #15479: lightweight vector operations: 3 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/backup/exafmm.cpp(69,33)
+      <Remainder>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.cpp(70,4)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/backup/exafmm.cpp(71,5)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/backup/exafmm.cpp(84,6)
+            remark #15388: vectorization support: reference Y_r has aligned access   [ ../src/backup/exafmm.cpp(85,41) ]
+            remark #15388: vectorization support: reference Y_i has aligned access   [ ../src/backup/exafmm.cpp(85,41) ]
+            remark #15388: vectorization support: reference Y_r has aligned access   [ ../src/backup/exafmm.cpp(86,41) ]
+            remark #15388: vectorization support: reference Y_i has aligned access   [ ../src/backup/exafmm.cpp(86,41) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(87,10) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(87,10) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(88,10) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(88,10) ]
+            remark #15301: SIMD LOOP WAS VECTORIZED
+            remark #15448: unmasked aligned unit stride loads: 6 
+            remark #15449: unmasked aligned unit stride stores: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 50 
+            remark #15477: vector loop cost: 10.000 
+            remark #15478: estimated potential speedup: 4.950 
+            remark #15479: lightweight vector operations: 40 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+
+         LOOP BEGIN at ../src/backup/exafmm.cpp(84,6)
+         <Remainder>
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.cpp(91,5)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/backup/exafmm.cpp(104,6)
+            remark #15388: vectorization support: reference Y_r has aligned access   [ ../src/backup/exafmm.cpp(105,41) ]
+            remark #15388: vectorization support: reference Y_i has aligned access   [ ../src/backup/exafmm.cpp(105,41) ]
+            remark #15388: vectorization support: reference Y_r has aligned access   [ ../src/backup/exafmm.cpp(106,41) ]
+            remark #15388: vectorization support: reference Y_i has aligned access   [ ../src/backup/exafmm.cpp(106,41) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(107,10) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(107,10) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(108,10) ]
+            remark #15388: vectorization support: reference F64 has aligned access   [ ../src/backup/exafmm.cpp(108,10) ]
+            remark #15301: SIMD LOOP WAS VECTORIZED
+            remark #15448: unmasked aligned unit stride loads: 6 
+            remark #15449: unmasked aligned unit stride stores: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 50 
+            remark #15477: vector loop cost: 10.000 
+            remark #15478: estimated potential speedup: 4.950 
+            remark #15479: lightweight vector operations: 40 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+
+         LOOP BEGIN at ../src/backup/exafmm.cpp(104,6)
+         <Remainder>
+         LOOP END
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.cpp(112,4)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed ANTI dependence between _M_data line 1241 and _M_data line 1244
+      remark #15346: vector dependence: assumed FLOW dependence between _M_data line 1244 and _M_data line 1241
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.cpp(112,4)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/backup/exafmm.cpp(119,2)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/backup/exafmm.cpp(119,2)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/backup/exafmm.cpp(119,2)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../src/backup/exafmm.cpp(64,2)
+   remark #15341: loop was not vectorized: nonstandard loop is not a vectorization candidate
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Expr<std::_BinClos<std::__multiplies, std::_ValArray, std::_ValArray, real, real>, double>::sum(const std::_Expr<std::_BinClos<std::__multiplies, std::_ValArray, std::_ValArray, real, real>, double> *) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+   remark #15389: vectorization support: reference __s has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 13.000 
+   remark #15478: estimated potential speedup: 2.720 
+   remark #15479: lightweight vector operations: 6 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+<Remainder>
+   remark #15389: vectorization support: reference __s has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::valarray<real>>::~valarray(std::valarray<std::valarray<real>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /usr/include/c++/4.9.0/valarray(702,7)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::valarray<complex>>::valarray(std::valarray<std::valarray<complex>> *, const std::valarray<complex> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into /usr/include/c++/4.9.0/valarray(617,62)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into /usr/include/c++/4.9.0/valarray(617,7)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /usr/include/c++/4.9.0/valarray(617,7)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2) inlined into /usr/include/c++/4.9.0/valarray(617,7)
+      remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::valarray<real>>::valarray(std::valarray<std::valarray<real>> *, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /usr/include/c++/4.9.0/valarray(617,7)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::valarray<complex>>::~valarray(std::valarray<std::valarray<complex>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /usr/include/c++/4.9.0/valarray(702,7)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::cart2sph(real &, real &, real &, std::valarray<real> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(98,26)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(98,26)
+   remark #15388: vectorization support: reference __s.32219 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s.32219 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(98,26)
+<Remainder>
+   remark #15388: vectorization support: reference __s.32219 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s.32219 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(98,26)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::M2M(std::valarray<complex> &, const std::valarray<complex> &, const std::valarray<real> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(110,30)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(110,30)
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15455: masked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 23 
+   remark #15477: vector loop cost: 5.750 
+   remark #15478: estimated potential speedup: 3.150 
+   remark #15479: lightweight vector operations: 8 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(110,30)
+<Remainder>
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(110,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(113,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(113,3)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(113,3)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(113,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(225,3) inlined into ../src/backup/exafmm.hpp(114,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 230 and _M_data line 240
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 240 and _M_data line 230
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(114,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 239 and _M_data line 240
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 240 and _M_data line 239
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(114,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(114,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(114,3)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(115,3)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(116,4)
+      remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(120,5)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed ANTI dependence between _M_value line 383 and _M_value line 1297
+         remark #15346: vector dependence: assumed FLOW dependence between __x_32628 line 1297 and __x_32628 line 383
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(121,28)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed ANTI dependence between _M_value line 383 and _M_value line 1297
+            remark #15346: vector dependence: assumed FLOW dependence between __x_32628 line 1297 and __x_32628 line 383
+         LOOP END
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(131,6)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed ANTI dependence between _M_value line 1201 and _M_value line 1297
+            remark #15346: vector dependence: assumed FLOW dependence between __z_32653 line 1297 and __z_32653 line 1201
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::M2L(std::valarray<complex> &, const std::valarray<complex> *, const std::valarray<real> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(148,30)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(148,30)
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15455: masked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 23 
+   remark #15477: vector loop cost: 5.750 
+   remark #15478: estimated potential speedup: 3.150 
+   remark #15479: lightweight vector operations: 8 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(148,30)
+<Remainder>
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(148,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(150,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(150,3)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(150,3)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(150,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(260,3) inlined into ../src/backup/exafmm.hpp(151,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 265 and _M_data line 275
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 275 and _M_data line 265
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4) inlined into ../src/backup/exafmm.hpp(151,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 274 and _M_data line 275
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 275 and _M_data line 274
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4) inlined into ../src/backup/exafmm.hpp(151,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4) inlined into ../src/backup/exafmm.hpp(151,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4) inlined into ../src/backup/exafmm.hpp(151,3)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(152,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 156 and _M_value line 173
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 173 and _M_value line 156
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(153,4)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 156 and _M_value line 173
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 173 and _M_value line 156
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(157,5)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed ANTI dependence between _M_value line 1297 and _M_value line 1297
+         remark #15346: vector dependence: assumed FLOW dependence between _M_value line 1297 and _M_value line 1297
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(158,6)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed ANTI dependence between CjM line 1201 and _M_value line 1297
+            remark #15346: vector dependence: assumed FLOW dependence between _M_value line 1297 and CjM line 1201
+         LOOP END
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(165,6)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed ANTI dependence between _M_value line 173 and _M_value line 1297
+            remark #15346: vector dependence: assumed FLOW dependence between _M_elems line 1297 and _M_elems line 173
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::L2L(std::valarray<complex> &, const std::valarray<complex> &, const std::valarray<real> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(183,30)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(183,30)
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15455: masked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 23 
+   remark #15477: vector loop cost: 5.750 
+   remark #15478: estimated potential speedup: 3.150 
+   remark #15479: lightweight vector operations: 8 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(183,30)
+<Remainder>
+   remark #15388: vectorization support: reference U4b has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(79,4) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(78,2) inlined into ../src/backup/exafmm.hpp(183,30)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(185,3)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(185,3)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(185,3)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/backup/exafmm.hpp(185,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(225,3) inlined into ../src/backup/exafmm.hpp(186,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 230 and _M_data line 240
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 240 and _M_data line 230
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(186,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 239 and _M_data line 240
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 240 and _M_data line 239
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(186,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(186,3)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4) inlined into ../src/backup/exafmm.hpp(186,3)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(187,3)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(188,4)
+      remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(192,5)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed ANTI dependence between _M_value line 1297 and _M_value line 1297
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(194,6)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed ANTI dependence between _M_value line 1201 and _M_value line 1297
+            remark #15346: vector dependence: assumed FLOW dependence between __z_32653 line 1297 and __z_32653 line 1201
+         LOOP END
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(201,6)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed ANTI dependence between _M_value line 383 and _M_value line 1297
+            remark #15346: vector dependence: assumed FLOW dependence between __x_32628 line 1297 and __x_32628 line 383
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::evalMultipole(real, real, real, std::valarray<complex> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(225,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 230 and _M_value line 240
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 240 and _M_value line 230
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 239 and _M_value line 240
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 240 and _M_value line 239
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(236,4)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::evalLocal(real, real, real, std::valarray<complex> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(260,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 265 and _M_value line 275
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 275 and _M_value line 265
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 274 and _M_value line 275
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_value line 275 and _M_value line 274
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4)
+   LOOP END
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(271,4)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::exafmm_kernel(exafmm_kernel<5L> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(300,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between _M_elems line 301 and _M_elems line 301
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(304,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(305,4)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(309,5)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(309,5)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(309,5)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(312,5)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(312,5)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(312,5)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(315,5)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(315,5)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(315,5)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(318,5)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(318,5)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(318,5)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(325,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(326,4)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 331 and _M_data line 335
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_elems line 335 and _M_elems line 331
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(327,5)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 331 and _M_data line 335
+         remark #15346: vector dependence: assumed OUTPUT dependence between _M_elems line 335 and _M_elems line 331
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(328,6)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 331 and _M_data line 335
+            remark #15346: vector dependence: assumed OUTPUT dependence between _M_elems line 335 and _M_elems line 331
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<5L>::exafmm_kernel(exafmm_kernel<5L> *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(300,3) inlined into ../src/backup/exafmm.hpp(296,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between _M_elems line 301 and _M_elems line 301
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(304,3) inlined into ../src/backup/exafmm.hpp(296,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(305,4) inlined into ../src/backup/exafmm.hpp(296,2)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(309,5) inlined into ../src/backup/exafmm.hpp(296,2)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(309,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(309,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(312,5) inlined into ../src/backup/exafmm.hpp(296,2)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(312,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(312,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(315,5) inlined into ../src/backup/exafmm.hpp(296,2)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(315,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(315,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(318,5) inlined into ../src/backup/exafmm.hpp(296,2)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(318,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(318,5) inlined into ../src/backup/exafmm.hpp(296,2)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/backup/exafmm.hpp(325,3) inlined into ../src/backup/exafmm.hpp(296,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+
+   LOOP BEGIN at ../src/backup/exafmm.hpp(326,4) inlined into ../src/backup/exafmm.hpp(296,2)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 331 and _M_data line 335
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_elems line 335 and _M_elems line 331
+
+      LOOP BEGIN at ../src/backup/exafmm.hpp(327,5) inlined into ../src/backup/exafmm.hpp(296,2)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 331 and _M_data line 335
+         remark #15346: vector dependence: assumed OUTPUT dependence between _M_elems line 335 and _M_elems line 331
+
+         LOOP BEGIN at ../src/backup/exafmm.hpp(328,6) inlined into ../src/backup/exafmm.hpp(296,2)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization
+            remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 331 and _M_data line 335
+            remark #15346: vector dependence: assumed OUTPUT dependence between _M_elems line 335 and _M_elems line 331
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: __sti__$E()
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into ../src/backup/exafmm.hpp(354,54)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into ../src/backup/exafmm.hpp(354,54)
+   remark #15388: vectorization support: reference U56 has aligned access   [ /usr/include/c++/4.9.0/complex(1201,24) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 11 
+   remark #15477: vector loop cost: 6.000 
+   remark #15478: estimated potential speedup: 7.160 
+   remark #15479: lightweight vector operations: 2 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into ../src/backup/exafmm.hpp(354,54)
+<Remainder>
+   remark #15388: vectorization support: reference U56 has aligned access   [ /usr/include/c++/4.9.0/complex(1201,24) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/array(81,12) inlined into ../src/backup/exafmm.hpp(354,54)
+<Remainder>
+LOOP END
+===========================================================================

@@ -5,6 +5,7 @@
  *      Author: dmarce1
  */
 
+
 #include <mpi.h>
 #include "xtree.hpp"
 #include "./fmmx_node.hpp"
@@ -14,7 +15,7 @@ using namespace xtree;
 using namespace fmmx;
 
 
-
+extern template class exafmm_kernel<5>;
 
 using fmmx_node_type = fmmx_node<3,8,5>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
