@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/subdir.mk
+-include debug/src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -44,7 +45,7 @@ all: xtree
 xtree: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Intel C++ Linker'
-	icpc  $(OBJS) $(USER_OBJS) $(LIBS) `pkg-config --libs hpx_application` -o "xtree"
+	icpc  $(OBJS) $(USER_OBJS) $(LIBS)  -o "xtree"
 	@echo 'Finished building target: $@'
 	@echo ' '
 

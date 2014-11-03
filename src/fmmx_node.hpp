@@ -290,6 +290,7 @@ bool fmmx_node<Ndim, Nx, P>::regrid_test() {
 template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 		typename fmmx_node<Ndim, Nx, P>::exchange_type& boundary) {
+	std::atomic<int> next_mic(0);
 	const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 	std::valarray<double> corner0(Ndim);
 	for (std::size_t d = 0; d < Ndim; d++) {
@@ -326,7 +327,7 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 		}
 	} else {
 		auto lclties = hpx::find_all_localities();
-		const hpx::id_type id = lclties[std::min(int(hpx::get_locality_id() + 1), int(lclties.size() - 1))];
+		const hpx::id_type id = lclties[std::min(int(hpx::get_locality_id() + 1 + (next_mic++ % 6)), int(lclties.size() - 1))];
 		const bool is_root = this->get_self().get_level() == 0;
 		auto f = hpx::async < M2L_interior_action > (id, M, dx[0], Nx, this->is_terminal(), is_root);
 		auto l = f.get();
