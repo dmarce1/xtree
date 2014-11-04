@@ -9,9 +9,6 @@
 #include <boost/serialization/list.hpp>
 #include "load_balancer.hpp"
 
-#define IS_MIC(id) ((id) % 2 != 0)
-#define IS_HOST(id) ((id) % 2 == 0)
-
 namespace xtree {
 
 load_balancer::load_balancer() {
@@ -69,9 +66,6 @@ int load_balancer::increment_server(const location<Ndim>& this_loc) {
 	double score;
 	int next_proc;
 	for (int i = 0; i < procs.size(); i++) {
-		if (!IS_HOST(i)) {
-			continue;
-		}
 		lowest_load = std::min(lowest_load, int(procs[i].list.size()));
 		highest_load = std::max(highest_load, int(procs[i].list.size()));
 	}
@@ -79,9 +73,6 @@ int load_balancer::increment_server(const location<Ndim>& this_loc) {
 	int window = 1 + lowest_load / 2;
 
 	for (int i = 0; i < procs.size(); i++) {
-		if (!IS_HOST(i)) {
-			continue;
-		}
 		if (procs[i].list.size() - lowest_load <= window) {
 			eligible_procs.push_back(i);
 		}
@@ -124,8 +115,8 @@ int load_balancer::increment_server(const location<Ndim>& this_loc) {
 		proximity_score = 1.0 - d;
 //		printf( "%e\n", proximity_score);
 
-		load_score = double(highest_load - procs[*i].list.size() + 1) / double(highest_load - lowest_load + 1);
-		score = load_score + sqrt(10.0) * proximity_score + 10.0 * neighbor_score;
+		load_score = double(highest_load - procs[*i].list.size()+1) / double(highest_load - lowest_load+1);
+		score = load_score + sqrt(10.0)*proximity_score + 10.0*neighbor_score;
 		if (score > best_score) {
 			best_score = score;
 			next_proc = *i;

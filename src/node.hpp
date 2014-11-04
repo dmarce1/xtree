@@ -183,7 +183,8 @@ public:
 	using action_neighbors_ascend = hpx::actions::make_action<void(node::*)(std::vector<hpx::id_type>), &node::neighbors_ascend>;
 	using action_neighbors_exchange_get = hpx::actions::make_action<void(node::*)(int), &node::neighbors_exchange_get>;
 	using action_neighbors_exchange_set = hpx::actions::make_action<void(node::*)(dir_type<Ndim>,
-			const std::vector<hpx::id_type>&), &node::neighbors_exchange_set>;HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end);	//
+			const std::vector<hpx::id_type>&), &node::neighbors_exchange_set>;
+	HPX_DEFINE_COMPONENT_ACTION_TPL(node, operations_end, action_operations_end);		//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, initialize, action_initialize);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, debranch, action_debranch);	//
 	HPX_DEFINE_COMPONENT_ACTION_TPL(node, get_this, action_get_this);
@@ -577,16 +578,8 @@ inline void node<Derived, Ndim>::ascend(hpx::future<typename Function::type> inp
 				}
 			}));
 	if (!is_leaf) {
-		auto this_loc = hpx::get_locality_id();
 		for (int i = 0; i < Nchild; i++) {
-			if (this_loc != hpx::naming::get_locality_id_from_gid(children[i].get_gid())) {
-				hpx::apply < action_ascend < Function >> (children[i], (*promises)[i].get_future(), this_subcycle);
-			}
-		}
-		for (int i = 0; i < Nchild; i++) {
-			if (this_loc == hpx::naming::get_locality_id_from_gid(children[i].get_gid())) {
-				hpx::apply < action_ascend < Function >> (children[i], (*promises)[i].get_future(), this_subcycle);
-			}
+			hpx::apply < action_ascend < Function >> (children[i], (*promises)[i].get_future(), this_subcycle);
 		}
 	}
 	last_operation_future = f.share();

@@ -4,22 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/exafmm.cpp \
 ../src/load_balancer.cpp \
-../src/main.cpp \
-../src/new.cpp 
+../src/main.cpp 
 
 OBJS += \
-./src/exafmm.o \
 ./src/load_balancer.o \
-./src/main.o \
-./src/new.o 
+./src/main.o 
 
 CPP_DEPS += \
-./src/exafmm.d \
 ./src/load_balancer.d \
-./src/main.d \
-./src/new.d 
+./src/main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -5,7 +5,6 @@
  *      Author: dmarce1
  */
 
-
 #include <mpi.h>
 #include "xtree.hpp"
 #include "./fmmx_node.hpp"
@@ -15,7 +14,7 @@ using namespace xtree;
 using namespace fmmx;
 
 
-extern template class exafmm_kernel<5>;
+
 
 using fmmx_node_type = fmmx_node<3,8,5>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
@@ -65,7 +64,7 @@ void execute() {
 	printf( "Refining...\n");
 	root_node->regrid<rg_func>(0);
 	printf( "Refining...\n");
-	root_node->regrid<rg_func>(0);
+//	root_node->regrid<rg_func>(0);
 	printf( "Initializing grid...\n");
 	root_node->execute_operations(init_ops);
 
