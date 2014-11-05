@@ -51,7 +51,7 @@ public:
 		}                                                   // End if for r == 0
 		phi = atan2(dist[1], dist[0]);
 	}
-	static void M2M(std::valarray<complex>& CiM, const std::valarray<complex>& CjM, const std::valarray<real>& dist) {
+	static void M2M(std::valarray<real>& CiM, const std::valarray<real>& CjM, const std::valarray<real>& dist) {
 		const complex I(0., 1.);
 		std::valarray<complex> Ynm(P * P);
 
@@ -67,27 +67,34 @@ public:
 					for (int m = -n; m <= std::min(k - 1, n); ++m) {
 						if (j - n >= k - m) {
 							int jnkm = (j - n) * (j - n) + j - n + k - m;
-							int jnkms = (j - n) * (j - n + 1) / 2 + k - m;
 							int nm = n * n + n + m;
-							M += CjM[jnkms] * std::pow(I, real(m - abs(m))) * Ynm[nm]
+							int jnpkm = (j - n) * ((j - n) + 1) + std::abs(k - m);
+							int jnmkm = (j - n) * ((j - n) + 1) - std::abs(k - m);
+							complex jM(CjM[jnpkm], +CjM[jnmkm]);
+							M += jM * std::pow(I, real(m - abs(m))) * Ynm[nm]
 									* real(ODDEVEN(n) * Anm[nm] * Anm[jnkm] / Anm[jk]);
 						}
 					}
 					for (int m = k; m <= n; ++m) {
 						if (j - n >= m - k) {
 							int jnkm = (j - n) * (j - n) + j - n + k - m;
-							int jnkms = (j - n) * (j - n + 1) / 2 - k + m;
 							int nm = n * n + n + m;
-							M += std::conj(CjM[jnkms]) * Ynm[nm] * real(ODDEVEN(k+n+m) * Anm[nm] * Anm[jnkm] / Anm[jk]);
+							int jnpkm = (j - n) * ((j - n) + 1) + std::abs(k - m);
+							int jnmkm = (j - n) * ((j - n) + 1) - std::abs(k - m);
+							complex jM(CjM[jnpkm], k == m ? real(0.0) : -CjM[jnmkm]);
+							M += jM * Ynm[nm] * real(ODDEVEN(k+n+m) * Anm[nm] * Anm[jnkm] / Anm[jk]);
 						}
 					}
 				}
-				CiM[jks] += M;
+				CiM[j * j + j + k] += M.real();
+				if (k != 0) {
+					CiM[j * j + j - k] += M.imag();
+				}
 			}
 		}
 	}
 
-	static void M2L(std::valarray<real>& CiL, const std::valarray<complex> CjM, const std::valarray<real>& dist) {
+	static void M2L(std::valarray<real>& CiL, const std::valarray<real> CjM, const std::valarray<real>& dist) {
 		std::valarray<complex> Ynm(P * P);
 		real rho, theta, phi;
 		cart2sph(rho, theta, phi, dist);
@@ -102,19 +109,21 @@ public:
 						int nms = n * (n + 1) / 2 - m;
 						int jknm = jk * P * P + nm;
 						int jnkm = (j + n) * (j + n) + j + n + m - k;
-						L += std::conj(CjM[nms]) * Cnm[jknm] * Ynm[jnkm];
+						complex jM(CjM[n * n + n - m], -CjM[n * n + n + m]);
+						L += jM * Cnm[jknm] * Ynm[jnkm];
 					}
 					for (int m = 0; m <= n; ++m) {
 						int nm = n * n + n + m;
 						int nms = n * (n + 1) / 2 + m;
 						int jknm = jk * P * P + nm;
 						int jnkm = (j + n) * (j + n) + j + n + m - k;
-						L += CjM[nms] * Cnm[jknm] * Ynm[jnkm];
+						complex jM(CjM[n * n + n + m], m == 0 ? real(0.0) : +CjM[n * n + n - m]);
+						L += jM * Cnm[jknm] * Ynm[jnkm];
 					}
 				}
-				CiL[j * j + j + std::abs(k)] = L.real();
+				CiL[j * j + j + k] = L.real();
 				if (k != 0) {
-					CiL[j * j + j - std::abs(k)] = L.imag();
+					CiL[j * j + j - k] = L.imag();
 				}
 			}
 		}
@@ -146,9 +155,9 @@ public:
 						}
 					}
 				}
-				CiL[j * j + j + std::abs(k)] = L.real();
+				CiL[j * j + j + k] = L.real();
 				if (k != 0) {
-					CiL[j * j + j - std::abs(k)] = L.imag();
+					CiL[j * j + j - k] = L.imag();
 				}
 			}
 		}
