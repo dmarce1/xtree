@@ -8,6 +8,16 @@
 #define EXAFMM_CPP
 #include "exafmm.hpp"
 
+#define COMPLEX_MULT( ar, ai, br, bi, cr, ci) \
+		(ar) = (br)*(cr)-(bi)*(ci);           \
+		(ai) = (br)*(ci)+(bi)*(cr)
+
+#define COMPLEX_MULT_ADD( ar, ai, br, bi, cr, ci) \
+		(ar) += (br)*(cr)-(bi)*(ci);           \
+		(ai) += (br)*(ci)+(bi)*(cr)
+
+#define SGN(i) ((i) > 0 ? 1 : ((i)<0 ? -1 : 0))
+
 template class exafmm_kernel<1> ;
 template class exafmm_kernel<2> ;
 template class exafmm_kernel<3> ;
@@ -87,41 +97,28 @@ void exafmm_kernel<P>::M2L(std::valarray<real>& CiL, const std::valarray<real> C
 	real rho, theta, phi;
 	cart2sph(rho, theta, phi, dist);
 	evalLocal(rho, theta, phi, Ynm);
-	for (int j = 0; j != P; ++j) {
-		for (int k = 0; k <= j; ++k) {
-			int jk = j * j + j + k;
-			complex L = 0;
-			for (int n = 0; n != P - j; ++n) {
-				for (int m = -n; m < 0; ++m) {
-					int nm = n * n + n + m;
-					int nms = n * (n + 1) / 2 - m;
-					int jknm = jk * P * P + nm;
-					int jnkm = (j + n) * (j + n) + j + n + m - k;
-					complex jM(CjM[n * n + n - m], -CjM[n * n + n + m]);
-					auto Y = complex(Ynm[(n + j) * ((n + j) + 1) + std::abs(m - k)],
-							m - k == 0 ? 0.0 : Ynm[(n + j) * ((n + j) + 1) - std::abs(m - k)]);
-					if (m - k < 0) {
-						Y = std::conj(Y);
-					}
-					L += jM * complex(Cnm_r[jknm], Cnm_i[jknm]) * Y;
+	for (std::int64_t j = 0; j != P; ++j) {
+		for (std::int64_t k = 0; k <= j; ++k) {
+			const std::int64_t jkp = j * j + j + k;
+			const std::int64_t jkm = j * j + j - k;
+			real L_r = 0.0;
+			real L_i = 0.0;
+			for (std::int64_t n = 0; n != P - j; ++n) {
+				for (std::int64_t m = -n; m <= +n; ++m) {
+					const std::int64_t jknm = jkp * P * P + n * n + n + m;
+					const std::int64_t nmp = n * n + n + std::abs(m);
+					const std::int64_t nmm = n * n + n - std::abs(m);
+					const std::int64_t jnkmp = (n + j) * ((n + j) + 1) + std::abs(m - k);
+					const std::int64_t jnkmm = (n + j) * ((n + j) + 1) - std::abs(m - k);
+					real tmp_r, tmp_i;
+					COMPLEX_MULT(tmp_r, tmp_i, CjM[nmp], SGN(m) * CjM[nmm], Ynm[jnkmp], SGN(m-k) * Ynm[jnkmm]);
+					COMPLEX_MULT_ADD(L_r, L_i, tmp_r, tmp_i, Cnm_r[jknm], Cnm_i[jknm]);
 				}
-				for (int m = 0; m <= n; ++m) {
-					int nm = n * n + n + m;
-					int nms = n * (n + 1) / 2 + m;
-					int jknm = jk * P * P + nm;
-					int jnkm = (j + n) * (j + n) + j + n + m - k;
-					complex jM(CjM[n * n + n + m], m == 0 ? real(0.0) : +CjM[n * n + n - m]);
-					auto Y = complex(Ynm[(n + j) * ((n + j) + 1) + std::abs(m - k)],
-							m - k == 0 ? 0.0 : Ynm[(n + j) * ((n + j) + 1) - std::abs(m - k)]);
-					if (m - k < 0) {
-						Y = std::conj(Y);
-					}
-					L += jM * complex(Cnm_r[jknm], Cnm_i[jknm]) * Y;
-				}
+
 			}
-			CiL[j * j + j + k] = L.real();
-			if (k != 0) {
-				CiL[j * j + j - k] = L.imag();
+			CiL[jkp] = L_r;
+			if (jkp != jkm) {
+				CiL[jkm] = L_i;
 			}
 		}
 	}
@@ -174,20 +171,20 @@ void exafmm_kernel<P>::L2L(std::valarray<real>& CiL, const std::valarray<real>& 
 
 template<std::int64_t P>
 void exafmm_kernel<P>::evalMultipole(real rho, real theta, real phi, std::valarray<real>& Ynm) {
-	const complex I(0., 1.);                               // Imaginary unit
 	real x = std::cos(theta);                              // x = cos(theta)
 	real y = std::sin(theta);                              // y = sin(theta)
 	real fact = 1;                                   // Initialize 2 * m + 1
 	real pn = 1;                        // Initialize Legendre polynomial Pn
 	real rhom = 1;                                       // Initialize rho^m
 	for (int m = 0; m != P; ++m) {                     // Loop over m in Ynm
-		complex eim = std::exp(I * real(m * phi));      //  exp(i * m * phi)
+		real eim_r = std::cos(real(m) * phi);
+		real eim_i = std::sin(real(m) * phi);
 		real p = pn;                  //  Associated Legendre polynomial Pnm
 		int npn = m * m + 2 * m;                  //  Index of Ynm for m > 0
 		int nmn = m * m;                          //  Index of Ynm for m < 0
-		Ynm[npn] = rhom * p * prefactor[npn] * eim.real(); //  rho^m * Ynm for m > 0
+		Ynm[npn] = rhom * p * prefactor[npn] * eim_r; //  rho^m * Ynm for m > 0
 		if (npn != nmn) {
-			Ynm[nmn] = rhom * p * prefactor[npn] * eim.imag(); //  rho^m * Ynm for m > 0
+			Ynm[nmn] = rhom * p * prefactor[npn] * eim_i; //  rho^m * Ynm for m > 0
 		}
 		real p1 = p;                                              //  Pnm-1
 		p = x * (2 * m + 1) * p1;          //  Pnm using recurrence relation
@@ -196,9 +193,9 @@ void exafmm_kernel<P>::evalMultipole(real rho, real theta, real phi, std::valarr
 		for (int n = m + 1; n != P; ++n) {            //  Loop over n in Ynm
 			int npm = n * n + n + m;             //   Index of Ynm for m > 0
 			int nmm = n * n + n - m;             //   Index of Ynm for m < 0
-			Ynm[npm] = rhon * p * prefactor[npm] * eim.real();     //   rho^n * Ynm
+			Ynm[npm] = rhon * p * prefactor[npm] * eim_r;     //   rho^n * Ynm
 			if (npm != nmm) {
-				Ynm[nmm] = rhon * p * prefactor[npm] * eim.imag();     //   rho^n * Ynm
+				Ynm[nmm] = rhon * p * prefactor[npm] * eim_i;     //   rho^n * Ynm
 			}
 			real p2 = p1;                                         //   Pnm-2
 			p1 = p;                                               //   Pnm-1
@@ -213,20 +210,20 @@ void exafmm_kernel<P>::evalMultipole(real rho, real theta, real phi, std::valarr
 //! Evaluate singular harmonics \f$ r^{-n-1} Y_n^m \f$
 template<std::int64_t P>
 void exafmm_kernel<P>::evalLocal(real rho, real theta, real phi, std::valarray<real>& Ynm) {
-	const complex I(0., 1.);                               // Imaginary unit
 	real x = std::cos(theta);                              // x = cos(theta)
 	real y = std::sin(theta);                              // y = sin(theta)
 	real fact = 1;                                   // Initialize 2 * m + 1
 	real pn = 1;                        // Initialize Legendre polynomial Pn
 	real rhom = 1.0 / rho;                          // Initialize rho^(-m-1)
 	for (int m = 0; m != P; ++m) {                     // Loop over m in Ynm
-		complex eim = std::exp(I * real(m * phi));      //  exp(i * m * phi)
+		real eim_r = std::cos(real(m) * phi);
+		real eim_i = std::sin(real(m) * phi);
 		real p = pn;                  //  Associated Legendre polynomial Pnm
 		int npn = m * m + 2 * m;                  //  Index of Ynm for m > 0
 		int nmn = m * m;                          //  Index of Ynm for m < 0
-		Ynm[npn] = rhom * p * prefactor[npn] * eim.real(); //  rho^(-m-1) * Ynm for m > 0
+		Ynm[npn] = rhom * p * prefactor[npn] * eim_r; //  rho^(-m-1) * Ynm for m > 0
 		if (npn != nmn) {
-			Ynm[nmn] = rhom * p * prefactor[npn] * eim.imag(); //  rho^(-m-1) * Ynm for m > 0
+			Ynm[nmn] = rhom * p * prefactor[npn] * eim_i; //  rho^(-m-1) * Ynm for m > 0
 		}
 		real p1 = p;                                              //  Pnm-1
 		p = x * (2 * m + 1) * p1;          //  Pnm using recurrence relation
@@ -235,9 +232,9 @@ void exafmm_kernel<P>::evalLocal(real rho, real theta, real phi, std::valarray<r
 		for (int n = m + 1; n != P; ++n) {            //  Loop over n in Ynm
 			int npm = n * n + n + m;             //   Index of Ynm for m > 0
 			int nmm = n * n + n - m;             //   Index of Ynm for m < 0
-			Ynm[npm] = rhon * p * prefactor[npm] * eim.real(); //   rho^n * Ynm for m > 0
+			Ynm[npm] = rhon * p * prefactor[npm] * eim_r; //   rho^n * Ynm for m > 0
 			if (npm != nmm) {
-				Ynm[nmm] = rhon * p * prefactor[npm] * eim.imag(); //   rho^n * Ynm for m > 0
+				Ynm[nmm] = rhon * p * prefactor[npm] * eim_i; //   rho^n * Ynm for m > 0
 			}
 			real p2 = p1;                                         //   Pnm-2
 			p1 = p;                                               //   Pnm-1
