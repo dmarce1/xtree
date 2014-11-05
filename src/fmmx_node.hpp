@@ -114,7 +114,7 @@ public:
 	static constexpr std::size_t Size = pow_<Nx, Ndim>::value;
 	using base_type = hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<fmmx_node<Ndim, Nx, P>>;
-	using multipoles_type = std::valarray<expansion<P>>;
+	using multipoles_type = std::array<std::valarray<complex>,PP1O2>;
 	using expansions_type = std::array<std::valarray<complex>,PP1O2>;
 	using exchange_type = future_wrapper<multipoles_type>;
 	using descend_type = future_wrapper<multipoles_type>;
@@ -127,7 +127,7 @@ private:
 	std::valarray<double> rho;
 	hpx::future<void> selfi_future;
 	hpx::lcos::local::spinlock lock;
-	std::valarray<expansion<P>> M;
+	multipoles_type M;
 	expansions_type L;
 	std::valarray<std::valarray<double>> X;
 public:
@@ -165,21 +165,20 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 			this->get_self().get_location(2), this->get_self().get_level(), hpx::get_locality_id());
 	const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 	std::valarray<std::size_t> dims(Nx, Ndim);
-	expansions_type Lcoarse, Lthis;
-	for (auto i = Lthis.begin(); i != Lthis.end(); ++i) {
-		i->resize(PP1O2);
+	std::valarray<complex> lc(PP1O2), lf(PP1O2);
+	auto Lcoarse = std::make_shared<expansions_type>();
+	auto Lthis = std::make_shared<expansions_type>();
+	for (auto i = Lthis->begin(); i != Lthis->end(); ++i) {
+		i->resize(Size / Nchild);
 	}
 	if (this->get_level() != 0) {
-		Lcoarse = parent.get();
+		*Lcoarse = parent.get();
 	} else {
-		for (auto i = Lcoarse.begin(); i != Lcoarse.end(); ++i) {
-			i->resize(PP1O2, 0.0);
+		for (auto i = Lcoarse->begin(); i != Lcoarse->end(); ++i) {
+			i->resize(Size / Nchild, 0.0);
 		}
 	}
 	for (std::size_t ci = 0; ci != Nchild; ++ci) {
-		for (auto i = Lcoarse.begin(); i != Lcoarse.end(); ++i) {
-			std::fill(std::begin(*i), std::end(*i), complex(0.0));
-		}
 		std::valarray<double> dist(Ndim);
 		for (std::size_t d = 0; d < Ndim; d++) {
 			if ((ci >> d) & 1) {
@@ -189,18 +188,17 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 			}
 		}
 		for (std::size_t i = 0; i != Size / Nchild; ++i) {
-			std::valarray<complex> lc(PP1O2), lf(PP1O2);
 			for (std::size_t p = 0; p != PP1O2; ++p) {
-				lc[p] = Lcoarse[p][i];
+				lc[p] = (*Lcoarse)[p][i];
 			}
 			static_data.exafmm.L2L(lf, lc, dist);
 			for (std::size_t p = 0; p != PP1O2; ++p) {
-				Lthis[p][i] = lf[p];
+				(*Lthis)[p][i] = lf[p];
 			}
 		}
 		boost::lock_guard<decltype(lock)> scope(lock);
 		for (std::size_t p = 0; p != PP1O2; ++p) {
-			L[p][get_restrict_slice(dims, ci)] += Lthis[p];
+			L[p][get_restrict_slice(dims, ci)] += (*Lthis)[p];
 		}
 	}
 	selfi_future.get();
@@ -209,12 +207,12 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 		child_data.resize(Nchild);
 		for (std::size_t ci = 0; ci < Nchild; ci++) {
 			child_data[ci] = hpx::async(hpx::launch::deferred, [dims,ci](const expansions_type& Lc) {
-				expansions_type Lf;
+				auto Lf = std::make_shared<expansions_type>();
 				for(std::size_t p = 0; p != PP1O2; ++p ) {
-					Lf[p].resize(Size/Nchild);
-					Lf[p] = Lc[p][get_xtant_slice(dims, ci)];
+					(*Lf)[p].resize(Size/Nchild);
+					(*Lf)[p] = Lc[p][get_xtant_slice(dims, ci)];
 				}
-				return Lf;
+				return std::move(*Lf);
 			}, L);
 		}
 	}
@@ -233,13 +231,18 @@ typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
 	std::fill(std::begin(L), std::end(L), 0.0);
 	if (children.size() > 0) {
 		for (std::size_t ci = 0; ci != Nchild; ++ci) {
-			M[get_xtant_slice(dims, ci)] = children[ci].get();
+			auto tmp = children[ci].get();
+			for (std::size_t p = 0; p != PP1O2; ++p) {
+				M[p][get_xtant_slice(dims, ci)] = tmp[p];
+			}
 		}
 	} else {
 		auto cube = static_data.cubes.get_M(dx[0]);
-		std::transform(std::begin(rho), std::end(rho), std::begin(M), [&cube](double rhoin) {
-			return std::valarray<complex>(cube * complex(rhoin, 0.0) );
-		});
+		for (std::size_t p = 0; p != PP1O2; ++p) {
+			for (std::size_t i = 0; i != Size; ++i) {
+				M[p][i] = cube[p] * rho[i];
+			}
+		}
 	}
 	selfi_future = hpx::async([this]() {
 		typename fmmx_node<Ndim, Nx, P>::exchange_type dummy;
@@ -248,11 +251,16 @@ typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
 	});
 
 	return hpx::async(hpx::launch::deferred, [dims,dx,this](const multipoles_type& Mfine) {
-		multipoles_type Mthis(Size/Nchild);
-		multipoles_type Mcoarse(Size/Nchild);
-		std::fill(std::begin(Mcoarse), std::end(Mcoarse), 0.0);
+		auto Mthis = std::make_shared<multipoles_type>();
+		auto Mcoarse = std::make_shared<multipoles_type>();
+		for( std::size_t p = 0; p!= PP1O2; ++p) {
+			(*Mthis)[p].resize(Size/Nchild);
+			(*Mcoarse)[p].resize(Size/Nchild, complex(0.0));
+		}
 		for( std::size_t ci = 0; ci != Nchild; ++ci) {
-			Mthis = Mfine[get_restrict_slice(dims, ci )];
+			for( std::size_t p = 0; p!= PP1O2; ++p) {
+				(*Mthis)[p] = Mfine[p][get_restrict_slice(dims, ci )];
+			}
 			std::valarray<double> dist(Ndim);
 			for( std::size_t d = 0; d < Ndim; d++ ) {
 				if( (ci >> d) & 1) {
@@ -262,10 +270,18 @@ typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
 				}
 			}
 			for( std::size_t i = 0; i <Size/Nchild; i++ ) {
-				static_data.exafmm.M2M(Mcoarse[i], Mthis[i], dist);
+				std::valarray<complex> mt(PP1O2);
+				std::valarray<complex> mc(complex(0.0), PP1O2);
+				for( std::size_t p = 0; p != PP1O2; ++p) {
+					mt[p] = (*Mthis)[p][i];
+				}
+				static_data.exafmm.M2M(mc, mt, dist);
+				for( std::size_t p = 0; p != PP1O2; ++p) {
+					(*Mcoarse)[p][i] += mc[p];
+				}
 			}
 		}
-		return Mcoarse;
+		return std::move(*Mcoarse);
 	}, M);
 
 }
@@ -274,8 +290,10 @@ template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 void fmmx_node<Ndim, Nx, P>::allocate() {
 	std::valarray<std::size_t> dims(Nx, Ndim);
 	X.resize(Size);
-	M.resize(Size);
 	for (auto i = L.begin(); i != L.end(); ++i) {
+		i->resize(Size);
+	}
+	for (auto i = M.begin(); i != M.end(); ++i) {
 		i->resize(Size);
 	}
 	rho.resize(Size);
@@ -319,11 +337,9 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 					static_data.root_indexes :
 					(this->is_terminal() ? static_data.near_indexes[dir] : static_data.neighbor_indexes[dir]);
 	std::valarray<double> xdif;
-	std::valarray<expansion<P>> Mb;
-	const std::valarray<expansion<P>>* Mb_ptr;
+	multipoles_type* Mb_ptr;
 	if (!dir.is_zero()) {
-		Mb = boundary.get();
-		Mb_ptr = &Mb;
+		Mb_ptr = new multipoles_type(boundary.get());
 	} else {
 		Mb_ptr = &M;
 	}
@@ -331,10 +347,16 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 		const auto sz = indexes[i].size();
 		std::valarray<std::valarray<complex>> l(std::valarray<complex>(PP1O2), sz);
 		std::valarray<std::valarray<double>> x = X[indexes[i]];
-		for (std::size_t j = 0; j != indexes[i].size(); ++j) {
+		for (std::size_t j = 0; j != sz; ++j) {
 			std::valarray<double> dist = x[j] - Xb[i];
 			if ((dist * dist).sum() > EPS * EPS) {
-				static_data.exafmm.M2L(l[j], (*Mb_ptr)[i], dist);
+				std::valarray<complex> mb(PP1O2);
+				for (std::size_t p = 0; p != PP1O2; ++p) {
+					mb[p] = (*Mb_ptr)[p][i];
+				}
+				static_data.exafmm.M2L(l[j], mb, dist);
+			} else {
+				l[j] = 0.0;
 			}
 		}
 		boost::lock_guard<decltype(lock)> scope(lock);
@@ -344,11 +366,15 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 			}
 		}
 	}
+	if (!dir.is_zero()) {
+		delete Mb_ptr;
+	}
 }
 
 template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 typename fmmx_node<Ndim, Nx, P>::exchange_type fmmx_node<Ndim, Nx, P>::exchange_get(dir_type<Ndim> dir) {
 	return hpx::async(hpx::launch::deferred, [dir](const multipoles_type& M) {
+		auto m = std::make_shared<multipoles_type>();
 		std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
 		for( std::size_t d = 0; d < Ndim; d++) {
 			switch(dir[d]) {
@@ -366,7 +392,10 @@ typename fmmx_node<Ndim, Nx, P>::exchange_type fmmx_node<Ndim, Nx, P>::exchange_
 				break;
 			}
 		}
-		return std::valarray<expansion<P>>(M[get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)]);
+		for( std::size_t p = 0; p!= PP1O2; ++p) {
+			(*m)[p] = M[p][get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)];
+		}
+		return std::move(*m);
 	}, M);
 }
 
@@ -380,7 +409,7 @@ std::vector<typename silo_output<Ndim>::zone> fmmx_node<Ndim, Nx, P>::get_output
 		std::vector<double> fields(7);
 		fields[0] = rho[i];
 		fields[1] = L[0][i].real();
-		fields[2] = M[i][0].real();
+		fields[2] = M[0][i].real();
 		fields[3] = X[i][0];
 		fields[4] = X[i][1];
 		fields[5] = X[i][2];
