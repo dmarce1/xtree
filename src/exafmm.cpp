@@ -103,7 +103,7 @@ void exafmm_kernel<P>::M2L(std::valarray<real>& CiL, const std::valarray<real> C
 					if (m - k < 0) {
 						Y = std::conj(Y);
 					}
-					L += jM * Cnm[jknm] * Y;
+					L += jM * complex(Cnm_r[jknm], Cnm_i[jknm]) * Y;
 				}
 				for (int m = 0; m <= n; ++m) {
 					int nm = n * n + n + m;
@@ -116,7 +116,7 @@ void exafmm_kernel<P>::M2L(std::valarray<real>& CiL, const std::valarray<real> C
 					if (m - k < 0) {
 						Y = std::conj(Y);
 					}
-					L += jM * Cnm[jknm] * Y;
+					L += jM * complex(Cnm_r[jknm], Cnm_i[jknm]) * Y;
 				}
 			}
 			CiL[j * j + j + k] = L.real();
@@ -285,8 +285,10 @@ exafmm_kernel<P>::exafmm_kernel() {
 				for (int m = -n; m <= n; ++m, ++nm, ++jknm) { //    Loop over m in Cjknm
 					if (j + n < P) {
 						const int jnkm = (j + n) * (j + n) + j + n + m - k; //     Index C_{j+n}^{m-k}
-						Cnm[jknm] = std::pow(I, real(abs(k - m) - abs(k) - abs(m))) //     Cjknm
+						auto tmp = std::pow(I, real(abs(k - m) - abs(k) - abs(m))) //     Cjknm
 						* real(ODDEVEN(j) * Anm[nm] * Anm[jk] / Anm[jnkm]);
+						Cnm_r[jknm] = tmp.real();
+						Cnm_i[jknm] = tmp.imag();
 
 					}
 				}

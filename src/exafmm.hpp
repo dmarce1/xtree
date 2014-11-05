@@ -54,7 +54,8 @@ private:
 	static std::array<real, P> factorial;
 	static std::array<real, P * P> prefactor;
 	static std::array<real, P * P> Anm;
-	static std::array<complex, P * P * P * P> Cnm;
+	static std::array<real, P * P * P * P> Cnm_r;
+	static std::array<real, P * P * P * P> Cnm_i;
 
 public:
 	exafmm_kernel();
@@ -70,7 +71,10 @@ template<std::int64_t P>
 std::array<real, P * P> exafmm_kernel<P>::Anm;
 
 template<std::int64_t P>
-std::array<complex, P * P * P * P> exafmm_kernel<P>::Cnm;
+std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_r;
+
+template<std::int64_t P>
+std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_i;
 
 #ifndef EXAFMM_CPP
 extern template class exafmm_kernel<1>;
