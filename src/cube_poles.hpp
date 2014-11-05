@@ -23,8 +23,8 @@ public:
 	}
 	cube_poles() {
 		exafmm_kernel < P > exafmm;
-		std::valarray < complex > Y;
-		std::array < complex, N + 1 > w;
+		std::valarray < real > Y;
+		std::array < real, N + 1 > w;
 		Y.resize(P * P);
 		M.resize(P * P);
 		const real dx = 1.0 / real(N);
@@ -33,11 +33,11 @@ public:
 		real r, theta, phi;
 		for (int i = 0; i <= N; i++) {
 			if (i == 0 || i == N) {
-				w[i] == complex(1.0 / 3.0, 0.0);
+				w[i] == real(1.0 / 3.0);
 			} else if (i % 2 == 1) {
-				w[i] = complex(2.0 / 3.0, 0.0);
+				w[i] = real(2.0 / 3.0);
 			} else {
-				w[i] = complex(4.0 / 3.0, 0.0);
+				w[i] = real(4.0 / 3.0);
 			}
 		}
 		for (int i = 0; i <= N; i++) {
@@ -47,8 +47,8 @@ public:
 					X[0] = (real(i) - real(N) / 2.0) * dx * 2.0;
 					X[1] = (real(k) - real(N) / 2.0) * dx * 2.0;
 					X[2] = (real(j) - real(N) / 2.0) * dx * 2.0;
-					std::valarray < complex > Ynm(P * P);
-					std::valarray < complex > Ynm_theta(P * P);
+					std::valarray < real > Ynm(P * P);
+					std::valarray < real > Ynm_theta(P * P);
 					exafmm.cart2sph(r, theta, phi, X);
 					if (r > 1.0) {
 						exafmm.evalMultipole(r, theta, phi, Ynm);
@@ -59,14 +59,7 @@ public:
 		}
 		Y *= dx3;
 		Y[0] = 1.0;
-		for (int n = 0; n != P; ++n) {
-			for (int m = 0; m <= n; ++m) {
-				M[n * n + n + m] = 0.5 * (Y[n * n + n + m] + Y[n * n + n - m]).real();
-				if (m != 0) {
-					M[n * n + n - m] = 0.5 * (Y[n * n + n + m] + Y[n * n + n - m]).imag();
-				}
-			}
-		}
+		M = Y;
 		NN.resize(N * N);
 		for (int n = 0; n != P; ++n) {
 			for (int m = 0; m <= n; ++m) {
