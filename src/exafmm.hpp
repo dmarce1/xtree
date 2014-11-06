@@ -42,9 +42,12 @@ using complex = std::complex<real>;
 template<std::int64_t P>
 class exafmm_kernel {
 public:
+
+	static void M2L_V(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
+			const std::valarray<std::valarray<real>>& dist, std::size_t N);
+
 	static void cart2sph(real& r, real& theta, real& phi, std::valarray<real> dist);
 	static void M2M(std::valarray<real>& CiM, const std::valarray<real>& CjM, const std::valarray<real>& dist);
-	static void M2L(std::valarray<real>& CiL, const std::valarray<real> CjM, const std::valarray<real>& dist);
 	static void L2L(std::valarray<real>& CiL, const std::valarray<real>& CjL, const std::valarray<real>& dist);
 	static void evalMultipole(real rho, real theta, real phi, std::valarray<real>& Ynm);
 	static void evalLocal(real rho, real theta, real phi, std::valarray<real>& Ynm);
@@ -76,16 +79,16 @@ template<std::int64_t P>
 std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_i;
 
 #ifndef EXAFMM_CPP
-extern template class exafmm_kernel<1>;
-extern template class exafmm_kernel<2>;
-extern template class exafmm_kernel<3>;
-extern template class exafmm_kernel<4>;
-extern template class exafmm_kernel<5>;
-extern template class exafmm_kernel<6>;
-extern template class exafmm_kernel<7>;
-extern template class exafmm_kernel<8>;
-extern template class exafmm_kernel<9>;
-extern template class exafmm_kernel<10>;
+extern template class exafmm_kernel<1> ;
+extern template class exafmm_kernel<2> ;
+extern template class exafmm_kernel<3> ;
+extern template class exafmm_kernel<4> ;
+extern template class exafmm_kernel<5> ;
+extern template class exafmm_kernel<6> ;
+extern template class exafmm_kernel<7> ;
+extern template class exafmm_kernel<8> ;
+extern template class exafmm_kernel<9> ;
+extern template class exafmm_kernel<10> ;
 #endif
 
 #endif

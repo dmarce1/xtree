@@ -72,10 +72,12 @@ struct fmmx_node_static_data {
 						p1[d] = int(position_array[dir][i1][d]-0.5+EPS+BOUND_WIDTH);
 						p2[d] = int(position_array0[i0][d]-0.5+EPS+BOUND_WIDTH);
 					}
-					if( std::abs(p1 / int(2) - p2 / int(2)).max() < 2 ) {
-						list_near.push_back(i0);
-						if( std::abs(p1-p2).max() > 1 ) {
-							list_neighbor.push_back(i0);
+					if( std::abs(p1-p2).max() > 0 ) {
+						if( std::abs(p1 / int(2) - p2 / int(2)).max() < 2 ) {
+							list_near.push_back(i0);
+							if( std::abs(p1-p2).max() > 1 ) {
+								list_neighbor.push_back(i0);
+							}
 						}
 					}
 				}
@@ -110,7 +112,7 @@ class fmmx_node: public node<fmmx_node<Ndim, Nx, P>, Ndim>, public hpx::componen
 public:
 	static constexpr std::size_t Bw = BOUND_WIDTH;
 	static constexpr std::size_t Nchild = 1 << Ndim;
-	static constexpr std::size_t PP = P *P;
+	static constexpr std::size_t PP = P * P;
 	static constexpr std::size_t Size = pow_<Nx, Ndim>::value;
 	using base_type = hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<fmmx_node<Ndim, Nx, P>>;
@@ -345,25 +347,22 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 	}
 	for (std::size_t i = 0; i != indexes.size(); ++i) {
 		const auto sz = indexes[i].size();
-		std::valarray<std::valarray<real>> l(std::valarray<real>(PP), sz);
-		std::valarray<std::valarray<double>> x = X[indexes[i]];
-		for (std::size_t j = 0; j != sz; ++j) {
-			std::valarray<double> dist = x[j] - Xb[i];
-			if ((dist * dist).sum() > EPS * EPS) {
-				std::valarray<real> mb(PP);
-				for (std::size_t p = 0; p != PP; ++p) {
-					mb[p] = (*Mb_ptr)[p][i];
-				}
-				static_data.exafmm.M2L(l[j], mb, dist);
-			} else {
-				l[j] = real(0.0);
+		std::valarray<std::valarray<real>> l(std::valarray<real>(sz), P * P);
+		std::valarray<real> mb(PP);
+		std::valarray<std::valarray<real>> x = X[indexes[i]];
+		std::valarray<std::valarray<real>> dist(std::valarray<real>(sz), Ndim);
+		for (std::size_t d = 0; d != Ndim; ++d) {
+			for (std::size_t j = 0; j != sz; ++j) {
+				dist[d][j] = x[j][d] - Xb[i][d];
 			}
 		}
+		for (std::size_t p = 0; p != PP; ++p) {
+			mb[p] = (*Mb_ptr)[p][i];
+		}
+		static_data.exafmm.M2L_V(l, mb, dist, sz);
 		boost::lock_guard<decltype(lock)> scope(lock);
 		for (std::size_t p = 0; p != PP; ++p) {
-			for (std::size_t j = 0; j != sz; ++j) {
-				L[p][indexes[i][j]] += l[j][p];
-			}
+			L[p][indexes[i]] += l[p];
 		}
 	}
 	if (!dir.is_zero()) {
