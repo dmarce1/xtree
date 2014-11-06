@@ -8,6 +8,8 @@
 #define EXAFMM_CPP
 #include "exafmm.hpp"
 
+#define ODDEVEN(n) real((((n) & 1) == 1) ? -1 : 1)
+
 #define COMPLEX_MULT( ar, ai, br, bi, cr, ci) \
 		(ar) = (br)*(cr)-(bi)*(ci);           \
 		(ai) = (br)*(ci)+(bi)*(cr)
@@ -16,7 +18,7 @@
 		(ar) += (br)*(cr)-(bi)*(ci);           \
 		(ai) += (br)*(ci)+(bi)*(cr)
 
-#define SGN(i) ((i) > 0 ? 1 : ((i)<0 ? -1 : 0))
+#define SGN(i) real((i) > 0 ? 1 : ((i)<0 ? -1 : 0))
 
 template class exafmm_kernel<1> ;
 template class exafmm_kernel<2> ;
@@ -42,51 +44,34 @@ void exafmm_kernel<P>::cart2sph(real& r, real& theta, real& phi, std::valarray<r
 
 template<std::int64_t P>
 void exafmm_kernel<P>::M2M(std::valarray<real>& CiM, const std::valarray<real>& CjM, const std::valarray<real>& dist) {
-	const complex I(0., 1.);
 	std::valarray<real> Ynm(P * P);
-
 	real rho, theta, phi;
 	cart2sph(rho, theta, phi, dist);
 	evalMultipole(rho, theta, -phi, Ynm);
-	for (int j = 0; j != P; ++j) {
-		for (int k = 0; k <= j; ++k) {
-			int jk = j * j + j + k;
-			int jks = j * (j + 1) / 2 + k;
-			complex M = 0;
-			for (int n = 0; n <= j; ++n) {
-				for (int m = -n; m <= std::min(k - 1, n); ++m) {
-					if (j - n >= k - m) {
-						int jnkm = (j - n) * (j - n) + j - n + k - m;
-						int nm = n * n + n + m;
-						int jnpkm = (j - n) * ((j - n) + 1) + std::abs(k - m);
-						int jnmkm = (j - n) * ((j - n) + 1) - std::abs(k - m);
-						complex jM(CjM[jnpkm], +CjM[jnmkm]);
-						auto Y = complex(Ynm[n * (n + 1) + std::abs(m)], m == 0 ? 0.0 : Ynm[n * (n + 1) - std::abs(m)]);
-						if (m < 0) {
-							Y = std::conj(Y);
-						}
-						M += jM * std::pow(I, real(m - abs(m))) * Y * real(ODDEVEN(n) * Anm[nm] * Anm[jnkm] / Anm[jk]);
-					}
-				}
-				for (int m = k; m <= n; ++m) {
-					if (j - n >= m - k) {
-						int jnkm = (j - n) * (j - n) + j - n + k - m;
-						int nm = n * n + n + m;
-						int jnpkm = (j - n) * ((j - n) + 1) + std::abs(k - m);
-						int jnmkm = (j - n) * ((j - n) + 1) - std::abs(k - m);
-						complex jM(CjM[jnpkm], k == m ? real(0.0) : -CjM[jnmkm]);
-						auto Y = complex(Ynm[n * (n + 1) + std::abs(m)], m == 0 ? 0.0 : Ynm[n * (n + 1) - std::abs(m)]);
-						if (m < 0) {
-							Y = std::conj(Y);
-						}
-						M += jM * Y * real(ODDEVEN(k+n+m) * Anm[nm] * Anm[jnkm] / Anm[jk]);
+	for (std::int64_t j = 0; j != P; ++j) {
+		for (std::int64_t k = 0; k <= j; ++k) {
+			const std::int64_t jkp = j * j + j + k;
+			const std::int64_t jkm = j * j + j - k;
+			real M_r = 0.0;
+			real M_i = 0.0;
+			for (std::int64_t n = 0; n <= j; ++n) {
+				for (std::int64_t m = -n; m <= n; ++m) {
+					if (j - n >= std::abs(k - m)) {
+						const std::int64_t jnkm = (j - n) * (j - n) + j - n + k - m;
+						const std::int64_t nm = n * n + n + m;
+						const std::int64_t jnpkm = (j - n) * ((j - n) + 1) + std::abs(k - m);
+						const std::int64_t jnmkm = (j - n) * ((j - n) + 1) - std::abs(k - m);
+						const std::int64_t nmp = n * (n + 1) + std::abs(m);
+						const std::int64_t nmm = n * (n + 1) - std::abs(m);
+						const real tmp = Anm[nm] * Anm[jnkm]
+								/ Anm[jkp] * ODDEVEN((std::abs(k) - std::abs(m) - std::abs(k - m)) / 2 + n);
+						COMPLEX_MULT_ADD(M_r, M_i, CjM[jnpkm], SGN(k-m)*CjM[jnmkm], tmp * Ynm[nmp],
+								SGN(m) * tmp * Ynm[nmm]);
 					}
 				}
 			}
-			CiM[j * j + j + k] += M.real();
-			if (k != 0) {
-				CiM[j * j + j - k] += M.imag();
-			}
+			CiM[jkp] += M_r;
+			CiM[jkm] += (jkm == jkp) ? 0.0 : M_i;
 		}
 	}
 }
@@ -114,7 +99,6 @@ void exafmm_kernel<P>::M2L(std::valarray<real>& CiL, const std::valarray<real> C
 					COMPLEX_MULT(tmp_r, tmp_i, CjM[nmp], SGN(m) * CjM[nmm], Ynm[jnkmp], SGN(m-k) * Ynm[jnkmm]);
 					COMPLEX_MULT_ADD(L_r, L_i, tmp_r, tmp_i, Cnm_r[jknm], Cnm_i[jknm]);
 				}
-
 			}
 			CiL[jkp] = L_r;
 			if (jkp != jkm) {
