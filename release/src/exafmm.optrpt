@@ -1,5 +1,5 @@
 
-Begin optimization report for: exafmm_kernel<1L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<1L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -140,7 +140,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<1L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 1UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<1L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -174,15 +174,24 @@ LOOP BEGIN at ../src/exafmm.cpp(174,6)
    remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(175,7) ]
    remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(175,7) ]
    remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(175,7) ]
+   remark #15399: vectorization support: unroll factor set to 4
    remark #15301: SIMD LOOP WAS VECTORIZED
    remark #15448: unmasked aligned unit stride loads: 2 
    remark #15449: unmasked aligned unit stride stores: 1 
    remark #15475: --- begin vector loop cost summary ---
    remark #15476: scalar loop cost: 9 
-   remark #15477: vector loop cost: 1.750 
-   remark #15478: estimated potential speedup: 0.750 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.390 
    remark #15479: lightweight vector operations: 7 
    remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(174,6)
+<Remainder>
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(175,7) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(175,7) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(175,7) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
 LOOP BEGIN at ../src/exafmm.cpp(174,6)
@@ -210,7 +219,7 @@ LOOP BEGIN at ../src/exafmm.cpp(183,4)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<1L>::L2L_V(std::array<std::valarray<Ipp64f>, 1UL> &, const std::array<std::valarray<Ipp64f>, 1UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<1L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -244,15 +253,24 @@ LOOP BEGIN at ../src/exafmm.cpp(225,6)
    remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(226,7) ]
    remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(226,7) ]
    remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(226,7) ]
+   remark #15399: vectorization support: unroll factor set to 4
    remark #15301: SIMD LOOP WAS VECTORIZED
    remark #15448: unmasked aligned unit stride loads: 2 
    remark #15449: unmasked aligned unit stride stores: 1 
    remark #15475: --- begin vector loop cost summary ---
    remark #15476: scalar loop cost: 9 
-   remark #15477: vector loop cost: 1.750 
-   remark #15478: estimated potential speedup: 0.750 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.390 
    remark #15479: lightweight vector operations: 7 
    remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(225,6)
+<Remainder>
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(226,7) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(226,7) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(226,7) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
 LOOP BEGIN at ../src/exafmm.cpp(225,6)
@@ -270,7 +288,7 @@ LOOP BEGIN at ../src/exafmm.cpp(234,4)
    remark #15475: --- begin vector loop cost summary ---
    remark #15476: scalar loop cost: 11 
    remark #15477: vector loop cost: 1.500 
-   remark #15478: estimated potential speedup: 1.000 
+   remark #15478: estimated potential speedup: 7.330 
    remark #15479: lightweight vector operations: 6 
    remark #15488: --- end vector loop cost summary ---
 LOOP END
@@ -280,7 +298,7 @@ LOOP BEGIN at ../src/exafmm.cpp(234,4)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<2L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<2L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -432,7 +450,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<2L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 4UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<2L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -501,7 +519,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 4.000 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -555,7 +573,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<2L>::L2L_V(std::array<std::valarray<Ipp64f>, 4UL> &, const std::array<std::valarray<Ipp64f>, 4UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<2L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -624,7 +642,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 4.000 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -974,7 +992,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<3L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<3L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -1129,7 +1147,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<3L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 9UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<3L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -1201,7 +1219,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 3.400 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -1255,7 +1273,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<3L>::L2L_V(std::array<std::valarray<Ipp64f>, 9UL> &, const std::array<std::valarray<Ipp64f>, 9UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<3L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -1327,7 +1345,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 3.400 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -1349,7 +1367,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 4.300 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -1369,7 +1387,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 4.300 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -1692,7 +1710,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<4L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<4L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -1850,7 +1868,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<4L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 16UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<4L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -1925,7 +1943,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.440 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -1979,7 +1997,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<4L>::L2L_V(std::array<std::valarray<Ipp64f>, 16UL> &, const std::array<std::valarray<Ipp64f>, 16UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<4L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -2054,7 +2072,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.440 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -2422,7 +2440,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<5L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<5L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -2583,7 +2601,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<5L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 25UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<5L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -2661,7 +2679,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 4.770 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -2715,7 +2733,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<5L>::L2L_V(std::array<std::valarray<Ipp64f>, 25UL> &, const std::array<std::valarray<Ipp64f>, 25UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<5L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -2793,7 +2811,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 4.770 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -2815,7 +2833,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 5.850 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -2835,7 +2853,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 5.850 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -3164,7 +3182,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<6L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<6L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -3328,7 +3346,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<6L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 36UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<6L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -3409,7 +3427,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.820 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -3463,7 +3481,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<6L>::L2L_V(std::array<std::valarray<Ipp64f>, 36UL> &, const std::array<std::valarray<Ipp64f>, 36UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<6L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -3544,7 +3562,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.820 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -3918,7 +3936,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<7L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<7L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4085,7 +4103,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<7L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 49UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<7L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4169,7 +4187,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.370 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -4223,7 +4241,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<7L>::L2L_V(std::array<std::valarray<Ipp64f>, 49UL> &, const std::array<std::valarray<Ipp64f>, 49UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<7L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4307,7 +4325,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.370 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -4329,7 +4347,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 6.490 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -4349,7 +4367,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 6.490 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -4684,7 +4702,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<8L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<8L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4847,7 +4865,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<8L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 64UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<8L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4916,7 +4934,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.970 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -4970,7 +4988,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<8L>::L2L_V(std::array<std::valarray<Ipp64f>, 64UL> &, const std::array<std::valarray<Ipp64f>, 64UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<8L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -5039,7 +5057,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.970 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -5401,7 +5419,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<9L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<9L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -5564,7 +5582,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<9L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 81UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<9L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -5633,7 +5651,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.660 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -5687,7 +5705,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<9L>::L2L_V(std::array<std::valarray<Ipp64f>, 81UL> &, const std::array<std::valarray<Ipp64f>, 81UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<9L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -5756,7 +5774,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 5.660 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -5778,7 +5796,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 6.800 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -5798,7 +5816,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
          remark #15475: --- begin vector loop cost summary ---
          remark #15476: scalar loop cost: 11 
          remark #15477: vector loop cost: 1.500 
-         remark #15478: estimated potential speedup: 6.800 
+         remark #15478: estimated potential speedup: 7.330 
          remark #15479: lightweight vector operations: 6 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
@@ -6118,7 +6136,7 @@ LOOP BEGIN at ../src/exafmm.cpp(310,2) inlined into ../src/exafmm.cpp(281,19)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<10L>::M2L_V(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
+Begin optimization report for: exafmm_kernel<10L>::M2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> *, const std::valarray<std::valarray<Ipp64f>> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -6281,7 +6299,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<10L>::M2M_V(std::valarray<std::valarray<Ipp64f>> &, const std::array<std::valarray<Ipp64f>, 100UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<10L>::M2M(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -6350,7 +6368,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 6.040 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END
@@ -6404,7 +6422,7 @@ LOOP BEGIN at ../src/exafmm.cpp(147,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: exafmm_kernel<10L>::L2L_V(std::array<std::valarray<Ipp64f>, 100UL> &, const std::array<std::valarray<Ipp64f>, 100UL> &, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: exafmm_kernel<10L>::L2L(std::valarray<std::valarray<Ipp64f>> &, const std::valarray<std::valarray<Ipp64f>> &, const std::valarray<Ipp64f> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -6473,7 +6491,7 @@ LOOP BEGIN at ../src/exafmm.cpp(199,2)
                remark #15475: --- begin vector loop cost summary ---
                remark #15476: scalar loop cost: 34 
                remark #15477: vector loop cost: 5.500 
-               remark #15478: estimated potential speedup: 6.040 
+               remark #15478: estimated potential speedup: 6.130 
                remark #15479: lightweight vector operations: 22 
                remark #15488: --- end vector loop cost summary ---
             LOOP END

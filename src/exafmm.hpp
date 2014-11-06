@@ -43,13 +43,13 @@ template<std::int64_t P>
 class exafmm_kernel {
 public:
 
-	static void M2L_V(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
+	static void M2L(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
 			const std::valarray<std::valarray<real>>& dist, std::size_t N);
 
 	static void cart2sph(real& r, real& theta, real& phi, std::valarray<real> dist);
-	static void M2M_V(std::valarray<std::valarray<real>>& CiM, const std::array<std::valarray<real>, P * P>& CjM,
+	static void M2M(std::valarray<std::valarray<real>>& CiM, const std::valarray<std::valarray<real>>& CjM,
 			const std::valarray<real>& dist, const std::size_t N);
-	static void L2L_V(std::array<std::valarray<real>, P * P>& CiL, const std::array<std::valarray<real>, P * P>& CjL,
+	static void L2L(std::valarray<std::valarray<real>>& CiL, const std::valarray<std::valarray<real>>& CjL,
 			const std::valarray<real>& dist, const std::size_t N);
 	static void evalMultipole(real rho, real theta, real phi, std::valarray<real>& Ynm);
 private:

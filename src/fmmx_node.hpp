@@ -116,8 +116,8 @@ public:
 	static constexpr std::size_t Size = pow_<Nx, Ndim>::value;
 	using base_type = hpx::components::managed_component_base<fmmx_node<Ndim, Nx, P>, hpx::components::detail::this_type, hpx::traits::construct_with_back_ptr>;
 	using component_type = hpx::components::managed_component<fmmx_node<Ndim, Nx, P>>;
-	using multipoles_type = std::array<std::valarray<real>,PP>;
-	using expansions_type = std::array<std::valarray<real>,PP>;
+	using multipoles_type = std::valarray<std::valarray<real>>;
+	using expansions_type = std::valarray<std::valarray<real>>;
 	using exchange_type = future_wrapper<multipoles_type>;
 	using descend_type = future_wrapper<multipoles_type>;
 	using ascend_type = future_wrapper<expansions_type>;
@@ -168,17 +168,12 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 	const std::valarray<double> dx(1.0 / double(Nx) / double(1 << this->get_self().get_level()), Ndim);
 	std::valarray<std::size_t> dims(Nx, Ndim);
 	std::valarray<real> lc(PP), lf(PP);
-	auto Lcoarse = std::make_shared<expansions_type>();
-	auto Lthis = std::make_shared<expansions_type>();
-	for (auto i = Lthis->begin(); i != Lthis->end(); ++i) {
-		i->resize(Size / Nchild);
-	}
+	expansions_type Lcoarse;
+	auto Lthis = expansions_type(std::valarray<real>(Size / Nchild), P * P);
 	if (this->get_level() != 0) {
-		*Lcoarse = parent.get();
+		Lcoarse = parent.get();
 	} else {
-		for (auto i = Lcoarse->begin(); i != Lcoarse->end(); ++i) {
-			i->resize(Size / Nchild, 0.0);
-		}
+		Lcoarse = std::valarray<std::valarray<real>>(std::valarray<real>(Size / Nchild), P * P);
 	}
 	for (std::size_t ci = 0; ci != Nchild; ++ci) {
 		std::valarray<double> dist(Ndim);
@@ -189,10 +184,10 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 				dist[d] = -0.5 * dx[d];
 			}
 		}
-		static_data.exafmm.L2L_V(*Lthis, *Lcoarse, dist, Size/Nchild);
+		static_data.exafmm.L2L(Lthis, Lcoarse, dist, Size / Nchild);
 		boost::lock_guard<decltype(lock)> scope(lock);
 		for (std::size_t p = 0; p != PP; ++p) {
-			L[p][get_restrict_slice(dims, ci)] += (*Lthis)[p];
+			L[p][get_restrict_slice(dims, ci)] += Lthis[p];
 		}
 	}
 	selfi_future.get();
@@ -201,12 +196,11 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 		child_data.resize(Nchild);
 		for (std::size_t ci = 0; ci < Nchild; ci++) {
 			child_data[ci] = hpx::async(hpx::launch::deferred, [dims,ci](const expansions_type& Lc) {
-				auto Lf = std::make_shared<expansions_type>();
+				auto Lf = expansions_type(std::valarray<real>(Size/Nchild), P*P);
 				for(std::size_t p = 0; p != PP; ++p ) {
-					(*Lf)[p].resize(Size/Nchild);
-					(*Lf)[p] = Lc[p][get_xtant_slice(dims, ci)];
+					Lf[p] = Lc[p][get_xtant_slice(dims, ci)];
 				}
-				return std::move(*Lf);
+				return Lf;
 			}, L);
 		}
 	}
@@ -245,15 +239,11 @@ typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
 	});
 
 	return hpx::async(hpx::launch::deferred, [dims,dx,this](const multipoles_type& Mfine) {
-		auto Mthis = std::make_shared<multipoles_type>();
-		auto Mcoarse = std::make_shared<multipoles_type>();
-		for( std::size_t p = 0; p!= PP; ++p) {
-			(*Mthis)[p].resize(Size/Nchild);
-			(*Mcoarse)[p].resize(Size/Nchild, real(0.0));
-		}
+		auto Mthis = multipoles_type(std::valarray<real>(Size/Nchild), P*P);
+		auto Mcoarse = multipoles_type(std::valarray<real>(Size/Nchild), P*P);
 		for( std::size_t ci = 0; ci != Nchild; ++ci) {
 			for( std::size_t p = 0; p!= PP; ++p) {
-				(*Mthis)[p] = Mfine[p][get_restrict_slice(dims, ci )];
+				Mthis[p] = Mfine[p][get_restrict_slice(dims, ci )];
 			}
 			std::valarray<double> dist(Ndim);
 			for( std::size_t d = 0; d < Ndim; d++ ) {
@@ -265,12 +255,12 @@ typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
 			}
 			constexpr auto sz = Size / Nchild;
 			std::valarray<std::valarray<real>> mc(std::valarray<real>(sz), PP);
-			static_data.exafmm.M2M_V(mc, *Mthis, dist, sz);
+			static_data.exafmm.M2M(mc, Mthis, dist, sz);
 			for( std::size_t p = 0; p != PP; ++p) {
-				(*Mcoarse)[p] += mc[p];
+				Mcoarse[p] += mc[p];
 			}
 		}
-		return std::move(*Mcoarse);
+		return Mcoarse;
 	}, M);
 
 }
@@ -279,12 +269,8 @@ template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 void fmmx_node<Ndim, Nx, P>::allocate() {
 	std::valarray<std::size_t> dims(Nx, Ndim);
 	X.resize(Size);
-	for (auto i = L.begin(); i != L.end(); ++i) {
-		i->resize(Size);
-	}
-	for (auto i = M.begin(); i != M.end(); ++i) {
-		i->resize(Size);
-	}
+	L = std::valarray<std::valarray<real>>(std::valarray<real>(Size), P * P);
+	M = std::valarray<std::valarray<real>>(std::valarray<real>(Size), P * P);
 	rho.resize(Size);
 	for (std::size_t i = 0; i < Size; i++) {
 		X[i].resize(Ndim);
@@ -343,10 +329,12 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 				dist[d][j] = x[j][d] - Xb[i][d];
 			}
 		}
+#pragma vector aligned
+#pragma simd
 		for (std::size_t p = 0; p != PP; ++p) {
 			mb[p] = (*Mb_ptr)[p][i];
 		}
-		static_data.exafmm.M2L_V(l, mb, dist, sz);
+		static_data.exafmm.M2L(l, mb, dist, sz);
 		boost::lock_guard<decltype(lock)> scope(lock);
 		for (std::size_t p = 0; p != PP; ++p) {
 			L[p][indexes[i]] += l[p];
@@ -360,7 +348,7 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 template<std::size_t Ndim, std::size_t Nx, std::size_t P>
 typename fmmx_node<Ndim, Nx, P>::exchange_type fmmx_node<Ndim, Nx, P>::exchange_get(dir_type<Ndim> dir) {
 	return hpx::async(hpx::launch::deferred, [dir](const multipoles_type& M) {
-		auto m = std::make_shared<multipoles_type>();
+		auto m = multipoles_type(std::valarray<real>(Size/Nchild), P*P);
 		std::valarray<std::size_t> mins(Ndim), maxes(Ndim);
 		for( std::size_t d = 0; d < Ndim; d++) {
 			switch(dir[d]) {
@@ -379,9 +367,9 @@ typename fmmx_node<Ndim, Nx, P>::exchange_type fmmx_node<Ndim, Nx, P>::exchange_
 			}
 		}
 		for( std::size_t p = 0; p!= PP; ++p) {
-			(*m)[p] = M[p][get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)];
+			m[p] = M[p][get_slice(std::valarray<std::size_t>(Nx,Ndim), mins, maxes)];
 		}
-		return std::move(*m);
+		return m;
 	}, M);
 }
 

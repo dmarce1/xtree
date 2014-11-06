@@ -33,7 +33,7 @@ template class exafmm_kernel<9> ;
 template class exafmm_kernel<10> ;
 
 template<std::int64_t P>
-void exafmm_kernel<P>::M2L_V(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
+void exafmm_kernel<P>::M2L(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
 		const std::valarray<std::valarray<real>>& d, std::size_t N) {
 	std::valarray<std::valarray<real>> Ynm(std::valarray<real>(N), P * P);
 #pragma vector aligned
@@ -137,7 +137,7 @@ void exafmm_kernel<P>::cart2sph(real& r, real& theta, real& phi, std::valarray<r
 }
 
 template<std::int64_t P>
-void exafmm_kernel<P>::M2M_V(std::valarray<std::valarray<real>>& CiM, const std::array<std::valarray<real>, P * P>& CjM,
+void exafmm_kernel<P>::M2M(std::valarray<std::valarray<real>>& CiM, const std::valarray<std::valarray<real>>& CjM,
 		const std::valarray<real>& dist, const std::size_t N) {
 	std::valarray<real> Ynm(P * P);
 	std::valarray<real> M_r(N), M_i(N);
@@ -189,8 +189,8 @@ void exafmm_kernel<P>::M2M_V(std::valarray<std::valarray<real>>& CiM, const std:
 }
 
 template<std::int64_t P>
-void exafmm_kernel<P>::L2L_V(std::array<std::valarray<real>, P * P>& CiL,
-		const std::array<std::valarray<real>, P * P>& CjL, const std::valarray<real>& dist, const std::size_t N) {
+void exafmm_kernel<P>::L2L(std::valarray<std::valarray<real>>& CiL,
+		const std::valarray<std::valarray<real>>& CjL, const std::valarray<real>& dist, const std::size_t N) {
 	std::valarray<real> Ynm(P * P);
 	real rho, theta, phi;
 	std::valarray<real> L_r(N), L_i(N);
