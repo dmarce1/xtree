@@ -26,7 +26,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Intel C++ Compiler'
-	icpc -O3 -ip -DNDEBUG -vec-report6 -xHost `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	icpc -O3 -inline-level=2 -I/opt/intel/composer_xe_2013_sp1.3.174/compiler/perf_headers/c++/ -DNDEBUG -vec-report6 -xHost `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

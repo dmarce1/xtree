@@ -189,15 +189,7 @@ std::vector<typename fmmx_node<Ndim, Nx, P>::ascend_type> fmmx_node<Ndim, Nx, P>
 				dist[d] = -0.5 * dx[d];
 			}
 		}
-		for (std::size_t i = 0; i != Size / Nchild; ++i) {
-			for (std::size_t p = 0; p != PP; ++p) {
-				lc[p] = (*Lcoarse)[p][i];
-			}
-			static_data.exafmm.L2L(lf, lc, dist);
-			for (std::size_t p = 0; p != PP; ++p) {
-				(*Lthis)[p][i] = lf[p];
-			}
-		}
+		static_data.exafmm.L2L_V(*Lthis, *Lcoarse, dist, Size/Nchild);
 		boost::lock_guard<decltype(lock)> scope(lock);
 		for (std::size_t p = 0; p != PP; ++p) {
 			L[p][get_restrict_slice(dims, ci)] += (*Lthis)[p];
@@ -271,16 +263,11 @@ typename fmmx_node<Ndim, Nx, P>::descend_type fmmx_node<Ndim, Nx, P>::descend(
 					dist[d] = +0.5*dx[d];
 				}
 			}
-			for( std::size_t i = 0; i <Size/Nchild; i++ ) {
-				std::valarray<real> mt(PP);
-				std::valarray<real> mc(real(0.0), PP);
-				for( std::size_t p = 0; p != PP; ++p) {
-					mt[p] = (*Mthis)[p][i];
-				}
-				static_data.exafmm.M2M(mc, mt, dist);
-				for( std::size_t p = 0; p != PP; ++p) {
-					(*Mcoarse)[p][i] += mc[p];
-				}
+			constexpr auto sz = Size / Nchild;
+			std::valarray<std::valarray<real>> mc(std::valarray<real>(sz), PP);
+			static_data.exafmm.M2M_V(mc, *Mthis, dist, sz);
+			for( std::size_t p = 0; p != PP; ++p) {
+				(*Mcoarse)[p] += mc[p];
 			}
 		}
 		return std::move(*Mcoarse);
