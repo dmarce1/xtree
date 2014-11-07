@@ -12,7 +12,6 @@
 #include "fwd.hpp"
 #include "cube_poles.hpp"
 #include "xtree.hpp"
-#include "expansion.hpp"
 #include "valarray.hpp"
 #include <hpx/util/function.hpp>
 #include <boost/serialization/valarray.hpp>
