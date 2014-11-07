@@ -5,18 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/exafmm.cpp \
+../src/hpx_templates.cpp \
 ../src/load_balancer.cpp \
 ../src/main.cpp \
 ../src/new.cpp 
 
 OBJS += \
 ./src/exafmm.o \
+./src/hpx_templates.o \
 ./src/load_balancer.o \
 ./src/main.o \
 ./src/new.o 
 
 CPP_DEPS += \
 ./src/exafmm.d \
+./src/hpx_templates.d \
 ./src/load_balancer.d \
 ./src/main.d \
 ./src/new.d 

@@ -94,6 +94,7 @@ int hpx_main() {
 //	feenableexcept(FE_OVERFLOW);
 #endif
 	execute();
+	exit(0);
 	return hpx::finalize();
 
 }

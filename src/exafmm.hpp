@@ -56,34 +56,31 @@ public:
 			const std::valarray<real>& dist, const std::size_t N);
 	static void evalMultipole(real rho, real theta, real phi, std::valarray<real>& Ynm);
 
-	static std::valarray<std::valarray<real>> M2L_interior(const std::valarray<std::valarray<real>>& M,
-			real dx, std::int64_t Nx, bool leaf, bool is_root);
+	static std::valarray<std::valarray<real>> M2L_interior(const std::valarray<std::valarray<real>>& M, real dx,
+			std::int64_t Nx, bool leaf, bool is_root);
 private:
 
-	static std::array<real, P> factorial;
-	static std::array<real, P * P> prefactor;
-	static std::array<real, P * P> Anm;
-	static std::array<real, P * P * P * P> Cnm_r;
-	static std::array<real, P * P * P * P> Cnm_i;
+	static real factorial[P];
+	static real Anm[P * P];static _Cilk_shared real* prefactor;static _Cilk_shared real* Cnm_r;static _Cilk_shared real* Cnm_i;
 
 public:
 	exafmm_kernel();
 };
 
 template<std::int64_t P>
-std::array<real, P> exafmm_kernel<P>::factorial;
+real exafmm_kernel<P>::factorial[P];
 
 template<std::int64_t P>
-std::array<real, P * P> exafmm_kernel<P>::prefactor;
+_Cilk_shared real* exafmm_kernel<P>::prefactor;
 
 template<std::int64_t P>
-std::array<real, P * P> exafmm_kernel<P>::Anm;
+_Cilk_shared real* exafmm_kernel<P>::Cnm_r;
 
 template<std::int64_t P>
-std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_r;
+_Cilk_shared real* exafmm_kernel<P>::Cnm_i;
 
 template<std::int64_t P>
-std::array<real, P * P * P * P> exafmm_kernel<P>::Cnm_i;
+real exafmm_kernel<P>::Anm[P * P];
 
 #ifndef EXAFMM_CPP
 extern template class exafmm_kernel<1> ;
