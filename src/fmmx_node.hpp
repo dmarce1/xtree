@@ -315,33 +315,34 @@ void fmmx_node<Ndim, Nx, P>::exchange_set(dir_type<Ndim> dir,
 	multipoles_type* Mb_ptr;
 	if (!dir.is_zero()) {
 		Mb_ptr = new multipoles_type(boundary.get());
-	} else {
-		Mb_ptr = &M;
-	}
-	for (std::size_t i = 0; i != indexes.size(); ++i) {
-		const auto sz = indexes[i].size();
-		std::valarray<std::valarray<real>> l(std::valarray<real>(sz), P * P);
-		std::valarray<real> mb(PP);
-		std::valarray<std::valarray<real>> x = X[indexes[i]];
-		std::valarray<std::valarray<real>> dist(std::valarray<real>(sz), Ndim);
-		for (std::size_t d = 0; d != Ndim; ++d) {
-			for (std::size_t j = 0; j != sz; ++j) {
-				dist[d][j] = x[j][d] - Xb[i][d];
+		for (std::size_t i = 0; i != indexes.size(); ++i) {
+			const auto sz = indexes[i].size();
+			std::valarray<std::valarray<real>> l(std::valarray<real>(sz), P * P);
+			std::valarray<real> mb(PP);
+			std::valarray<std::valarray<real>> x = X[indexes[i]];
+			std::valarray<std::valarray<real>> dist(std::valarray<real>(sz), Ndim);
+			for (std::size_t d = 0; d != Ndim; ++d) {
+				for (std::size_t j = 0; j != sz; ++j) {
+					dist[d][j] = x[j][d] - Xb[i][d];
+				}
 			}
-		}
 #pragma vector aligned
 #pragma simd
-		for (std::size_t p = 0; p != PP; ++p) {
-			mb[p] = (*Mb_ptr)[p][i];
+			for (std::size_t p = 0; p != PP; ++p) {
+				mb[p] = (*Mb_ptr)[p][i];
+			}
+			static_data.exafmm.M2L(l, mb, dist, sz);
+			boost::lock_guard<decltype(lock)> scope(lock);
+			for (std::size_t p = 0; p != PP; ++p) {
+				L[p][indexes[i]] += l[p];
+			}
 		}
-		static_data.exafmm.M2L(l, mb, dist, sz);
-		boost::lock_guard<decltype(lock)> scope(lock);
-		for (std::size_t p = 0; p != PP; ++p) {
-			L[p][indexes[i]] += l[p];
-		}
-	}
-	if (!dir.is_zero()) {
 		delete Mb_ptr;
+	} else {
+		const bool is_root = this->get_self().get_level() == 0;
+		auto l = static_data.exafmm.M2L_interior( M, dx[0], Nx, this->is_terminal(), is_root);
+		boost::lock_guard<decltype(lock)> scope(lock);
+		L += l;
 	}
 }
 

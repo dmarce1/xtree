@@ -46,12 +46,18 @@ public:
 	static void M2L(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
 			const std::valarray<std::valarray<real>>& dist, std::size_t N);
 
+	static void M2L_mic(std::valarray<std::valarray<real>>& CiL, const std::valarray<real> CjM,
+			const std::valarray<std::valarray<real>>& dist, std::size_t N);
+
 	static void cart2sph(real& r, real& theta, real& phi, std::valarray<real> dist);
 	static void M2M(std::valarray<std::valarray<real>>& CiM, const std::valarray<std::valarray<real>>& CjM,
 			const std::valarray<real>& dist, const std::size_t N);
 	static void L2L(std::valarray<std::valarray<real>>& CiL, const std::valarray<std::valarray<real>>& CjL,
 			const std::valarray<real>& dist, const std::size_t N);
 	static void evalMultipole(real rho, real theta, real phi, std::valarray<real>& Ynm);
+
+	static std::valarray<std::valarray<real>> M2L_interior(const std::valarray<std::valarray<real>>& M,
+			real dx, std::int64_t Nx, bool leaf, bool is_root);
 private:
 
 	static std::array<real, P> factorial;
