@@ -6662,3 +6662,1644 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
 LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::cart2sph(real &, real &, real &, std::valarray<real> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+<Remainder>
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::M2M(std::valarray<std::valarray<real>> &, const std::valarray<std::valarray<real>> &, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(427,2) inlined into ../src/exafmm.cpp(324,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 433 and _M_data line 446
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 433
+
+   LOOP BEGIN at ../src/exafmm.cpp(441,3) inlined into ../src/exafmm.cpp(324,2)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 444 and _M_data line 446
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 444
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(325,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(326,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(331,4)
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,8) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 9 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 5.000 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(331,4)
+      <Remainder>
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,8) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(331,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(334,4)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/exafmm.cpp(335,57)
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at ../src/exafmm.cpp(352,6)
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15301: SIMD LOOP WAS VECTORIZED
+               remark #15448: unmasked aligned unit stride loads: 6 
+               remark #15449: unmasked aligned unit stride stores: 2 
+               remark #15475: --- begin vector loop cost summary ---
+               remark #15476: scalar loop cost: 34 
+               remark #15477: vector loop cost: 5.500 
+               remark #15478: estimated potential speedup: 6.130 
+               remark #15479: lightweight vector operations: 22 
+               remark #15488: --- end vector loop cost summary ---
+            LOOP END
+
+            LOOP BEGIN at ../src/exafmm.cpp(352,6)
+            <Remainder>
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::L2L(std::valarray<std::valarray<real>> &, const std::valarray<std::valarray<real>> &, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(427,2) inlined into ../src/exafmm.cpp(376,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 433 and _M_data line 446
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 433
+
+   LOOP BEGIN at ../src/exafmm.cpp(441,3) inlined into ../src/exafmm.cpp(376,2)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 444 and _M_data line 446
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 444
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(377,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(378,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(383,4)
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,8) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 9 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 5.000 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(383,4)
+      <Remainder>
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,8) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(383,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(386,4)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/exafmm.cpp(387,5)
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at ../src/exafmm.cpp(403,6)
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15301: SIMD LOOP WAS VECTORIZED
+               remark #15448: unmasked aligned unit stride loads: 6 
+               remark #15449: unmasked aligned unit stride stores: 2 
+               remark #15475: --- begin vector loop cost summary ---
+               remark #15476: scalar loop cost: 34 
+               remark #15477: vector loop cost: 5.500 
+               remark #15478: estimated potential speedup: 6.130 
+               remark #15479: lightweight vector operations: 22 
+               remark #15488: --- end vector loop cost summary ---
+            LOOP END
+
+            LOOP BEGIN at ../src/exafmm.cpp(403,6)
+            <Remainder>
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::evalMultipole(real, real, real, std::valarray<real> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/exafmm.cpp(427,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 433 and F64 line 446
+   remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 446 and F64 line 433
+
+   LOOP BEGIN at ../src/exafmm.cpp(441,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 444 and F64 line 446
+      remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 446 and F64 line 444
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::M2L_interior(std::valarray<std::valarray<real>> *, const std::valarray<std::valarray<real>> &, real, int64_t, bool, bool)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/exafmm.cpp(55,64)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(60,2)
+   remark #15382: vectorization support: call to function ?1memcpy cannot be vectorized   [ ../src/exafmm.cpp(62,4) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between m_buffer line 61 and m_buffer line 62
+   remark #15346: vector dependence: assumed FLOW dependence between m_buffer line 62 and m_buffer line 61
+
+   LOOP BEGIN at ../src/exafmm.cpp(61,3)
+      remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
+
+      LOOP BEGIN at ../src/exafmm.cpp(61,3)
+      <Multiversioned v2>
+         remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(61,3)
+      <Remainder, Multiversioned v2>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(204,2)
+   remark #15382: vectorization support: call to function ?1memcpy cannot be vectorized   [ ../src/exafmm.cpp(206,8) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between l_buffer line 205 and F64 line 206
+   remark #15346: vector dependence: assumed FLOW dependence between F64 line 206 and l_buffer line 205
+
+   LOOP BEGIN at ../src/exafmm.cpp(205,3)
+      remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
+
+      LOOP BEGIN at ../src/exafmm.cpp(205,3)
+      <Multiversioned v2>
+         remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(205,3)
+      <Remainder, Multiversioned v2>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::exafmm_kernel(exafmm_kernel<9L> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/exafmm.cpp(463,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between factorial line 464 and factorial line 464
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(467,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(468,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(488,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+
+   LOOP BEGIN at ../src/exafmm.cpp(489,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+      LOOP BEGIN at ../src/exafmm.cpp(490,4)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+         LOOP BEGIN at ../src/exafmm.cpp(491,5)
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/exafmm.cpp(497,7) ]
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15455: masked aligned unit stride stores: 2 
+            remark #15456: masked unaligned unit stride loads: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 40 
+            remark #15477: vector loop cost: 190.000 
+            remark #15478: estimated potential speedup: 0.210 
+            remark #15479: lightweight vector operations: 110 
+            remark #15480: medium-overhead vector operations: 3 
+            remark #15481: heavy-overhead vector operations: 3 
+            remark #15482: vectorized math library calls: 3 
+            remark #15487: type converts: 2 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<9L>::exafmm_kernel(exafmm_kernel<9L> *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/exafmm.cpp(463,2) inlined into ../src/exafmm.cpp(459,19)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between factorial line 464 and factorial line 464
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(467,2) inlined into ../src/exafmm.cpp(459,19)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(468,3) inlined into ../src/exafmm.cpp(459,19)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(488,2) inlined into ../src/exafmm.cpp(459,19)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+
+   LOOP BEGIN at ../src/exafmm.cpp(489,3) inlined into ../src/exafmm.cpp(459,19)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+      LOOP BEGIN at ../src/exafmm.cpp(490,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+         LOOP BEGIN at ../src/exafmm.cpp(491,5) inlined into ../src/exafmm.cpp(459,19)
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/exafmm.cpp(497,7) ]
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15455: masked aligned unit stride stores: 2 
+            remark #15456: masked unaligned unit stride loads: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 40 
+            remark #15477: vector loop cost: 190.000 
+            remark #15478: estimated potential speedup: 0.210 
+            remark #15479: lightweight vector operations: 110 
+            remark #15480: medium-overhead vector operations: 3 
+            remark #15481: heavy-overhead vector operations: 3 
+            remark #15482: vectorized math library calls: 3 
+            remark #15487: type converts: 2 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::M2L(std::valarray<std::valarray<real>> &, const std::valarray<real> *, const std::valarray<std::valarray<real>> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/exafmm.cpp(216,65)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(219,2)
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(220,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(220,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(220,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(220,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(220,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(220,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(221,16) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(222,14) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(222,14) ]
+   remark #15301: SIMD LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 9 
+   remark #15449: unmasked aligned unit stride stores: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 986 
+   remark #15477: vector loop cost: 216.750 
+   remark #15478: estimated potential speedup: 4.540 
+   remark #15479: lightweight vector operations: 192 
+   remark #15482: vectorized math library calls: 4 
+   remark #15487: type converts: 5 
+   remark #15488: --- end vector loop cost summary ---
+
+   LOOP BEGIN at ../src/exafmm.cpp(229,3)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/exafmm.cpp(244,4)
+         remark #25460: No loop optimizations reported
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(219,2)
+<Remainder>
+
+   LOOP BEGIN at ../src/exafmm.cpp(229,3)
+      remark #25460: No loop optimizations reported
+
+      LOOP BEGIN at ../src/exafmm.cpp(244,4)
+         remark #25460: No loop optimizations reported
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(263,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(264,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(269,4)
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(270,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(270,8) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 9 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 5.000 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(269,4)
+      <Remainder>
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(270,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(270,8) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(269,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(272,4)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/exafmm.cpp(273,5)
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at ../src/exafmm.cpp(288,6)
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(289,7) ]
+               remark #15301: SIMD LOOP WAS VECTORIZED
+               remark #15448: unmasked aligned unit stride loads: 6 
+               remark #15449: unmasked aligned unit stride stores: 2 
+               remark #15475: --- begin vector loop cost summary ---
+               remark #15476: scalar loop cost: 34 
+               remark #15477: vector loop cost: 5.500 
+               remark #15478: estimated potential speedup: 6.130 
+               remark #15479: lightweight vector operations: 22 
+               remark #15488: --- end vector loop cost summary ---
+            LOOP END
+
+            LOOP BEGIN at ../src/exafmm.cpp(288,6)
+            <Remainder>
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(297,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(298,7) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(298,7) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(299,36) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(299,36) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(297,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(297,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(298,7) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(298,7) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(299,36) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(299,36) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(297,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/exafmm.cpp(302,2)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::cart2sph(real &, real &, real &, std::valarray<real> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+<Remainder>
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s.30930 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(308,25)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::M2M(std::valarray<std::valarray<real>> &, const std::valarray<std::valarray<real>> &, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(323,2)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(427,2) inlined into ../src/exafmm.cpp(324,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 433 and _M_data line 446
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 433
+
+   LOOP BEGIN at ../src/exafmm.cpp(441,3) inlined into ../src/exafmm.cpp(324,2)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 444 and _M_data line 446
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 444
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(325,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(326,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(331,4)
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,8) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 9 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 5.000 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(331,4)
+      <Remainder>
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(332,8) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(331,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(334,4)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/exafmm.cpp(335,57)
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at ../src/exafmm.cpp(352,6)
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(353,7) ]
+               remark #15301: SIMD LOOP WAS VECTORIZED
+               remark #15448: unmasked aligned unit stride loads: 6 
+               remark #15449: unmasked aligned unit stride stores: 2 
+               remark #15475: --- begin vector loop cost summary ---
+               remark #15476: scalar loop cost: 34 
+               remark #15477: vector loop cost: 5.500 
+               remark #15478: estimated potential speedup: 6.130 
+               remark #15479: lightweight vector operations: 22 
+               remark #15488: --- end vector loop cost summary ---
+            LOOP END
+
+            LOOP BEGIN at ../src/exafmm.cpp(352,6)
+            <Remainder>
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(362,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(363,42) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(361,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::L2L(std::valarray<std::valarray<real>> &, const std::valarray<std::valarray<real>> &, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 7.000 
+   remark #15478: estimated potential speedup: 4.510 
+   remark #15479: lightweight vector operations: 7 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+<Remainder>
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/exafmm.cpp(375,2)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(427,2) inlined into ../src/exafmm.cpp(376,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 433 and _M_data line 446
+   remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 433
+
+   LOOP BEGIN at ../src/exafmm.cpp(441,3) inlined into ../src/exafmm.cpp(376,2)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 444 and _M_data line 446
+      remark #15346: vector dependence: assumed OUTPUT dependence between _M_data line 446 and _M_data line 444
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(377,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(378,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(383,4)
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,8) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 9 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 5.000 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(383,4)
+      <Remainder>
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,17) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(384,8) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(383,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(386,4)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at ../src/exafmm.cpp(387,5)
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at ../src/exafmm.cpp(403,6)
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(404,7) ]
+               remark #15301: SIMD LOOP WAS VECTORIZED
+               remark #15448: unmasked aligned unit stride loads: 6 
+               remark #15449: unmasked aligned unit stride stores: 2 
+               remark #15475: --- begin vector loop cost summary ---
+               remark #15476: scalar loop cost: 34 
+               remark #15477: vector loop cost: 5.500 
+               remark #15478: estimated potential speedup: 6.130 
+               remark #15479: lightweight vector operations: 22 
+               remark #15488: --- end vector loop cost summary ---
+            LOOP END
+
+            LOOP BEGIN at ../src/exafmm.cpp(403,6)
+            <Remainder>
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(413,9) ]
+         remark #15388: vectorization support: reference F64 has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15388: vectorization support: reference _M_data has aligned access   [ ../src/exafmm.cpp(414,38) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 11 
+         remark #15477: vector loop cost: 1.500 
+         remark #15478: estimated potential speedup: 7.330 
+         remark #15479: lightweight vector operations: 6 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(412,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::evalMultipole(real, real, real, std::valarray<real> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/exafmm.cpp(427,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 433 and F64 line 446
+   remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 446 and F64 line 433
+
+   LOOP BEGIN at ../src/exafmm.cpp(441,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 444 and F64 line 446
+      remark #15346: vector dependence: assumed OUTPUT dependence between F64 line 446 and F64 line 444
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::M2L_interior(std::valarray<std::valarray<real>> *, const std::valarray<std::valarray<real>> &, real, int64_t, bool, bool)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into ../src/exafmm.cpp(55,64)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(60,2)
+   remark #15382: vectorization support: call to function ?1memcpy cannot be vectorized   [ ../src/exafmm.cpp(62,4) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between m_buffer line 61 and m_buffer line 62
+   remark #15346: vector dependence: assumed FLOW dependence between m_buffer line 62 and m_buffer line 61
+
+   LOOP BEGIN at ../src/exafmm.cpp(61,3)
+      remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
+
+      LOOP BEGIN at ../src/exafmm.cpp(61,3)
+      <Multiversioned v2>
+         remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(61,3)
+      <Remainder, Multiversioned v2>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(204,2)
+   remark #15382: vectorization support: call to function ?1memcpy cannot be vectorized   [ ../src/exafmm.cpp(206,8) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between l_buffer line 205 and F64 line 206
+   remark #15346: vector dependence: assumed FLOW dependence between F64 line 206 and l_buffer line 205
+
+   LOOP BEGIN at ../src/exafmm.cpp(205,3)
+      remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
+
+      LOOP BEGIN at ../src/exafmm.cpp(205,3)
+      <Multiversioned v2>
+         remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(205,3)
+      <Remainder, Multiversioned v2>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::exafmm_kernel(exafmm_kernel<10L> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/exafmm.cpp(463,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between factorial line 464 and factorial line 464
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(467,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(468,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(488,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+
+   LOOP BEGIN at ../src/exafmm.cpp(489,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+      LOOP BEGIN at ../src/exafmm.cpp(490,4)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+         LOOP BEGIN at ../src/exafmm.cpp(491,5)
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/exafmm.cpp(497,7) ]
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15455: masked aligned unit stride stores: 2 
+            remark #15456: masked unaligned unit stride loads: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 40 
+            remark #15477: vector loop cost: 190.000 
+            remark #15478: estimated potential speedup: 0.210 
+            remark #15479: lightweight vector operations: 110 
+            remark #15480: medium-overhead vector operations: 3 
+            remark #15481: heavy-overhead vector operations: 3 
+            remark #15482: vectorized math library calls: 3 
+            remark #15487: type converts: 2 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: exafmm_kernel<10L>::exafmm_kernel(exafmm_kernel<10L> *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../src/exafmm.cpp(463,2) inlined into ../src/exafmm.cpp(459,19)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between factorial line 464 and factorial line 464
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(467,2) inlined into ../src/exafmm.cpp(459,19)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../src/exafmm.cpp(468,3) inlined into ../src/exafmm.cpp(459,19)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(472,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(475,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(478,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 6 
+         remark #15477: vector loop cost: 6.000 
+         remark #15478: estimated potential speedup: 3.350 
+         remark #15479: lightweight vector operations: 6 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at ../src/exafmm.cpp(481,4) inlined into ../src/exafmm.cpp(459,19)
+      <Remainder>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../src/exafmm.cpp(488,2) inlined into ../src/exafmm.cpp(459,19)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+
+   LOOP BEGIN at ../src/exafmm.cpp(489,3) inlined into ../src/exafmm.cpp(459,19)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+      remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+      LOOP BEGIN at ../src/exafmm.cpp(490,4) inlined into ../src/exafmm.cpp(459,19)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+         remark #15346: vector dependence: assumed OUTPUT dependence between Cnm_r line 496 and Cnm_r line 496
+
+         LOOP BEGIN at ../src/exafmm.cpp(491,5) inlined into ../src/exafmm.cpp(459,19)
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Anm has unaligned access   [ /usr/include/c++/4.9.0/complex(1270,2) ]
+            remark #15389: vectorization support: reference Cnm_r has unaligned access   [ ../src/exafmm.cpp(496,7) ]
+            remark #15389: vectorization support: reference Cnm_i has unaligned access   [ ../src/exafmm.cpp(497,7) ]
+            remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/exafmm.cpp(497,7) ]
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15455: masked aligned unit stride stores: 2 
+            remark #15456: masked unaligned unit stride loads: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 40 
+            remark #15477: vector loop cost: 190.000 
+            remark #15478: estimated potential speedup: 0.210 
+            remark #15479: lightweight vector operations: 110 
+            remark #15480: medium-overhead vector operations: 3 
+            remark #15481: heavy-overhead vector operations: 3 
+            remark #15482: vectorized math library calls: 3 
+            remark #15487: type converts: 2 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::valarray<std::valarray<real>>::valarray(std::valarray<std::valarray<real>> *, const std::valarray<real> &, std::size_t)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /usr/include/c++/4.9.0/valarray(617,7)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Expr<std::_BinClos<std::__multiplies, std::_ValArray, std::_ValArray, real, real>, double>::sum(const std::_Expr<std::_BinClos<std::__multiplies, std::_ValArray, std::_ValArray, real, real>, double> *) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+   remark #15389: vectorization support: reference __s has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15301: REVERSED LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 13.000 
+   remark #15478: estimated potential speedup: 2.720 
+   remark #15479: lightweight vector operations: 6 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+<Remainder>
+   remark #15389: vectorization support: reference __s has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15388: vectorization support: reference __s has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_fill_construct<std::valarray<real>>(std::valarray<real> *, std::valarray<real> *, const std::valarray<real> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /usr/include/c++/4.9.0/bits/valarray_array.h(130,7)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_destroy_elements<std::valarray<real>>(std::valarray<real> *, std::valarray<real> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_Array_init_ctor<std::valarray<real>, false>::_S_do_it(std::valarray<real> *, std::valarray<real> *, const std::valarray<real> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+===========================================================================

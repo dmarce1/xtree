@@ -26,10 +26,17 @@ CPP_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
+src/exafmm.o: ../src/exafmm.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: Intel C++ Compiler'
+	icpc -O3 -inline-level=2 -DNDEBUG -qoffload=mandatory -vec-report6 -xHost `pkg-config --cflags hpx_application` -offload-attribute-target=mic -MMD -MP -MF"$(@:%.o=%.d)" -MT"src/exafmm.d" -c -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Intel C++ Compiler'
-	icpc -O3 -inline-level=2 -DNDEBUG -qoffload=mandatory -vec-report6 -xHost `pkg-config --cflags hpx_application` -offload-attribute-target=mic -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	icpc -O3 -inline-level=2 -DNDEBUG -qoffload=mandatory -vec-report6 -xHost `pkg-config --cflags hpx_application` -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
