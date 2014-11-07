@@ -56,12 +56,15 @@ public:
 			const std::valarray<real>& dist, const std::size_t N);
 	static void evalMultipole(real rho, real theta, real phi, std::valarray<real>& Ynm);
 
-	static std::valarray<std::valarray<real>> M2L_interior(const std::valarray<std::valarray<real>>& M, real dx,
-			std::int64_t Nx, bool leaf, bool is_root);
+	static std::valarray<std::valarray<real>> M2L_interior(const std::valarray<std::valarray<real>>& M,
+			real dx, std::int64_t Nx, bool leaf, bool is_root);
 private:
 
 	static real factorial[P];
-	static real Anm[P * P];static _Cilk_shared real* prefactor;static _Cilk_shared real* Cnm_r;static _Cilk_shared real* Cnm_i;
+	static real prefactor[P*P];
+	static real Anm[P*P];
+	static real Cnm_r[P*P*P*P];
+	static real Cnm_i[P*P*P*P];
 
 public:
 	exafmm_kernel();
@@ -71,16 +74,16 @@ template<std::int64_t P>
 real exafmm_kernel<P>::factorial[P];
 
 template<std::int64_t P>
-_Cilk_shared real* exafmm_kernel<P>::prefactor;
+real exafmm_kernel<P>::prefactor[P*P];
 
 template<std::int64_t P>
-_Cilk_shared real* exafmm_kernel<P>::Cnm_r;
+real exafmm_kernel<P>::Anm[P*P];
 
 template<std::int64_t P>
-_Cilk_shared real* exafmm_kernel<P>::Cnm_i;
+real exafmm_kernel<P>::Cnm_r[P*P*P*P];
 
 template<std::int64_t P>
-real exafmm_kernel<P>::Anm[P * P];
+real exafmm_kernel<P>::Cnm_i[P*P*P*P];
 
 #ifndef EXAFMM_CPP
 extern template class exafmm_kernel<1> ;

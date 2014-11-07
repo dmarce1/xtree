@@ -62,8 +62,10 @@ std::valarray<std::valarray<real>> exafmm_kernel<P>::M2L_interior(const std::val
 			m_buffer[cnt++] = M[p][i];
 		}
 	}
-	real *_prefactor, *_Cnm_r, *_Cnm_i;
-#pragma offload target(mic:0) in(m_buffer[0:buffer_size], sz, is_root, leaf, Nx) out(l_buffer[0:buffer_size]) in(_prefactor,_Cnm_r, _Cnm_i)
+	const real *_prefactor = prefactor;
+	const real *_Cnm_r = Cnm_r;
+	const real *_Cnm_i = Cnm_i;
+#pragma offload target(mic) in(m_buffer : length(buffer_size)) in(_prefactor : length(P*P)) in(_Cnm_r : length(P*P*P*P)) in(_Cnm_i : length(P*P*P*P)) in(sz, is_root, leaf, Nx) out(l_buffer: length(buffer_size))
 	{
 		for (std::size_t i = 0; i != P2 * sz; ++i) {
 			l_buffer[i] = real(0.0);
@@ -455,10 +457,6 @@ void exafmm_kernel<P>::evalMultipole(real rho, real theta, real phi, std::valarr
 
 template<std::int64_t P>
 exafmm_kernel<P>::exafmm_kernel() {
-	prefactor = (real _Cilk_shared*) _Offload_shared_aligned_malloc(P * P * sizeof(real), 64);
-	Cnm_r = (real _Cilk_shared*) _Offload_shared_aligned_malloc(P * P * P * P * sizeof(real), 64);
-	Cnm_i = (real _Cilk_shared*) _Offload_shared_aligned_malloc(P * P * P * P * sizeof(real), 64);
-
 	const complex I(0., 1.);                               // Imaginary unit
 
 	factorial[0] = 1;                                // Initialize factorial

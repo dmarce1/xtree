@@ -190,7 +190,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /us
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(718,4)
-   remark #15389: vectorization support: reference __first_308175 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+   remark #15389: vectorization support: reference __first_279830 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -232,7 +232,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /us
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(728,4)
-   remark #15389: vectorization support: reference __first_308175 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+   remark #15389: vectorization support: reference __first_279830 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -283,7 +283,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 327 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_447296 line 249 and __first_447296 line 327
+   remark #15346: vector dependence: assumed FLOW dependence between __first_418115 line 249 and __first_418115 line 327
 LOOP END
 ===========================================================================
 
@@ -320,7 +320,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 327 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_447296 line 249 and __first_447296 line 327
+   remark #15346: vector dependence: assumed FLOW dependence between __first_418115 line 249 and __first_418115 line 327
 LOOP END
 ===========================================================================
 
@@ -354,7 +354,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 327 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_447296 line 249 and __first_447296 line 327
+   remark #15346: vector dependence: assumed FLOW dependence between __first_418115 line 249 and __first_418115 line 327
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(692,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(232,4)
@@ -364,8 +364,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(692,7) inlined into /us
    remark #15382: vectorization support: call to function _ZNSt6localeD1Ev cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(722,66) ]
    remark #15382: vectorization support: call to function _ZNSt6localeC1ERKS_ cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(465,50) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between this_451912 line 64 and this_451912 line 466
-   remark #15346: vector dependence: assumed OUTPUT dependence between __first_451903 line 466 and __first_451903 line 64
+   remark #15346: vector dependence: assumed OUTPUT dependence between this_422631 line 64 and this_422631 line 466
+   remark #15346: vector dependence: assumed OUTPUT dependence between __first_422622 line 466 and __first_422622 line 64
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(200,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(233,4)
@@ -379,8 +379,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(748,7) inlined into /us
    remark #15382: vectorization support: call to function _ZNSt6localeD1Ev cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(722,66) ]
    remark #15382: vectorization support: call to function _ZNSt6localeC1ERKS_ cannot be vectorized   [ /home/dmarce1/packages/intel64/include/boost/optional/optional.hpp(465,50) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between this_451912 line 64 and this_451912 line 466
-   remark #15346: vector dependence: assumed OUTPUT dependence between __first_452006 line 466 and __first_452006 line 64
+   remark #15346: vector dependence: assumed OUTPUT dependence between this_422631 line 64 and this_422631 line 466
+   remark #15346: vector dependence: assumed OUTPUT dependence between __first_422725 line 466 and __first_422725 line 64
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(239,9)
@@ -391,7 +391,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 327 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_447296 line 249 and __first_447296 line 327
+   remark #15346: vector dependence: assumed FLOW dependence between __first_418115 line 249 and __first_418115 line 327
 LOOP END
 ===========================================================================
 
@@ -418,7 +418,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 327 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_447296 line 249 and __first_447296 line 327
+   remark #15346: vector dependence: assumed FLOW dependence between __first_418115 line 249 and __first_418115 line 327
 LOOP END
 ===========================================================================
 
@@ -435,7 +435,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 327 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_447296 line 249 and __first_447296 line 327
+   remark #15346: vector dependence: assumed FLOW dependence between __first_418115 line 249 and __first_418115 line 327
 LOOP END
 ===========================================================================
 
@@ -446,8 +446,8 @@ Begin optimization report for: boost::basic_format<char, std::char_traits<char>,
 
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(257,29) inlined into /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(228,21)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed FLOW dependence between sz.462065 line 263 and sz.462065 line 259
-   remark #15346: vector dependence: assumed ANTI dependence between sz.462065 line 259 and sz.462065 line 263
+   remark #15346: vector dependence: assumed FLOW dependence between sz.432366 line 263 and sz.432366 line 259
+   remark #15346: vector dependence: assumed ANTI dependence between sz.432366 line 259 and sz.432366 line 263
 LOOP END
 
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(230,29)
@@ -682,16 +682,16 @@ LOOP BEGIN at ../src/node.hpp(311,7)
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(311,16)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
    LOOP END
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(312,13)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
    LOOP END
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(312,60)
@@ -699,9 +699,9 @@ LOOP BEGIN at ../src/node.hpp(311,7)
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(314,13)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
    LOOP END
 LOOP END
 
@@ -831,9 +831,9 @@ LOOP BEGIN at ../src/node.hpp(289,41)
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(291,8)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
    LOOP END
 
    LOOP BEGIN at ../src/location.hpp(160,3) inlined into ../src/node.hpp(291,40)
@@ -884,9 +884,9 @@ LOOP BEGIN at ../src/node.hpp(297,2)
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(299,10)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
    LOOP END
 LOOP END
 
@@ -1321,8 +1321,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(707,20)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(70,3) inlined into ../src/node.hpp(708,27)
@@ -1344,10 +1344,10 @@ LOOP BEGIN at ../src/indexer.hpp(73,3) inlined into ../src/node.hpp(708,27)
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(709,21)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
    LOOP END
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(709,25)
@@ -1524,10 +1524,10 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(209,16)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949771 line 53 and j.949771 line 53
-   remark #15346: vector dependence: assumed ANTI dependence between j.949771 line 53 and j.949771 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919343 line 53 and j.919343 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919343 line 53 and j.919343 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(209,21)
@@ -1621,7 +1621,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/tree.hpp(78,10)
-      remark #15389: vectorization support: reference __first_728238 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first_698058 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15449: unmasked aligned unit stride stores: 1 
@@ -1727,7 +1727,7 @@ Begin optimization report for: std::vector<double, std::allocator<double>>::oper
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,23) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(191,24)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between _M_current line 75 and _M_current line 75
-   remark #15346: vector dependence: assumed ANTI dependence between __cur.887141 line 75 and __cur.887141 line 75
+   remark #15346: vector dependence: assumed ANTI dependence between __cur.856913 line 75 and __cur.856913 line 75
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,23) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(191,24)
@@ -1736,8 +1736,8 @@ LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(210,8)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed FLOW dependence between __first_887802 line 75 and __first_887802 line 75
-   remark #15346: vector dependence: assumed ANTI dependence between __cur.887802 line 75 and __cur.887802 line 75
+   remark #15346: vector dependence: assumed FLOW dependence between __first_857574 line 75 and __first_857574 line 75
+   remark #15346: vector dependence: assumed ANTI dependence between __cur.857574 line 75 and __cur.857574 line 75
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,8) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(210,8)
@@ -1762,7 +1762,7 @@ Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::get_output
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(378,95)
-   remark #15389: vectorization support: reference __b_467565 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_454872 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -1784,7 +1784,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into .
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(380,38)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -1807,7 +1807,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(382,2)
    remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/./fmmx_node.hpp(383,30)
-      remark #15389: vectorization support: reference __first_509567 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15389: vectorization support: reference __first_479435 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15451: unmasked unaligned unit stride stores: 1 
@@ -1923,7 +1923,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,23) inlined int
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(53,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between _M_current line 912 and _M_current line 912
-   remark #15346: vector dependence: assumed ANTI dependence between __cur.1460179 line 912 and __cur.1460179 line 912
+   remark #15346: vector dependence: assumed ANTI dependence between __cur.1429949 line 912 and __cur.1429949 line 912
 LOOP END
 ===========================================================================
 
@@ -2010,7 +2010,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(199,5)
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(145,7) inlined into ../src/./fmmx_node.hpp(200,12)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between _M_data line 146 and _M_data line 146
-      remark #15346: vector dependence: assumed ANTI dependence between __p.1113697 line 146 and __p.1113697 line 146
+      remark #15346: vector dependence: assumed ANTI dependence between __p.1083451 line 146 and __p.1083451 line 146
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(145,7) inlined into ../src/./fmmx_node.hpp(200,12)
@@ -2020,7 +2020,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(199,5)
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(200,12)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between _M_data line 219 and _M_data line 219
-      remark #15346: vector dependence: assumed ANTI dependence between __p.1113735 line 219 and __p.1113735 line 219
+      remark #15346: vector dependence: assumed ANTI dependence between __p.1083489 line 219 and __p.1083489 line 219
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(200,12)
@@ -2058,7 +2058,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(244,4)
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(145,7) inlined into ../src/./fmmx_node.hpp(245,14)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between _M_data line 146 and _M_data line 146
-      remark #15346: vector dependence: assumed ANTI dependence between __p.1113697 line 146 and __p.1113697 line 146
+      remark #15346: vector dependence: assumed ANTI dependence between __p.1083451 line 146 and __p.1083451 line 146
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(145,7) inlined into ../src/./fmmx_node.hpp(245,14)
@@ -2068,7 +2068,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(244,4)
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(245,14)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between _M_data line 219 and _M_data line 219
-      remark #15346: vector dependence: assumed ANTI dependence between __p.1113735 line 219 and __p.1113735 line 219
+      remark #15346: vector dependence: assumed ANTI dependence between __p.1083489 line 219 and __p.1083489 line 219
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(245,14)
@@ -2087,7 +2087,54 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into .
 LOOP END
 
 LOOP BEGIN at ../src/./fmmx_node.hpp(258,4)
-   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(259,16)
+   <Peeled, Multiversioned v1>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(259,16)
+   <Multiversioned v1>
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15389: vectorization support: reference __q.455316 has unaligned access
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 5 
+      remark #15477: vector loop cost: 11.000 
+      remark #15478: estimated potential speedup: 1.730 
+      remark #15479: lightweight vector operations: 4 
+      remark #15480: medium-overhead vector operations: 1 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(259,16)
+   <Remainder, Multiversioned v1>
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15389: vectorization support: reference __q.455316 has unaligned access
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(259,16)
+   <Remainder, Multiversioned v1>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(259,16)
+   <Multiversioned v2>
+      remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(259,16)
+   <Remainder, Multiversioned v2>
+   LOOP END
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/./fmmx_node.hpp(261,3)
@@ -2117,7 +2164,7 @@ Begin optimization report for: get_restrict_slice(std::gslice *, const std::vala
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(55,49)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between I64 line 219 and I64 line 219
-   remark #15346: vector dependence: assumed ANTI dependence between __p.485146 line 219 and __p.485146 line 219
+   remark #15346: vector dependence: assumed ANTI dependence between __p.455063 line 219 and __p.455063 line 219
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(55,49)
@@ -2153,9 +2200,9 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(677,4) inlined into .
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(677,4) inlined into ../src/./valarray.hpp(64,10)
-   remark #15389: vectorization support: reference __p.467412 has unaligned access
-   remark #15389: vectorization support: reference __p.467412 has unaligned access
-   remark #15389: vectorization support: reference __p.467412 has unaligned access
+   remark #15389: vectorization support: reference __p.437713 has unaligned access
+   remark #15389: vectorization support: reference __p.437713 has unaligned access
+   remark #15389: vectorization support: reference __p.437713 has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -2207,7 +2254,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(369,3)
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(370,56)
-      remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+      remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15399: vectorization support: unroll factor set to 4
       remark #15300: LOOP WAS VECTORIZED
@@ -2231,8 +2278,8 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(369,3)
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(145,7) inlined into ../src/./fmmx_node.hpp(370,9)
-      remark #15388: vectorization support: reference __p.1113697 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,3) ]
-      remark #15389: vectorization support: reference __i_1113654 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,3) ]
+      remark #15388: vectorization support: reference __p.1083451 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,3) ]
+      remark #15389: vectorization support: reference __i_1083408 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(146,3) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
@@ -2255,8 +2302,8 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(369,3)
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(370,9)
-      remark #15389: vectorization support: reference __p.1113735 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19) ]
-      remark #15389: vectorization support: reference __i_1113654 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19) ]
+      remark #15389: vectorization support: reference __p.1083489 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19) ]
+      remark #15389: vectorization support: reference __i_1083408 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.tcc(219,19) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15399: vectorization support: unroll factor set to 2
@@ -2291,8 +2338,8 @@ Begin optimization report for: get_slice(std::gslice *, std::valarray<std::size_
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(25,48)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed FLOW dependence between __p.485068 line 219 and maxes line 219
-   remark #15346: vector dependence: assumed ANTI dependence between maxes line 219 and __p.485068 line 219
+   remark #15346: vector dependence: assumed FLOW dependence between __p.454985 line 219 and maxes line 219
+   remark #15346: vector dependence: assumed ANTI dependence between maxes line 219 and __p.454985 line 219
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(25,48)
@@ -2451,7 +2498,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::serialization::extended_type_info_typeid<std::valarray<std::valarray<Ipp64f>>>::destroy(const boost::serialization::extended_type_info_typeid<std::valarray<std::valarray<Ipp64f>>> *, const void *) const
+Begin optimization report for: boost::serialization::extended_type_info_typeid<std::valarray<std::valarray<double>>>::destroy(const boost::serialization::extended_type_info_typeid<std::valarray<std::valarray<double>>> *, const void *) const
 
     Report from: Vector optimizations [vec]
 
@@ -2516,7 +2563,7 @@ Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::allocate(x
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(269,38)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -2555,7 +2602,7 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(274,2)
    remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(275,8)
-      remark #15389: vectorization support: reference __b_467565 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+      remark #15389: vectorization support: reference __b_454872 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15451: unmasked unaligned unit stride stores: 1 
@@ -2583,7 +2630,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/node.hpp(213,29)
-      remark #15389: vectorization support: reference __first_728238 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first_698058 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -2610,8 +2657,8 @@ Begin optimization report for: boost::archive::detail::load_array_type<hpx::util
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_iarchive.hpp(302,44) inlined into /home/dmarce1/packages/intel64/include/boost/archive/detail/iserializer.hpp(591,12)
    remark #15382: vectorization support: call to function _ZN3hpx4util24portable_binary_iarchive9load_implERlc cannot be vectorized   [ /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_iarchive.hpp(136,9) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between l.611435 line 135 and l.611435 line 136
-   remark #15346: vector dependence: assumed OUTPUT dependence between l.611435 line 136 and l.611435 line 135
+   remark #15346: vector dependence: assumed OUTPUT dependence between l.581271 line 135 and l.581271 line 136
+   remark #15346: vector dependence: assumed OUTPUT dependence between l.581271 line 136 and l.581271 line 135
 LOOP END
 ===========================================================================
 
@@ -2673,8 +2720,8 @@ Begin optimization report for: boost::archive::detail::save_array_type<hpx::util
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_oarchive.hpp(285,44) inlined into /home/dmarce1/packages/intel64/include/boost/archive/detail/oserializer.hpp(503,12)
    remark #15382: vectorization support: call to function (unknown) cannot be vectorized   [ /home/dmarce1/packages/intel64/include/hpx/util/basic_binary_oprimitive.hpp(75,43) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between ar line 203 and this_313206 line 74
-   remark #15346: vector dependence: assumed FLOW dependence between this_313206 line 74 and ar line 203
+   remark #15346: vector dependence: assumed ANTI dependence between ar line 203 and this_284825 line 74
+   remark #15346: vector dependence: assumed FLOW dependence between this_284825 line 74 and ar line 203
 LOOP END
 ===========================================================================
 
@@ -2835,8 +2882,8 @@ Begin optimization report for: boost::archive::detail::iserializer<hpx::util::po
 LOOP BEGIN at ../src/indexer.hpp(39,3) inlined into /home/dmarce1/packages/intel64/include/boost/archive/detail/iserializer.hpp(184,5)
    remark #15382: vectorization support: call to function _ZN3hpx4util24portable_binary_iarchive9load_implERlc cannot be vectorized   [ /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_iarchive.hpp(136,9) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between x line 173 and t_611435 line 137
-   remark #15346: vector dependence: assumed FLOW dependence between t_611435 line 137 and x line 173
+   remark #15346: vector dependence: assumed ANTI dependence between x line 173 and t_581271 line 137
+   remark #15346: vector dependence: assumed FLOW dependence between t_581271 line 137 and x line 173
 LOOP END
 ===========================================================================
 
@@ -2852,7 +2899,7 @@ LOOP BEGIN at ../src/indexer.hpp(39,3) inlined into /home/dmarce1/packages/intel
 LOOP END
 ===========================================================================
 
-Begin optimization report for: future_wrapper<std::valarray<std::valarray<Ipp64f>>>::load<hpx::util::portable_binary_iarchive>(future_wrapper<std::valarray<std::valarray<Ipp64f>>> *, hpx::util::portable_binary_iarchive &, unsigned int)
+Begin optimization report for: future_wrapper<std::valarray<std::valarray<double>>>::load<hpx::util::portable_binary_iarchive>(future_wrapper<std::valarray<std::valarray<double>>> *, hpx::util::portable_binary_iarchive &, unsigned int)
 
     Report from: Vector optimizations [vec]
 
@@ -2863,7 +2910,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::archive::detail::iserializer<hpx::util::portable_binary_iarchive, std::valarray<std::valarray<Ipp64f>>>::destroy(const boost::archive::detail::iserializer<hpx::util::portable_binary_iarchive, std::valarray<std::valarray<Ipp64f>>> *, void *) const
+Begin optimization report for: boost::archive::detail::iserializer<hpx::util::portable_binary_iarchive, std::valarray<std::valarray<double>>>::destroy(const boost::archive::detail::iserializer<hpx::util::portable_binary_iarchive, std::valarray<std::valarray<double>>> *, void *) const
 
     Report from: Vector optimizations [vec]
 
@@ -2874,7 +2921,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::serialization::load<hpx::util::portable_binary_iarchive, std::valarray<Ipp64f>>(hpx::util::portable_binary_iarchive &, std::valarray<std::valarray<Ipp64f>> &, unsigned int)
+Begin optimization report for: boost::serialization::load<hpx::util::portable_binary_iarchive, std::valarray<double>>(hpx::util::portable_binary_iarchive &, std::valarray<std::valarray<double>> &, unsigned int)
 
     Report from: Vector optimizations [vec]
 
@@ -2884,7 +2931,7 @@ LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/serialization/array.h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::serialization::load<hpx::util::portable_binary_iarchive, Ipp64f>(hpx::util::portable_binary_iarchive &, std::valarray<Ipp64f> &, unsigned int)
+Begin optimization report for: boost::serialization::load<hpx::util::portable_binary_iarchive, double>(hpx::util::portable_binary_iarchive &, std::valarray<double> &, unsigned int)
 
     Report from: Vector optimizations [vec]
 
@@ -2897,7 +2944,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /home/dmarce1/packages/intel64/include/boost/serialization/valarray.hpp(54,5)
-      remark #15388: vectorization support: reference __b_467565 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+      remark #15388: vectorization support: reference __b_454872 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -2916,7 +2963,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, hpx::util::detail::qualify_as_impl<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, hpx::util::tuple<hpx::util::decay<hpx::actions::extract_action<hpx::actions::extract_action<xtree::node<fmmx_node_type, 3>::action_descend<dfunc>, void>::type, void>::remote_result_type &&>::type, void, void, void, void, void, void, void>>::type>::save_object_data(const boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, hpx::util::detail::qualify_as_impl<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, hpx::util::tuple<hpx::util::decay<hpx::actions::extract_action<hpx::actions::extract_action<xtree::node<fmmx_node_type, 3>::action_descend<dfunc>, void>::type, void>::remote_result_type &&>::type, void, void, void, void, void, void, void>>::type> *, boost::archive::detail::basic_oarchive &, const void *) const
+Begin optimization report for: boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, hpx::util::detail::qualify_as_impl<future_wrapper<std::valarray<std::valarray<double>>>, hpx::util::tuple<hpx::util::decay<hpx::actions::extract_action<hpx::actions::extract_action<xtree::node<fmmx_node_type, 3>::action_descend<dfunc>, void>::type, void>::remote_result_type &&>::type, void, void, void, void, void, void, void>>::type>::save_object_data(const boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, hpx::util::detail::qualify_as_impl<future_wrapper<std::valarray<std::valarray<double>>>, hpx::util::tuple<hpx::util::decay<hpx::actions::extract_action<hpx::actions::extract_action<xtree::node<fmmx_node_type, 3>::action_descend<dfunc>, void>::type, void>::remote_result_type &&>::type, void, void, void, void, void, void, void>>::type> *, boost::archive::detail::basic_oarchive &, const void *) const
 
     Report from: Vector optimizations [vec]
 
@@ -2927,7 +2974,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, std::valarray<std::valarray<Ipp64f>>>::save_object_data(const boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, std::valarray<std::valarray<Ipp64f>>> *, boost::archive::detail::basic_oarchive &, const void *) const
+Begin optimization report for: boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, std::valarray<std::valarray<double>>>::save_object_data(const boost::archive::detail::oserializer<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, std::valarray<std::valarray<double>>> *, boost::archive::detail::basic_oarchive &, const void *) const
 
     Report from: Vector optimizations [vec]
 
@@ -2937,7 +2984,7 @@ LOOP BEGIN at /home/dmarce1/packages/intel64/include/boost/serialization/array.h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: boost::serialization::save<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, Ipp64f>(boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type &, const std::valarray<Ipp64f> &, unsigned int)
+Begin optimization report for: boost::serialization::save<boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type, double>(boost::archive::detail::save_non_pointer_type<hpx::util::portable_binary_oarchive>::archive_type &, const std::valarray<double> &, unsigned int)
 
     Report from: Vector optimizations [vec]
 
@@ -2945,8 +2992,8 @@ Begin optimization report for: boost::serialization::save<boost::archive::detail
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/util/portable_binary_oarchive.hpp(285,44) inlined into /home/dmarce1/packages/intel64/include/boost/serialization/valarray.hpp(46,8)
    remark #15382: vectorization support: call to function (unknown) cannot be vectorized   [ /home/dmarce1/packages/intel64/include/hpx/util/basic_binary_oprimitive.hpp(75,43) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between ar line 203 and this_313206 line 74
-   remark #15346: vector dependence: assumed FLOW dependence between this_313206 line 74 and ar line 203
+   remark #15346: vector dependence: assumed ANTI dependence between ar line 203 and this_284825 line 74
+   remark #15346: vector dependence: assumed FLOW dependence between this_284825 line 74 and ar line 203
 LOOP END
 ===========================================================================
 
@@ -3008,7 +3055,7 @@ Begin optimization report for: boost::basic_format<char, std::char_traits<char>,
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/boost/format/format_implementation.hpp(28,35)
-   remark #15389: vectorization support: reference this_449958 has unaligned access
+   remark #15389: vectorization support: reference this_420705 has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 3
@@ -4370,7 +4417,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /ho
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-      remark #15389: vectorization support: reference __first_728238 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first_698058 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -4395,7 +4442,7 @@ Begin optimization report for: hpx::actions::detail::action_registration<hpx::ac
 
 
 LOOP BEGIN at ../src/indexer.hpp(70,3) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-   remark #15389: vectorization support: reference this_949917 has unaligned access   [ ../src/indexer.hpp(71,11) ]
+   remark #15389: vectorization support: reference this_919489 has unaligned access   [ ../src/indexer.hpp(71,11) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/indexer.hpp(71,11) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -4415,7 +4462,7 @@ Begin optimization report for: hpx::actions::detail::action_registration<hpx::ac
 
 
 LOOP BEGIN at ../src/indexer.hpp(70,3) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-   remark #15389: vectorization support: reference this_949917 has unaligned access   [ ../src/indexer.hpp(71,11) ]
+   remark #15389: vectorization support: reference this_919489 has unaligned access   [ ../src/indexer.hpp(71,11) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/indexer.hpp(71,11) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -4435,7 +4482,7 @@ Begin optimization report for: hpx::actions::detail::action_registration<hpx::ac
 
 
 LOOP BEGIN at ../src/indexer.hpp(70,3) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-   remark #15389: vectorization support: reference this_949917 has unaligned access   [ ../src/indexer.hpp(71,11) ]
+   remark #15389: vectorization support: reference this_919489 has unaligned access   [ ../src/indexer.hpp(71,11) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/indexer.hpp(71,11) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -4489,7 +4536,7 @@ Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::exchange_s
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(303,95)
-   remark #15389: vectorization support: reference __b_467565 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_454872 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -4520,6 +4567,10 @@ LOOP END
 
 LOOP BEGIN at ../src/./fmmx_node.hpp(305,2)
 <Remainder>
+LOOP END
+
+LOOP BEGIN at ../src/indexer.hpp(103,3) inlined into ../src/./fmmx_node.hpp(315,11)
+   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
 LOOP END
 
 LOOP BEGIN at ../src/./fmmx_node.hpp(317,40)
@@ -4600,10 +4651,6 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into .
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
 LOOP END
 
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./fmmx_node.hpp(344,5)
-   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
-LOOP END
-
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/./fmmx_node.hpp(345,2)
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
@@ -4634,7 +4681,7 @@ LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock.hpp
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::__valarray_copy_construct<std::valarray<Ipp64f>>(const std::valarray<Ipp64f> *, const std::size_t *, std::valarray<Ipp64f> *, std::size_t)
+Begin optimization report for: std::__valarray_copy_construct<std::valarray<double>>(const std::valarray<double> *, const std::size_t *, std::valarray<double> *, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4644,7 +4691,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(197,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::valarray<std::valarray<Ipp64f>>::valarray(std::valarray<std::valarray<Ipp64f>> *, const std::valarray<Ipp64f> &, std::size_t)
+Begin optimization report for: std::valarray<std::valarray<double>>::valarray(std::valarray<std::valarray<double>> *, const std::valarray<double> &, std::size_t)
 
     Report from: Vector optimizations [vec]
 
@@ -4654,7 +4701,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::valarray<std::valarray<Ipp64f>>::~valarray(std::valarray<std::valarray<Ipp64f>> *)
+Begin optimization report for: std::valarray<std::valarray<double>>::~valarray(std::valarray<std::valarray<double>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -4665,13 +4712,39 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::__valarray_copy_construct<std::valarray<Ipp64f>, std::_BinClos<std::__plus, std::_Expr, std::_Constant, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<Ipp64f>, std::valarray<Ipp64f>>, std::valarray<Ipp64f>>>(const std::_Expr<std::_BinClos<std::__plus, std::_Expr, std::_Constant, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<Ipp64f>, std::valarray<Ipp64f>>, std::valarray<Ipp64f>>, std::valarray<Ipp64f>> &, std::size_t, std::_Array<std::valarray<Ipp64f>>)
+Begin optimization report for: std::__valarray_copy_construct<std::valarray<double>, std::_BinClos<std::__plus, std::_Expr, std::_Constant, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>, std::valarray<double>>>(const std::_Expr<std::_BinClos<std::__plus, std::_Expr, std::_Constant, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>, std::valarray<double>>, std::valarray<double>> &, std::size_t, std::_Array<std::valarray<double>>)
 
     Report from: Vector optimizations [vec]
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7)
    remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::_BinBase2<std::__plus, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>>::operator[](std::_BinBase2<std::__plus, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>>::value_type *, const std::_BinBase2<std::__plus, std::_BinClos<std::__multiplies, std::_ValArray, std::_Constant, std::valarray<double>, std::valarray<double>>> *, std::size_t) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /usr/include/c++/4.9.0/bits/valarray_before.h(545,32)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between F64 line 219 and F64 line 219
+   remark #15346: vector dependence: assumed ANTI dependence between __p.1098479 line 219 and __p.1098479 line 219
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /usr/include/c++/4.9.0/bits/valarray_before.h(545,32)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /usr/include/c++/4.9.0/bits/valarray_before.h(545,23)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between _M_data line 219 and _M_data line 219
+   remark #15346: vector dependence: assumed ANTI dependence between __p.1078596 line 219 and __p.1078596 line 219
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into /usr/include/c++/4.9.0/bits/valarray_before.h(545,23)
+<Remainder>
 LOOP END
 ===========================================================================
 
@@ -4685,13 +4758,50 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(145,2)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: xtree::indexer<3, 3, -1>::is_zero(xtree::indexer<3, 3, -1> *)
+Begin optimization report for: std::_Array_augmented___plus<std::valarray<double>>(std::_Array<std::valarray<double>>, std::size_t, std::_Array<std::valarray<double>>)
 
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at ../src/indexer.hpp(103,3)
-   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.h(675,4)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.h(675,4)
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15389: vectorization support: reference __q.455316 has unaligned access
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 5 
+      remark #15477: vector loop cost: 11.000 
+      remark #15478: estimated potential speedup: 1.730 
+      remark #15479: lightweight vector operations: 4 
+      remark #15480: medium-overhead vector operations: 1 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.h(675,4)
+   <Remainder>
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15388: vectorization support: reference __p.455315 has aligned access
+      remark #15389: vectorization support: reference __q.455316 has unaligned access
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into /usr/include/c++/4.9.0/bits/valarray_array.h(675,4)
+   <Remainder>
+   LOOP END
 LOOP END
 ===========================================================================
 
@@ -4847,8 +4957,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into /home/dmarce1/packages/intel64/include/hpx/util/invoke.hpp(165,57)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 ===========================================================================
 
@@ -4873,8 +4983,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(759,18)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(103,3) inlined into ../src/node.hpp(759,50)
@@ -4887,8 +4997,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(762,23)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(59,3) inlined into ../src/node.hpp(758,46)
@@ -5086,7 +5196,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::~future_data(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::~future_data(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -5097,7 +5207,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::~future_data(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *const)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::~future_data(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *const)
 
     Report from: Vector optimizations [vec]
 
@@ -5119,7 +5229,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::~future_data(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *const)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::~future_data(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *const)
 
     Report from: Vector optimizations [vec]
 
@@ -5315,7 +5425,7 @@ LOOP BEGIN at ../src/node.hpp(573,6)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::~vector(std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>> *)
+Begin optimization report for: std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::~vector(std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -5349,8 +5459,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(666,58)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 ===========================================================================
 
@@ -5403,8 +5513,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(677,18)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(103,3) inlined into ../src/node.hpp(677,50)
@@ -5417,8 +5527,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(680,23)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(59,3) inlined into ../src/node.hpp(676,46)
@@ -5469,8 +5579,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __first_333993 line 547 and  line 249
-   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_333993 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first_305600 line 547 and  line 249
+   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_305600 line 547
 LOOP END
 ===========================================================================
 
@@ -5498,7 +5608,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between __mem_5722 line 547 and __mem_5722 line 68
-   remark #15346: vector dependence: assumed FLOW dependence between __first_333993 line 68 and __first_333993 line 547
+   remark #15346: vector dependence: assumed FLOW dependence between __first_305600 line 68 and __first_305600 line 547
 LOOP END
 ===========================================================================
 
@@ -5511,8 +5621,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __first_333993 line 547 and  line 249
-   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_333993 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first_305600 line 547 and  line 249
+   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_305600 line 547
 LOOP END
 ===========================================================================
 
@@ -5524,8 +5634,8 @@ Begin optimization report for: boost::algorithm::detail::is_any_ofF<char>::is_an
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1844,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
    remark #15382: vectorization support: call to function __builtin_memmove cannot be vectorized   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(578,6) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __last_502309 line 1846 and __last_502309 line 1833
-   remark #15346: vector dependence: assumed FLOW dependence between __i.502147 line 1833 and __i.502147 line 1846
+   remark #15346: vector dependence: assumed ANTI dependence between __last_472177 line 1846 and __last_472177 line 1833
+   remark #15346: vector dependence: assumed FLOW dependence between __i.472015 line 1833 and __i.472015 line 1846
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1827,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -5534,8 +5644,8 @@ LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1865,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __last_502309 line 1824 and __last_502309 line 1833
-   remark #15346: vector dependence: assumed FLOW dependence between __i.502331 line 1833 and __i.502331 line 1824
+   remark #15346: vector dependence: assumed ANTI dependence between __last_472177 line 1824 and __last_472177 line 1833
+   remark #15346: vector dependence: assumed FLOW dependence between __i.472199 line 1833 and __i.472199 line 1824
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1827,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -5545,8 +5655,8 @@ LOOP END
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1844,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
    remark #15382: vectorization support: call to function __builtin_memmove cannot be vectorized   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(578,6) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __last_502309 line 1846 and __last_502309 line 1833
-   remark #15346: vector dependence: assumed FLOW dependence between __i.502147 line 1833 and __i.502147 line 1846
+   remark #15346: vector dependence: assumed ANTI dependence between __last_472177 line 1846 and __last_472177 line 1833
+   remark #15346: vector dependence: assumed FLOW dependence between __i.472015 line 1833 and __i.472015 line 1846
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(1827,7) inlined into /home/dmarce1/packages/intel64/include/boost/algorithm/string/detail/classification.hpp(103,21)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -6165,7 +6275,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../
    remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/silo_output.hpp(110,3)
-      remark #15389: vectorization support: reference __first_308175 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first_279830 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15449: unmasked aligned unit stride stores: 1 
@@ -6244,7 +6354,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into ..
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between __mem_5722 line 547 and __mem_5722 line 68
-   remark #15346: vector dependence: assumed FLOW dependence between __first_333993 line 68 and __first_333993 line 547
+   remark #15346: vector dependence: assumed FLOW dependence between __first_305600 line 68 and __first_305600 line 547
 LOOP END
 ===========================================================================
 
@@ -6254,7 +6364,7 @@ Begin optimization report for: xtree::silo_output<3>::send_zones_to_silo(xtree::
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/silo_output.hpp(204,14)
-   remark #15389: vectorization support: reference __first_508669 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+   remark #15389: vectorization support: reference __first_478537 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 2
@@ -6277,7 +6387,7 @@ LOOP BEGIN at ../src/silo_output.hpp(209,4)
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/silo_output.hpp(210,12)
-      remark #15389: vectorization support: reference __first_509567 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15389: vectorization support: reference __first_479435 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15451: unmasked unaligned unit stride stores: 1 
@@ -6297,7 +6407,7 @@ LOOP BEGIN at ../src/silo_output.hpp(209,4)
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into ../src/silo_output.hpp(222,21)
-      remark #15389: vectorization support: reference __first_509567 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15389: vectorization support: reference __first_479435 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15451: unmasked unaligned unit stride stores: 1 
@@ -6326,7 +6436,7 @@ Begin optimization report for: std::list<xtree::silo_output<3>::silo_zone, std::
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_list.h(514,32)
-   remark #15389: vectorization support: reference __first_508669 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+   remark #15389: vectorization support: reference __first_478537 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 2
@@ -6462,7 +6572,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../
    remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/silo_output.hpp(189,3)
-      remark #15389: vectorization support: reference __first_308175 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first_279830 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15449: unmasked aligned unit stride stores: 1 
@@ -6485,7 +6595,7 @@ LOOP BEGIN at ../src/silo_output.hpp(189,3)
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between __mem_5722 line 547 and __mem_5722 line 68
-   remark #15346: vector dependence: assumed FLOW dependence between U2370 line 68 and U2370 line 547
+   remark #15346: vector dependence: assumed FLOW dependence between U237e line 68 and U237e line 547
 LOOP END
 
 LOOP BEGIN at ../src/silo_output.hpp(189,3)
@@ -6494,11 +6604,11 @@ LOOP BEGIN at ../src/silo_output.hpp(189,3)
 LOOP END
 
 LOOP BEGIN at ../src/silo_output.hpp(129,15)
-   remark #15382: vectorization support: call to function _ZN37_INTERNAL_15____src_main_cpp_cce441679__gnu_cxx27__exchange_and_add_dispatchEPii cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(245,12) ]
+   remark #15382: vectorization support: call to function _ZN37_INTERNAL_15____src_main_cpp_44bd87d39__gnu_cxx27__exchange_and_add_dispatchEPii cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(245,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between _M_refcount line 547 and _M_refcount line 245
-   remark #15346: vector dependence: assumed FLOW dependence between U236c line 245 and U236c line 547
+   remark #15346: vector dependence: assumed FLOW dependence between U237a line 245 and U237a line 547
 LOOP END
 
 LOOP BEGIN at ../src/silo_output.hpp(128,23)
@@ -6530,7 +6640,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /us
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
-      remark #15389: vectorization support: reference __first_508669 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15389: vectorization support: reference __first_478537 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -6562,7 +6672,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /us
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/stl_vector.h(279,9)
-      remark #15388: vectorization support: reference __first_509567 has aligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15388: vectorization support: reference __first_479435 has aligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -6813,14 +6923,14 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(695,9)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(696,20)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 
@@ -6843,8 +6953,8 @@ LOOP END
 
 LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(639,20)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-   remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
+   remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+   remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
 LOOP END
 
 
@@ -6971,23 +7081,23 @@ LOOP BEGIN at ../src/node.hpp(661,7)
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(671,12)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
    LOOP END
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(661,17)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
    LOOP END
 
    LOOP BEGIN at ../src/indexer.hpp(51,3) inlined into ../src/node.hpp(668,12)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed FLOW dependence between j.949934 line 53 and j.949934 line 53
-      remark #15346: vector dependence: assumed ANTI dependence between j.949934 line 53 and j.949934 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed FLOW dependence between j.919506 line 53 and j.919506 line 53
+      remark #15346: vector dependence: assumed ANTI dependence between j.919506 line 53 and j.919506 line 53
    LOOP END
 LOOP END
 ===========================================================================
@@ -7006,13 +7116,13 @@ LOOP BEGIN at ../src/node.hpp(581,3)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::ascend(std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>> *, xtree::fmmx::fmmx_node<3UL, 8UL, 5UL> *, xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::ascend_type &)
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::ascend(std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>> *, xtree::fmmx::fmmx_node<3UL, 8UL, 5UL> *, xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::ascend_type &)
 
     Report from: Vector optimizations [vec]
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(167,95)
-   remark #15389: vectorization support: reference __b_467565 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_454872 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -7030,7 +7140,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into .
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(168,38)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -7121,7 +7231,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::resize(std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>> *, std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::size_type)
+Begin optimization report for: std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::resize(std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>> *, std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::size_type)
 
     Report from: Vector optimizations [vec]
 
@@ -7131,13 +7241,13 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
 LOOP END
 ===========================================================================
 
-Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::descend(xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::descend_type *, xtree::fmmx::fmmx_node<3UL, 8UL, 5UL> *, std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>> &)
+Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::descend(xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::descend_type *, xtree::fmmx::fmmx_node<3UL, 8UL, 5UL> *, std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>> &)
 
     Report from: Vector optimizations [vec]
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(216,89)
-   remark #15389: vectorization support: reference __b_467565 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_454872 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -7155,7 +7265,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into .
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(217,38)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -7176,8 +7286,8 @@ LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into ../src/./fmmx_node.hpp(218,2)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between __a_1108447 line 220 and __a_1108447 line 220
-   remark #15346: vector dependence: assumed OUTPUT dependence between __a_1108447 line 220 and __a_1108447 line 220
+   remark #15346: vector dependence: assumed OUTPUT dependence between __a_1078112 line 220 and __a_1078112 line 220
+   remark #15346: vector dependence: assumed OUTPUT dependence between __a_1078112 line 220 and __a_1078112 line 220
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(219,7) inlined into ../src/./fmmx_node.hpp(218,2)
       remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
@@ -7188,8 +7298,8 @@ LOOP BEGIN at ../src/./fmmx_node.hpp(222,4)
    remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(321,7) inlined into ../src/./fmmx_node.hpp(223,37)
-      remark #15389: vectorization support: reference __i_1121997 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(322,2) ]
-      remark #15389: vectorization support: reference __a_1121997 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(322,2) ]
+      remark #15389: vectorization support: reference __i_1091751 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(322,2) ]
+      remark #15389: vectorization support: reference __a_1091751 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(322,2) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(322,2) ]
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
       remark #15448: unmasked aligned unit stride loads: 1 
@@ -7458,7 +7568,7 @@ LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_poo
 LOOP END
 
 LOOP BEGIN at /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock_pool.hpp(88,47)
-   remark #15389: vectorization support: reference U392f has unaligned access   [ /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock.hpp(108,9) ]
+   remark #15389: vectorization support: reference U394c has unaligned access   [ /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock.hpp(108,9) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /home/dmarce1/packages/intel64/include/hpx/lcos/local/spinlock.hpp(108,9) ]
    remark #15300: LOOP WAS VECTORIZED
    remark #15449: unmasked aligned unit stride stores: 1 
@@ -7482,15 +7592,15 @@ Begin optimization report for: xtree::fmmx::fmmx_node_static_data<3UL, 8UL, 5UL>
 
 
 LOOP BEGIN at ../src/./fmmx_node.hpp(46,4)
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./fmmx_node.hpp(48,12) ]
+   remark #15389: vectorization support: reference F64 has unaligned access   [ ../src/./fmmx_node.hpp(48,12) ]
    remark #15389: vectorization support: reference I64 has unaligned access   [ ../src/./fmmx_node.hpp(49,10) ]
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./fmmx_node.hpp(52,13) ]
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./fmmx_node.hpp(54,13) ]
+   remark #15389: vectorization support: reference F64 has unaligned access   [ ../src/./fmmx_node.hpp(52,13) ]
+   remark #15389: vectorization support: reference F64 has unaligned access   [ ../src/./fmmx_node.hpp(54,13) ]
    remark #15389: vectorization support: reference I64 has unaligned access   [ ../src/./fmmx_node.hpp(56,10) ]
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./fmmx_node.hpp(48,12) ]
+   remark #15389: vectorization support: reference F64 has unaligned access   [ ../src/./fmmx_node.hpp(48,12) ]
    remark #15389: vectorization support: reference I64 has unaligned access   [ ../src/./fmmx_node.hpp(49,10) ]
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./fmmx_node.hpp(52,13) ]
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./fmmx_node.hpp(54,13) ]
+   remark #15389: vectorization support: reference F64 has unaligned access   [ ../src/./fmmx_node.hpp(52,13) ]
+   remark #15389: vectorization support: reference F64 has unaligned access   [ ../src/./fmmx_node.hpp(54,13) ]
    remark #15389: vectorization support: reference I64 has unaligned access   [ ../src/./fmmx_node.hpp(56,10) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/./fmmx_node.hpp(56,10) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
@@ -7507,6 +7617,16 @@ LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algo.h(4162,7) inlined into ../src/./fmmx_node.hpp(60,4)
    remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(60,4)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed FLOW dependence between __first_1078639 line 219 and __first_1078639 line 219
+      remark #15346: vector dependence: assumed ANTI dependence between __p.1078596 line 219 and __p.1078596 line 219
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./fmmx_node.hpp(60,4)
+   <Remainder>
+   LOOP END
 LOOP END
 
 LOOP BEGIN at ../src/./fmmx_node.hpp(68,51)
@@ -7549,7 +7669,47 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/list.tcc(70,7)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_Expr, std::_Expr, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, Ipp32s, Ipp32s>, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, Ipp32s, Ipp32s>>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_Expr, std::_Expr, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, Ipp32s, Ipp32s>, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, Ipp32s, Ipp32s>>> &)
+Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, double, double>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, double, double>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(389,7)
+<Peeled>
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(389,7)
+   remark #15389: vectorization support: reference F64 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(392,4) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(392,4) ]
+   remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(392,4) ]
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 17 
+   remark #15477: vector loop cost: 14.000 
+   remark #15478: estimated potential speedup: 4.060 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(389,7)
+<Remainder>
+   remark #15389: vectorization support: reference F64 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(392,4) ]
+   remark #15388: vectorization support: reference F64 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(392,4) ]
+   remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(392,4) ]
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(389,7)
+<Remainder>
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_Expr, std::_Expr, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, signed int, signed int>, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, signed int, signed int>>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_Expr, std::_Expr, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, signed int, signed int>, std::_BinClos<std::__divides, std::_ValArray, std::_Constant, signed int, signed int>>> &)
 
     Report from: Vector optimizations [vec]
 
@@ -7581,7 +7741,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(389,7)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, Ipp32s, Ipp32s>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, Ipp32s, Ipp32s>> &)
+Begin optimization report for: std::__valarray_max<std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, signed int, signed int>>>(const std::_UnClos<std::_Abs, std::_Expr, std::_BinClos<std::__minus, std::_ValArray, std::_ValArray, signed int, signed int>> &)
 
     Report from: Vector optimizations [vec]
 
@@ -7653,7 +7813,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /usr/include/c++/4.9.0/valarray(1028,7)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -7703,7 +7863,7 @@ LOOP BEGIN at ../src/./valarray.hpp(83,35)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::valarray<std::valarray<Ipp64f>>::operator=(std::valarray<std::valarray<Ipp64f>> *, std::valarray<std::valarray<Ipp64f>> &&)
+Begin optimization report for: std::valarray<std::valarray<double>>::operator=(std::valarray<std::valarray<double>> *, std::valarray<std::valarray<double>> &&)
 
     Report from: Vector optimizations [vec]
 
@@ -7714,7 +7874,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::valarray<std::valarray<Ipp64f>>::resize(std::valarray<std::valarray<Ipp64f>> *, std::size_t, std::valarray<Ipp64f> *)
+Begin optimization report for: std::valarray<std::valarray<double>>::resize(std::valarray<std::valarray<double>> *, std::size_t, std::valarray<double> *)
 
     Report from: Vector optimizations [vec]
 
@@ -7738,8 +7898,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __b_1108222 line 702 and  line 66
-   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1108222 line 702
+   remark #15346: vector dependence: assumed ANTI dependence between __b_1077891 line 702 and  line 66
+   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1077891 line 702
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /usr/include/c++/4.9.0/valarray(702,7)
       remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
@@ -7779,8 +7939,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __b_1108222 line 702 and  line 66
-   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1108222 line 702
+   remark #15346: vector dependence: assumed ANTI dependence between __b_1077891 line 702 and  line 66
+   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1077891 line 702
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /usr/include/c++/4.9.0/valarray(1021,7)
       remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
@@ -7835,7 +7995,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/list.tcc(70,7) inlined into /usr/inclu
 LOOP END
 ===========================================================================
 
-Begin optimization report for: create_position_array(std::valarray<std::valarray<Ipp64f>> *, std::valarray<std::size_t> *)
+Begin optimization report for: create_position_array(std::valarray<std::valarray<double>> *, std::valarray<std::size_t> *)
 
     Report from: Vector optimizations [vec]
 
@@ -7893,7 +8053,7 @@ LOOP BEGIN at ../src/./valarray.hpp(95,35)
       LOOP END
 
       LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./valarray.hpp(96,11)
-         remark #15388: vectorization support: reference __b_467565 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+         remark #15388: vectorization support: reference __b_454872 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
          remark #15399: vectorization support: unroll factor set to 2
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
@@ -7947,7 +8107,7 @@ LOOP BEGIN at ../src/./valarray.hpp(99,45)
       LOOP END
 
       LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./valarray.hpp(100,8)
-         remark #15388: vectorization support: reference __b_467565 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+         remark #15388: vectorization support: reference __b_454872 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
          remark #15399: vectorization support: unroll factor set to 2
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
@@ -7970,71 +8130,122 @@ LOOP BEGIN at ../src/./valarray.hpp(103,37)
    remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
 LOOP END
 
-LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
-<Peeled>
-LOOP END
+LOOP BEGIN at ../src/./valarray.hpp(109,35)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
 
-LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
-   remark #15389: vectorization support: reference U388f has unaligned access   [ ../src/./valarray.hpp(84,3) ]
-   remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/./valarray.hpp(84,3) ]
-   remark #15399: vectorization support: unroll factor set to 4
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15442: entire loop may be executed in remainder
-   remark #15448: unmasked aligned unit stride loads: 1 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 4 
-   remark #15477: vector loop cost: 14.000 
-   remark #15478: estimated potential speedup: 1.110 
-   remark #15479: lightweight vector operations: 4 
-   remark #15480: medium-overhead vector operations: 1 
-   remark #15488: --- end vector loop cost summary ---
-LOOP END
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
+   <Peeled>
+   LOOP END
 
-LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
-<Remainder>
-LOOP END
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
+      remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./valarray.hpp(84,3) ]
+      remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/./valarray.hpp(84,3) ]
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 4 
+      remark #15477: vector loop cost: 14.000 
+      remark #15478: estimated potential speedup: 1.110 
+      remark #15479: lightweight vector operations: 4 
+      remark #15480: medium-overhead vector operations: 1 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
 
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(113,41)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed FLOW dependence between F64 line 219 and F64 line 219
-   remark #15346: vector dependence: assumed ANTI dependence between __p.485404 line 219 and __p.485404 line 219
-LOOP END
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(112,28)
+   <Remainder>
+   LOOP END
 
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(113,41)
-<Remainder>
-LOOP END
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(113,41)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed FLOW dependence between F64 line 219 and F64 line 219
+      remark #15346: vector dependence: assumed ANTI dependence between __p.455352 line 219 and __p.455352 line 219
+   LOOP END
 
-LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
-<Peeled>
-LOOP END
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.tcc(218,7) inlined into ../src/./valarray.hpp(113,41)
+   <Remainder>
+   LOOP END
 
-LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
-   remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./valarray.hpp(84,3) ]
-   remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/./valarray.hpp(84,3) ]
-   remark #15399: vectorization support: unroll factor set to 4
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15442: entire loop may be executed in remainder
-   remark #15448: unmasked aligned unit stride loads: 1 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 4 
-   remark #15477: vector loop cost: 14.000 
-   remark #15478: estimated potential speedup: 1.110 
-   remark #15479: lightweight vector operations: 4 
-   remark #15480: medium-overhead vector operations: 1 
-   remark #15488: --- end vector loop cost summary ---
-LOOP END
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
+   <Peeled>
+   LOOP END
 
-LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
-<Remainder>
-LOOP END
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
+      remark #15389: vectorization support: reference _M_data has unaligned access   [ ../src/./valarray.hpp(84,3) ]
+      remark #15381: vectorization support: unaligned access used inside loop body   [ ../src/./valarray.hpp(84,3) ]
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 4 
+      remark #15477: vector loop cost: 14.000 
+      remark #15478: estimated potential speedup: 1.110 
+      remark #15479: lightweight vector operations: 4 
+      remark #15480: medium-overhead vector operations: 1 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
 
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
-   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
-LOOP END
+   LOOP BEGIN at ../src/./valarray.hpp(83,35) inlined into ../src/./valarray.hpp(115,6)
+   <Remainder>
+   LOOP END
 
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/./valarray.hpp(114,13)
-   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      <Peeled, Multiversioned v1>
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      <Multiversioned v1>
+         remark #15388: vectorization support: reference __p.455315 has aligned access
+         remark #15388: vectorization support: reference __p.455315 has aligned access
+         remark #15389: vectorization support: reference __q.455316 has unaligned access
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15448: unmasked aligned unit stride loads: 1 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 5 
+         remark #15477: vector loop cost: 11.000 
+         remark #15478: estimated potential speedup: 1.730 
+         remark #15479: lightweight vector operations: 4 
+         remark #15480: medium-overhead vector operations: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      <Remainder, Multiversioned v1>
+         remark #15388: vectorization support: reference __p.455315 has aligned access
+         remark #15388: vectorization support: reference __p.455315 has aligned access
+         remark #15389: vectorization support: reference __q.455316 has unaligned access
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      <Remainder, Multiversioned v1>
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      <Multiversioned v2>
+         remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+      LOOP END
+
+      LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./valarray.hpp(114,13)
+      <Remainder, Multiversioned v2>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/./valarray.hpp(114,13)
+      remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   LOOP END
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into ../src/./valarray.hpp(118,2)
@@ -8047,11 +8258,7 @@ Non-optimizable loops:
 
 
 LOOP BEGIN at ../src/./valarray.hpp(106,37)
-   remark #15536: loop was not vectorized: inner loop throttling prevents vectorization of this outer loop. Refer to inner loop message for more details.
-
-   LOOP BEGIN at ../src/./valarray.hpp(109,35)
-      remark #15341: loop was not vectorized: nonstandard loop is not a vectorization candidate
-   LOOP END
+   remark #15341: loop was not vectorized: nonstandard loop is not a vectorization candidate
 LOOP END
 ===========================================================================
 
@@ -8084,7 +8291,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::__valarray_destroy_elements<std::valarray<Ipp64f>>(std::valarray<Ipp64f> *, std::valarray<Ipp64f> *)
+Begin optimization report for: std::__valarray_destroy_elements<std::valarray<double>>(std::valarray<double> *, std::valarray<double> *)
 
     Report from: Vector optimizations [vec]
 
@@ -8112,7 +8319,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into .
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./cube_poles.hpp(29,5)
-      remark #15388: vectorization support: reference __b_467565 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+      remark #15388: vectorization support: reference __b_454872 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -8163,8 +8370,8 @@ LOOP BEGIN at ../src/./cube_poles.hpp(45,5)
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./cube_poles.hpp(55,9)
    <Multiversioned v1>
-      remark #15388: vectorization support: reference __p.1108518 has aligned access
-      remark #15388: vectorization support: reference __p.1108518 has aligned access
+      remark #15388: vectorization support: reference __p.1078183 has aligned access
+      remark #15388: vectorization support: reference __p.1078183 has aligned access
       remark #15389: vectorization support: reference _M_data has unaligned access
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15399: vectorization support: unroll factor set to 4
@@ -8183,8 +8390,8 @@ LOOP BEGIN at ../src/./cube_poles.hpp(45,5)
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(675,4) inlined into ../src/./cube_poles.hpp(55,9)
    <Remainder, Multiversioned v1>
-      remark #15388: vectorization support: reference __p.1108518 has aligned access
-      remark #15388: vectorization support: reference __p.1108518 has aligned access
+      remark #15388: vectorization support: reference __p.1078183 has aligned access
+      remark #15388: vectorization support: reference __p.1078183 has aligned access
       remark #15389: vectorization support: reference _M_data has unaligned access
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15301: REMAINDER LOOP WAS VECTORIZED
@@ -8209,8 +8416,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(677,4) inlined into .
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(677,4) inlined into ../src/./cube_poles.hpp(60,5)
-   remark #15388: vectorization support: reference __p.1108559 has aligned access
-   remark #15388: vectorization support: reference __p.1108559 has aligned access
+   remark #15388: vectorization support: reference __p.1078224 has aligned access
+   remark #15388: vectorization support: reference __p.1078224 has aligned access
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
    remark #15442: entire loop may be executed in remainder
@@ -8226,8 +8433,8 @@ LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(677,4) inlined into ../src/./cube_poles.hpp(60,5)
 <Remainder>
-   remark #15388: vectorization support: reference __p.1108559 has aligned access
-   remark #15388: vectorization support: reference __p.1108559 has aligned access
+   remark #15388: vectorization support: reference __p.1078224 has aligned access
+   remark #15388: vectorization support: reference __p.1078224 has aligned access
    remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
@@ -8243,7 +8450,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into .
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./cube_poles.hpp(63,6)
-      remark #15388: vectorization support: reference __b_467565 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+      remark #15388: vectorization support: reference __b_454872 has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -8318,7 +8525,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into /usr/include/c++/4.9.0/valarray(617,7)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
@@ -8358,7 +8565,7 @@ LOOP BEGIN at ../src/indexer.hpp(70,3)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::valarray<std::valarray<std::valarray<Ipp64f>>>::resize(std::valarray<std::valarray<std::valarray<Ipp64f>>> *, std::size_t, std::valarray<std::valarray<Ipp64f>> *)
+Begin optimization report for: std::valarray<std::valarray<std::valarray<double>>>::resize(std::valarray<std::valarray<std::valarray<double>>> *, std::size_t, std::valarray<std::valarray<double>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -8367,8 +8574,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __b_1108208 line 702 and  line 66
-   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1108208 line 702
+   remark #15346: vector dependence: assumed ANTI dependence between __b_1077877 line 702 and  line 66
+   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1077877 line 702
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /usr/include/c++/4.9.0/valarray(1021,7)
       remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
@@ -8386,7 +8593,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::__valarray_fill_construct<std::valarray<std::valarray<Ipp64f>>>(std::valarray<std::valarray<Ipp64f>> *, std::valarray<std::valarray<Ipp64f>> *, const std::valarray<std::valarray<Ipp64f>> *)
+Begin optimization report for: std::__valarray_fill_construct<std::valarray<std::valarray<double>>>(std::valarray<std::valarray<double>> *, std::valarray<std::valarray<double>> *, const std::valarray<std::valarray<double>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -8413,7 +8620,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(110,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::valarray<std::valarray<std::valarray<Ipp64f>>>::~valarray(std::valarray<std::valarray<std::valarray<Ipp64f>>> *)
+Begin optimization report for: std::valarray<std::valarray<std::valarray<double>>>::~valarray(std::valarray<std::valarray<std::valarray<double>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -8422,8 +8629,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __b_1108208 line 702 and  line 66
-   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1108208 line 702
+   remark #15346: vector dependence: assumed ANTI dependence between __b_1077877 line 702 and  line 66
+   remark #15346: vector dependence: assumed FLOW dependence between  line 66 and __b_1077877 line 702
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /usr/include/c++/4.9.0/valarray(702,7)
       remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
@@ -8450,7 +8657,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4)
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::_Destroy_aux<false>::__destroy<std::_Vector_base<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::pointer>(std::_Vector_base<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::pointer, std::_Vector_base<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::pointer)
+Begin optimization report for: std::_Destroy_aux<false>::__destroy<std::_Vector_base<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::pointer>(std::_Vector_base<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::pointer, std::_Vector_base<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::pointer)
 
     Report from: Vector optimizations [vec]
 
@@ -8921,8 +9128,8 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function __atomic_fetch_add_4 cannot be vectorized   [ /usr/include/c++/4.9.0/ext/atomicity.h(49,12) ]
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between __first_333993 line 547 and  line 249
-   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_333993 line 547
+   remark #15346: vector dependence: assumed ANTI dependence between __first_305600 line 547 and  line 249
+   remark #15346: vector dependence: assumed FLOW dependence between  line 249 and __first_305600 line 547
 LOOP END
 ===========================================================================
 
@@ -8972,7 +9179,7 @@ Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::init_grid(
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(402,38)
-   remark #15389: vectorization support: reference __b_467565 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_454872 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -8986,7 +9193,45 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into .
 LOOP END
 
 LOOP BEGIN at ../src/./fmmx_node.hpp(404,2)
-   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/./fmmx_node.hpp(405,50)
+   <Peeled>
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/./fmmx_node.hpp(405,50)
+      remark #15389: vectorization support: reference __s.1100240 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15389: vectorization support: reference __s.1100240 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15301: REVERSED LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15450: unmasked unaligned unit stride loads: 2 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 17 
+      remark #15477: vector loop cost: 23.000 
+      remark #15478: estimated potential speedup: 2.670 
+      remark #15479: lightweight vector operations: 10 
+      remark #15480: medium-overhead vector operations: 1 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/./fmmx_node.hpp(405,50)
+   <Remainder>
+      remark #15389: vectorization support: reference __s.1100240 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15389: vectorization support: reference __s.1100240 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15388: vectorization support: reference _M_data has aligned access   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_after.h(299,6) ]
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_after.h(298,4) inlined into ../src/./fmmx_node.hpp(405,50)
+   <Remainder>
+   LOOP END
 LOOP END
 ===========================================================================
 
@@ -8996,7 +9241,7 @@ Begin optimization report for: xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::initialize
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(121,2) inlined into ../src/./fmmx_node.hpp(150,38)
-   remark #15389: vectorization support: reference __b_728762 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
+   remark #15389: vectorization support: reference __b_698582 has unaligned access   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/valarray_array.h(122,5) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15451: unmasked unaligned unit stride stores: 1 
@@ -9124,7 +9369,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::set_result<boost::exception_ptr>(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *, boost::exception_ptr &&, hpx::error_code &)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::set_result<boost::exception_ptr>(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *, boost::exception_ptr &&, hpx::error_code &)
 
     Report from: Vector optimizations [vec]
 
@@ -9135,7 +9380,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::set_result<const boost::exception_ptr &>(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *, const boost::exception_ptr &, hpx::error_code &)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::set_result<const boost::exception_ptr &>(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *, const boost::exception_ptr &, hpx::error_code &)
 
     Report from: Vector optimizations [vec]
 
@@ -9146,7 +9391,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::set_result<hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::result_type>::value_type>(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *, hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::result_type>::value_type &&, hpx::error_code &)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::set_result<hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::result_type>::value_type>(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *, hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::result_type>::value_type &&, hpx::error_code &)
 
     Report from: Vector optimizations [vec]
 
@@ -9157,7 +9402,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::reset(hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>> *, hpx::error_code &)
+Begin optimization report for: hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::reset(hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>> *, hpx::error_code &)
 
     Report from: Vector optimizations [vec]
 
@@ -9208,7 +9453,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *)
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9224,50 +9469,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,27)
-   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-LOOP END
-===========================================================================
-
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *const)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
-   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
-   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-LOOP END
-===========================================================================
-
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
-   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
-   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-LOOP END
-===========================================================================
-
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *)
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9278,7 +9480,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *const)
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *const)
 
     Report from: Vector optimizations [vec]
 
@@ -9294,7 +9496,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *)
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9310,7 +9512,50 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>> *)
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(65,27)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::~task_object(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /home/dmarce1/packages/intel64/include/hpx/lcos/local/packaged_task.hpp(37,16)
+   remark #15382: vectorization support: call to function _ZdlPv cannot be vectorized   [ /usr/include/c++/4.9.0/bits/valarray_array.h(66,5) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+===========================================================================
+
+Begin optimization report for: hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>>::do_run(hpx::lcos::local::detail::task_object<boost::detail::cpp0x_result_of_impl<void (hpx::util::decay<struct lambda []>::type *, hpx::util::detail::decay_unwrap<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &, hpx::util::decay<xtree::fmmx::fmmx_node<3UL, 8UL, 5UL>::expansions_type &>::type>::type *), void>::type, hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9442,7 +9687,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /ho
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(703,7) inlined into /home/dmarce1/packages/intel64/include/hpx/runtime/actions/action_support.hpp(177,17)
-      remark #15389: vectorization support: reference __first_728238 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
+      remark #15389: vectorization support: reference __first_698058 has unaligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15381: vectorization support: unaligned access used inside loop body   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(704,3) ]
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -9477,7 +9722,7 @@ Begin optimization report for: hpx::util::logging::gather_holder<hpx::util::logg
 
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
-   remark #15389: vectorization support: reference this_310395 has unaligned access
+   remark #15389: vectorization support: reference this_282038 has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 2
@@ -9493,7 +9738,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
-   remark #15389: vectorization support: reference this_310395 has unaligned access
+   remark #15389: vectorization support: reference this_282038 has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 2
@@ -9509,7 +9754,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/basic_ios.h(454,7) inlined into /home/
 LOOP END
 
 LOOP BEGIN at /usr/include/c++/4.9.0/streambuf(463,7) inlined into /home/dmarce1/packages/intel64/include/hpx/util/logging/detail/logger.hpp(34,9)
-   remark #15389: vectorization support: reference this_310414 has unaligned access
+   remark #15389: vectorization support: reference this_282057 has unaligned access
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15427: loop was completely unrolled
    remark #15399: vectorization support: unroll factor set to 3
@@ -9549,7 +9794,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /h
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>::~deferred_call_impl(hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>> *)
+Begin optimization report for: hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>::~deferred_call_impl(hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9560,7 +9805,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>::~deferred_call_impl(hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>> *)
+Begin optimization report for: hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>::~deferred_call_impl(hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9571,7 +9816,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>>::~deferred_call_impl(hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<Ipp64f>>, void, void, void, void, void, void, void>> *)
+Begin optimization report for: hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>>::~deferred_call_impl(hpx::util::detail::deferred_call_impl<struct lambda [], hpx::util::tuple<std::valarray<std::valarray<double>>, void, void, void, void, void, void, void>> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9582,7 +9827,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/valarray_array.h(207,2) inlined into /
 LOOP END
 ===========================================================================
 
-Begin optimization report for: hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::result_type>::~value_or_error(hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<Ipp64f>>>::result_type> *)
+Begin optimization report for: hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::result_type>::~value_or_error(hpx::util::detail::value_or_error<hpx::lcos::detail::future_data<std::valarray<std::valarray<double>>>::result_type> *)
 
     Report from: Vector optimizations [vec]
 
@@ -9688,7 +9933,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_uninitialized.h(74,8) inlined into
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::_M_default_append(std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>> *, std::vector<future_wrapper<std::valarray<std::valarray<Ipp64f>>>, std::allocator<future_wrapper<std::valarray<std::valarray<Ipp64f>>>>>::size_type)
+Begin optimization report for: std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::_M_default_append(std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>> *, std::vector<future_wrapper<std::valarray<std::valarray<double>>>, std::allocator<future_wrapper<std::valarray<std::valarray<double>>>>>::size_type)
 
     Report from: Vector optimizations [vec]
 
@@ -9888,7 +10133,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_construct.h(102,4) inlined into /u
    remark #15382: vectorization support: call to function _ZNSs4_Rep10_M_destroyERKSaIcE cannot be vectorized   [ /usr/include/c++/4.9.0/bits/basic_string.h(249,5) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between U122 line 71 and U122 line 249
-   remark #15346: vector dependence: assumed FLOW dependence between __first_358216 line 249 and __first_358216 line 71
+   remark #15346: vector dependence: assumed FLOW dependence between __first_329251 line 249 and __first_329251 line 71
 LOOP END
 ===========================================================================
 
@@ -10003,7 +10248,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /us
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(545,8)
-      remark #15388: vectorization support: reference __first_509567 has aligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15388: vectorization support: reference __first_479435 has aligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -10033,7 +10278,7 @@ LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /us
    LOOP END
 
    LOOP BEGIN at /usr/include/c++/4.9.0/bits/stl_algobase.h(760,7) inlined into /usr/include/c++/4.9.0/bits/vector.tcc(562,5)
-      remark #15388: vectorization support: reference __first_509567 has aligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
+      remark #15388: vectorization support: reference __first_479435 has aligned access   [ /usr/include/c++/4.9.0/bits/stl_algobase.h(762,3) ]
       remark #15399: vectorization support: unroll factor set to 2
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
