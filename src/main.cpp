@@ -16,7 +16,7 @@ using namespace fmmx;
 
 
 
-using fmmx_node_type = fmmx_node<3,8,5>;
+using fmmx_node_type = fmmx_node<3,10,7>;
 XTREE_INSTANTIATE(fmmx_node_type, 3);
 
 using rg_func = fmmx_node_type::regrid_function<&fmmx_node_type::regrid_test>;

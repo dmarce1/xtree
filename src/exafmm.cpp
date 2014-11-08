@@ -7,7 +7,6 @@
 
 #define EXAFMM_CPP
 #include "exafmm.hpp"
-#include "offload.h"
 #include <array>
 
 #define ODDEVEN(n) real((((n) & 1) == 1) ? -1 : 1)
@@ -22,29 +21,8 @@
 
 #define SGN(i) real((i) > 0 ? 1 : ((i)<0 ? -1 : 0))
 
-template class exafmm_kernel<1> ;
-template class exafmm_kernel<2> ;
-template class exafmm_kernel<3> ;
-template class exafmm_kernel<4> ;
-template class exafmm_kernel<5> ;
-template class exafmm_kernel<6> ;
 template class exafmm_kernel<7> ;
-template class exafmm_kernel<8> ;
-template class exafmm_kernel<9> ;
-template class exafmm_kernel<10> ;
 
-namespace mic {
-template<class T>
-__attribute__ (( target (mic)))
-inline T max(const T& a, const T& b) {
-	return a >= b ? a : b;
-}
-template<class T>
-__attribute__ (( target (mic)))
-inline T min(const T& a, const T& b) {
-	return a <= b ? a : b;
-}
-}
 
 template<std::int64_t P>
 std::valarray<std::valarray<real>> exafmm_kernel<P>::M2L_interior(const std::valarray<std::valarray<real>>& M, real dx,
@@ -65,7 +43,7 @@ std::valarray<std::valarray<real>> exafmm_kernel<P>::M2L_interior(const std::val
 	const real *_prefactor = prefactor;
 	const real *_Cnm_r = Cnm_r;
 	const real *_Cnm_i = Cnm_i;
-#pragma offload target(mic) in(m_buffer : length(buffer_size)) in(_prefactor : length(P*P)) in(_Cnm_r : length(P*P*P*P)) in(_Cnm_i : length(P*P*P*P)) in(sz, is_root, leaf, Nx) out(l_buffer: length(buffer_size))
+//#pragma offload target(mic) in(m_buffer : length(buffer_size)) in(_prefactor : length(P*P)) in(_Cnm_r : length(P*P*P*P)) in(_Cnm_i : length(P*P*P*P)) in(sz, is_root, leaf, Nx) out(l_buffer: length(buffer_size))
 	{
 		for (std::size_t i = 0; i != P2 * sz; ++i) {
 			l_buffer[i] = real(0.0);
@@ -83,20 +61,20 @@ std::valarray<std::valarray<real>> exafmm_kernel<P>::M2L_interior(const std::val
 		auto* L_i = buffer + 4 * max_cnt;
 		auto* Ynm = buffer + 5 * max_cnt;
 		for (std::int64_t l0 = 0; l0 != Nx; ++l0) {
-			const auto l1_min = is_root ? 0 : mic::max(std::int64_t(0), ((l0 / 2) - 1) * 2);
-			const auto l1_max = is_root ? Nx - 1 : mic::min(Nx - 1, (((l0 / 2) + 1) * 2) + 1);
+			const auto l1_min = is_root ? 0 : std::max(std::int64_t(0), ((l0 / 2) - 1) * 2);
+			const auto l1_max = is_root ? Nx - 1 : std::min(Nx - 1, (((l0 / 2) + 1) * 2) + 1);
 			for (std::int64_t k0 = 0; k0 != Nx; ++k0) {
-				const auto k1_min = is_root ? 0 : mic::max(std::int64_t(0), ((k0 / 2) - 1) * 2);
-				const auto k1_max = is_root ? Nx - 1 : mic::min(Nx - 1, (((k0 / 2) + 1) * 2) + 1);
+				const auto k1_min = is_root ? 0 : std::max(std::int64_t(0), ((k0 / 2) - 1) * 2);
+				const auto k1_max = is_root ? Nx - 1 : std::min(Nx - 1, (((k0 / 2) + 1) * 2) + 1);
 				for (std::int64_t j0 = 0; j0 != Nx; ++j0) {
-					const auto j1_min = is_root ? 0 : mic::max(std::int64_t(0), ((j0 / 2) - 1) * 2);
-					const auto j1_max = is_root ? Nx - 1 : mic::min(Nx - 1, (((j0 / 2) + 1) * 2) + 1);
+					const auto j1_min = is_root ? 0 : std::max(std::int64_t(0), ((j0 / 2) - 1) * 2);
+					const auto j1_max = is_root ? Nx - 1 : std::min(Nx - 1, (((j0 / 2) + 1) * 2) + 1);
 					std::int64_t cnt = 0;
 					for (std::int64_t l1 = l1_min; l1 <= l1_max; ++l1) {
 						for (std::int64_t k1 = k1_min; k1 <= k1_max; ++k1) {
 							for (std::int64_t j1 = j1_min; j1 <= j1_max; ++j1) {
-								std::int64_t max_dist = mic::max(std::abs(k1 - k0), std::abs(l1 - l0));
-								max_dist = mic::max(std::abs(j1 - j0), max_dist);
+								std::int64_t max_dist = std::max(std::abs(k1 - k0), std::abs(l1 - l0));
+								max_dist = std::max(std::abs(j1 - j0), max_dist);
 								if (max_dist > min_dist) {
 									indexes[cnt] = j1 + Nx * (k1 + Nx * l1);
 									X[0 * max_cnt + cnt] = dx * (j1 - j0);
